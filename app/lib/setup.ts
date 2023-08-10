@@ -1,5 +1,6 @@
 import { writeFileSync } from "fs";
 import loadPlaceOriginDeath from "./loadPlaceOriginDeath";
+import { setupDb } from "./setup-db";
 
 (async () => {
   const data = await loadPlaceOriginDeath();
@@ -7,4 +8,5 @@ import loadPlaceOriginDeath from "./loadPlaceOriginDeath";
     "app/data/placeOriginDeath.json",
     JSON.stringify(data.objects())
   );
+  await setupDb();
 })();
