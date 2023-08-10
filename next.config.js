@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  experimental: {
+    serverComponentsExternalPackages: ["duckdb-async"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
