@@ -1,14 +1,17 @@
-import { promises as fs } from "fs";
 import Navigation from "../components/Navigation";
 import EventsMap from "../components/EventsMap";
-import { loadFlowsOriginDeath } from "../lib/loadFlowsOriginDeath";
+import { getFlowsOriginDeath } from "../lib/getFlowsOriginDeath";
+import { getPlaceOriginDeath } from "../lib/getPlaceOriginDeath";
 
 export default async function Wp3() {
-  const file = await fs.readFile("app/data/placeOriginDeath.json", "utf-8");
-  const data = await JSON.parse(file);
+  const data = await getPlaceOriginDeath();
 
-  const data2 = await loadFlowsOriginDeath();
-  console.table(data2.map((d) => d.properties));
+  console.table(
+    (await getFlowsOriginDeath()).map(({ geometry, properties }) => ({
+      ...properties,
+      geometry,
+    }))
+  );
 
   return (
     <>

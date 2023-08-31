@@ -12,39 +12,25 @@ const DynamicMap = dynamic(() => import("../components/Map"), {
 });
 
 type Props = {
-  data: GeoJsonProperties[];
+  data: Feature<Point>[];
 };
 
 const EventsMap: FC<Props> = ({ data }) => {
   const [symbol, setSymbol] = useState(null);
-  const { features, scaleR } = useMemo(() => {
-    const features: Feature<Point>[] = data.map((d: any, i) => ({
-      type: "Feature",
-      properties: {
-        id: i,
-        ...d,
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [d.geonamesLng, d.geonamesLat] as [number, number],
-      },
-    }));
-    const maxValue = max(data.map((d: any) => [d.Geburt, d.Tod]).flat());
+  const scaleR = useMemo(() => {
+    const maxValue = max(data.map((d) => d.properties?.value));
     const scaleR = scaleSqrt().domain([0, maxValue]).range([0, 50]);
-    return { features, scaleR };
+    return scaleR;
   }, [data]);
   return (
     <>
       {symbol}
-      <DynamicMap data={features}>
+      <DynamicMap data={data}>
         <MarkerLayer>
-          {features.map((d) => {
-            const maxR =
-              max([scaleR(d.properties?.Geburt), scaleR(d.properties?.Tod)]) ??
-              10;
-            const size = maxR * 2;
+          {data.map((d) => {
+            const size = scaleR(d.properties?.value) * 2;
             return (
-              <div className="absolute" key={d.properties?.id}>
+              <div className="absolute" key={d.id}>
                 <Marker
                   position={
                     [...d.geometry.coordinates].reverse() as [number, number]
