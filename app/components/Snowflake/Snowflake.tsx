@@ -1,9 +1,10 @@
-import { FC, Fragment, SVGProps } from "react";
-import { getNgonPoints } from "../Ngon/NgonPoints.helper";
-import Ngon from "../Ngon/Ngon";
+import { FC, SVGProps } from "react";
+import { getNgonPoints } from "../Ngon/Ngon.helpers";
 import { SpaceEstablishingAttribute } from "../../types/PlaceProperties";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./Tooltip";
-import LocationAttributeCard from "./LocationAttributeCard";
+import Tooltip from "../Tooltip";
+import TooltipTrigger from "../Tooltip/TooltipTrigger";
+import TooltipContent from "../Tooltip/TooltipContent";
+import LocationAttributeCard from "../LocationAttributeCard";
 import Center from "../Center";
 import { ScaleOrdinal, range, scaleOrdinal, schemeTableau10, union } from "d3";
 
@@ -17,7 +18,7 @@ type Props = {
    */
   placeAttributes: SpaceEstablishingAttribute[];
   /**
-   * How large should the radius of the Ngon be?
+   * How large should the radius of the snwoflake be?
    */
   radius: number;
   /**
@@ -42,7 +43,7 @@ type Props = {
   drawCenter?: boolean;
 } & SVGProps<SVGGElement>;
 
-const NgonWithCircles: FC<Props> = ({
+const Snowflake: FC<Props> = ({
   placeName,
   placeAttributes,
   radius,
@@ -53,9 +54,9 @@ const NgonWithCircles: FC<Props> = ({
   drawCenter = false,
   ...rest
 }) => {
-  const sides = placeAttributes.length;
+  const rays = placeAttributes.length;
   const outerRadius = radius - circleRadius;
-  const points = getNgonPoints(outerRadius, sides);
+  const points = getNgonPoints(outerRadius, rays);
 
   const setFocus = (newFocus: string, currentFocus: string | undefined) => {
     if (!onIsClicked) return undefined;
@@ -64,51 +65,39 @@ const NgonWithCircles: FC<Props> = ({
   };
   return (
     <g {...rest}>
-      <Ngon radius={outerRadius} sides={sides} fill={"none"} stroke={"grey"} />
-      {drawCenter && (
-        <Center
-          radius={outerRadius}
-          stroke="transparent"
-          placeName={placeName}
-          placeAttributes={placeAttributes}
-        />
-      )}
       {points.map((d, i) => {
         const l = placeAttributes[i];
-        const firstHolder = l.values[0]
-          ? l.values[0].holderConsolidated
-          : undefined;
         const distHoldersConsolidated = Array.from(
           union(l.values.map((h) => h.holderConsolidated))
         );
+        const firstHolder = l.values[0]
+          ? l.values[0].holderConsolidated ?? "NA"
+          : "NA";
         return (
-          <Fragment key={i}>
+          <g key={`ray-${i}`}>
+            <line x2={d.x} y2={d.y} stroke={"black"} />
             <Tooltip>
               <TooltipTrigger asChild={true}>
                 <circle
-                  className="cursor-pointer"
-                  r={firstHolder ? circleRadius : 1}
+                  r={circleRadius}
                   cx={d.x}
                   cy={d.y}
                   stroke={"black"}
                   fill={firstHolder ? colorScale(firstHolder) : "black"}
+                  className={"cursor-pointer"}
                   opacity={
                     activeCategory && activeCategory !== firstHolder ? 0.2 : 1
                   }
-                  onClick={
-                    firstHolder
-                      ? () => {
-                          setFocus(firstHolder, activeCategory);
-                        }
-                      : undefined
-                  }
+                  onClick={() => {
+                    setFocus(firstHolder, activeCategory);
+                  }}
                 />
               </TooltipTrigger>
               <TooltipContent>
                 <LocationAttributeCard
                   placeName={placeName}
                   locationAttribute={l}
-                  color={firstHolder ? colorScale(firstHolder) : "transparent"}
+                  color={colorScale(firstHolder)}
                 />
               </TooltipContent>
             </Tooltip>
@@ -126,11 +115,18 @@ const NgonWithCircles: FC<Props> = ({
                   />
                 ))}
             </g>
-          </Fragment>
+          </g>
         );
       })}
+      {drawCenter && (
+        <Center
+          placeName={placeName}
+          radius={outerRadius / 2}
+          placeAttributes={placeAttributes}
+        />
+      )}
     </g>
   );
 };
 
-export default NgonWithCircles;
+export default Snowflake;

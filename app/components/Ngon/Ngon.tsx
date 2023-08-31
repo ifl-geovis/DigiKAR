@@ -1,5 +1,5 @@
 import { FC, SVGProps } from "react";
-import getNgonPoints from "../lib/getNgonPoints";
+import { getNgonPoints } from "./Ngon.helpers";
 
 type Props = {
   radius: number;

@@ -12,6 +12,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.25.2",
     "@types/geojson": "^7946.0.10",
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",

@@ -4,6 +4,7 @@ import { FeatureCollection, GeoJsonProperties, Point } from "geojson";
 import dynamic from "next/dynamic";
 import { FC, useState } from "react";
 import { Marker, MarkerLayer } from "react-leaflet-marker";
+import Snowflake from "./Snowflake";
 
 const DynamicMap = dynamic(() => import("../components/Map"), {
   ssr: false,
@@ -21,21 +22,33 @@ const RightsMap: FC<Props> = ({ data }) => {
       <DynamicMap data={data.features}>
         <MarkerLayer>
           {data.features.map((d) => {
-            const size = 4;
+            const radius = 20;
+            const margin = 2;
+            const markerSize = radius * 4 + margin;
             return (
               <div className="absolute" key={d.properties?.id}>
                 <Marker
                   position={
                     [...d.geometry.coordinates].reverse() as [number, number]
                   }
-                  size={[size, size]}
+                  size={[markerSize, markerSize]}
                   placement="center"
                   interactive
                   riseOnHover
                   zIndexOffset={100}
                 >
-                  <svg width={size} height={size}>
-                    <circle cx={size / 2} cy={size / 2} r={size / 2} />
+                  <svg width={markerSize} height={markerSize}>
+                    <g
+                      transform={`translate(${markerSize / 2} ${
+                        markerSize / 2
+                      })`}
+                    >
+                      <Snowflake
+                        placeName={d.properties?.place}
+                        placeAttributes={d.properties?.attributes}
+                        radius={radius}
+                      />
+                    </g>
                   </svg>
                 </Marker>
               </div>
