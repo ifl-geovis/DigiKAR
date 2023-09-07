@@ -25,6 +25,7 @@ const Navigation = () => {
           { name: "Start", url: "/" },
           { name: "WP2", url: "/wp2" },
           { name: "WP3", url: "/wp3" },
+          { name: "flows", url: "/wp3/flows" },
         ].map((props, idx) => (
           <li key={`nav-${idx}`}>
             <NavigationLink {...props} />

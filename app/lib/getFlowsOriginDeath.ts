@@ -1,13 +1,14 @@
 import { Database } from "duckdb-async";
+import { Feature, LineString } from "geojson";
 
-export const getFlowsOriginDeath = async () => {
+export const getFlowsOriginDeath = async (table = "university_mainz") => {
   const db = await Database.create("./app/data/digikar.duckdb");
   db.run("LOAD spatial;");
 
   const res = await db.all(`
     WITH deaths_births AS (
       SELECT *, ST_POINT(longitudes::DOUBLE, latitudes::DOUBLE) AS geom
-      FROM state_calendar
+      FROM ${table}
       WHERE
         event_type IN ('Tod', 'Geburt') AND
         "geonames address"!='nan' 
@@ -28,9 +29,12 @@ export const getFlowsOriginDeath = async () => {
     ORDER BY COUNT(*) DESC;
   `);
 
-  return res.map(({ value, birth_place, death_place, geometry }) => ({
-    type: "Feature",
-    properties: { birth_place, death_place, value },
-    geometry: JSON.parse(geometry),
-  }));
+  return res.map(
+    ({ value, birth_place, death_place, geometry }) =>
+      ({
+        type: "Feature",
+        properties: { birth_place, death_place, value },
+        geometry: JSON.parse(geometry),
+      } as Feature<LineString>)
+  );
 };
