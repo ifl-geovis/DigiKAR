@@ -15,10 +15,11 @@ type Props = {
 };
 
 const RightsMap: FC<Props> = ({ data }) => {
-  const [symbol, setSymbol] = useState(null);
+  const [activeCategory, setActiveCategory] = useState<string | undefined>(
+    undefined
+  );
   return (
     <>
-      {symbol}
       <DynamicMap data={data.features}>
         <MarkerLayer>
           {data.features.map((d) => {
@@ -47,6 +48,8 @@ const RightsMap: FC<Props> = ({ data }) => {
                         placeName={d.properties?.place}
                         placeAttributes={d.properties?.attributes}
                         radius={radius}
+                        activeCategory={activeCategory}
+                        handleCategoryClick={setActiveCategory}
                       />
                     </g>
                   </svg>

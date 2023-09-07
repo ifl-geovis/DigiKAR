@@ -79,11 +79,11 @@ const Snowflake: FC<Props> = ({
             <Tooltip>
               <TooltipTrigger asChild={true}>
                 <circle
-                  r={circleRadius}
+                  r={firstHolder !== "NA" ? circleRadius : circleRadius / 4}
                   cx={d.x}
                   cy={d.y}
                   stroke={"black"}
-                  fill={firstHolder ? colorScale(firstHolder) : "black"}
+                  fill={firstHolder != "NA" ? colorScale(firstHolder) : "black"}
                   className={"cursor-pointer"}
                   opacity={
                     activeCategory && activeCategory !== firstHolder ? 0.2 : 1
