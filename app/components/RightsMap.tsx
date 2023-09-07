@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { FC, useState } from "react";
 import { Marker, MarkerLayer } from "react-leaflet-marker";
 import Snowflake from "./Snowflake";
+import colorScaleAnsbach from "../lib/colorScaleAnsbach";
 
 const DynamicMap = dynamic(() => import("../components/Map"), {
   ssr: false,
@@ -50,6 +51,7 @@ const RightsMap: FC<Props> = ({ data }) => {
                         radius={radius}
                         activeCategory={activeCategory}
                         handleCategoryClick={setActiveCategory}
+                        colorScale={colorScaleAnsbach}
                       />
                     </g>
                   </svg>

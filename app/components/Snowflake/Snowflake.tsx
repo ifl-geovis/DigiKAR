@@ -32,7 +32,7 @@ type Props = {
   /**
    * According to what colorScheme should the circles be coloured?
    */
-  colorScale?: ScaleOrdinal<string, string>;
+  colorScale?: ScaleOrdinal<string, string, string>;
   /**
    * Function to set uplifted state
    */
