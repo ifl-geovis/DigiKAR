@@ -1,12 +1,9 @@
-import { FC, SVGProps } from "react";
-import { getNgonPoints } from "../Ngon/Ngon.helpers";
-import { SpaceEstablishingAttribute } from "../../types/PlaceProperties";
-import Tooltip from "../Tooltip";
-import TooltipTrigger from "../Tooltip/TooltipTrigger";
-import TooltipContent from "../Tooltip/TooltipContent";
-import LocationAttributeCard from "../LocationAttributeCard";
-import Center from "../Center";
 import { ScaleOrdinal, range, scaleOrdinal, schemeTableau10, union } from "d3";
+import { FC, SVGProps } from "react";
+import { SpaceEstablishingAttribute } from "../../types/PlaceProperties";
+import Center from "../Center";
+import { getNgonPoints } from "../Ngon/Ngon.helpers";
+import RightSymbol from "../RightSymbol";
 
 type Props = {
   /**
@@ -66,42 +63,24 @@ const Snowflake: FC<Props> = ({
   return (
     <g {...rest}>
       {points.map((d, i) => {
-        const l = placeAttributes[i];
+        const attribute = placeAttributes[i];
         const distHoldersConsolidated = Array.from(
-          union(l.values.map((h) => h.holderConsolidated))
+          union(attribute.values.map((h) => h.holderConsolidated))
         );
-        const firstHolder = l.values[0]
-          ? l.values[0].holderConsolidated ?? "NA"
-          : "NA";
         return (
           <g key={`ray-${i}`}>
             <line x2={d.x} y2={d.y} stroke={"black"} />
-            <Tooltip>
-              <TooltipTrigger asChild={true}>
-                <circle
-                  r={firstHolder !== "NA" ? circleRadius : circleRadius / 4}
-                  cx={d.x}
-                  cy={d.y}
-                  stroke={"black"}
-                  fill={firstHolder != "NA" ? colorScale(firstHolder) : "black"}
-                  className={"cursor-pointer"}
-                  opacity={
-                    activeCategory && activeCategory !== firstHolder ? 0.2 : 1
-                  }
-                  onClick={() => {
-                    setFocus(firstHolder, activeCategory);
-                  }}
-                />
-              </TooltipTrigger>
-              <TooltipContent>
-                <LocationAttributeCard
-                  placeName={placeName}
-                  locationAttribute={l}
-                  color={colorScale(firstHolder)}
-                />
-              </TooltipContent>
-            </Tooltip>
-            <g>
+            <RightSymbol
+              colorScale={colorScale}
+              circleRadius={circleRadius}
+              x={d.x}
+              y={d.y}
+              attribute={attribute}
+              activeCategory={activeCategory}
+              placeName={placeName}
+              toggleFocus={setFocus}
+            />
+            <g pointerEvents="none">
               {distHoldersConsolidated.length > 1 &&
                 range(distHoldersConsolidated.length).map((_, i) => (
                   <circle

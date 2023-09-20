@@ -1,8 +1,13 @@
 import { Position } from "geojson";
 
+export type Holder = {
+  holder?: string | null;
+  holderConsolidated?: string | null;
+};
+
 export type SpaceEstablishingAttribute = {
   attributeName: string;
-  values: { holder?: string | null; holderConsolidated?: string | null }[];
+  values: Holder[];
 };
 
 export type PlaceProperties = {

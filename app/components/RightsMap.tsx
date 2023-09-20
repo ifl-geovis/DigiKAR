@@ -27,11 +27,12 @@ const RightsMap: FC<Props> = ({ data }) => {
       mapStyle="https://basemap.de/data/produkte/web_vektor/styles/bm_web_bin.json"
     >
       <NavigationControl />
-      {data.features.map((d) => {
+      {data.features.map((d, idx) => {
         const radius = 30;
         const markerSize = radius * 2.5;
         return (
           <Marker
+            key={idx}
             longitude={d.geometry.coordinates[0]}
             latitude={d.geometry.coordinates[1]}
           >
