@@ -28,8 +28,8 @@ const RightsMap: FC<Props> = ({ data }) => {
     >
       <NavigationControl />
       {data.features.map((d, idx) => {
-        const radius = 30;
-        const markerSize = radius * 2.5;
+        const radius = 20;
+        const markerSize = radius * 2 + 3 * 6;
         return (
           <Marker
             key={idx}

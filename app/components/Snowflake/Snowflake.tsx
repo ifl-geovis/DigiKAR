@@ -44,7 +44,7 @@ const Snowflake: FC<Props> = ({
   placeName,
   placeAttributes,
   radius,
-  circleRadius = radius / 4,
+  circleRadius = radius / 3,
   colorScale = scaleOrdinal<string, string>().range(schemeTableau10),
   activeCategory,
   handleCategoryClick: onIsClicked,
