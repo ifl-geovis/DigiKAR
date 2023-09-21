@@ -1,6 +1,8 @@
 import Navigation from "../../components/Navigation";
-import FlowsMap from "../../components/FlowsMap";
+import FlowMap from "../../components/FlowMap";
 import { getFlowsOriginDeath } from "../../lib/getFlowsOriginDeath";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import MapStage from "@/app/components/MapStage";
 
 export default async function NextPage() {
   const university = await getFlowsOriginDeath("university_mainz");
@@ -9,16 +11,18 @@ export default async function NextPage() {
   return (
     <>
       <Navigation />
-      <main className="p-10">
-        <h2>Kurmainz Geburtsort ⤍ Sterbeort</h2>
+      <main className="p-10 bg-slate-50">
+        <h2 className="flex">
+          Kurmainz Geburtsort <ArrowRightIcon /> Sterbeort
+        </h2>
         <h3>Professoren</h3>
-        <div className="h-[800px] w-full">
-          <FlowsMap data={university} />
+        <div className="h-[800px] w-full shadow-md rounded-sm bg-white">
+          <FlowMap data={university} />
         </div>
         <h3 className="mt-10">Staatskalendar</h3>
-        <div className="h-[800px] w-full">
-          <FlowsMap data={state_calendar} />
-        </div>
+        <MapStage>
+          <FlowMap data={state_calendar} />
+        </MapStage>
       </main>
     </>
   );

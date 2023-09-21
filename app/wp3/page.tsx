@@ -1,6 +1,7 @@
 import Navigation from "../components/Navigation";
 import EventsMap from "../components/EventsMap";
 import { getPlaceOriginDeath } from "../lib/getPlaceOriginDeath";
+import MapStage from "../components/MapStage";
 
 export default async function Wp3() {
   const data = await getPlaceOriginDeath();
@@ -11,9 +12,9 @@ export default async function Wp3() {
       <main className="p-10">
         <h2>Kurmainz</h2>
         <p>personenbezogene Daten</p>
-        <div className="h-[800px] w-full">
+        <MapStage>
           <EventsMap data={data} />
-        </div>
+        </MapStage>
       </main>
     </>
   );
