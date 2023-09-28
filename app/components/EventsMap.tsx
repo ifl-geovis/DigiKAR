@@ -6,12 +6,15 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useMemo } from "react";
 import Map, { Marker, NavigationControl } from "react-map-gl/maplibre";
 import BirthDeathSymbol from "./BirthDeathSymbol";
+import useCustomBasemapStyle from "../hooks/useCustomBasemapStyle";
 
 type Props = {
   data: Feature<Point>[];
 };
 
 const EventsMap: FC<Props> = ({ data }) => {
+  const { style, isLoading } = useCustomBasemapStyle();
+
   const scaleR = useMemo(() => {
     const maxValue = max(data.map((d) => d.properties?.value));
     const scaleR = scaleSqrt().domain([0, maxValue]).range([0, 50]);
@@ -26,7 +29,7 @@ const EventsMap: FC<Props> = ({ data }) => {
       }}
       //@ts-expect-error
       className={"w-full h-full"}
-      mapStyle="https://basemap.de/data/produkte/web_vektor/styles/bm_web_bin.json"
+      mapStyle={style}
     >
       <NavigationControl />
       {data.map((d) => {

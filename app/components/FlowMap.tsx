@@ -18,13 +18,14 @@ import bezierSpline from "@turf/bezier-spline";
 import bbox from "@turf/bbox";
 import { lineString } from "@turf/helpers";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import { LngLatBounds } from "maplibre-gl";
+import { LngLatBounds, StyleSpecification } from "maplibre-gl";
 
 type Props = {
   data: Feature<LineString>[];
+  style: StyleSpecification;
 };
 
-const EventsMap: FC<Props> = ({ data }) => {
+const EventsMap: FC<Props> = ({ data, style }) => {
   const { flows, min, max, bounds } = useMemo(() => {
     const flows: FeatureCollection = {
       type: "FeatureCollection",
@@ -83,7 +84,7 @@ const EventsMap: FC<Props> = ({ data }) => {
       //@ts-expect-error
       className={"w-full h-full"}
       interactiveLayerIds={["flows"]}
-      mapStyle="https://basemap.de/data/produkte/web_vektor/styles/bm_web_bin.json"
+      mapStyle={style}
       onMouseMove={handleMouseMove}
     >
       <NavigationControl />

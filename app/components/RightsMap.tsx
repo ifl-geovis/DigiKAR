@@ -6,6 +6,7 @@ import { FC, useState } from "react";
 import Snowflake from "./Snowflake";
 import colorScaleAnsbach from "../lib/colorScaleAnsbach";
 import "maplibre-gl/dist/maplibre-gl.css";
+import useCustomBasemapStyle from "../hooks/useCustomBasemapStyle";
 
 type Props = {
   data: FeatureCollection<Point, GeoJsonProperties>;
@@ -15,6 +16,9 @@ const RightsMap: FC<Props> = ({ data }) => {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined
   );
+
+  const { style, isLoading } = useCustomBasemapStyle();
+
   return (
     <Map
       initialViewState={{
@@ -22,9 +26,8 @@ const RightsMap: FC<Props> = ({ data }) => {
         latitude: 49.3,
         zoom: 12,
       }}
-      //@ts-expect-error
-      className={"w-full h-full"}
-      mapStyle="https://basemap.de/data/produkte/web_vektor/styles/bm_web_bin.json"
+      style={{ width: "100%", height: "100%" }}
+      mapStyle={style}
     >
       <NavigationControl />
       {data.features.map((d, idx) => {
