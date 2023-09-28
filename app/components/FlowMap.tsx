@@ -25,7 +25,7 @@ type Props = {
   style: StyleSpecification;
 };
 
-const EventsMap: FC<Props> = ({ data, style }) => {
+const FlowMap: FC<Props> = ({ data, style }) => {
   const { flows, min, max, bounds } = useMemo(() => {
     const flows: FeatureCollection = {
       type: "FeatureCollection",
@@ -58,7 +58,7 @@ const EventsMap: FC<Props> = ({ data, style }) => {
     const [e, s, w, n] = bbox(flows);
     const bounds = new LngLatBounds([w, s, e, n]);
     return { flows, min, max, bounds };
-  }, []);
+  }, [data]);
 
   type HoverInfo = { x: number; y: number; feature?: Feature };
 
@@ -133,4 +133,4 @@ const EventsMap: FC<Props> = ({ data, style }) => {
   );
 };
 
-export default EventsMap;
+export default FlowMap;

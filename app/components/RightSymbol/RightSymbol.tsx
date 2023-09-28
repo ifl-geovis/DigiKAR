@@ -38,7 +38,7 @@ const RightCircle: FC<Props> = ({
       ? "white"
       : colorScale(attribute.values[0].holderConsolidated ?? "");
     return { isWithoutHolder, isShared, color };
-  }, [attribute]);
+  }, [attribute, colorScale]);
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
