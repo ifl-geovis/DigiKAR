@@ -36,7 +36,7 @@ const RightCircle: FC<Props> = ({
       ? "black"
       : isShared
       ? "white"
-      : colorScale(attribute.values[0]?.holderConsolidated ?? "");
+      : colorScale(attribute.values[0].holderConsolidated ?? "");
     return { isWithoutHolder, isShared, color };
   }, [attribute]);
   return (
@@ -54,14 +54,23 @@ const RightCircle: FC<Props> = ({
                     "cursor-pointer group-data-[state=open]:stroke-[3px]"
                   }
                   opacity={
-                    activeCategory &&
-                    attribute.values
-                      .map((d) => d.holderConsolidated)
-                      .includes(activeCategory)
-                      ? 0.2
-                      : 1
+                    !activeCategory ||
+                    (activeCategory &&
+                      attribute.values
+                        .map((d) => d.holderConsolidated)
+                        .includes(activeCategory))
+                      ? 1
+                      : 0.2
                   }
-                  // onContextMenu={() => toggleFocus(firstHolder, activeCategory)}
+                  onContextMenu={
+                    !isShared && !isWithoutHolder
+                      ? () =>
+                          toggleFocus(
+                            attribute.values[0].holderConsolidated ?? "",
+                            activeCategory
+                          )
+                      : undefined
+                  }
                 />
                 {isShared && <circle r={circleRadius / 4} />}
               </g>
