@@ -7,7 +7,9 @@ import { getMapStyle } from "@/app/lib/getMapStyle";
 
 export default async function NextPage() {
   const university = await getFlowsOriginDeath("university_mainz");
-  const state_calendar = await getFlowsOriginDeath("state_calendar");
+  const state_calendar_erfurt = await getFlowsOriginDeath(
+    "state_calendar_erfurt"
+  );
   const style = await getMapStyle();
 
   return (
@@ -23,7 +25,7 @@ export default async function NextPage() {
         </div>
         <h3 className="mt-10">Staatskalendar</h3>
         <MapStage>
-          <FlowMap style={style} data={state_calendar} />
+          <FlowMap style={style} data={state_calendar_erfurt} />
         </MapStage>
       </main>
     </>
