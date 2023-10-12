@@ -1,4 +1,4 @@
-import { SpaceEstablishingAttribute } from "../../types/PlaceProperties";
+import { Attribute } from "../../types/PlaceProperties";
 import { FC } from "react";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   /**
    * Which space-establishing attribute should be visualized? (uni or bivariate data with multiple expressions)
    */
-  locationAttribute: SpaceEstablishingAttribute;
+  locationAttribute: Attribute;
   /**
    * Which color should the indicator be in?
    */
@@ -27,7 +27,7 @@ const LocationAttributeCard: FC<Props> = ({
       <p className="text-xs">Herrschaftsrecht</p>
       {locationAttribute.attributeName}
       <p className="text-xs">Inhaber:in</p>
-      {locationAttribute.values[0]?.holderConsolidated ?? <span>NA</span>}
+      {locationAttribute.holders[0]?.holderConsolidated ?? <span>NA</span>}
       <svg
         className="inline ml-2"
         width={"1em"}

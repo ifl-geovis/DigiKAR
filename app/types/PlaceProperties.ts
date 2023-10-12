@@ -1,19 +1,25 @@
-import { Position } from "geojson";
+import { FeatureCollection, Position, Point } from "geojson";
 
 export type Holder = {
-  holder?: string | null;
-  holderConsolidated?: string | null;
+  holder?: string;
+  holderConsolidated?: string;
+  year?: number;
+  sources?: string;
+  disputed_with?: string;
+  comments?: string;
 };
 
-export type SpaceEstablishingAttribute = {
+export type Attribute = {
   attributeName: string;
-  values: Holder[];
+  holders: Holder[];
 };
 
 export type PlaceProperties = {
   id?: number;
-  place: string;
-  attributes: SpaceEstablishingAttribute[];
+  placeName: string;
+  attributes: Attribute[];
 };
+
+export type RightsData = FeatureCollection<Point, PlaceProperties>;
 
 export type AnsbachDataRaw = (PlaceProperties & { coordinates: Position })[];

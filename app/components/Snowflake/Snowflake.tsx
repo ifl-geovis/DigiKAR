@@ -1,6 +1,6 @@
 import { ScaleOrdinal, range, scaleOrdinal, schemeTableau10, union } from "d3";
 import { FC, SVGProps } from "react";
-import { SpaceEstablishingAttribute } from "../../types/PlaceProperties";
+import { Attribute } from "../../types/PlaceProperties";
 import Center from "../Center";
 import { getNgonPoints } from "../Ngon/Ngon.helpers";
 import RightSymbol from "../RightSymbol";
@@ -13,7 +13,7 @@ type Props = {
   /**
    * Which space-establishing attributes should be visualized? (uni or bivariate data with multiple expressions)
    */
-  placeAttributes: SpaceEstablishingAttribute[];
+  placeAttributes: Attribute[];
   /**
    * How large should the radius of the snwoflake be?
    */
@@ -65,7 +65,7 @@ const Snowflake: FC<Props> = ({
       {points.map((d, i) => {
         const attribute = placeAttributes[i];
         const distHoldersConsolidated = Array.from(
-          union(attribute.values.map((h) => h.holderConsolidated))
+          union(attribute.holders.map((h) => h.holderConsolidated))
         );
         return (
           <g key={`ray-${i}`}>

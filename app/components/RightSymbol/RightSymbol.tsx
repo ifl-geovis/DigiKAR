@@ -1,4 +1,4 @@
-import { SpaceEstablishingAttribute } from "@/app/types/PlaceProperties";
+import { Attribute } from "@/app/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
 import { FC, useMemo } from "react";
 import LocationAttributeCard from "../LocationAttributeCard";
@@ -11,7 +11,7 @@ import { ArrowRightIcon, Cross2Icon } from "@radix-ui/react-icons";
 type Props = {
   x: number;
   y: number;
-  attribute: SpaceEstablishingAttribute;
+  attribute: Attribute;
   placeName: string;
   circleRadius: number;
   activeCategory?: string;
@@ -30,13 +30,13 @@ const RightCircle: FC<Props> = ({
   toggleFocus,
 }) => {
   const { isWithoutHolder, isShared, color } = useMemo(() => {
-    const isWithoutHolder = attribute.values.length === 0;
-    const isShared = attribute.values.length > 1;
+    const isWithoutHolder = attribute.holders.length === 0;
+    const isShared = attribute.holders.length > 1;
     const color = isWithoutHolder
       ? "black"
       : isShared
       ? "white"
-      : colorScale(attribute.values[0].holderConsolidated ?? "");
+      : colorScale(attribute.holders[0].holderConsolidated ?? "");
     return { isWithoutHolder, isShared, color };
   }, [attribute, colorScale]);
   return (
@@ -56,7 +56,7 @@ const RightCircle: FC<Props> = ({
                   opacity={
                     !activeCategory ||
                     (activeCategory &&
-                      attribute.values
+                      attribute.holders
                         .map((d) => d.holderConsolidated)
                         .includes(activeCategory))
                       ? 1
@@ -66,7 +66,7 @@ const RightCircle: FC<Props> = ({
                     !isShared && !isWithoutHolder
                       ? () =>
                           toggleFocus(
-                            attribute.values[0].holderConsolidated ?? "",
+                            attribute.holders[0].holderConsolidated ?? "",
                             activeCategory
                           )
                       : undefined
@@ -90,7 +90,7 @@ const RightCircle: FC<Props> = ({
           <div className="pb-2 mb-2 border-b border-b-[lightgrey]">
             <strong>{attribute.attributeName}</strong> in {placeName}
           </div>
-          {attribute.values.map(({ holder, holderConsolidated }, i) => (
+          {attribute.holders.map(({ holder, holderConsolidated }, i) => (
             <div key={i} className="flex">
               {holder} <ArrowRightIcon />
               <svg
