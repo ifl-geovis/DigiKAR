@@ -1,23 +1,25 @@
 "use client";
 
-import Map, { Marker, NavigationControl } from "react-map-gl/maplibre";
+import Map, {
+  MapStyle,
+  Marker,
+  NavigationControl,
+} from "react-map-gl/maplibre";
 import { FeatureCollection, GeoJsonProperties, Point } from "geojson";
 import { FC, useState } from "react";
 import Snowflake from "./Snowflake";
 import colorScaleAnsbach from "../lib/colorScaleAnsbach";
 import "maplibre-gl/dist/maplibre-gl.css";
-import useCustomBasemapStyle from "../hooks/useCustomBasemapStyle";
 
 type Props = {
   data: FeatureCollection<Point, GeoJsonProperties>;
+  style: MapStyle;
 };
 
-const RightsMap: FC<Props> = ({ data }) => {
+const RightsMap: FC<Props> = ({ data, style }) => {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined
   );
-
-  const { style, isLoading } = useCustomBasemapStyle();
 
   return (
     <Map

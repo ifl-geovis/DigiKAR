@@ -4,17 +4,19 @@ import { max, scaleSqrt } from "d3";
 import { Feature, Point } from "geojson";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useMemo } from "react";
-import Map, { Marker, NavigationControl } from "react-map-gl/maplibre";
+import Map, {
+  MapStyle,
+  Marker,
+  NavigationControl,
+} from "react-map-gl/maplibre";
 import BirthDeathSymbol from "./BirthDeathSymbol";
-import useCustomBasemapStyle from "../hooks/useCustomBasemapStyle";
 
 type Props = {
   data: Feature<Point>[];
+  style: MapStyle;
 };
 
-const EventsMap: FC<Props> = ({ data }) => {
-  const { style, isLoading } = useCustomBasemapStyle();
-
+const EventsMap: FC<Props> = ({ data, style }) => {
   const scaleR = useMemo(() => {
     const maxValue = max(data.map((d) => d.properties?.value));
     const scaleR = scaleSqrt().domain([0, maxValue]).range([0, 50]);

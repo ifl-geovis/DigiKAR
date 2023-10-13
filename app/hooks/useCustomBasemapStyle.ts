@@ -51,7 +51,7 @@ const useCustomBasemapStyle = () => {
     ...originalStyle,
     layers: newLayers,
   } as StyleSpecification;
-  const style = isLoading ? originalStyle : newStyle;
+  const style = isLoading ? url : newStyle;
 
   return {
     style,
