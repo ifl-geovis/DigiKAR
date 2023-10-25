@@ -1,10 +1,13 @@
 import { getFunctionalitiesPerPlace } from "@/app/lib/getFunctionalitiesPerPlace";
+import { NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const table = request.nextUrl.searchParams.get("table");
+  const filter = request.nextUrl.searchParams.get("filter");
   const functionalities = await getFunctionalitiesPerPlace(
-    "state_calendar_aschaffenburg",
-    ["Schultheiß", "Rat", "Anwalt"]
+    table ?? "state_calendar_aschaffenburg",
+    filter?.split(",")
   );
 
-  return Response.json({ functionalities });
+  return Response.json(functionalities);
 }

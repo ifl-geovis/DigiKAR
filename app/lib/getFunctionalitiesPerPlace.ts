@@ -20,9 +20,9 @@ export const getFunctionalitiesPerPlace = async (
       WHERE
         longitudes <> 'n/a'
         AND latitudes <> 'n/a'
-        AND pers_function SIMILAR TO '(.*(${
-          functions ? functions?.join("|") : ".*"
-        }).*)'
+        AND pers_function SIMILAR TO ${
+          functions ? `'.*(${functions?.join("|")}).*'` : "('.*')"
+        }
       GROUP BY
       "geonames address",
       point_geometry,
