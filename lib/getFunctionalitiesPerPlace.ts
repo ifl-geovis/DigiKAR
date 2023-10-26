@@ -5,7 +5,7 @@ export const getFunctionalitiesPerPlace = async (
   table = "university_mainz",
   functions?: string[]
 ) => {
-  const db = await Database.create("./app/data/digikar.duckdb");
+  const db = await Database.create("./data/digikar.duckdb");
   db.run("LOAD spatial;");
 
   const res = await db.all(`

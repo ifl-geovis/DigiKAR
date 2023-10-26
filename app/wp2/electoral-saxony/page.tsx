@@ -1,8 +1,8 @@
-import getElectoralSaxonyData from "@/app/lib/getElectoralSaxonyData";
-import MapStage from "../../components/MapStage";
-import Navigation from "../../components/Navigation";
-import RightsMap from "../../components/RightsMap";
-import { getMapStyle } from "../../lib/getMapStyle";
+import getElectoralSaxonyData from "@/lib/getElectoralSaxonyData";
+import MapStage from "../../../components/MapStage";
+import Navigation from "../../../components/Navigation";
+import RightsMap from "../../../components/RightsMap";
+import { getMapStyle } from "../../../lib/getMapStyle";
 
 export default async function Wp2() {
   const data = await getElectoralSaxonyData();

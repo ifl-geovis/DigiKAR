@@ -1,9 +1,9 @@
-import Navigation from "../../components/Navigation";
-import FlowMap from "../../components/FlowMap";
-import { getFlowsOriginDeath } from "../../lib/getFlowsOriginDeath";
+import Navigation from "../../../components/Navigation";
+import FlowMap from "../../../components/FlowMap";
+import { getFlowsOriginDeath } from "../../../lib/getFlowsOriginDeath";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import MapStage from "@/app/components/MapStage";
-import { getMapStyle } from "@/app/lib/getMapStyle";
+import MapStage from "@/components/MapStage";
+import { getMapStyle } from "@/lib/getMapStyle";
 
 export default async function NextPage() {
   const university = await getFlowsOriginDeath("university_mainz");

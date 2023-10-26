@@ -1,9 +1,9 @@
-import MapStage from "../components/MapStage";
-import Navigation from "../components/Navigation";
-import RightsMap from "../components/RightsMap";
-import colorScaleAnsbach from "../lib/colorScaleAnsbach";
-import { getMapStyle } from "../lib/getMapStyle";
-import { loadAnsbachData } from "../lib/loadAnsbachData";
+import MapStage from "../../components/MapStage";
+import Navigation from "../../components/Navigation";
+import RightsMap from "../../components/RightsMap";
+import colorScaleAnsbach from "../../lib/colorScaleAnsbach";
+import { getMapStyle } from "../../lib/getMapStyle";
+import { loadAnsbachData } from "../../lib/loadAnsbachData";
 
 export default async function Wp2() {
   const data = await loadAnsbachData();

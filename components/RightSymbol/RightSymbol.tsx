@@ -1,4 +1,4 @@
-import { Attribute } from "@/app/types/PlaceProperties";
+import { Attribute } from "@/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
 import { FC, useMemo } from "react";
 import LocationAttributeCard from "../LocationAttributeCard";

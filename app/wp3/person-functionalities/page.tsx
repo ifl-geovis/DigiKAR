@@ -1,6 +1,6 @@
-import PlaceFunctionalitiesMap from "../../components/PlaceFunctionalitiesMap";
-import Navigation from "../../components/Navigation";
-import { getMapStyle } from "@/app/lib/getMapStyle";
+import PlaceFunctionalitiesMap from "../../../components/PlaceFunctionalitiesMap";
+import Navigation from "../../../components/Navigation";
+import { getMapStyle } from "@/lib/getMapStyle";
 
 export default async function Functions() {
   const style = await getMapStyle();

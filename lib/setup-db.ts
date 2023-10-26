@@ -2,7 +2,7 @@ import { Database } from "duckdb-async";
 
 export const setupDb = async () => {
   process.env["OGR_XLSX_HEADERS"] = "FORCE";
-  const db = await Database.create("./app/data/digikar.duckdb");
+  const db = await Database.create("./data/digikar.duckdb");
   db.run("INSTALL spatial;");
   db.run("LOAD spatial;");
 
@@ -11,7 +11,7 @@ export const setupDb = async () => {
     CREATE TABLE state_calendar_erfurt
     AS SELECT *
     FROM st_read(
-      './app/data/Factoid_Staatskalender-Erfurt_consolidation_coordinates_event-values_person-IDs.xlsx',
+      './data/Factoid_Staatskalender-Erfurt_consolidation_coordinates_event-values_person-IDs.xlsx',
       layer='FactCons1'
     );
   `);
@@ -30,7 +30,7 @@ export const setupDb = async () => {
     CREATE TABLE university_mainz
     AS SELECT *
     FROM st_read(
-      './app/data/Factoid_PROFS_v10_geocoded-with-IDs_v2.xlsx',
+      './data/Factoid_PROFS_v10_geocoded-with-IDs_v2.xlsx',
       layer='FactCons'
     );
   `);
@@ -45,7 +45,7 @@ export const setupDb = async () => {
     CREATE TABLE jahns
     AS SELECT *
     FROM st_read(
-      './app/data/Factoid_Jahns_consolidation_geocoded_personIDs_2614rows.xlsx',
+      './data/Factoid_Jahns_consolidation_geocoded_personIDs_2614rows.xlsx',
       layer='FactCons1'
     );
   `);
@@ -55,7 +55,7 @@ export const setupDb = async () => {
     CREATE TABLE state_calendar_aschaffenburg
     AS SELECT *
     FROM st_read(
-      './app/data/Factoid_Staatskalender-Aschaffenburg_TEST.xlsx',
+      './data/Factoid_Staatskalender-Aschaffenburg_TEST.xlsx',
       layer='FactCons1'
     );
   `);

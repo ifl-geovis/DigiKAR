@@ -19,7 +19,7 @@ const NavigationLink: FC<{ name: string; url: string }> = ({ name, url }) => {
 const Navigation = () => {
   return (
     <nav className="flex items-center gap-5 m-5 mx-20">
-      <h1 className="text-base">DigiKAR AP2 Prototype</h1>
+      <h1 className="text-base">DigiKAR Prototype</h1>
       <ul className="flex list-none gap-2">
         {[
           { name: "Start", url: "/" },

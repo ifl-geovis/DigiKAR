@@ -3,7 +3,7 @@ import { Feature, Point, Position } from "geojson";
 import { AnsbachDataRaw, PlaceProperties } from "../types/PlaceProperties";
 
 export const loadAnsbachData = async () => {
-  const file = await fs.readFile("app/data/ansbach.json", "utf-8");
+  const file = await fs.readFile("./data/ansbach.json", "utf-8");
   const ansbachData = (await JSON.parse(file)) as AnsbachDataRaw;
   const data = {
     type: "FeatureCollection" as const,

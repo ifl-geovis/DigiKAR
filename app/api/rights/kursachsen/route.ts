@@ -1,4 +1,4 @@
-import getElectoralSaxonyData from "@/app/lib/getElectoralSaxonyData";
+import getElectoralSaxonyData from "@/lib/getElectoralSaxonyData";
 
 export async function GET() {
   const data = await getElectoralSaxonyData();

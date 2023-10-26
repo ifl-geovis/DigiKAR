@@ -4,7 +4,7 @@ import {
   StyleSpecification,
 } from "maplibre-gl";
 import useSWR from "swr";
-import fetcher from "../lib/fetcher";
+import fetcher from "../../lib/fetcher";
 
 const useCustomBasemapStyle = () => {
   const url =
