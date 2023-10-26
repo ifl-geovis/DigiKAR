@@ -3,10 +3,12 @@ import MapStage from "../../../components/MapStage";
 import Navigation from "../../../components/Navigation";
 import RightsMap from "../../../components/RightsMap";
 import { getMapStyle } from "../../../lib/getMapStyle";
+import getVoronoi from "@/lib/getVoronoi";
 
 export default async function Wp2() {
   const data = await getElectoralSaxonyData();
   const style = await getMapStyle();
+  const borders = await getVoronoi();
 
   return (
     <>
@@ -22,7 +24,7 @@ export default async function Wp2() {
             </div>
           </div>
           <MapStage>
-            <RightsMap data={data} style={style} />
+            <RightsMap data={data} mapStyle={style} borders={borders} />
           </MapStage>
         </div>
       </main>

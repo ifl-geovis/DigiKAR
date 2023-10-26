@@ -1,28 +1,58 @@
 "use client";
 
 import Map, {
+  Layer,
   MapStyle,
   Marker,
   NavigationControl,
+  Source,
 } from "react-map-gl/maplibre";
-import { LngLatBounds } from "maplibre-gl";
-import { Feature, GeoJsonProperties, Point } from "geojson";
-import { FC, useMemo, useState } from "react";
+import {
+  LngLatBounds,
+  MapGeoJSONFeature,
+  MapLayerMouseEvent,
+  MapMouseEvent,
+} from "maplibre-gl";
+import {
+  Feature,
+  FeatureCollection,
+  GeoJsonProperties,
+  MultiPolygon,
+  Point,
+} from "geojson";
+import { FC, memo, useCallback, useMemo, useState } from "react";
 import Snowflake from "./Snowflake";
 import colorScaleAnsbach from "../lib/colorScaleAnsbach";
 import "maplibre-gl/dist/maplibre-gl.css";
 import bbox from "@turf/bbox";
-import { FeatureCollection } from "@turf/helpers";
 
 type Props = {
   data: Feature<Point, GeoJsonProperties>[];
-  style: MapStyle;
+  borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
+  mapStyle: MapStyle;
 };
 
-const RightsMap: FC<Props> = ({ data, style }) => {
+const RightsMap: FC<Props> = ({ data, borders, mapStyle }) => {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined
   );
+  const [hoverInfo, setHoverInfo] = useState<
+    | {
+        feature: MapGeoJSONFeature;
+        x: number;
+        y: number;
+      }
+    | undefined
+  >(undefined);
+
+  const onHover = useCallback((event: MapLayerMouseEvent) => {
+    const {
+      features,
+      point: { x, y },
+    } = event;
+    const hoveredFeature = features && features[0];
+    setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
+  }, []);
 
   const bounds = useMemo(() => {
     const fc: FeatureCollection<Point> = {
@@ -43,7 +73,10 @@ const RightsMap: FC<Props> = ({ data, style }) => {
         },
       }}
       style={{ width: "100%", height: "100%" }}
-      mapStyle={style}
+      mapStyle={mapStyle}
+      interactiveLayerIds={["borders"]}
+      onMouseMove={onHover}
+      onMouseOut={() => setHoverInfo(undefined)}
     >
       <NavigationControl />
       {data.map((d, idx) => {
@@ -57,7 +90,7 @@ const RightsMap: FC<Props> = ({ data, style }) => {
           >
             <svg width={markerSize} height={markerSize}>
               <g transform={`translate(${markerSize / 2} ${markerSize / 2})`}>
-                <Snowflake
+                <SnowflakeMemoized
                   placeName={d.properties?.place}
                   placeAttributes={d.properties?.attributes}
                   radius={radius}
@@ -70,8 +103,39 @@ const RightsMap: FC<Props> = ({ data, style }) => {
           </Marker>
         );
       })}
+      {borders && (
+        <Source type="geojson" data={borders}>
+          <Layer id="borders" type="fill" paint={{ "fill-opacity": 0 }} />
+          <Layer
+            id="borders-outline-blur"
+            type="line"
+            layout={{ "line-join": "round" }}
+            paint={{
+              "line-blur": 100,
+              "line-color": "grey",
+              "line-width": 20,
+            }}
+          />
+          <Layer
+            id="borders-outline"
+            type="line"
+            layout={{ "line-join": "round" }}
+            paint={{ "line-color": "grey", "line-width": 1 }}
+          />
+        </Source>
+      )}
+      {hoverInfo && (
+        <div
+          className="bg-white absolute p-2 shadow-lg rounded-md pointer-events-none"
+          style={{ left: hoverInfo.x, top: hoverInfo.y }}
+        >
+          <div>Amt: {hoverInfo.feature.properties?.amt}</div>
+        </div>
+      )}
     </Map>
   );
 };
 
 export default RightsMap;
+
+const SnowflakeMemoized = memo(Snowflake);

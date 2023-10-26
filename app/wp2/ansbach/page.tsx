@@ -37,7 +37,7 @@ export default async function Wp2() {
             </div>
           </div>
           <MapStage>
-            <RightsMap data={data.features} style={style} />
+            <RightsMap data={data.features} mapStyle={style} />
           </MapStage>
         </div>
       </main>
