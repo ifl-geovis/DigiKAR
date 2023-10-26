@@ -91,10 +91,10 @@ const RightCircle: FC<Props> = ({
             <strong>{attribute.attributeName}</strong> in {placeName}
           </div>
           {attribute.holders.map(({ holder, holderConsolidated }, i) => (
-            <div key={i} className="flex">
+            <div key={i} className="flex items-center">
               {holder} <ArrowRightIcon />
               <svg
-                className="inline ml-2"
+                className="inline ml-2 mr-1"
                 width={"1em"}
                 height={"1em"}
                 viewBox={"0 0 1 1"}

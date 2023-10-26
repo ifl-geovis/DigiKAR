@@ -5,7 +5,7 @@ export default async function Home() {
     <>
       <Navigation />
       <main className="px-20 mt-20 max-w-screen-sm">
-        <h2 className="text-3xl mb-3">Internal prototype for DigiKAR</h2>
+        <h2>Internal prototype for DigiKAR</h2>
         <p>
           Explorative, point-based symbology for visualizing place constituting
           attributes in the context of the Holy Roman Empire (&ldquo;Altes

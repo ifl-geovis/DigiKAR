@@ -63,7 +63,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
       features: Array.from(groupedByPlace.values()),
     };
     const [e, s, w, n] = bbox(places);
-    const bounds = [w, s, e, n] as [number, number, number, number];
+    const bounds = new LngLatBounds([w, s, e, n]);
     return { places, bounds };
   }, [data]);
 
@@ -106,7 +106,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
         ) : places ? (
           <Map
             initialViewState={{
-              bounds: new LngLatBounds(bounds),
+              bounds: bounds,
               fitBoundsOptions: {
                 padding: { left: 20, top: 20, right: 20, bottom: 20 },
               },
