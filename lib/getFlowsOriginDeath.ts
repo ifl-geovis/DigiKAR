@@ -29,6 +29,8 @@ export const getFlowsOriginDeath = async (table = "university_mainz") => {
     ORDER BY COUNT(*) DESC;
   `);
 
+  await db.close();
+
   return res.map(
     ({ value, birth_place, death_place, geometry }) =>
       ({

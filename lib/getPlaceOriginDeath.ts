@@ -24,6 +24,8 @@ export const getPlaceOriginDeath = async () => {
             longitudes;
   `);
 
+  await db.close();
+
   return res.map(
     ({ place, event_type, value, geometry }, id) =>
       ({

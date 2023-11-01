@@ -38,7 +38,7 @@ export const setupDb = async () => {
     UPDATE university_mainz
     SET "geonames address" = NULL
     WHERE "geonames address" = 'n/a';
-`);
+  `);
 
   db.run("DROP TABLE IF EXISTS jahns");
   db.run(`
@@ -63,5 +63,6 @@ export const setupDb = async () => {
     UPDATE state_calendar_aschaffenburg
     SET "geonames address" = NULL
     WHERE "geonames address" = 'n/a';
-`);
+  `);
+  await db.close();
 };

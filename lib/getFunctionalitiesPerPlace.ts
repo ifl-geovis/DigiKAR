@@ -41,6 +41,8 @@ export const getFunctionalitiesPerPlace = async (
       point_geometry;
   `);
 
+  await db.close();
+
   return res.map(
     ({ place, functionalities, institution, geometry }, id) =>
       ({
