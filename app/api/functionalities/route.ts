@@ -1,5 +1,5 @@
 import { getFunctionalitiesPerPlace } from "@/lib/getFunctionalitiesPerPlace";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const table = request.nextUrl.searchParams.get("table");
@@ -9,5 +9,5 @@ export async function GET(request: NextRequest) {
     filter?.split(",")
   );
 
-  return Response.json(functionalities);
+  return NextResponse.json(functionalities);
 }
