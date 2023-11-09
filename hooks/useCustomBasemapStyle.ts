@@ -3,14 +3,14 @@ import {
   LayerSpecification,
   StyleSpecification,
 } from "maplibre-gl";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import fetcher from "../lib/fetcher";
 
 const useCustomBasemapStyle = () => {
   const url =
     "https://basemap.de/data/produkte/web_vektor/styles/bm_web_bin.json";
 
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const { data, error, isLoading } = useSWRImmutable(url, fetcher);
 
   const originalStyle = data as StyleSpecification;
 

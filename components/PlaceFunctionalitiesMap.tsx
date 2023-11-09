@@ -9,7 +9,7 @@ import bbox from "@turf/bbox";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
 import { getFunctionalitiesPerPlace } from "../lib/getFunctionalitiesPerPlace";
 import WheelOfInstitutions from "./WheelOfInstitutions";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import fetcher from "../lib/fetcher";
 import MapStage from "./MapStage";
 import { Label } from "@/components/ui/label";
@@ -32,15 +32,16 @@ type Props = {
 const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
   const [table, setTable] = useState<string | undefined>(undefined);
   const [filter, setFilter] = useState<string | undefined>(undefined);
-  const url = new URL(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/functionalities`
-  );
+
+  // TODO: fix workaround with unused URL base
+  const url = new URL("/api/functionalities", "http://example.org");
   const searchParams = url.searchParams;
   table ? searchParams.set("table", table) : searchParams.delete("table");
   filter ? searchParams.set("filter", filter) : searchParams.delete("filter");
-  const { data, isLoading, error } = useSWR<
+
+  const { data, isLoading, error } = useSWRImmutable<
     Awaited<ReturnType<typeof getFunctionalitiesPerPlace>>
-  >(url.toString(), fetcher);
+  >(`${url.pathname}?${url.searchParams}`, fetcher);
 
   const { places, bounds } = useMemo(() => {
     if (!data) return { places: undefined, bounds: undefined };
