@@ -20,7 +20,7 @@ export const getFlowsOriginDeath = async (table = "university_mainz") => {
         FIRST(geom) AS geom,
       GROUP BY pers_ID
     )
-    SELECT COUNT(*) AS value,
+    SELECT COUNT(*)::INT AS value,
       Geburt_place AS birth_place,
       Tod_place AS death_place,
       ST_AsGeoJSON(ST_MakeLine(Geburt_geom, Tod_geom)) AS geometry

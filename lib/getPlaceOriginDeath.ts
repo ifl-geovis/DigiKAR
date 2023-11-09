@@ -7,7 +7,7 @@ export const getPlaceOriginDeath = async () => {
 
   const res = await db.all(`
       SELECT
-        COUNT(*) as value,
+        COUNT(*)::INT as value,
         ST_AsGeoJSON(
             ST_POINT(longitudes::DOUBLE, latitudes::DOUBLE)
         ) AS geometry,

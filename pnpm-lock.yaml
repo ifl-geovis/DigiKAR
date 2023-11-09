@@ -78,8 +78,8 @@ dependencies:
     specifier: ^7.8.5
     version: 7.8.5
   duckdb-async:
-    specifier: ^0.8.1
-    version: 0.8.1(encoding@0.1.13)
+    specifier: ^0.9.1
+    version: 0.9.1(encoding@0.1.13)
   encoding:
     specifier: ^0.1.13
     version: 0.1.13
@@ -2859,17 +2859,17 @@ packages:
       esutils: 2.0.3
     dev: false
 
-  /duckdb-async@0.8.1(encoding@0.1.13):
-    resolution: {integrity: sha512-/g5/zxC5XXXeQVEs86AtWVnzOmS7FBgVm976sJ75Tvrovms+QC5V+0SLNOl6VJQUT55NvvlrwX1zQybQfa+48w==}
+  /duckdb-async@0.9.1(encoding@0.1.13):
+    resolution: {integrity: sha512-KN5agCxdBCROVzZjOO+6m76d2s1hbxwLsfr4xhXfnIVtfcQFWq02G35pjynmKFe1qk5dXMj7pLllaKm+L9fFqQ==}
     dependencies:
-      duckdb: 0.8.1(encoding@0.1.13)
+      duckdb: 0.9.1(encoding@0.1.13)
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: false
 
-  /duckdb@0.8.1(encoding@0.1.13):
-    resolution: {integrity: sha512-a2SJDuvBVKy5muYFxXTANlqdNX1daF3NHzpqRdrk0Qx5n3Sh7BxL66O+WY9epaDFukiXEpz45sds5T1LaPaHog==}
+  /duckdb@0.9.1(encoding@0.1.13):
+    resolution: {integrity: sha512-mYfQXKADGUoBVOfy6OordgEkPlY6EtEIgrwRbFgVDoen2iQRVymr4RcDGhA2QTrniwgK+GnhszCu0vqrZJ1sFQ==}
     requiresBuild: true
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.11(encoding@0.1.13)
