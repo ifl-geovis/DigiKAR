@@ -3,11 +3,11 @@ import { Database } from "duckdb-async";
 export const setupDb = async () => {
   process.env["OGR_XLSX_HEADERS"] = "FORCE";
   const db = await Database.create("./data/digikar.duckdb");
-  db.run("INSTALL spatial;");
-  db.run("LOAD spatial;");
+  await db.run("INSTALL spatial;");
+  await db.run("LOAD spatial;");
 
-  db.run("DROP TABLE IF EXISTS state_calendar_erfurt");
-  db.run(`
+  await db.run("DROP TABLE IF EXISTS state_calendar_erfurt");
+  await db.run(`
     CREATE TABLE state_calendar_erfurt
     AS SELECT *
     FROM st_read(
@@ -15,18 +15,18 @@ export const setupDb = async () => {
       layer='FactCons1'
     );
   `);
-  db.run(`
+  await db.run(`
     ALTER TABLE state_calendar_erfurt
     RENAME COLUMN pers_ID_FS TO pers_ID;
   `);
-  db.run(`
+  await db.run(`
     UPDATE state_calendar_erfurt
     SET "geonames address" = NULL
     WHERE "geonames address" = 'nan';
   `);
 
-  db.run("DROP TABLE IF EXISTS university_mainz");
-  db.run(`
+  await db.run("DROP TABLE IF EXISTS university_mainz");
+  await db.run(`
     CREATE TABLE university_mainz
     AS SELECT *
     FROM st_read(
@@ -34,14 +34,14 @@ export const setupDb = async () => {
       layer='FactCons'
     );
   `);
-  db.run(`
+  await db.run(`
     UPDATE university_mainz
     SET "geonames address" = NULL
     WHERE "geonames address" = 'n/a';
   `);
 
-  db.run("DROP TABLE IF EXISTS jahns");
-  db.run(`
+  await db.run("DROP TABLE IF EXISTS jahns");
+  await db.run(`
     CREATE TABLE jahns
     AS SELECT *
     FROM st_read(
@@ -50,8 +50,8 @@ export const setupDb = async () => {
     );
   `);
 
-  db.run("DROP TABLE IF EXISTS state_calendar_aschaffenburg");
-  db.run(`
+  await db.run("DROP TABLE IF EXISTS state_calendar_aschaffenburg");
+  await db.run(`
     CREATE TABLE state_calendar_aschaffenburg
     AS SELECT *
     FROM st_read(
@@ -59,7 +59,7 @@ export const setupDb = async () => {
       layer='FactCons1'
     );
   `);
-  db.run(`
+  await db.run(`
     UPDATE state_calendar_aschaffenburg
     SET "geonames address" = NULL
     WHERE "geonames address" = 'n/a';

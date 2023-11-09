@@ -6,7 +6,7 @@ export const getFunctionalitiesPerPlace = async (
   functions?: string[]
 ) => {
   const db = await Database.create("./data/digikar.duckdb");
-  db.run("LOAD spatial;");
+  await db.run("LOAD spatial;");
 
   const res = await db.all(`
     WITH functions_sum AS (

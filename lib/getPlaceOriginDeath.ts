@@ -3,7 +3,7 @@ import { Feature, Point } from "geojson";
 
 export const getPlaceOriginDeath = async () => {
   const db = await Database.create("./data/digikar.duckdb");
-  db.run("LOAD spatial;");
+  await db.run("LOAD spatial;");
 
   const res = await db.all(`
       SELECT
