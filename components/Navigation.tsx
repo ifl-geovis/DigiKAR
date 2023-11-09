@@ -109,7 +109,7 @@ const Navigation = () => {
             <Link href="" legacyBehavior passHref aria-disabled>
               <NavigationMenuLink
                 className={cn(
-                  "cursor-not-allowed",
+                  "cursor-not-allowed opacity-50",
                   navigationMenuTriggerStyle()
                 )}
               >
