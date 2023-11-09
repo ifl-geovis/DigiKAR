@@ -17,13 +17,13 @@ export default async function NextPage() {
       <Navigation />
       <main className="p-10 bg-slate-50">
         <h2 className="flex">
-          Kurmainz Geburtsort <ArrowRightIcon /> Sterbeort
+          Kurmainz Place of Birth <ArrowRightIcon /> Place of Death
         </h2>
         <h3>Professoren</h3>
-        <div className="h-[800px] w-full shadow-md rounded-sm bg-white">
+        <MapStage>
           <FlowMap style={style} data={university} />
-        </div>
-        <h3 className="mt-10">Staatskalendar</h3>
+        </MapStage>
+        <h3 className="mt-10">Staatskalender</h3>
         <MapStage>
           <FlowMap style={style} data={state_calendar_erfurt} />
         </MapStage>
