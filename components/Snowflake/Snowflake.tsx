@@ -38,6 +38,10 @@ type Props = {
    * Should a center element be drawn.
    */
   drawCenter?: boolean;
+  /** In what order should attributes be displayed (clockwise, starting at 12 o'clock)? */
+  attributeOrder?: string[];
+  /** As which symbol (circle or square) should each attribute be visualized? */
+  symbolScale?: ScaleOrdinal<string, string, string>;
 } & SVGProps<SVGGElement>;
 
 const Snowflake: FC<Props> = ({
@@ -49,6 +53,8 @@ const Snowflake: FC<Props> = ({
   activeCategory,
   handleCategoryClick: onIsClicked,
   drawCenter = false,
+  attributeOrder,
+  symbolScale,
   ...rest
 }) => {
   const rays = placeAttributes.length;
@@ -63,7 +69,11 @@ const Snowflake: FC<Props> = ({
   return (
     <g {...rest}>
       {points.map((d, i) => {
-        const attribute = placeAttributes[i];
+        const attribute = placeAttributes.sort(
+          (a, b) =>
+            (attributeOrder?.indexOf(a.attributeName) ?? 1) -
+            (attributeOrder?.indexOf(b.attributeName) ?? 1)
+        )[i];
         const distHoldersConsolidated = Array.from(
           union(attribute.holders.map((h) => h.holderConsolidated))
         );
@@ -72,6 +82,7 @@ const Snowflake: FC<Props> = ({
             <line x2={d.x} y2={d.y} stroke={"black"} />
             <RightSymbol
               colorScale={colorScale}
+              symbol={symbolScale && symbolScale(attribute.attributeName)}
               circleRadius={circleRadius}
               x={d.x}
               y={d.y}

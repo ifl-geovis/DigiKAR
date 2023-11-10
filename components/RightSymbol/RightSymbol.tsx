@@ -16,6 +16,7 @@ type Props = {
   circleRadius: number;
   activeCategory?: string;
   colorScale: ScaleOrdinal<string, string, string>;
+  symbol?: string;
   toggleFocus: (newFocus: string, activeCategory?: string) => void;
 };
 
@@ -25,20 +26,48 @@ const RightCircle: FC<Props> = ({
   attribute,
   placeName,
   circleRadius,
+  symbol = "circle",
   activeCategory,
   colorScale,
   toggleFocus,
 }) => {
-  const { isWithoutHolder, isShared, color } = useMemo(() => {
-    const isWithoutHolder = attribute.holders.length === 0;
-    const isShared = attribute.holders.length > 1;
-    const color = isWithoutHolder
-      ? "black"
-      : isShared
-      ? "white"
-      : colorScale(attribute.holders[0].holderConsolidated ?? "");
-    return { isWithoutHolder, isShared, color };
-  }, [attribute, colorScale]);
+  const { isShared, color, size, opacity, onContextMenuHandler, className } =
+    useMemo(() => {
+      const isWithoutHolder = attribute.holders.length === 0;
+      const isShared = attribute.holders.length > 1;
+      const color = isWithoutHolder
+        ? "black"
+        : isShared
+        ? "white"
+        : colorScale(attribute.holders[0].holderConsolidated ?? "");
+      const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
+      const opacity =
+        !activeCategory ||
+        (activeCategory &&
+          attribute.holders
+            .map((d) => d.holderConsolidated)
+            .includes(activeCategory))
+          ? 1
+          : 0.2;
+      const onContextMenuHandler =
+        !isShared && !isWithoutHolder
+          ? () =>
+              toggleFocus(
+                attribute.holders[0].holderConsolidated ?? "",
+                activeCategory
+              )
+          : undefined;
+      const className =
+        "cursor-pointer stroke-black group-data-[state=open]:stroke-[3px]";
+      return {
+        isShared,
+        color,
+        size,
+        opacity,
+        onContextMenuHandler,
+        className,
+      };
+    }, [attribute, colorScale, activeCategory, circleRadius, toggleFocus]);
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
@@ -46,33 +75,28 @@ const RightCircle: FC<Props> = ({
           <Tooltip>
             <TooltipTrigger asChild>
               <g transform={`translate(${x} ${y})`}>
-                <circle
-                  r={isWithoutHolder ? circleRadius / 4 : circleRadius}
-                  stroke={"black"}
-                  fill={color}
-                  className={
-                    "cursor-pointer group-data-[state=open]:stroke-[3px]"
-                  }
-                  opacity={
-                    !activeCategory ||
-                    (activeCategory &&
-                      attribute.holders
-                        .map((d) => d.holderConsolidated)
-                        .includes(activeCategory))
-                      ? 1
-                      : 0.2
-                  }
-                  onContextMenu={
-                    !isShared && !isWithoutHolder
-                      ? () =>
-                          toggleFocus(
-                            attribute.holders[0].holderConsolidated ?? "",
-                            activeCategory
-                          )
-                      : undefined
-                  }
-                />
-                {isShared && <circle r={circleRadius / 4} />}
+                {symbol === "circle" ? (
+                  <circle
+                    r={size}
+                    fill={color}
+                    className={className}
+                    opacity={opacity}
+                    onContextMenu={onContextMenuHandler}
+                  />
+                ) : (
+                  <rect
+                    width={(size * 5) / 3}
+                    height={(size * 5) / 3}
+                    transform={`translate(${(-size * 5) / 3 / 2} ${
+                      (-size * 5) / 3 / 2
+                    })`}
+                    fill={color}
+                    className={className}
+                    opacity={opacity}
+                    onContextMenu={onContextMenuHandler}
+                  />
+                )}
+                {isShared && <circle r={size / 4} />}
               </g>
             </TooltipTrigger>
             <TooltipContent>

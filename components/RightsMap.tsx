@@ -1,18 +1,7 @@
 "use client";
 
-import Map, {
-  Layer,
-  MapStyle,
-  Marker,
-  NavigationControl,
-  Source,
-} from "react-map-gl/maplibre";
-import {
-  LngLatBounds,
-  MapGeoJSONFeature,
-  MapLayerMouseEvent,
-  MapMouseEvent,
-} from "maplibre-gl";
+import bbox from "@turf/bbox";
+import { scaleOrdinal } from "d3";
 import {
   Feature,
   FeatureCollection,
@@ -20,19 +9,38 @@ import {
   MultiPolygon,
   Point,
 } from "geojson";
-import { FC, memo, useCallback, useMemo, useState } from "react";
-import Snowflake from "./Snowflake";
-import colorScaleAnsbach from "../lib/colorScaleAnsbach";
+import {
+  LngLatBounds,
+  MapGeoJSONFeature,
+  MapLayerMouseEvent,
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import bbox from "@turf/bbox";
+import { FC, memo, useCallback, useMemo, useState } from "react";
+import Map, {
+  Layer,
+  MapStyle,
+  Marker,
+  NavigationControl,
+  Source,
+} from "react-map-gl/maplibre";
+import colorScaleAnsbach from "../lib/colorScaleAnsbach";
+import Snowflake from "./Snowflake";
 
 type Props = {
   data: Feature<Point, GeoJsonProperties>[];
   borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
   mapStyle: MapStyle;
+  rightsOrder?: string[];
+  rightsSymbolMap?: Map<string, string>;
 };
 
-const RightsMap: FC<Props> = ({ data, borders, mapStyle }) => {
+const RightsMap: FC<Props> = ({
+  data,
+  borders,
+  mapStyle,
+  rightsOrder,
+  rightsSymbolMap,
+}) => {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined
   );
@@ -44,6 +52,15 @@ const RightsMap: FC<Props> = ({ data, borders, mapStyle }) => {
       }
     | undefined
   >(undefined);
+
+  const rightsSymbolScale = useMemo(() => {
+    return rightsSymbolMap
+      ? scaleOrdinal<string, string>()
+          .domain(Array.from(rightsSymbolMap.keys()))
+          .range(Array.from(rightsSymbolMap.values()))
+          .unknown("circle")
+      : scaleOrdinal<string, string>().unknown("circle");
+  }, [rightsSymbolMap]);
 
   const onHover = useCallback((event: MapLayerMouseEvent) => {
     const {
@@ -97,6 +114,8 @@ const RightsMap: FC<Props> = ({ data, borders, mapStyle }) => {
                   activeCategory={activeCategory}
                   handleCategoryClick={setActiveCategory}
                   colorScale={colorScaleAnsbach}
+                  attributeOrder={rightsOrder}
+                  symbolScale={rightsSymbolScale}
                 />
               </g>
             </svg>

@@ -8,6 +8,7 @@ import { loadAnsbachData } from "../../../lib/loadAnsbachData";
 export default async function Wp2() {
   const data = await loadAnsbachData();
   const style = await getMapStyle();
+  const symbolMap = new Map([["Dorf- und Gemeindeherrschaft", "square"]]);
 
   return (
     <>
@@ -37,7 +38,18 @@ export default async function Wp2() {
             </div>
           </div>
           <MapStage>
-            <RightsMap data={data.features} mapStyle={style} />
+            <RightsMap
+              data={data.features}
+              mapStyle={style}
+              rightsOrder={[
+                "Dorf- und Gemeindeherrschaft", // equivalent to Landeshoheit
+                "Grundherrschaft",
+                "Kirchenhoheit",
+                "Niedergericht",
+                "Hochgericht",
+              ]}
+              rightsSymbolMap={symbolMap}
+            />
           </MapStage>
         </div>
       </main>
