@@ -4,9 +4,16 @@ import RightsMap from "../../../components/RightsMap";
 import colorScaleAnsbach from "../../../lib/colorScaleAnsbach";
 import { getMapStyle } from "../../../lib/getMapStyle";
 import { loadAnsbachData } from "../../../lib/loadAnsbachData";
+import { TbDatabaseX } from "react-icons/tb";
 
 export default async function Wp2() {
-  const data = await loadAnsbachData();
+  const data = await (async () => {
+    try {
+      return await loadAnsbachData();
+    } catch (error) {
+      return;
+    }
+  })();
   const style = await getMapStyle();
   const symbolMap = new Map([["Dorf- und Gemeindeherrschaft", "square"]]);
 
@@ -38,18 +45,31 @@ export default async function Wp2() {
             </div>
           </div>
           <MapStage>
-            <RightsMap
-              data={data.features}
-              mapStyle={style}
-              rightsOrder={[
-                "Dorf- und Gemeindeherrschaft", // equivalent to Landeshoheit
-                "Grundherrschaft",
-                "Kirchenhoheit",
-                "Niedergericht",
-                "Hochgericht",
-              ]}
-              rightsSymbolMap={symbolMap}
-            />
+            {data ? (
+              <RightsMap
+                data={data.features}
+                mapStyle={style}
+                rightsOrder={[
+                  "Dorf- und Gemeindeherrschaft", // equivalent to Landeshoheit
+                  "Grundherrschaft",
+                  "Kirchenhoheit",
+                  "Niedergericht",
+                  "Hochgericht",
+                ]}
+                rightsSymbolMap={symbolMap}
+              />
+            ) : (
+              <div className="grid grid-cols-1 items-center h-full bg-gray-50">
+                <div className="flex flex-col items-center">
+                  <TbDatabaseX />
+                  <h2 className="text-base font-bold">No data available</h2>
+                  <p className="max-w-md">
+                    Due to limited access policy from our project partners we
+                    are not able to share and show all data publicly.
+                  </p>
+                </div>
+              </div>
+            )}
           </MapStage>
         </div>
       </main>
