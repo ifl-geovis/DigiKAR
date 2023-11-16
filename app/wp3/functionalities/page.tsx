@@ -2,7 +2,7 @@ import PlaceFunctionalitiesMap from "../../../components/PlaceFunctionalitiesMap
 import Navigation from "../../../components/Navigation";
 import { getMapStyle } from "@/lib/getMapStyle";
 
-export default async function Functions() {
+export default async function NextPage() {
   const style = await getMapStyle();
 
   return (
