@@ -1,5 +1,5 @@
-import { setupDb } from "./setup-db";
+import { setupDatabase } from "./setupDatabase";
 
 (async () => {
-  await setupDb();
+  await setupDatabase();
 })();

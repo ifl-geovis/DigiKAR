@@ -1,8 +1,9 @@
 import { Database } from "duckdb-async";
 
-export const setupDb = async () => {
+export const setupDatabase = async () => {
   process.env["OGR_XLSX_HEADERS"] = "FORCE";
   const db = await Database.create("./data/digikar.duckdb");
+  await db.run(`SET extension_directory="./data";`);
   await db.run("INSTALL spatial;");
   await db.run("LOAD spatial;");
 

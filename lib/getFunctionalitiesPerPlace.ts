@@ -1,12 +1,12 @@
 import { Database } from "duckdb-async";
 import { Feature, Point } from "geojson";
+import { createDatabase } from "./createDatabase";
 
 export const getFunctionalitiesPerPlace = async (
   table = "university_mainz",
   functions?: string[]
 ) => {
-  const db = await Database.create("./data/digikar.duckdb");
-  await db.run("LOAD spatial;");
+  const db = await createDatabase();
 
   const res = await db.all(`
     WITH functions_sum AS (

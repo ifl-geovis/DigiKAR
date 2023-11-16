@@ -1,9 +1,8 @@
-import { Database } from "duckdb-async";
 import { Feature, LineString } from "geojson";
+import { createDatabase } from "./createDatabase";
 
 export const getFlowsOriginDeath = async (table = "university_mainz") => {
-  const db = await Database.create("./data/digikar.duckdb");
-  await db.run("LOAD spatial;");
+  const db = await createDatabase();
 
   const res = await db.all(`
     WITH deaths_births AS (
