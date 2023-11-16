@@ -3,7 +3,7 @@ import { FC, SVGProps } from "react";
 import { Attribute } from "../../types/PlaceProperties";
 import Center from "../Center";
 import { getNgonPoints } from "../Ngon/Ngon.helpers";
-import RightSymbol from "../RightSymbol";
+import RightIndicator from "../RightIndicator";
 
 type Props = {
   /**
@@ -80,7 +80,7 @@ const Snowflake: FC<Props> = ({
         return (
           <g key={`ray-${i}`}>
             <line x2={d.x} y2={d.y} stroke={"black"} />
-            <RightSymbol
+            <RightIndicator
               colorScale={colorScale}
               symbol={symbolScale && symbolScale(attribute.attributeName)}
               circleRadius={circleRadius}

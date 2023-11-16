@@ -20,7 +20,7 @@ type Props = {
   toggleFocus: (newFocus: string, activeCategory?: string) => void;
 };
 
-const RightCircle: FC<Props> = ({
+const RightIndicator: FC<Props> = ({
   x,
   y,
   attribute,
@@ -145,4 +145,4 @@ const RightCircle: FC<Props> = ({
   );
 };
 
-export default RightCircle;
+export default RightIndicator;

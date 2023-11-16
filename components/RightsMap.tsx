@@ -15,16 +15,19 @@ import {
   MapLayerMouseEvent,
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { FC, memo, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useId, useMemo, useRef, useState } from "react";
 import Map, {
   Layer,
+  MapRef,
   MapStyle,
   Marker,
   NavigationControl,
+  ScaleControl,
   Source,
 } from "react-map-gl/maplibre";
 import colorScaleAnsbach from "../lib/colorScaleAnsbach";
-import Snowflake from "./Snowflake";
+import RightsMarker from "./RightsMarker";
+import ZoomIndicator from "./ZoomIndicator";
 
 type Props = {
   data: Feature<Point, GeoJsonProperties>[];
@@ -52,6 +55,8 @@ const RightsMap: FC<Props> = ({
       }
     | undefined
   >(undefined);
+  const mapRef = useRef<MapRef | null>(null);
+  const [zoom, setZoom] = useState(mapRef?.current?.getZoom());
 
   const rightsSymbolScale = useMemo(() => {
     return rightsSymbolMap
@@ -83,6 +88,7 @@ const RightsMap: FC<Props> = ({
 
   return (
     <Map
+      ref={mapRef}
       initialViewState={{
         bounds: bounds,
         fitBoundsOptions: {
@@ -94,8 +100,11 @@ const RightsMap: FC<Props> = ({
       interactiveLayerIds={["borders"]}
       onMouseMove={onHover}
       onMouseOut={() => setHoverInfo(undefined)}
+      onZoomEnd={() => setZoom(mapRef.current?.getZoom())}
     >
       <NavigationControl />
+      <ScaleControl />
+      <ZoomIndicator />
       {data.map((d, idx) => {
         const radius = 20;
         const markerSize = radius * 2 + 3 * 6;
@@ -107,7 +116,7 @@ const RightsMap: FC<Props> = ({
           >
             <svg width={markerSize} height={markerSize}>
               <g transform={`translate(${markerSize / 2} ${markerSize / 2})`}>
-                <SnowflakeMemoized
+                <RightsMarker
                   placeName={d.properties?.place}
                   placeAttributes={d.properties?.attributes}
                   radius={radius}
@@ -156,5 +165,3 @@ const RightsMap: FC<Props> = ({
 };
 
 export default RightsMap;
-
-const SnowflakeMemoized = memo(Snowflake);
