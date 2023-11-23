@@ -4,7 +4,7 @@ export default async function Wp3() {
   return (
     <>
       <Navigation />
-      <main className="px-20">
+      <main className="container">
         <h2>Kurmainz</h2>
         <p>Focus area working package 3</p>
       </main>

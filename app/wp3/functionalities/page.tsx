@@ -8,7 +8,7 @@ export default async function NextPage() {
   return (
     <>
       <Navigation />
-      <main className="p-10">
+      <main className="container">
         <h2>AP3 person functionalities</h2>
         <PlaceFunctionalitiesMap style={style} />
       </main>

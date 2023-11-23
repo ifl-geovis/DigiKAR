@@ -11,7 +11,7 @@ export default async function Wp3() {
   return (
     <>
       <Navigation />
-      <main className="p-10">
+      <main className="container">
         <h2>Kurmainz</h2>
         <p>person-related Data</p>
         <MapStage>

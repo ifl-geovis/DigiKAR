@@ -13,7 +13,7 @@ export default async function Wp2() {
   return (
     <>
       <Navigation />
-      <main className="p-10">
+      <main className="container">
         <div className="grid grid-cols-[350px_auto] gap-5">
           <div>
             <h2>Kursachsen</h2>

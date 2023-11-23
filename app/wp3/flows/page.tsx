@@ -9,7 +9,7 @@ export default async function NextPage() {
   return (
     <>
       <Navigation />
-      <main className="p-10">
+      <main className="container">
         <h2 className="flex items-center gap-3">
           Kurmainz Place of Birth <ArrowRightIcon /> Place of Death
         </h2>
