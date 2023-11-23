@@ -81,7 +81,7 @@ const FlowMap: FC<Props> = ({ data, style }) => {
           padding: { left: 20, top: 20, right: 20, bottom: 20 },
         },
       }}
-      //@ts-expect-error
+      //@ts-expect-error Map does not accept className prop
       className={"w-full h-full"}
       interactiveLayerIds={["flows"]}
       mapStyle={style}

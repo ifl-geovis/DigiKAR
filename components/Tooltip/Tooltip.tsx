@@ -1,14 +1,7 @@
 // from https://codesandbox.io/s/xenodochial-grass-js3bo9?file=/src/Tooltip.tsx
 
 import type { Placement } from "@floating-ui/react";
-import { useMergeRefs } from "@floating-ui/react";
-import {
-  cloneElement,
-  createContext,
-  forwardRef,
-  isValidElement,
-  useContext,
-} from "react";
+import { createContext, useContext } from "react";
 import { useTooltip } from "./useTooltip.hook";
 
 export interface TooltipOptions {

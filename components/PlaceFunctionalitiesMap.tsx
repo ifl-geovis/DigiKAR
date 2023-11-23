@@ -39,7 +39,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
   table ? searchParams.set("table", table) : searchParams.delete("table");
   filter ? searchParams.set("filter", filter) : searchParams.delete("filter");
 
-  const { data, isLoading, error } = useSWRImmutable<
+  const { data, isLoading } = useSWRImmutable<
     Awaited<ReturnType<typeof getFunctionalitiesPerPlace>>
   >(`${url.pathname}?${url.searchParams}`, fetcher);
 
@@ -112,7 +112,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
                 padding: { left: 20, top: 20, right: 20, bottom: 20 },
               },
             }}
-            //@ts-expect-error
+            //@ts-expect-error Map does not accept className prop
             className={"w-full h-full"}
             interactiveLayerIds={["flows"]}
             mapStyle={style}

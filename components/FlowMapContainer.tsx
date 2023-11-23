@@ -24,7 +24,7 @@ type Props = {
 const FlowMapContainer: FC<Props> = ({ style }) => {
   const [table, setTable] = useState("university_mainz");
 
-  const { data, isLoading, error } = useSWRImmutable<
+  const { data, isLoading } = useSWRImmutable<
     Awaited<ReturnType<typeof getFlowsOriginDeath>>
   >(`/api/origin-death-flows/${table}`, fetcher);
 

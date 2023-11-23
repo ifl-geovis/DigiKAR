@@ -29,7 +29,7 @@ const EventsMap: FC<Props> = ({ data, style }) => {
         latitude: 49.9,
         zoom: 8,
       }}
-      //@ts-expect-error
+      //@ts-expect-error Map does not accept className prop
       className={"w-full h-full"}
       mapStyle={style}
     >

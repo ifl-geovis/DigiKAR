@@ -1,4 +1,4 @@
-import { ScalePower, descending } from "d3";
+import { ScalePower } from "d3";
 import { Feature, Point } from "geojson";
 import { FC } from "react";
 

@@ -15,7 +15,7 @@ import {
   MapLayerMouseEvent,
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { FC, useCallback, useId, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useMemo, useRef, useState } from "react";
 import Map, {
   Layer,
   MapRef,
@@ -56,7 +56,7 @@ const RightsMap: FC<Props> = ({
     | undefined
   >(undefined);
   const mapRef = useRef<MapRef | null>(null);
-  const [zoom, setZoom] = useState(mapRef?.current?.getZoom());
+  const [, setZoom] = useState(mapRef?.current?.getZoom());
 
   const rightsSymbolScale = useMemo(() => {
     return rightsSymbolMap

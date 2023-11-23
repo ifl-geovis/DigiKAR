@@ -1,4 +1,3 @@
-import MapStage from "../../components/MapStage";
 import Navigation from "../../components/Navigation";
 
 export default async function Wp2() {

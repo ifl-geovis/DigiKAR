@@ -7,6 +7,7 @@ const TooltipTrigger = forwardRef<
   React.HTMLProps<HTMLElement> & { asChild?: boolean }
 >(function TooltipTrigger({ children, asChild = false, ...props }, propRef) {
   const context = useTooltipContext();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const childrenRef = (children as any).ref;
   const ref = useMergeRefs([context.refs.setReference, propRef, childrenRef]);
 

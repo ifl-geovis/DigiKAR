@@ -1,4 +1,4 @@
-import { ScaleOrdinal, scaleOrdinal } from "d3";
+import { scaleOrdinal } from "d3";
 
 const colorScaleAnsbach = scaleOrdinal<string>()
   .domain([

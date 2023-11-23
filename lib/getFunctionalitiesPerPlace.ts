@@ -1,4 +1,3 @@
-import { Database } from "duckdb-async";
 import { Feature, Point } from "geojson";
 import { createDatabase } from "./createDatabase";
 

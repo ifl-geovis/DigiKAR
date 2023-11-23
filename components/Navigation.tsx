@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ComponentPropsWithoutRef, ElementRef, FC, forwardRef } from "react";
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
