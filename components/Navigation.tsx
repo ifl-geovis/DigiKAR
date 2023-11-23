@@ -55,7 +55,7 @@ const pages = [
   },
   {
     title: "Kurmainz",
-    href: "wp3",
+    href: "/wp3",
     subtitle: "Focus area working package 3",
     subpages: wp3,
   },
