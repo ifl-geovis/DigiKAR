@@ -20,11 +20,6 @@ export const setupDatabase = async () => {
     ALTER TABLE state_calendar_erfurt
     RENAME COLUMN pers_ID_FS TO pers_ID;
   `);
-  await db.run(`
-    UPDATE state_calendar_erfurt
-    SET "geonames address" = NULL
-    WHERE "geonames address" = 'nan';
-  `);
 
   await db.run("DROP TABLE IF EXISTS university_mainz");
   await db.run(`
@@ -34,11 +29,6 @@ export const setupDatabase = async () => {
       './data/Factoid_PROFS_v10_geocoded-with-IDs_v2.xlsx',
       layer='FactCons'
     );
-  `);
-  await db.run(`
-    UPDATE university_mainz
-    SET "geonames address" = NULL
-    WHERE "geonames address" = 'n/a';
   `);
 
   await db.run("DROP TABLE IF EXISTS jahns");
@@ -60,10 +50,31 @@ export const setupDatabase = async () => {
       layer='FactCons1'
     );
   `);
-  await db.run(`
-    UPDATE state_calendar_aschaffenburg
-    SET "geonames address" = NULL
-    WHERE "geonames address" = 'n/a';
+
+  // Replace all sorts of false NULL values
+  const tables = await db.all(`
+    SELECT DISTINCT table_name
+    FROM duckdb_columns()
+    WHERE internal = false;
   `);
+  const columns = await db.all(`
+    SELECT column_name, table_name
+    FROM duckdb_columns()
+    WHERE table_name
+      IN (
+        ${tables.map(({ table_name }) => `'${table_name}'`).join(", ")}
+      );
+  `);
+
+  columns.forEach(
+    async ({ column_name, table_name }) =>
+      await db.run(
+        `UPDATE ${table_name}
+        SET "${column_name}" = NULL
+        WHERE "${column_name}"
+          SIMILAR TO '(#|nan|n/a)';`
+      )
+  );
+
   await db.close();
 };
