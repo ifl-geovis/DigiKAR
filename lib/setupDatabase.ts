@@ -51,6 +51,23 @@ export const setupDatabase = async () => {
     );
   `);
 
+  await db.run("DROP TABLE IF EXISTS cathedral_provost_mainz");
+  await db.run(`
+    CREATE TABLE cathedral_provost_mainz
+    AS FROM './data/DigiKAR_geocoding_Clerics_1August2022.csv';
+  `);
+  await db.run(`ALTER TABLE cathedral_provost_mainz DROP e_count;`);
+  await db.run(`ALTER TABLE cathedral_provost_mainz DROP s_count;`);
+  await db.run(
+    `ALTER TABLE cathedral_provost_mainz RENAME '# Full Address' TO full_address;`
+  );
+  await db.run(
+    `ALTER TABLE cathedral_provost_mainz RENAME Longitude to longitude;`
+  );
+  await db.run(
+    `ALTER TABLE cathedral_provost_mainz RENAME Latitude to latitude;`
+  );
+
   // Replace all sorts of false NULL values
   const tables = await db.all(`
     SELECT DISTINCT table_name
