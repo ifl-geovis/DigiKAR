@@ -1,7 +1,10 @@
 import getElectoralSaxonyData from "@/lib/getElectoralSaxonyData";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  const data = await getElectoralSaxonyData();
+export async function GET(request: NextRequest) {
+  const limit = request.nextUrl.searchParams.get("limit");
+  const data = await getElectoralSaxonyData(
+    limit ? parseInt(limit) : undefined
+  );
   return NextResponse.json({ data });
 }
