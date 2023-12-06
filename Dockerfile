@@ -7,7 +7,7 @@ FROM base AS deps
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-# TODO: use pnpm properely see: https://pnpm.io/docker
+# TODO: use pnpm properly see: https://pnpm.io/docker
 COPY package.json pnpm-lock.yaml ./ 
 RUN npm install -g pnpm && pnpm i --frozen-lockfile
 
@@ -19,6 +19,18 @@ COPY . .
 
 # Rebuild the source code only when needed
 FROM base AS builder
+
+# postgres env variables for build step
+ARG pghost
+ARG pguser
+ARG pgdatabase
+ARG pgpassword
+ARG pgport
+ENV PGHOST=$pghost
+ENV PGUSER=$pguser
+ENV PGDATABASE=$pgdatabase
+ENV PGPASSWORD=$pguser
+ENV PGPORT=$pgport
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

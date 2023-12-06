@@ -1,3 +1,5 @@
+# DigiKAR Prototype
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -29,10 +31,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Use with Docker
 
-```{bash}
-docker build -t digikar .
-```
+Build the container and parse in the environment variables for `pg node` via the `--build arg` with:
 
 ```{bash}
-docker run --rm -p 3000:3000 digikar
+docker build -t digikar --build-arg pguser=user --build-arg pghost=hostname --build-arg pgdatabase=databasename --build-arg pgpassword=password --build-arg pgport=port .
+```
+
+Run the container with environment variables for `pg node` (see build command), e.g. by using a `.env` file with:
+
+```{bash}
+docker run --rm -p 3000:3000 --env-file .path.to.env.file digikar
 ```
