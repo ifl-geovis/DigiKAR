@@ -1,3 +1,14 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "sqltools.useNodeRuntime": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "DuckDB",
+      "database": "${workspaceFolder:digikar-ap-5-prototype}/data/digikar.duckdb",
+      "name": "digikar duckdb"
+    }
+  ],
+  "sqltools.connectionExplorer.groupConnected": true,
+  "sqltools.results.reuseTabs": "connection"
 }
