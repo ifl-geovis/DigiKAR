@@ -1,0 +1,37 @@
+stages:
+  - build
+  - push
+
+image: docker:20
+services:
+  - "docker:dind"
+
+Build Container:
+  stage: build
+  only:
+    - main
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY/group/project/image:latest || true
+    - docker build
+      --pull
+      --build-arg pguser=$pguser
+      --build-arg pghost=$pghost
+      --build-arg pgdatabase=$pgdatabase
+      --build-arg pgpassword=$pgpassword
+      --build-arg pgport=$pgport
+      -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+      .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+
+Push latest:
+  stage: push
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - main
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
