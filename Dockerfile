@@ -42,9 +42,6 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npm run build
 
-# If using npm comment out above and use below instead
-# RUN npm run build
-
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
