@@ -10,5 +10,6 @@
     }
   ],
   "sqltools.connectionExplorer.groupConnected": true,
-  "sqltools.results.reuseTabs": "connection"
+  "sqltools.results.reuseTabs": "connection",
+  "editor.formatOnSave": true
 }
