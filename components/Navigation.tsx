@@ -17,6 +17,11 @@ type LinkItem = { title: string; href: string; description?: string };
 
 const wp3: LinkItem[] = [
   {
+    title: "Biographies",
+    href: "/wp3/biographies",
+    description: "How individuals move within the Holy Roman Empire.",
+  },
+  {
     title: "Place of birth and death",
     href: "/wp3/flows",
     description: "Where people come from and where they die.",
@@ -74,7 +79,7 @@ const Navigation = () => {
               <NavigationMenuTrigger>{page.title}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <li className="row-span-3">
+                  <li className="row-span-4">
                     <NavigationMenuLink asChild>
                       <a
                         className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
@@ -128,7 +133,7 @@ export default Navigation;
 const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
   ({ className, title, children, ...props }, ref) => {
     return (
-      <li>
+      <li className="col-start-2">
         <NavigationMenuLink asChild>
           <a
             ref={ref}
