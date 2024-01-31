@@ -10,12 +10,12 @@ export const getFunctionalitiesPerPlace = async (
   const res = await db.all(`
     WITH functions_sum AS (
       SELECT 
-        "geonames address" as place,
+        "geonames address" AS place,
         ST_POINT(longitudes::DOUBLE, latitudes::DOUBLE) AS point_geometry,
-        TRIM(pers_function) as function,
-        TRIM(inst_name) as institution,
-        COUNT(*) as count
-      FROM ${table}
+        TRIM(pers_function) AS function,
+        TRIM(inst_name) AS institution,
+        COUNT(*) AS count
+      FROM ${table} t
       WHERE
         longitudes <> 'n/a'
         AND latitudes <> 'n/a'
@@ -26,7 +26,7 @@ export const getFunctionalitiesPerPlace = async (
       "geonames address",
       point_geometry,
       TRIM(inst_name),
-      TRIM(${table}.pers_function)
+      TRIM(t.pers_function)
     )
     SELECT
       place,
