@@ -89,9 +89,44 @@ export const setupDatabase = async () => {
         `UPDATE ${table_name}
         SET "${column_name}" = NULL
         WHERE "${column_name}"
-          SIMILAR TO '(#|nan|n/a)';`
+          SIMILAR TO '^(#|nan|nan, .*|n/a)$';`
       )
   );
+
+  await db.run(`
+  CREATE VIEW unique_places AS
+    SELECT FIRST("geonames address") AS place_name,
+      FIRST(ST_Point(longitudes::DOUBLE, latitudes::DOUBLE)) AS geom,
+      LIST(DISTINCT source) as sources,
+      Count(*)
+    FROM (
+      SELECT "geonames address",
+        longitudes,
+        latitudes,
+        'state_calendar_aschaffenburg' AS source
+      FROM state_calendar_aschaffenburg
+      UNION
+      SELECT "geonames address",
+        longitudes,
+        latitudes,
+        'state_calendar_erfurt' AS source
+      FROM state_calendar_erfurt
+      UNION
+      SELECT "geonames address",
+        longitudes,
+        latitudes,
+        'university_main' AS source
+      FROM university_mainz
+      UNION
+      SELECT "geonames address",
+        geonames_lng,
+        geonames_lat,
+        'jahns' AS source
+      FROM jahns
+    )
+    GROUP BY
+      "geonames address",
+  `);
 
   await db.close();
 };
