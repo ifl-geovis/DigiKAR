@@ -7,9 +7,8 @@ export const setupDatabase = async () => {
   await db.run("INSTALL spatial;");
   await db.run("LOAD spatial;");
 
-  await db.run("DROP TABLE IF EXISTS state_calendar_erfurt");
   await db.run(`
-    CREATE TABLE state_calendar_erfurt
+    CREATE OR REPLACE TABLE state_calendar_erfurt
     AS SELECT *
     FROM st_read(
       './data/Factoid_Staatskalender-Erfurt_consolidation_coordinates_event-values_person-IDs.xlsx',
@@ -21,9 +20,8 @@ export const setupDatabase = async () => {
     RENAME COLUMN pers_ID_FS TO pers_ID;
   `);
 
-  await db.run("DROP TABLE IF EXISTS university_mainz");
   await db.run(`
-    CREATE TABLE university_mainz
+    CREATE OR REPLACE TABLE university_mainz
     AS SELECT *
     FROM st_read(
       './data/Factoid_PROFS_v10_geocoded-with-IDs_v2.xlsx',
@@ -31,9 +29,8 @@ export const setupDatabase = async () => {
     );
   `);
 
-  await db.run("DROP TABLE IF EXISTS jahns");
   await db.run(`
-    CREATE TABLE jahns
+    CREATE OR REPLACE TABLE jahns
     AS SELECT *
     FROM st_read(
       './data/Factoid_Jahns_consolidation_geocoded_personIDs_2614rows.xlsx',
@@ -41,9 +38,8 @@ export const setupDatabase = async () => {
     );
   `);
 
-  await db.run("DROP TABLE IF EXISTS state_calendar_aschaffenburg");
   await db.run(`
-    CREATE TABLE state_calendar_aschaffenburg
+    CREATE OR REPLACE TABLE state_calendar_aschaffenburg
     AS SELECT *
     FROM st_read(
       './data/Factoid_Staatskalender-Aschaffenburg_TEST.xlsx',
@@ -51,9 +47,8 @@ export const setupDatabase = async () => {
     );
   `);
 
-  await db.run("DROP TABLE IF EXISTS cathedral_provost_mainz");
   await db.run(`
-    CREATE TABLE cathedral_provost_mainz
+    CREATE OR REPLACE TABLE cathedral_provost_mainz
     AS FROM './data/DigiKAR_geocoding_Clerics_1August2022.csv';
   `);
   await db.run(`ALTER TABLE cathedral_provost_mainz DROP e_count;`);
@@ -94,38 +89,38 @@ export const setupDatabase = async () => {
   );
 
   await db.run(`
-  CREATE VIEW unique_places AS
-    SELECT FIRST("geonames address") AS place_name,
-      FIRST(ST_Point(longitudes::DOUBLE, latitudes::DOUBLE)) AS geom,
-      LIST(DISTINCT source) as sources,
-      Count(*)
-    FROM (
-      SELECT "geonames address",
-        longitudes,
-        latitudes,
-        'state_calendar_aschaffenburg' AS source
-      FROM state_calendar_aschaffenburg
-      UNION
-      SELECT "geonames address",
-        longitudes,
-        latitudes,
-        'state_calendar_erfurt' AS source
-      FROM state_calendar_erfurt
-      UNION
-      SELECT "geonames address",
-        longitudes,
-        latitudes,
-        'university_main' AS source
-      FROM university_mainz
-      UNION
-      SELECT "geonames address",
-        geonames_lng,
-        geonames_lat,
-        'jahns' AS source
-      FROM jahns
-    )
-    GROUP BY
-      "geonames address",
+    CREATE OR REPLACE VIEW unique_places AS
+      SELECT FIRST("geonames address") AS place_name,
+        FIRST(ST_Point(longitudes::DOUBLE, latitudes::DOUBLE)) AS geom,
+        LIST(DISTINCT source) as sources,
+        Count(*)
+      FROM (
+        SELECT "geonames address",
+          longitudes,
+          latitudes,
+          'state_calendar_aschaffenburg' AS source
+        FROM state_calendar_aschaffenburg
+        UNION
+        SELECT "geonames address",
+          longitudes,
+          latitudes,
+          'state_calendar_erfurt' AS source
+        FROM state_calendar_erfurt
+        UNION
+        SELECT "geonames address",
+          longitudes,
+          latitudes,
+          'university_main' AS source
+        FROM university_mainz
+        UNION
+        SELECT "geonames address",
+          geonames_lng,
+          geonames_lat,
+          'jahns' AS source
+        FROM jahns
+      )
+      GROUP BY
+        "geonames address",
   `);
 
   await db.close();
