@@ -45,7 +45,7 @@ const RightsMap: FC<Props> = ({
   rightsSymbolMap,
 }) => {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [hoverInfo, setHoverInfo] = useState<
     | {
@@ -154,7 +154,7 @@ const RightsMap: FC<Props> = ({
       )}
       {hoverInfo && (
         <div
-          className="bg-white absolute p-2 shadow-lg rounded-md pointer-events-none"
+          className="pointer-events-none absolute rounded-md bg-white p-2 shadow-lg"
           style={{ left: hoverInfo.x, top: hoverInfo.y }}
         >
           <div>Amt: {hoverInfo.feature.properties?.amt}</div>

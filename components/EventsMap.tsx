@@ -30,7 +30,7 @@ const EventsMap: FC<Props> = ({ data, style }) => {
         zoom: 8,
       }}
       //@ts-expect-error Map does not accept className prop
-      className={"w-full h-full"}
+      className={"h-full w-full"}
       mapStyle={style}
     >
       <NavigationControl />

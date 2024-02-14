@@ -3,7 +3,7 @@ import { createDatabase } from "./createDatabase";
 
 export const getFunctionalitiesPerPlace = async (
   table = "university_mainz",
-  functions?: string[]
+  functions?: string[],
 ) => {
   const db = await createDatabase();
 
@@ -42,7 +42,7 @@ export const getFunctionalitiesPerPlace = async (
 
   const res = await statement.all(
     table ?? "%",
-    functions ? `'.*(${functions?.join("|")}).*'` : ".*"
+    functions ? `'.*(${functions?.join("|")}).*'` : ".*",
   );
 
   await db.close();
@@ -65,6 +65,6 @@ export const getFunctionalitiesPerPlace = async (
           institution: string;
           functionalities: { function: number };
         }
-      >
+      >,
   );
 };

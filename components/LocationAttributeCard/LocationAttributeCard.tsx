@@ -23,13 +23,13 @@ const LocationAttributeCard: FC<Props> = ({
 }) => {
   return (
     <>
-      <h2 className="text-sm font-bold mb-2">{placeName}</h2>
+      <h2 className="mb-2 text-sm font-bold">{placeName}</h2>
       <p className="text-xs">Herrschaftsrecht</p>
       {locationAttribute.attributeName}
       <p className="text-xs">Inhaber:in</p>
       {locationAttribute.holders[0]?.holderConsolidated ?? <span>NA</span>}
       <svg
-        className="inline ml-2"
+        className="ml-2 inline"
         width={"1em"}
         height={"1em"}
         viewBox={"0 0 1 1"}

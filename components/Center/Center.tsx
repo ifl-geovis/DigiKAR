@@ -27,7 +27,7 @@ const Center: FC<Props> = ({ placeName, placeAttributes, radius, ...rest }) => {
   // number of unique related Entities
   // TODO: implement new calculation of complexity, considering multiple right-holders per right
   const complexity = new Set(
-    placeAttributes.map((d) => d.holders.flatMap((d) => d.holderConsolidated))
+    placeAttributes.map((d) => d.holders.flatMap((d) => d.holderConsolidated)),
   ).size;
   const colorScale = scaleSequential(interpolateGreys).domain([
     1,

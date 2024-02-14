@@ -26,7 +26,7 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
   return (
     <Map
       //@ts-expect-error Map does not accept className prop
-      className="w-full h-full"
+      className="h-full w-full"
       mapStyle={style}
       initialViewState={{
         bounds,

@@ -24,7 +24,7 @@ const Biographies: FC<Props> = ({ style }) => {
     useSWRImmutable(`/api/biographies`, fetcher);
   return (
     <div>
-      <div className="mt-5 my-10 h-10 flex gap-3 items-center">
+      <div className="my-10 mt-5 flex h-10 items-center gap-3">
         {placeIsLoading && <Skeleton className="h-full w-full" />}
         {placeData && (
           <ComboBox

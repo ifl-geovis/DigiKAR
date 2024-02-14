@@ -38,7 +38,7 @@ export const getFlowsOriginDeath = async (analyticalLense = `any`) => {
   `);
 
   const res = await statement.all(
-    analyticalLense === "any" ? "%" : analyticalLense
+    analyticalLense === "any" ? "%" : analyticalLense,
   );
 
   await db.close();
@@ -49,6 +49,6 @@ export const getFlowsOriginDeath = async (analyticalLense = `any`) => {
         type: "Feature",
         properties: { birth_place, death_place, value },
         geometry: JSON.parse(geometry),
-      } as Feature<LineString>)
+      }) as Feature<LineString>,
   );
 };

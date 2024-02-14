@@ -14,7 +14,7 @@ const TooltipContent = forwardRef<
       {context.open && (
         <div
           ref={ref}
-          className="z-[1000] bg-white rounded-sm p-4 shadow-lg"
+          className="z-[1000] rounded-sm bg-white p-4 shadow-lg"
           style={{
             position: context.strategy,
             top: context.y ?? 0,

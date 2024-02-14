@@ -56,8 +56,8 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
             place: D[0].properties.place,
             institutions: D,
           },
-        } as Feature<Point>),
-      (d) => d.properties.place
+        }) as Feature<Point>,
+      (d) => d.properties.place,
     );
     const places: FeatureCollection<Point> = {
       type: "FeatureCollection",
@@ -71,7 +71,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
   return (
     <>
       <div className="flex gap-3">
-        <div className="grid max-w-sm items-center gap-1.5 my-4">
+        <div className="my-4 grid max-w-sm items-center gap-1.5">
           <Label>Sonde</Label>
           <Select
             defaultValue="state_calendar_aschaffenburg"
@@ -91,7 +91,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
             </SelectContent>
           </Select>
         </div>
-        <div className="grid w-full max-w-sm items-center gap-1.5 my-4">
+        <div className="my-4 grid w-full max-w-sm items-center gap-1.5">
           <Label htmlFor="email">Filter</Label>
           <Input
             type="text"
@@ -103,7 +103,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
       </div>
       <MapStage>
         {isLoading ? (
-          <Skeleton className="w-full h-full" />
+          <Skeleton className="h-full w-full" />
         ) : places ? (
           <Map
             initialViewState={{
@@ -113,7 +113,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
               },
             }}
             //@ts-expect-error Map does not accept className prop
-            className={"w-full h-full"}
+            className={"h-full w-full"}
             interactiveLayerIds={["flows"]}
             mapStyle={style}
           >

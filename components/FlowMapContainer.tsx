@@ -32,7 +32,7 @@ const FlowMapContainer: FC<Props> = ({ style }) => {
 
   return (
     <>
-      <div className="grid max-w-sm items-center gap-1.5 my-4">
+      <div className="my-4 grid max-w-sm items-center gap-1.5">
         <Label>Sonde</Label>
         <Select defaultValue={table} onValueChange={(value) => setTable(value)}>
           <SelectTrigger className="w-[180px]">
@@ -40,8 +40,8 @@ const FlowMapContainer: FC<Props> = ({ style }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="any">All analytical lenses</SelectItem>
-            <SelectGroup className="border-gray-200 border-t mt-1">
-              <SelectLabel className="text-xs mt-2">
+            <SelectGroup className="mt-1 border-t border-gray-200">
+              <SelectLabel className="mt-2 text-xs">
                 Analytical lenses
               </SelectLabel>
               <SelectItem value="state_calendar_erfurt">Erfurt</SelectItem>
@@ -55,7 +55,7 @@ const FlowMapContainer: FC<Props> = ({ style }) => {
         </Select>
       </div>
       <MapStage>
-        {isLoading && <Skeleton className="w-full h-full" />}
+        {isLoading && <Skeleton className="h-full w-full" />}
         {data && data.length > 1 && <FlowMap data={data} style={style} />}
       </MapStage>
     </>

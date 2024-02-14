@@ -15,7 +15,7 @@ const useCustomBasemapStyle = () => {
   const originalStyle = data as StyleSpecification;
 
   const hasSourceLayer = (
-    layer: LayerSpecification
+    layer: LayerSpecification,
   ): layer is Exclude<LayerSpecification, BackgroundLayerSpecification> =>
     "source-layer" in layer == true;
 
@@ -27,21 +27,21 @@ const useCustomBasemapStyle = () => {
           !hasSourceLayer(d) ||
           (hasSourceLayer(d) &&
             d["source-layer"] &&
-            !d["source-layer"].match(/Verkehrs/))
+            !d["source-layer"].match(/Verkehrs/)),
       )
       .map((d) => {
         const newPaintProperties =
           d.type == "fill"
             ? { "fill-opacity": 0.1 }
             : d.type == "circle"
-            ? { "circle-opacity": 0.4 }
-            : d.type == "line"
-            ? { "line-opacity": 0.1 }
-            : d.type == "symbol"
-            ? { "text-opacity": 0.4, "icon-opacity": 0.4 }
-            : d.type == "raster"
-            ? { "raster-opacity": 0.2 }
-            : {};
+              ? { "circle-opacity": 0.4 }
+              : d.type == "line"
+                ? { "line-opacity": 0.1 }
+                : d.type == "symbol"
+                  ? { "text-opacity": 0.4, "icon-opacity": 0.4 }
+                  : d.type == "raster"
+                    ? { "raster-opacity": 0.2 }
+                    : {};
         return {
           ...d,
           paint: { ...d.paint, ...newPaintProperties },

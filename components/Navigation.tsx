@@ -68,8 +68,8 @@ const pages = [
 
 const Navigation = () => {
   return (
-    <div className="container mt-10 mb-10 flex items-baseline">
-      <Link className="text-sm me-5" href={"/"}>
+    <div className="container mb-10 mt-10 flex items-baseline">
+      <Link className="me-5 text-sm" href={"/"}>
         DigiKAR prototype
       </Link>
       <NavigationMenu>
@@ -85,7 +85,7 @@ const Navigation = () => {
                         className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                         href={page.href}
                       >
-                        <div className="h-6 w-6 border rounded-sm border-slate-500">
+                        <div className="h-6 w-6 rounded-sm border border-slate-500">
                           &nbsp;
                         </div>
                         <div className="mb-2 mt-4 text-lg font-medium">
@@ -115,7 +115,7 @@ const Navigation = () => {
               <NavigationMenuLink
                 className={cn(
                   "cursor-not-allowed opacity-50",
-                  navigationMenuTriggerStyle()
+                  navigationMenuTriggerStyle(),
                 )}
               >
                 Storybook
@@ -139,7 +139,7 @@ const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
             ref={ref}
             className={cn(
               "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              className
+              className,
             )}
             {...props}
           >
@@ -151,6 +151,6 @@ const ListItem = forwardRef<ElementRef<"a">, ComponentPropsWithoutRef<"a">>(
         </NavigationMenuLink>
       </li>
     );
-  }
+  },
 );
 ListItem.displayName = "ListItem";

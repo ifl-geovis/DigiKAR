@@ -30,6 +30,6 @@ export const getPlaceOriginDeath = async () => {
         id,
         properties: { place, event_type, value },
         geometry: JSON.parse(geometry),
-      } as Feature<Point>)
+      }) as Feature<Point>,
   );
 };

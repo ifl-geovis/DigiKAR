@@ -37,7 +37,7 @@ const WheelOfInstitutions: FC<Props> = ({ institutions }) => {
                   fill="red"
                   fillOpacity={0.75}
                 />
-              )
+              ),
             )}
           </g>
         );

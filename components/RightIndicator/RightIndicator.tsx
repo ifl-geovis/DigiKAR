@@ -38,8 +38,8 @@ const RightIndicator: FC<Props> = ({
       const color = isWithoutHolder
         ? "black"
         : isShared
-        ? "white"
-        : colorScale(attribute.holders[0].holderConsolidated ?? "");
+          ? "white"
+          : colorScale(attribute.holders[0].holderConsolidated ?? "");
       const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
       const opacity =
         !activeCategory ||
@@ -54,7 +54,7 @@ const RightIndicator: FC<Props> = ({
           ? () =>
               toggleFocus(
                 attribute.holders[0].holderConsolidated ?? "",
-                activeCategory
+                activeCategory,
               )
           : undefined;
       const className =
@@ -110,15 +110,15 @@ const RightIndicator: FC<Props> = ({
         </g>
       </Popover.Trigger>
       <Popover.Portal>
-        <Popover.Content className="bg-white p-4 rounded-s shadow">
-          <div className="pb-2 mb-2 border-b border-b-[lightgrey]">
+        <Popover.Content className="rounded-s bg-white p-4 shadow">
+          <div className="mb-2 border-b border-b-[lightgrey] pb-2">
             <strong>{attribute.attributeName}</strong> in {placeName}
           </div>
           {attribute.holders.map(({ holder, holderConsolidated }, i) => (
             <div key={i} className="flex items-center">
               {holder} <ArrowRightIcon />
               <svg
-                className="inline ml-2 mr-1"
+                className="ml-2 mr-1 inline"
                 width={"1em"}
                 height={"1em"}
                 viewBox={"0 0 1 1"}
@@ -133,7 +133,7 @@ const RightIndicator: FC<Props> = ({
             </div>
           ))}
           <Popover.Close
-            className="rounded-full absolute top-[1rem] right-[1rem]"
+            className="absolute right-[1rem] top-[1rem] rounded-full"
             aria-label="Close"
           >
             <Cross2Icon />

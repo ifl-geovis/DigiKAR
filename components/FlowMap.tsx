@@ -41,7 +41,7 @@ const FlowMap: FC<Props> = ({ data, style }) => {
           });
 
           const coordinates = bezierSpline(
-            lineString([start, cp.geometry.coordinates, end])
+            lineString([start, cp.geometry.coordinates, end]),
           ).geometry.coordinates;
 
           return {
@@ -82,7 +82,7 @@ const FlowMap: FC<Props> = ({ data, style }) => {
         },
       }}
       //@ts-expect-error Map does not accept className prop
-      className={"w-full h-full"}
+      className={"h-full w-full"}
       interactiveLayerIds={["flows"]}
       mapStyle={style}
       onMouseMove={handleMouseMove}
@@ -119,7 +119,7 @@ const FlowMap: FC<Props> = ({ data, style }) => {
         <div
           id="mytooltip"
           // Question: Why does it not work via tailwind classes
-          className={"absolute shadow-xl bg-white rounded-sm p-3"}
+          className={"absolute rounded-sm bg-white p-3 shadow-xl"}
           style={{ top: hoverInfo.y, left: hoverInfo.x }}
         >
           <div className="flex items-baseline gap-1">

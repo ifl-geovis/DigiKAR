@@ -72,10 +72,10 @@ const Snowflake: FC<Props> = ({
         const attribute = placeAttributes.sort(
           (a, b) =>
             (attributeOrder?.indexOf(a.attributeName) ?? 1) -
-            (attributeOrder?.indexOf(b.attributeName) ?? 1)
+            (attributeOrder?.indexOf(b.attributeName) ?? 1),
         )[i];
         const distHoldersConsolidated = Array.from(
-          union(attribute.holders.map((h) => h.holderConsolidated))
+          union(attribute.holders.map((h) => h.holderConsolidated)),
         );
         return (
           <g key={`ray-${i}`}>
