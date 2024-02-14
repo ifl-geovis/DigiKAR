@@ -6,21 +6,19 @@ export const getPlaceOriginDeath = async () => {
 
   const res = await db.all(`
       SELECT
-        COUNT(*)::INT as value,
-        ST_AsGeoJSON(
-            ST_POINT(longitudes::DOUBLE, latitudes::DOUBLE)
-        ) AS geometry,
-        "geonames address" as place,
+        Count()::INT AS value,
+        place_name_geonames AS place,
+        ST_AsGeoJson(place) AS geometry,
         event_type
-      FROM university_mainz
+      FROM events
       WHERE
-        event_type IN ('Tod', 'Geburt') AND
-        "geonames address" IS NOT NULL
+        event_type IN ('Tod', 'Geburt')
+        AND place IS NOT NULL
         GROUP BY
-            "geonames address",
-            event_type,
-            latitudes,
-            longitudes;
+            place_name_geonames,
+            place,
+            event_type
+        HAVING geometry IS NOT NULL AND geometry <> '';
   `);
 
   await db.close();

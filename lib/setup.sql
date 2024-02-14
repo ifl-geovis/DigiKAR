@@ -4,9 +4,9 @@ SET extension_directory = './data';
 INSTALL spatial;
 LOAD spatial;
 ---
-CREATE MACRO is_na(str) AS str SIMILAR TO '^(#|nan|nan, .*|n/a)$';
-CREATE MACRO parse_nas(str) AS CASE
-  WHEN str SIMILAR TO '^(#|nan|nan, .*|n/a)$' THEN NULL
+CREATE MACRO is_na(str) AS str SIMILAR TO '^(#|\?|nan|nan, .*|n/a)$';
+CREATE MACRO nas_to_null(str) AS CASE
+  WHEN is_na(str) THEN NULL
   ELSE str
 END;
 CREATE MACRO str_to_year(str) AS TRY_CAST(left(str, 4) AS INTEGER);
@@ -61,10 +61,10 @@ SELECT CASE
     WHEN starts_with(pers_ID_FS, 'P-') THEN replace(pers_ID_FS, 'P-', '')
     ELSE pers_ID_FS
   END AS person_id,
-  parse_nas(pers_name) AS person_name,
-  parse_nas(pers_function) AS person_function,
-  parse_nas(pers_title) AS person_title,
-  parse_nas(rel_pers) AS related_persons,
+  nas_to_null(pers_name) AS person_name,
+  nas_to_null(pers_function) AS person_function,
+  nas_to_null(pers_title) AS person_title,
+  nas_to_null(rel_pers) AS related_persons,
   str_split(factoid_id, ',') AS factoid_id,
   event_type,
   clamp_to_range(str_to_year("event_before-date")) AS event_before,
@@ -72,14 +72,14 @@ SELECT CASE
   clamp_to_range(str_to_year("event_start")) AS event_start,
   clamp_to_range(str_to_year("event_end")) AS event_end,
   event_value,
-  parse_nas(inst_name) AS institution_name,
-  parse_nas(place_name) AS place_name,
-  parse_nas("geonames address") AS place_name_geonames,
+  nas_to_null(inst_name) AS institution_name,
+  nas_to_null(place_name) AS place_name,
+  nas_to_null("geonames address") AS place_name_geonames,
   point_or_null(longitudes, latitudes) AS place,
-  parse_nas("comment") AS comment,
+  nas_to_null("comment") AS comment,
   --- TODO: check whether source combined is the correct column?
-  parse_nas("source_combined") AS source,
-  parse_nas("source_quotations") AS source_quotations,
+  nas_to_null("source_combined") AS source,
+  nas_to_null("source_quotations") AS source_quotations,
   'state_calendar_erfurt' AS analytical_lense
 FROM ST_Read(
     './data/Factoid_Staatskalender-Erfurt_consolidation_coordinates_event-values_person-IDs.xlsx',
@@ -92,10 +92,10 @@ SELECT CASE
     WHEN contains(pers_ID, '?') THEN NULL
     ELSE pers_ID
   END AS person_id,
-  parse_nas(pers_name) AS person_name,
-  parse_nas(pers_title) AS person_title,
-  parse_nas(pers_function) AS person_function,
-  parse_nas(rel_pers) AS related_persons,
+  nas_to_null(pers_name) AS person_name,
+  nas_to_null(pers_title) AS person_title,
+  nas_to_null(pers_function) AS person_function,
+  nas_to_null(rel_pers) AS related_persons,
   str_split(factoid_ID, ',') AS factoid_id,
   event_type,
   clamp_to_range(str_to_year("event_before-date")) AS event_before,
@@ -103,13 +103,13 @@ SELECT CASE
   clamp_to_range(str_to_year("event_start")) AS event_start,
   clamp_to_range(str_to_year("event_end")) AS event_end,
   event_value,
-  parse_nas(inst_name) AS institution_name,
-  parse_nas(place_name) AS place_name,
-  parse_nas("geonames address") AS place_name_geonames,
+  nas_to_null(inst_name) AS institution_name,
+  nas_to_null(place_name) AS place_name,
+  nas_to_null("geonames address") AS place_name_geonames,
   point_or_null(longitudes, latitudes) AS place,
-  parse_nas("comment_fs") AS comment,
-  parse_nas("source") AS source,
-  parse_nas("source_quotations") AS source_quotations,
+  nas_to_null("comment_fs") AS comment,
+  nas_to_null("source") AS source,
+  nas_to_null("source_quotations") AS source_quotations,
   'university_mainz' AS analytical_lense
 FROM ST_Read(
     './data/Factoid_PROFS_v10_geocoded-with-IDs_v2.xlsx',
@@ -121,10 +121,10 @@ SELECT CASE
     WHEN contains(pers_ID, '?') THEN NULL
     ELSE pers_ID
   END AS person_id,
-  parse_nas(pers_name) AS person_name,
-  parse_nas(pers_title) AS person_title,
-  parse_nas(pers_function) AS person_function,
-  parse_nas(rel_pers) AS related_persons,
+  nas_to_null(pers_name) AS person_name,
+  nas_to_null(pers_title) AS person_title,
+  nas_to_null(pers_function) AS person_function,
+  nas_to_null(rel_pers) AS related_persons,
   NULL AS factoid_id,
   event_type,
   clamp_to_range(str_to_year("event_before-date")) AS event_before,
@@ -132,14 +132,14 @@ SELECT CASE
   clamp_to_range(str_to_year("event_start")) AS event_start,
   clamp_to_range(str_to_year("event_end")) AS event_end,
   event_value,
-  parse_nas(inst_name) AS institution_name,
-  parse_nas(place_name) AS place_name,
-  parse_nas("geonames address") AS place_name_geonames,
+  nas_to_null(inst_name) AS institution_name,
+  nas_to_null(place_name) AS place_name,
+  nas_to_null("geonames address") AS place_name_geonames,
   point_or_null(longitudes, latitudes) AS place,
-  parse_nas("comment") AS comment,
+  nas_to_null("comment") AS comment,
   --- TODO: check whether this is correct
-  parse_nas("source_combined") AS source,
-  parse_nas("source_quotations") AS source_quotations,
+  nas_to_null("source_combined") AS source,
+  nas_to_null("source_quotations") AS source_quotations,
   'state_calendar_aschaffenburg' AS analytical_lense
 FROM ST_Read(
     './data/Factoid_Staatskalender-Aschaffenburg_TEST.xlsx',
@@ -152,10 +152,10 @@ SELECT CASE
     WHEN starts_with(pers_ID, 'P-') THEN replace(pers_ID, 'P-', '')
     ELSE pers_ID
   END AS person_id,
-  parse_nas(pers_name) AS person_name,
-  parse_nas(pers_title) AS person_title,
-  parse_nas(pers_function) AS person_function,
-  parse_nas(rel_pers) AS related_persons,
+  nas_to_null(pers_name) AS person_name,
+  nas_to_null(pers_title) AS person_title,
+  nas_to_null(pers_function) AS person_function,
+  nas_to_null(rel_pers) AS related_persons,
   str_split(factoid_ID, ',') AS factoid_id,
   event_type,
   clamp_to_range(str_to_year("event_before-date")) AS event_before,
@@ -164,40 +164,19 @@ SELECT CASE
   clamp_to_range(str_to_year("event_end")) AS event_end,
   --- TODO: check why not event_value
   NULL AS event_value,
-  parse_nas(inst_name) AS institution_name,
-  parse_nas(place_name) AS place_name,
-  parse_nas("geonames address") AS place_name_geonames,
+  nas_to_null(inst_name) AS institution_name,
+  nas_to_null(place_name) AS place_name,
+  nas_to_null("geonames address") AS place_name_geonames,
   point_or_null(geonames_lng, geonames_lat) AS place,
-  parse_nas("comment") AS comment,
-  parse_nas("source") AS source,
-  parse_nas("source_quotations") AS source_quotations,
+  nas_to_null("comment") AS comment,
+  nas_to_null("source") AS source,
+  nas_to_null("source_quotations") AS source_quotations,
   'state_calendar_jahns' AS analytical_lense
 FROM ST_Read(
     './data/Factoid_Jahns_consolidation_geocoded_personIDs_2614rows.xlsx',
     open_options = ['HEADERS=FORCE']
   );
-INSERT INTO events(
-    person_id,
-    person_name,
-    person_title,
-    person_function,
-    related_persons,
-    factoid_id,
-    event_type,
-    event_before,
-    event_after,
-    event_start,
-    event_end,
-    event_value,
-    institution_name,
-    place_name,
-    place_name_geonames,
-    place,
-    source,
-    source_quotations,
-    comment,
-    analytical_lense
-  )
+INSERT INTO events BY NAME
 FROM erfurt
 UNION ALL
 FROM mainz

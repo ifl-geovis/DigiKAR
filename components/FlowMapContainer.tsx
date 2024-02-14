@@ -6,9 +6,11 @@ import { getFlowsOriginDeath } from "@/lib/getFlowsOriginDeath";
 import {
   Select,
   SelectContent,
+  SelectLabel,
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectGroup,
 } from "@/components/ui/select";
 import { StyleSpecification } from "maplibre-gl";
 import { FC, useState } from "react";
@@ -37,14 +39,24 @@ const FlowMapContainer: FC<Props> = ({ style }) => {
             <SelectValue placeholder="Wähle eine Sonde" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="state_calendar_erfurt">Erfurt</SelectItem>
-            <SelectItem value="university_mainz">Mainz</SelectItem>
+            <SelectItem value="any">All analytical lenses</SelectItem>
+            <SelectGroup className="border-gray-200 border-t mt-1">
+              <SelectLabel className="text-xs mt-2">
+                Analytical lenses
+              </SelectLabel>
+              <SelectItem value="state_calendar_erfurt">Erfurt</SelectItem>
+              <SelectItem value="university_mainz">Mainz</SelectItem>
+              <SelectItem value="state_calendar_aschaffenburg">
+                Aschaffenburg
+              </SelectItem>
+              <SelectItem value="state_calendar_jahns">Jahns</SelectItem>
+            </SelectGroup>
           </SelectContent>
         </Select>
       </div>
       <MapStage>
         {isLoading && <Skeleton className="w-full h-full" />}
-        {data && <FlowMap data={data} style={style} />}
+        {data && data.length > 1 && <FlowMap data={data} style={style} />}
       </MapStage>
     </>
   );

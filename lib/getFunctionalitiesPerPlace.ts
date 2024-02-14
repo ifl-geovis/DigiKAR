@@ -7,38 +7,43 @@ export const getFunctionalitiesPerPlace = async (
 ) => {
   const db = await createDatabase();
 
-  const res = await db.all(`
+  const statement = await db.prepare(`
     WITH functions_sum AS (
       SELECT 
-        "geonames address" AS place,
-        ST_POINT(longitudes::DOUBLE, latitudes::DOUBLE) AS point_geometry,
-        TRIM(pers_function) AS function,
-        TRIM(inst_name) AS institution,
+        FIRST(place_name_geonames) AS place_name,
+        place,
+        person_function AS function,
+        institution_name AS institution,
         COUNT(*) AS count
-      FROM ${table} t
+      FROM events e
       WHERE
-        longitudes <> 'n/a'
-        AND latitudes <> 'n/a'
-        AND pers_function SIMILAR TO ${
-          functions ? `'.*(${functions?.join("|")}).*'` : "('.*')"
-        }
+        analytical_lense LIKE ?
+        AND place IS NOT NULL
+        AND place_name_geonames IS NOT NULL
+        AND person_function SIMILAR TO ?
       GROUP BY
-      "geonames address",
-      point_geometry,
-      TRIM(inst_name),
-      TRIM(t.pers_function)
+        place,
+        institution_name,
+        person_function
+      HAVING
+        place IS NOT NULL
+        AND institution_name IS NOT NULL
     )
     SELECT
-      place,
+      FIRST(place_name) as place,
       institution,
-      ST_AsGeoJSON(point_geometry) as geometry,
+      ST_AsGeoJSON(place) AS geometry,
       JSON_GROUP_OBJECT(function, count) AS functionalities
     FROM functions_sum
     GROUP BY
       place,
-      institution,
-      point_geometry;
+      institution;
   `);
+
+  const res = await statement.all(
+    table ?? "%",
+    functions ? `'.*(${functions?.join("|")}).*'` : ".*"
+  );
 
   await db.close();
 
@@ -53,13 +58,13 @@ export const getFunctionalitiesPerPlace = async (
           functionalities: JSON.parse(functionalities),
         },
         geometry: JSON.parse(geometry),
-      } as Feature<
+      }) as Feature<
         Point,
         {
           place: string;
           institution: string;
           functionalities: { function: number };
         }
-      >)
+      >
   );
 };

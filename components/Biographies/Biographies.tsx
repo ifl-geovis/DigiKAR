@@ -24,18 +24,24 @@ const Biographies: FC<Props> = ({ style }) => {
     useSWRImmutable(`/api/biographies`, fetcher);
   return (
     <div>
-      <div className="mt-5 my-10">
+      <div className="mt-5 my-10 h-10 flex gap-3 items-center">
+        {placeIsLoading && <Skeleton className="h-full w-full" />}
         {placeData && (
           <ComboBox
             optionLabel="place"
             onSelectHandler={setPlace}
             options={placeData
-              .filter((d) => d.place_name)
-              .map(({ place_name }) => ({
-                label: place_name,
-                value: place_name,
+              .filter((d) => d.place)
+              .map(({ place }) => ({
+                label: place,
+                value: place,
               }))}
           />
+        )}
+        {place && (
+          <span>
+            selected Place: <strong>{place}</strong>
+          </span>
         )}
       </div>
       <MapStage>

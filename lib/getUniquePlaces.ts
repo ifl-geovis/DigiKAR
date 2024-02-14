@@ -8,16 +8,15 @@ export const getUniquePlaces = async (
   const db = await createDatabase();
 
   const statement = await db.prepare(`
-    SELECT 
-        place_name 
-    FROM unique_places
+    SELECT DISTINCT
+        place_name_geonames AS place
+    FROM events
     ${
       source &&
-      `WHERE 
+      `WHERE
         list_contains(sources, ?)`
     }
-    ORDER BY place_name
-    ;
+    ORDER BY place_name_geonames;
   `);
 
   const res = await statement.all(source);

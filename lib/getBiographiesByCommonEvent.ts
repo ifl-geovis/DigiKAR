@@ -9,20 +9,17 @@ export const getBiographiesByCommonEvent = async (
 
   const statement = await db.prepare(`
     WITH ordered_events AS (
-      SELECT *,
-        ST_Point(lng::FLOAT, lat::FLOAT) AS geom
-      FROM state_calendar_erfurt
+      FROM events
       WHERE 
-        pers_id IN (
-          SELECT DISTINCT pers_id
-          FROM state_calendar_erfurt
+        person_id IN (
+          SELECT DISTINCT person_id
+          FROM events
           WHERE 
             event_type = ?
-            AND "geonames address" LIKE ?
+            AND place_name_geonames LIKE ?
           )
-        AND "geonames address" IS NOT NULL
-        AND LEFT(event_start, 4) != '0000'
-      ORDER BY LEFT(event_start, 4)::INTEGER
+        AND place_name_geonames IS NOT NULL
+      ORDER BY event_start
     )
     SELECT 
     json_object(
@@ -32,26 +29,26 @@ export const getBiographiesByCommonEvent = async (
           json_object(
               -- id
               'id',
-              pers_id,
+              person_id,
               'name',
-              FIRST(pers_name),
+              FIRST(person_name),
               -- events_array
               'events',
               json_group_array(
                   json_object(
                       'type', event_type,
-                      'function', pers_function,
+                      'function', person_function,
                       'value', event_value,
-                      'place', "geonames address",
+                      'place', place_name_geonames,
                       'start', event_start
                   )
               )
           ),
           'geometry',
-          ST_AsGeoJSON(ST_MakeLine(LIST(geom)))::JSON
+          ST_AsGeoJSON(ST_MakeLine(LIST(place)))::JSON
       ) AS feature
     FROM ordered_events
-    GROUP BY pers_id;
+    GROUP BY person_id;
   `);
   const res = await statement.all(event, place);
   await db.close();
