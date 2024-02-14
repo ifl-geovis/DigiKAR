@@ -1,5 +1,9 @@
 FROM node:20 AS base
 
+RUN wget https://github.com/duckdb/duckdb/releases/download/v0.9.1/duckdb_cli-linux-aarch64.zip \
+    && unzip duckdb_cli-linux-aarch64.zip -d /usr/local/bin \
+    && rm duckdb_cli-linux-aarch64.zip
+
 # Install dependencies only when needed
 FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
@@ -35,9 +39,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
+# Disable next.js telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npm run build
@@ -63,6 +65,5 @@ COPY --from=builder --chown=nextjs:nodejs /app/data/digikar.duckdb ./data/digika
 COPY --from=builder --chown=nextjs:nodejs /app/data/.duckdb ./data/.duckdb
 
 USER nextjs
-
 
 CMD ["node", "server.js"]
