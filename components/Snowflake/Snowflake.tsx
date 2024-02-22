@@ -2,8 +2,8 @@ import { ScaleOrdinal, range, scaleOrdinal, schemeTableau10, union } from "d3";
 import { FC, SVGProps } from "react";
 import { Attribute } from "../../types/PlaceProperties";
 import Center from "../Center";
-import { getNgonPoints } from "../Ngon/Ngon.helpers";
 import RightIndicator from "../RightIndicator";
+import useSnowflake from "./useSnowflake.hook";
 
 type Props = {
   /**
@@ -57,9 +57,12 @@ const Snowflake: FC<Props> = ({
   symbolScale,
   ...rest
 }) => {
-  const rays = placeAttributes.length;
-  const outerRadius = radius - circleRadius;
-  const points = getNgonPoints(outerRadius, rays);
+  const { points, outerRadius } = useSnowflake(
+    placeAttributes,
+    radius,
+    circleRadius,
+    attributeOrder,
+  );
 
   const setFocus = (newFocus: string, currentFocus: string | undefined) => {
     if (!onIsClicked) return undefined;
@@ -68,25 +71,20 @@ const Snowflake: FC<Props> = ({
   };
   return (
     <g {...rest}>
-      {points.map((d, i) => {
-        const attribute = placeAttributes.sort(
-          (a, b) =>
-            (attributeOrder?.indexOf(a.attributeName) ?? 1) -
-            (attributeOrder?.indexOf(b.attributeName) ?? 1),
-        )[i];
+      {points.map(({ x, y, attributeName, holders }) => {
         const distHoldersConsolidated = Array.from(
-          union(attribute.holders.map((h) => h.holderConsolidated)),
+          union(holders.map((h) => h.holderConsolidated)),
         );
         return (
-          <g key={`ray-${i}`}>
-            <line x2={d.x} y2={d.y} stroke={"black"} />
+          <g key={`ray-${attributeName}`}>
+            <line x2={x} y2={y} stroke={"black"} />
             <RightIndicator
               colorScale={colorScale}
-              symbol={symbolScale && symbolScale(attribute.attributeName)}
+              symbol={symbolScale && symbolScale(attributeName)}
               circleRadius={circleRadius}
-              x={d.x}
-              y={d.y}
-              attribute={attribute}
+              x={x}
+              y={y}
+              attribute={{ attributeName, holders }}
               activeCategory={activeCategory}
               placeName={placeName}
               toggleFocus={setFocus}
@@ -96,8 +94,8 @@ const Snowflake: FC<Props> = ({
                 range(distHoldersConsolidated.length).map((_, i) => (
                   <circle
                     key={i}
-                    cx={d.x}
-                    cy={d.y}
+                    cx={x}
+                    cy={y}
                     r={circleRadius + i * 3}
                     strokeWidth={0.5}
                     stroke={"grey"}

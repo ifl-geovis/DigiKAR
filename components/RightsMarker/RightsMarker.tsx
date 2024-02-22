@@ -3,6 +3,7 @@ import { ScaleOrdinal } from "d3";
 import { FC, SVGProps, memo } from "react";
 import { useMap } from "react-map-gl/maplibre";
 import Snowflake from "../Snowflake";
+import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 
 type Props = {
   placeName: string;
@@ -24,10 +25,11 @@ const RightsMarker: FC<Props> = ({
   activeCategory,
   colorScale,
   handleCategoryClick,
-  attributeOrder,
+  attributeOrder, //TODO: replacing by context order is not working yet, order seems to be completely off
   symbolScale,
 }) => {
   const { current: map } = useMap();
+  const { order } = useRightsExplorerContext();
   return map && map.getZoom() < 10 ? (
     <circle fill="red" r="3" />
   ) : (
@@ -38,7 +40,7 @@ const RightsMarker: FC<Props> = ({
       activeCategory={activeCategory}
       handleCategoryClick={handleCategoryClick}
       colorScale={colorScale}
-      attributeOrder={attributeOrder}
+      attributeOrder={order}
       symbolScale={symbolScale}
     />
   );

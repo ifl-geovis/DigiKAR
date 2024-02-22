@@ -7,6 +7,7 @@ import TooltipContent from "../Tooltip/TooltipContent";
 import TooltipTrigger from "../Tooltip/TooltipTrigger";
 import * as Popover from "@radix-ui/react-popover";
 import { ArrowRightIcon, Cross2Icon } from "@radix-ui/react-icons";
+import RightShape from "../RightShape";
 
 type Props = {
   x: number;
@@ -31,7 +32,7 @@ const RightIndicator: FC<Props> = ({
   colorScale,
   toggleFocus,
 }) => {
-  const { isShared, color, size, opacity, onContextMenuHandler, className } =
+  const { isShared, color, size, opacity, onContextMenuHandler } =
     useMemo(() => {
       const isWithoutHolder = attribute.holders.length === 0;
       const isShared = attribute.holders.length > 1;
@@ -57,15 +58,12 @@ const RightIndicator: FC<Props> = ({
                 activeCategory,
               )
           : undefined;
-      const className =
-        "cursor-pointer stroke-black group-data-[state=open]:stroke-[3px]";
       return {
         isShared,
         color,
         size,
         opacity,
         onContextMenuHandler,
-        className,
       };
     }, [attribute, colorScale, activeCategory, circleRadius, toggleFocus]);
   return (
@@ -74,30 +72,16 @@ const RightIndicator: FC<Props> = ({
         <g className="group">
           <Tooltip>
             <TooltipTrigger asChild>
-              <g transform={`translate(${x} ${y})`}>
-                {symbol === "circle" ? (
-                  <circle
-                    r={size}
-                    fill={color}
-                    className={className}
-                    opacity={opacity}
-                    onContextMenu={onContextMenuHandler}
-                  />
-                ) : (
-                  <rect
-                    width={(size * 5) / 3}
-                    height={(size * 5) / 3}
-                    transform={`translate(${(-size * 5) / 3 / 2} ${
-                      (-size * 5) / 3 / 2
-                    })`}
-                    fill={color}
-                    className={className}
-                    opacity={opacity}
-                    onContextMenu={onContextMenuHandler}
-                  />
-                )}
-                {isShared && <circle r={size / 4} />}
-              </g>
+              <RightShape
+                x={x}
+                y={y}
+                symbol={symbol}
+                size={size}
+                color={color}
+                opacity={opacity}
+                isShared={isShared}
+                onContextMenuHandler={onContextMenuHandler}
+              />
             </TooltipTrigger>
             <TooltipContent>
               <LocationAttributeCard

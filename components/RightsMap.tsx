@@ -28,22 +28,15 @@ import Map, {
 import colorScaleAnsbach from "../lib/colorScaleAnsbach";
 import RightsMarker from "./RightsMarker";
 import ZoomIndicator from "./ZoomIndicator";
+import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 
 type Props = {
   data: Feature<Point, GeoJsonProperties>[];
   borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
   mapStyle: MapStyle;
-  rightsOrder?: string[];
-  rightsSymbolMap?: Map<string, string>;
 };
 
-const RightsMap: FC<Props> = ({
-  data,
-  borders,
-  mapStyle,
-  rightsOrder,
-  rightsSymbolMap,
-}) => {
+const RightsMap: FC<Props> = ({ data, borders, mapStyle }) => {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined,
   );
@@ -58,14 +51,16 @@ const RightsMap: FC<Props> = ({
   const mapRef = useRef<MapRef | null>(null);
   const [, setZoom] = useState(mapRef?.current?.getZoom());
 
+  const { order, symbolMap } = useRightsExplorerContext();
+
   const rightsSymbolScale = useMemo(() => {
-    return rightsSymbolMap
+    return symbolMap
       ? scaleOrdinal<string, string>()
-          .domain(Array.from(rightsSymbolMap.keys()))
-          .range(Array.from(rightsSymbolMap.values()))
+          .domain(Array.from(symbolMap.keys()))
+          .range(Array.from(symbolMap.values()))
           .unknown("circle")
       : scaleOrdinal<string, string>().unknown("circle");
-  }, [rightsSymbolMap]);
+  }, [symbolMap]);
 
   const onHover = useCallback((event: MapLayerMouseEvent) => {
     const {
@@ -123,7 +118,7 @@ const RightsMap: FC<Props> = ({
                   activeCategory={activeCategory}
                   handleCategoryClick={setActiveCategory}
                   colorScale={colorScaleAnsbach}
-                  attributeOrder={rightsOrder}
+                  attributeOrder={order}
                   symbolScale={rightsSymbolScale}
                 />
               </g>
