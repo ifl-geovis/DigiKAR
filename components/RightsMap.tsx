@@ -1,9 +1,7 @@
 "use client";
 
 import bbox from "@turf/bbox";
-import { scaleOrdinal } from "d3";
 import {
-  Feature,
   FeatureCollection,
   GeoJsonProperties,
   MultiPolygon,
@@ -25,18 +23,17 @@ import Map, {
   ScaleControl,
   Source,
 } from "react-map-gl/maplibre";
-import colorScaleAnsbach from "../lib/colorScaleAnsbach";
 import RightsMarker from "./RightsMarker";
 import ZoomIndicator from "./ZoomIndicator";
 import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
+import { mapToScale } from "@/lib/helpers";
 
 type Props = {
-  data: Feature<Point, GeoJsonProperties>[];
   borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
   mapStyle: MapStyle;
 };
 
-const RightsMap: FC<Props> = ({ data, borders, mapStyle }) => {
+const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined,
   );
@@ -51,17 +48,6 @@ const RightsMap: FC<Props> = ({ data, borders, mapStyle }) => {
   const mapRef = useRef<MapRef | null>(null);
   const [, setZoom] = useState(mapRef?.current?.getZoom());
 
-  const { order, symbolMap } = useRightsExplorerContext();
-
-  const rightsSymbolScale = useMemo(() => {
-    return symbolMap
-      ? scaleOrdinal<string, string>()
-          .domain(Array.from(symbolMap.keys()))
-          .range(Array.from(symbolMap.values()))
-          .unknown("circle")
-      : scaleOrdinal<string, string>().unknown("circle");
-  }, [symbolMap]);
-
   const onHover = useCallback((event: MapLayerMouseEvent) => {
     const {
       features,
@@ -70,6 +56,9 @@ const RightsMap: FC<Props> = ({ data, borders, mapStyle }) => {
     const hoveredFeature = features && features[0];
     setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
   }, []);
+
+  const { data, order, colorScale, symbolMap } = useRightsExplorerContext();
+  const symbolScale = mapToScale(symbolMap, "circle");
 
   const bounds = useMemo(() => {
     const fc: FeatureCollection<Point> = {
@@ -117,9 +106,9 @@ const RightsMap: FC<Props> = ({ data, borders, mapStyle }) => {
                   radius={radius}
                   activeCategory={activeCategory}
                   handleCategoryClick={setActiveCategory}
-                  colorScale={colorScaleAnsbach}
-                  attributeOrder={order}
-                  symbolScale={rightsSymbolScale}
+                  symbolScale={symbolScale}
+                  colorScale={colorScale}
+                  rightOrder={order}
                 />
               </g>
             </svg>

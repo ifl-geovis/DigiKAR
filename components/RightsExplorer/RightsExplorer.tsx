@@ -1,16 +1,18 @@
 "use client";
 
-import { Feature, GeoJsonProperties, Point } from "geojson";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { PropsWithChildren, useState } from "react";
 import { FC } from "react";
 import { RightsExplorerContext } from "./RightsExplorerContext";
-import colorScaleAnsbach from "@/lib/colorScaleAnsbach";
+import { RightsData } from "@/types/PlaceProperties";
+import { ScaleOrdinal } from "d3";
+import { mapToScale } from "@/lib/helpers";
 
 type Props = PropsWithChildren<{
-  data?: Feature<Point, GeoJsonProperties>[];
+  data?: RightsData["features"];
   initialSymbolMap: Map<string, string>;
-  initialOrder: string[];
+  initialOrder?: string[];
+  colorMap: Map<string, string>;
 }>;
 
 const RightsMap: FC<Props> = ({
@@ -18,13 +20,24 @@ const RightsMap: FC<Props> = ({
   initialOrder,
   initialSymbolMap,
   children,
+  colorMap,
 }) => {
-  const [order, setOrder] = useState(initialOrder);
+  const uniqueSet = new Set(
+    data
+      ?.map((d) => d.properties?.attributes)
+      .flat()
+      .map((d) => d.attributeName),
+  );
+
+  const [order, setOrder] = useState(initialOrder ?? Array.from(uniqueSet));
   const [symbolMap, setSymbolMap] = useState(initialSymbolMap);
 
-  const [colorScale, setColorScale] = useState<typeof colorScaleAnsbach>(
-    () => colorScaleAnsbach,
+  const initialColorScale = mapToScale(colorMap, "lightgrey");
+
+  const [colorScale, setColorScale] = useState<ScaleOrdinal<string, string>>(
+    () => initialColorScale,
   );
+
   return (
     <RightsExplorerContext.Provider
       value={{
@@ -32,6 +45,7 @@ const RightsMap: FC<Props> = ({
         order,
         colorScale: colorScale,
         symbolMap,
+        uniqueSet,
         setOrder,
         setColorScale,
         setSymbolMap,

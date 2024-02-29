@@ -18,7 +18,7 @@ const RightShape = forwardRef<Ref, Props>(function RightShape(
   ref,
 ) {
   const className =
-    "cursor-pointer stroke-black group-data-[state=open]:stroke-[3px]";
+    "cursor-pointer stroke-black hover:stroke-2 transition-all group-data-[state=open]:stroke-[3px]";
   return (
     <g ref={ref} transform={`translate(${x} ${y})`}>
       {symbol === "square" ? (

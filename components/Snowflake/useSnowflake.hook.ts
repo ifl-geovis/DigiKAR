@@ -5,14 +5,18 @@ const useSnowflake = (
   placeAttributes: Attribute[],
   radius: number,
   circleRadius: number,
-  order?: string[],
+  order: string[],
 ) => {
-  const rays = placeAttributes.length;
+  const rays = order.length;
   const outerRadius = radius - circleRadius;
   const points = getNgonPoints(outerRadius, rays)
-    .map(({ x, y }, i) => {
-      const { attributeName, holders } = placeAttributes[i];
-      return { x, y, attributeName, holders };
+    .flatMap(({ x, y }, i) => {
+      const attribute = placeAttributes.find(
+        (d) => d.attributeName == order[i],
+      );
+      if (!attribute) return [];
+      const { attributeName, holders } = attribute;
+      return [{ x, y, attributeName, holders }];
     })
     .sort(
       (a, b) =>

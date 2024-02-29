@@ -7,6 +7,7 @@ type Context = {
   symbolMap: Map<string, string>;
   data: Feature<Point, GeoJsonProperties>[];
   colorScale: ScaleOrdinal<string, string, string>;
+  uniqueSet: Set<string>;
   setOrder: (order: string[]) => void;
   setSymbolMap: (symbolMap: Map<string, string>) => void;
   setColorScale: (scale: ScaleOrdinal<string, string, string>) => void;
