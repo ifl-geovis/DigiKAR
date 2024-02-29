@@ -28,19 +28,40 @@ const SnowflakePreview = () => {
   }));
 
   const radius = 50;
+  const radiusLabels = radius + 20;
   const circleRadius = 5;
   const padding = 3;
   const { points } = useSnowflake(placeAttributes, radius, circleRadius, order);
+  const { points: pointsLabels } = useSnowflake(
+    placeAttributes,
+    radiusLabels,
+    circleRadius,
+    order,
+  );
 
   return (
     <div className="rounded bg-gray-100 p-3">
-      <svg width={(radius + padding) * 2} height={(radius + padding) * 2}>
-        <g transform={`translate(${radius + padding} ${radius + padding})`}>
-          {points.map(({ x, y, attributeName }) => {
+      <svg
+        width={(radiusLabels + padding) * 2}
+        height={(radiusLabels + padding) * 2}
+      >
+        <g
+          transform={`translate(${radiusLabels + padding} ${radiusLabels + padding})`}
+        >
+          {points.map(({ x, y, attributeName }, i) => {
             return (
               <Popover key={attributeName}>
                 <PopoverTrigger asChild className="cursor-pointer">
                   <g className="group">
+                    <text
+                      x={pointsLabels[i].x}
+                      y={pointsLabels[i].y}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      className="group-data-[state=open]:font-bold"
+                    >
+                      {attributeName.slice(0, 1).toUpperCase()}
+                    </text>
                     <line x2={x} y2={y} stroke="black" />
                     <RightShape
                       x={x}
