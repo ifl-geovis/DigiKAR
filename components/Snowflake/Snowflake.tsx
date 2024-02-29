@@ -50,8 +50,6 @@ const Snowflake: FC<Props> = ({
   radius,
   circleRadius = radius / 3,
   colorScale = scaleOrdinal<string, string>().range(schemeTableau10),
-  activeCategory,
-  handleCategoryClick: onIsClicked,
   drawCenter = false,
   attributeOrder,
   symbolScale,
@@ -61,14 +59,9 @@ const Snowflake: FC<Props> = ({
     placeAttributes,
     radius,
     circleRadius,
-    attributeOrder,
+    attributeOrder ?? [],
   );
 
-  const setFocus = (newFocus: string, currentFocus: string | undefined) => {
-    if (!onIsClicked) return undefined;
-    if (newFocus === currentFocus) return onIsClicked(undefined);
-    onIsClicked(newFocus);
-  };
   return (
     <g {...rest}>
       {points.map(({ x, y, attributeName, holders }) => {
@@ -85,9 +78,7 @@ const Snowflake: FC<Props> = ({
               x={x}
               y={y}
               attribute={{ attributeName, holders }}
-              activeCategory={activeCategory}
               placeName={placeName}
-              toggleFocus={setFocus}
             />
             <g pointerEvents="none">
               {distHoldersConsolidated.length > 1 &&

@@ -8,6 +8,7 @@ import TooltipTrigger from "../Tooltip/TooltipTrigger";
 import * as Popover from "@radix-ui/react-popover";
 import { ArrowRightIcon, Cross2Icon } from "@radix-ui/react-icons";
 import RightShape from "../RightShape";
+import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 
 type Props = {
   x: number;
@@ -15,10 +16,8 @@ type Props = {
   attribute: Attribute;
   placeName: string;
   circleRadius: number;
-  activeCategory?: string;
   colorScale: ScaleOrdinal<string, string, string>;
   symbol?: string;
-  toggleFocus: (newFocus: string, activeCategory?: string) => void;
 };
 
 const RightIndicator: FC<Props> = ({
@@ -28,10 +27,9 @@ const RightIndicator: FC<Props> = ({
   placeName,
   circleRadius,
   symbol = "circle",
-  activeCategory,
   colorScale,
-  toggleFocus,
 }) => {
+  const { setActiveCategory, activeCategory } = useRightsExplorerContext();
   const { isShared, color, size, opacity, onContextMenuHandler } =
     useMemo(() => {
       const isWithoutHolder = attribute.holders.length === 0;
@@ -50,12 +48,12 @@ const RightIndicator: FC<Props> = ({
             .includes(activeCategory))
           ? 1
           : 0.2;
+      const holder = attribute.holders[0]?.holderConsolidated;
       const onContextMenuHandler =
-        !isShared && !isWithoutHolder
+        (!isShared && !isWithoutHolder) || !holder
           ? () =>
-              toggleFocus(
-                attribute.holders[0].holderConsolidated ?? "",
-                activeCategory,
+              setActiveCategory((prevState?: string) =>
+                prevState !== holder ? holder : undefined,
               )
           : undefined;
       return {
@@ -65,7 +63,13 @@ const RightIndicator: FC<Props> = ({
         opacity,
         onContextMenuHandler,
       };
-    }, [attribute, colorScale, activeCategory, circleRadius, toggleFocus]);
+    }, [
+      attribute,
+      colorScale,
+      activeCategory,
+      circleRadius,
+      setActiveCategory,
+    ]);
   return (
     <Popover.Root>
       <Popover.Trigger asChild>

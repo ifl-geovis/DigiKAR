@@ -8,10 +8,8 @@ type Props = {
   placeName: string;
   placeAttributes: Attribute[];
   radius: number;
-  activeCategory?: string;
   colorScale?: ScaleOrdinal<string, string, string>;
-  handleCategoryClick?: (category: string | undefined) => void;
-  rightOrder?: string[];
+  rightOrder: string[];
   symbolScale?: ScaleOrdinal<string, string, string>;
 } & SVGProps<SVGGElement>;
 
@@ -21,8 +19,6 @@ const RightsMarker: FC<Props> = ({
   placeName,
   placeAttributes,
   radius,
-  activeCategory,
-  handleCategoryClick,
   colorScale,
   symbolScale,
   rightOrder,
@@ -35,8 +31,6 @@ const RightsMarker: FC<Props> = ({
       placeName={placeName}
       placeAttributes={placeAttributes}
       radius={radius}
-      activeCategory={activeCategory}
-      handleCategoryClick={handleCategoryClick}
       colorScale={colorScale}
       attributeOrder={rightOrder}
       symbolScale={symbolScale}

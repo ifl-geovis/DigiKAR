@@ -4,10 +4,14 @@ import { createContext, useContext } from "react";
 
 type Context = {
   order: string[];
+  activeCategory?: string;
   symbolMap: Map<string, string>;
   data: Feature<Point, GeoJsonProperties>[];
   colorScale: ScaleOrdinal<string, string, string>;
   uniqueSet: Set<string>;
+  setActiveCategory: (
+    category?: string | ((category?: string) => string | undefined),
+  ) => void;
   setOrder: (order: string[]) => void;
   setSymbolMap: (symbolMap: Map<string, string>) => void;
   setColorScale: (scale: ScaleOrdinal<string, string, string>) => void;

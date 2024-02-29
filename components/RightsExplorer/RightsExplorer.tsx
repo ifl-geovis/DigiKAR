@@ -30,23 +30,28 @@ const RightsMap: FC<Props> = ({
   );
 
   const [order, setOrder] = useState(initialOrder ?? Array.from(uniqueSet));
+  const [activeCategory, setActiveCategory] = useState<string | undefined>(
+    undefined,
+  );
   const [symbolMap, setSymbolMap] = useState(initialSymbolMap);
 
   const initialColorScale = mapToScale(colorMap, "lightgrey");
 
-  const [colorScale, setColorScale] = useState<ScaleOrdinal<string, string>>(
-    () => initialColorScale,
-  );
+  const [colorScale, setColorScale] = useState<
+    ScaleOrdinal<string, string, string>
+  >(() => initialColorScale);
 
   return (
     <RightsExplorerContext.Provider
       value={{
         data: data ?? [],
         order,
+        activeCategory,
         colorScale: colorScale,
         symbolMap,
         uniqueSet,
         setOrder,
+        setActiveCategory,
         setColorScale,
         setSymbolMap,
       }}

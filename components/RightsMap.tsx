@@ -34,9 +34,6 @@ type Props = {
 };
 
 const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
-  const [activeCategory, setActiveCategory] = useState<string | undefined>(
-    undefined,
-  );
   const [hoverInfo, setHoverInfo] = useState<
     | {
         feature: MapGeoJSONFeature;
@@ -104,8 +101,6 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
                   placeName={d.properties?.place}
                   placeAttributes={d.properties?.attributes}
                   radius={radius}
-                  activeCategory={activeCategory}
-                  handleCategoryClick={setActiveCategory}
                   symbolScale={symbolScale}
                   colorScale={colorScale}
                   rightOrder={order}
