@@ -17,12 +17,11 @@ const RightIndicator: FC = () => {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Show or hide Right</DialogTitle>
+        <DialogTitle>Adjust the symbol</DialogTitle>
         <DialogDescription>
-          <p>
-            Configure which rights from the data you would like to see in the
-            map.
-          </p>
+          Configure which rights from the data you would like to see in the map.
+          You can further customize their order and define a certain shape of
+          per right.
         </DialogDescription>
       </DialogHeader>
       <div>

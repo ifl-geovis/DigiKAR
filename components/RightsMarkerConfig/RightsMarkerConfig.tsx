@@ -2,10 +2,11 @@
 
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { FC } from "react";
-import { RxMixerVertical } from "react-icons/rx";
+import { RxMixerVertical, RxQuestionMark } from "react-icons/rx";
 import DialogAddRight from "../DialogAddRight";
 import { Button } from "../ui/button";
 import SnowflakePreview from "../SnowflakePreview";
+import DialogHelpSymbol from "../DialogHelpSymbol";
 
 const RightsMarkerConfig: FC = () => {
   return (
@@ -16,14 +17,24 @@ const RightsMarkerConfig: FC = () => {
           Click on a right to change its order and its symbol. Customize which
           rights are displayed by clicking on the button.
         </p>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>
-              <RxMixerVertical className="mr-2" /> Toggle rights
-            </Button>
-          </DialogTrigger>
-          <DialogAddRight />
-        </Dialog>
+        <div className="flex gap-2">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>
+                <RxMixerVertical className="mr-2" /> Appearance
+              </Button>
+            </DialogTrigger>
+            <DialogAddRight />
+          </Dialog>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant={"ghost"} size={"icon"}>
+                <RxQuestionMark />
+              </Button>
+            </DialogTrigger>
+            <DialogHelpSymbol />
+          </Dialog>
+        </div>
       </div>
     </div>
   );

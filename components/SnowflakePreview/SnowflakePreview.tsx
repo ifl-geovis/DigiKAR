@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { move } from "@/lib/utils";
-import { LuRotateCcw, LuRotateCw } from "react-icons/lu";
+import { TbRotateDot } from "react-icons/tb";
 import { RxEyeNone } from "react-icons/rx";
 import RightShape from "../RightShape";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
@@ -27,7 +27,7 @@ const SnowflakePreview = () => {
     holders: [],
   }));
 
-  const radius = 50;
+  const radius = 30;
   const radiusLabels = radius + 20;
   const circleRadius = 5;
   const padding = 3;
@@ -40,7 +40,7 @@ const SnowflakePreview = () => {
   );
 
   return (
-    <div className="rounded bg-gray-100 p-3">
+    <div className="flex place-content-center rounded bg-gray-100 p-3">
       <svg
         width={(radiusLabels + padding) * 2}
         height={(radiusLabels + padding) * 2}
@@ -105,21 +105,21 @@ const SnowflakePreview = () => {
                           variant={"ghost"}
                           size={"icon"}
                           onClick={() => {
-                            const newOrder = move(order, attributeName, false);
+                            const newOrder = move(order, attributeName);
                             setOrder([...newOrder]);
                           }}
                         >
-                          <LuRotateCcw />
+                          <TbRotateDot className="scale-x-[-1]" />
                         </Button>
                         <Button
                           variant={"ghost"}
                           size={"icon"}
                           onClick={() => {
-                            const newOrder = move(order, attributeName);
+                            const newOrder = move(order, attributeName, false);
                             setOrder([...newOrder]);
                           }}
                         >
-                          <LuRotateCw />
+                          <TbRotateDot />
                         </Button>
                         <Button
                           size={"icon"}
