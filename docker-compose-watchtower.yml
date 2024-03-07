@@ -1,0 +1,17 @@
+# Run with docker-compose -f docker-composer-watchtower.yml up
+version: "3"
+services:
+  digikar:
+    image: registry.gitlab.rlp.net/digikar/digikar-ap-5-prototype:latest
+    restart: always
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    ports:
+      - "3000:3000"
+  watchtower:
+    image: containrrr/watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/digikar-deploy/.docker/config.json:/config.json
+    command: --interval 120 --label-enable
