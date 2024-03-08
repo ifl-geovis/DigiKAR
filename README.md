@@ -42,3 +42,5 @@ Run the container with environment variables for `pg node` (see build command), 
 ```{bash}
 docker run --rm -p 3000:3000 --env-file .path.to.env.file --hostname localhost digikar
 ```
+
+If you're on a M1/M2 mac add `--platform linux/amd64`.
