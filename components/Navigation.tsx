@@ -22,6 +22,11 @@ const wp3: LinkItem[] = [
     description: "How individuals move within the Holy Roman Empire.",
   },
   {
+    title: "Matriculations",
+    href: "/wp3/matriculations",
+    description: "Where professors studied",
+  },
+  {
     title: "Place of birth and death",
     href: "/wp3/flows",
     description: "Where people come from and where they die.",
