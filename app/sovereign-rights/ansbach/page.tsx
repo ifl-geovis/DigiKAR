@@ -1,6 +1,5 @@
 import RightsExplorer from "@/components/RightsExplorer";
 import MapStage from "../../../components/MapStage";
-import Navigation from "../../../components/Navigation";
 import RightsMap from "../../../components/RightsMap";
 import colorMapAnsbach from "../../../lib/colorMapAnsbach";
 import { getMapStyle } from "../../../lib/getMapStyle";
@@ -30,46 +29,43 @@ export default async function Wp2() {
 
   return (
     <>
-      <Navigation />
-      <main className="container">
-        <RightsExplorer
-          data={data?.features}
-          initialOrder={rightsOrder}
-          initialSymbolMap={symbolMap}
-          colorMap={colorMapAnsbach}
-        >
-          <div className="grid grid-cols-[350px_auto] gap-5">
-            <div>
-              <h2>Ansbach</h2>
-              <h3>Rights and potentates</h3>
-              <div className="flex flex-col gap-3">
-                <SearchBar />
-                <RightsMarkerConfig />
-                <div>
-                  <h3>Legend</h3>
-                  <LegendNominal />
-                </div>
+      <RightsExplorer
+        data={data?.features}
+        initialOrder={rightsOrder}
+        initialSymbolMap={symbolMap}
+        colorMap={colorMapAnsbach}
+      >
+        <div className="grid grid-cols-[350px_auto] gap-5">
+          <div>
+            <h2>Ansbach</h2>
+            <h3>Rights and potentates</h3>
+            <div className="flex flex-col gap-3">
+              <SearchBar />
+              <RightsMarkerConfig />
+              <div>
+                <h3>Legend</h3>
+                <LegendNominal />
               </div>
             </div>
-            <MapStage>
-              {data ? (
-                <RightsMap mapStyle={style} />
-              ) : (
-                <div className="grid h-full grid-cols-1 items-center bg-gray-50">
-                  <div className="flex flex-col items-center">
-                    <TbDatabaseX />
-                    <h2 className="text-base font-bold">No data available</h2>
-                    <p className="max-w-md">
-                      Due to limited access policy from our project partners we
-                      are not able to share and show all data publicly.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </MapStage>
           </div>
-        </RightsExplorer>
-      </main>
+          <MapStage>
+            {data ? (
+              <RightsMap mapStyle={style} />
+            ) : (
+              <div className="grid h-full grid-cols-1 items-center bg-gray-50">
+                <div className="flex flex-col items-center">
+                  <TbDatabaseX />
+                  <h2 className="text-base font-bold">No data available</h2>
+                  <p className="max-w-md">
+                    Due to limited access policy from our project partners we
+                    are not able to share and show all data publicly.
+                  </p>
+                </div>
+              </div>
+            )}
+          </MapStage>
+        </div>
+      </RightsExplorer>
     </>
   );
 }

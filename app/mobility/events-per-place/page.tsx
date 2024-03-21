@@ -1,4 +1,3 @@
-import Navigation from "../../../components/Navigation";
 import EventsMap from "../../../components/EventsMap";
 import { getPlaceOriginDeath } from "../../../lib/getPlaceOriginDeath";
 import MapStage from "../../../components/MapStage";
@@ -10,14 +9,11 @@ export default async function Wp3() {
 
   return (
     <>
-      <Navigation />
-      <main className="container">
-        <h2>Kurmainz</h2>
-        <p>person-related Data</p>
-        <MapStage>
-          <EventsMap style={style} data={data} />
-        </MapStage>
-      </main>
+      <h2>Kurmainz</h2>
+      <p>person-related Data</p>
+      <MapStage>
+        <EventsMap style={style} data={data} />
+      </MapStage>
     </>
   );
 }

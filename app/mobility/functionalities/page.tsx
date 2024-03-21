@@ -1,5 +1,4 @@
 import PlaceFunctionalitiesMap from "../../../components/PlaceFunctionalitiesMap";
-import Navigation from "../../../components/Navigation";
 import { getMapStyle } from "@/lib/getMapStyle";
 
 export default async function NextPage() {
@@ -7,11 +6,8 @@ export default async function NextPage() {
 
   return (
     <>
-      <Navigation />
-      <main className="container">
-        <h2>AP3 person functionalities</h2>
-        <PlaceFunctionalitiesMap style={style} />
-      </main>
+      <h2>AP3 person functionalities</h2>
+      <PlaceFunctionalitiesMap style={style} />
     </>
   );
 }
