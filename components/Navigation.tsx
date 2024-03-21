@@ -15,59 +15,59 @@ import {
 
 type LinkItem = { title: string; href: string; description?: string };
 
-const wp3: LinkItem[] = [
+const mobility: LinkItem[] = [
   {
     title: "Biographies",
-    href: "/wp3/biographies",
+    href: "/mobility/biographies",
     description: "How individuals move within the Holy Roman Empire.",
   },
   {
     title: "Matriculations",
-    href: "/wp3/matriculations",
-    description: "Where professors studied",
+    href: "/mobility/matriculations",
+    description: "Where professors studied.",
   },
   {
     title: "Place of birth and death",
-    href: "/wp3/flows",
+    href: "/mobility/flows",
     description: "Where people come from and where they die.",
   },
   {
     title: "Functionalities and institutions",
-    href: "/wp3/functionalities",
+    href: "/mobility/functionalities",
     description: "Institutions and the functionalities they accumulated.",
   },
   {
     title: "Births and deaths per place",
-    href: "/wp3/events-per-place",
+    href: "/mobility/events-per-place",
     description: "How many people are born and die in a certain place.",
   },
 ];
 
-const wp2: LinkItem[] = [
+const sovereignRights: LinkItem[] = [
   {
     title: "Kursachsen",
-    href: "/wp2/kursachsen",
-    description: "Rights and potentates in Electoral Saxony.",
+    href: "/sovereign-rights/kursachsen",
+    description: "Sovereign rights in Electoral Saxony.",
   },
   {
     title: "Ansbach",
-    href: "/wp2/ansbach",
-    description: "Rights and potentates around Ansbach.",
+    href: "/sovereign-rights/ansbach",
+    description: "Sovereign rights around Ansbach.",
   },
 ];
 
 const pages = [
   {
-    title: "Kursachsen",
+    title: "Sovereign Rights",
     href: "/wp2",
-    subtitle: "Focus area working package 2",
-    subpages: wp2,
+    subtitle: "Focus area Kursachsen",
+    subpages: sovereignRights,
   },
   {
-    title: "Kurmainz",
-    href: "/wp3",
-    subtitle: "Focus area working package 3",
-    subpages: wp3,
+    title: "Mobility",
+    href: "/mobility",
+    subtitle: "Focus area Kurmainz",
+    subpages: mobility,
   },
 ];
 
@@ -75,7 +75,7 @@ const Navigation = () => {
   return (
     <div className="container mb-10 mt-10 flex items-baseline">
       <Link className="me-5 text-sm" href={"/"}>
-        DigiKAR prototype
+        DigiKAR <sup>prototype</sup>
       </Link>
       <NavigationMenu>
         <NavigationMenuList>
@@ -84,7 +84,7 @@ const Navigation = () => {
               <NavigationMenuTrigger>{page.title}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <li className="row-span-4">
+                  <li className="row-span-5">
                     <NavigationMenuLink asChild>
                       <a
                         className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"

@@ -4,12 +4,11 @@ export default async function Home() {
   return (
     <>
       <Navigation />
-      <main className="px-20 mt-20 max-w-screen-sm">
+      <main className="mt-20 max-w-screen-sm px-20">
         <h2>Internal prototype for DigiKAR</h2>
         <p>
-          Explorative, point-based symbology for visualizing place constituting
-          attributes in the context of the Holy Roman Empire (&ldquo;Altes
-          Reich&rdquo;).
+          Explorative, point-based visualizations of space constituting
+          phenomena in the Holy Roman Empire (&ldquo;Altes Reich&rdquo;).
         </p>
       </main>
     </>
