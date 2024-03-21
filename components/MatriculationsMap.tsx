@@ -1,6 +1,6 @@
 "use client";
 
-import { Skeleton } from "@/components/ui/skeleton";
+import { HoverInfo } from "@/types/HoverInfo";
 import bbox from "@turf/bbox";
 import { Feature, FeatureCollection, Point } from "geojson";
 import {
@@ -10,19 +10,35 @@ import {
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useMemo, useState } from "react";
-import Map, { Layer, Source, NavigationControl } from "react-map-gl/maplibre";
-import useSWRImmutable from "swr/immutable";
-import fetcher from "../lib/fetcher";
-import MapStage from "./MapStage";
-import { extent } from "d3";
-import { getMatriculations } from "@/lib/getMatriculations";
+import Map, { Layer, NavigationControl, Source } from "react-map-gl/maplibre";
 
 type Props = {
+  data?: Feature<Point>[];
   style: StyleSpecification;
 };
 
-const MatriculationsMap: FC<Props> = ({ style }) => {
-  type HoverInfo = { x: number; y: number; feature?: Feature };
+const MatriculationsMap: FC<Props> = ({ style, data }) => {
+  const { places, bounds } = useMemo(() => {
+    if (!data)
+      return {
+        places: {
+          type: "FeatureCollection",
+          features: [],
+        } as FeatureCollection<Point>,
+        bounds: new LngLatBounds([
+          5.98865807458, 47.3024876979, 15.0169958839, 54.983104153,
+        ]),
+      };
+
+    const places: FeatureCollection<Point> = {
+      type: "FeatureCollection",
+      features: data,
+    };
+    const [e, s, w, n] = bbox(places);
+    const bounds = new LngLatBounds([w, s, e, n]);
+    return { places, bounds };
+  }, [data]);
+
   const [hoverInfo, setHoverInfo] = useState<HoverInfo | undefined>(undefined);
   const handleMouseMove = useCallback((event: MapLayerMouseEvent) => {
     const {
@@ -34,93 +50,67 @@ const MatriculationsMap: FC<Props> = ({ style }) => {
     setHoverInfo(hoveredFeature && info);
   }, []);
 
-  const { data, isLoading } = useSWRImmutable<
-    Awaited<ReturnType<typeof getMatriculations>>
-  >("/api/matriculations", fetcher);
-
-  const { places, bounds, min, max } = useMemo(() => {
-    if (!data) return { places: undefined, bounds: undefined };
-
-    const [min, max] =
-      extent(data, (d) => d.properties?.number as number) ?? [];
-
-    const places: FeatureCollection<Point> = {
-      type: "FeatureCollection",
-      features: data,
-    };
-    const [e, s, w, n] = bbox(places);
-    const bounds = new LngLatBounds([w, s, e, n]);
-    return { places, bounds, min, max };
-  }, [data]);
-
   return (
-    <>
-      <MapStage>
-        {isLoading ? (
-          <Skeleton className="h-full w-full" />
-        ) : places ? (
-          <Map
-            initialViewState={{
-              bounds: bounds,
-              fitBoundsOptions: {
-                padding: { left: 20, top: 20, right: 20, bottom: 20 },
-              },
-            }}
-            //@ts-expect-error Map does not accept className prop
-            className={"h-full w-full"}
-            interactiveLayerIds={["places"]}
-            mapStyle={style}
-            onMouseMove={handleMouseMove}
-          >
-            <NavigationControl />
-            <Source type="geojson" data={places}>
-              <Layer
-                id="places"
-                type="circle"
-                paint={{
-                  "circle-opacity": [
-                    "case",
-                    [
-                      "==",
-                      ["get", "place_name"],
-                      hoverInfo?.feature?.properties?.place_name ?? null,
-                    ],
-                    0.8,
-                    0.3,
-                  ],
-                  "circle-color": "rgb(255,0,0)",
-                  "circle-radius": [
-                    "interpolate",
-                    ["exponential", 0.96],
-                    ["get", "number"],
-                    min ?? 1,
-                    1,
-                    max ?? 1,
-                    50,
-                  ],
-                }}
-              />
-            </Source>
+    <Map
+      initialViewState={{
+        bounds: bounds,
+        fitBoundsOptions: {
+          padding: { left: 20, top: 20, right: 20, bottom: 20 },
+        },
+      }}
+      //@ts-expect-error Map does not accept className prop
+      className={"h-full w-full"}
+      interactiveLayerIds={["places"]}
+      mapStyle={style}
+      onMouseMove={handleMouseMove}
+    >
+      <NavigationControl />
 
-            {hoverInfo && (
-              <div
-                id="mytooltip"
-                // Question: Why does it not work via tailwind classes
-                className={"absolute rounded-sm bg-white p-3 shadow-xl"}
-                style={{ top: hoverInfo.y, left: hoverInfo.x }}
-              >
-                <div className="flex items-baseline gap-1">
-                  <strong>{hoverInfo.feature?.properties?.number}</strong>
-                  {hoverInfo.feature?.properties?.place_name}
-                </div>
-              </div>
-            )}
-          </Map>
-        ) : (
-          <div>no Data!</div>
-        )}
-      </MapStage>
-    </>
+      <Source type="geojson" data={places}>
+        <Layer
+          id="places"
+          type="circle"
+          paint={{
+            "circle-color": "rgb(255,0,0)",
+            "circle-radius": [
+              "interpolate",
+              ["exponential", 0.999],
+              ["get", "number"],
+              1,
+              3,
+              250,
+              75,
+            ],
+            "circle-opacity": [
+              "case",
+              ["==", places.features.length, 0],
+              1,
+              [
+                "==",
+                ["get", "place_name"],
+                hoverInfo?.feature?.properties?.place_name ?? null,
+              ],
+              0.8,
+              0.3,
+            ],
+          }}
+        />
+      </Source>
+
+      {hoverInfo && (
+        <div
+          className={
+            "pointer-events-none absolute rounded-sm bg-white p-3 shadow-xl"
+          }
+          style={{ top: hoverInfo.y, left: hoverInfo.x }}
+        >
+          <div className="flex items-baseline gap-1">
+            <strong>{hoverInfo.feature?.properties?.number}</strong>
+            {hoverInfo.feature?.properties?.place_name}
+          </div>
+        </div>
+      )}
+    </Map>
   );
 };
 

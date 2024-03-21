@@ -1,7 +1,11 @@
 import { Feature, Point } from "geojson";
 import { createDatabase } from "./createDatabase";
 
-export const getMatriculations = async () => {
+export const getMatriculations = async (
+  min: number,
+  max: number,
+  eventType: string = "Immatrikulation",
+) => {
   const db = await createDatabase();
 
   const statement = await db.prepare(`
@@ -21,13 +25,14 @@ export const getMatriculations = async () => {
       ) AS feature
     FROM events
     WHERE
-      event_type = 'Immatrikulation'
+      event_type = ?
+      AND event_start BETWEEN ? AND ?
     GROUP BY place_name_geonames, place
     HAVING
       place_name_geonames IS NOT NULL AND
       place IS NOT NULL;
   `);
-  const res = await statement.all();
+  const res = await statement.all(eventType, min, max);
   await db.close();
 
   return res.map(({ feature }) => {

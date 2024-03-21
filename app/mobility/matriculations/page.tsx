@@ -1,6 +1,6 @@
-import MatriculationsMap from "@/components/MatriculationsMap";
 import { getMapStyle } from "@/lib/getMapStyle";
 import Navigation from "../../../components/Navigation";
+import MatriculationsMapContainer from "@/components/MatriculationsMapContainer";
 
 export default async function NextPage() {
   const style = await getMapStyle();
@@ -10,7 +10,7 @@ export default async function NextPage() {
       <Navigation />
       <main className="container">
         <h2>Matriculations of professors in Mainz</h2>
-        <MatriculationsMap style={style} />
+        <MatriculationsMapContainer style={style} />
       </main>
     </>
   );

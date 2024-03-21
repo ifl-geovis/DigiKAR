@@ -19,6 +19,7 @@ import bbox from "@turf/bbox";
 import { lineString } from "@turf/helpers";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
+import { HoverInfo } from "@/types/HoverInfo";
 
 type Props = {
   data: Feature<LineString>[];
@@ -59,8 +60,6 @@ const FlowMap: FC<Props> = ({ data, style }) => {
     const bounds = new LngLatBounds([w, s, e, n]);
     return { flows, min, max, bounds };
   }, [data]);
-
-  type HoverInfo = { x: number; y: number; feature?: Feature };
 
   const [hoverInfo, setHoverInfo] = useState<HoverInfo | undefined>(undefined);
   const handleMouseMove = useCallback((event: MapLayerMouseEvent) => {
