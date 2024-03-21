@@ -8,6 +8,9 @@
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     "ghcr.io/devcontainers-contrib/features/neovim-apt-get:1": {},
+    "ghcr.io/devcontainers-contrib/features/npm-package:1": {
+      "package": "gitmoji-cli"
+    },
     "ghcr.io/devcontainers-contrib/features/pnpm:2": {},
     "ghcr.io/joshuanianji/devcontainer-features/mount-pnpm-store:1": {},
     "ghcr.io/eitsupi/devcontainer-features/duckdb-cli:1": {
