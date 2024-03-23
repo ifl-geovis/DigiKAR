@@ -57,9 +57,9 @@ const MatriculationsMapContainer: FC<Props> = ({ style }) => {
 
   eventType ? params.set("eventType", eventType) : params.delete("eventType");
 
-  const { data } = useSWRImmutable<
+  const { data, isLoading } = useSWRImmutable<
     Awaited<ReturnType<typeof getMatriculations>>
-  >(`/api/matriculations?${params}`, fetcher);
+  >(`/api/matriculations?${params}`, fetcher, { keepPreviousData: true });
 
   return (
     <>
@@ -95,7 +95,7 @@ const MatriculationsMapContainer: FC<Props> = ({ style }) => {
         </div>
       </div>
       <MapStage>
-        <MatriculationsMap style={style} data={data} />
+        <MatriculationsMap style={style} data={data} isLoading={isLoading} />
       </MapStage>
     </>
   );

@@ -14,10 +14,11 @@ import Map, { Layer, NavigationControl, Source } from "react-map-gl/maplibre";
 
 type Props = {
   data?: Feature<Point>[];
+  isLoading: boolean;
   style: StyleSpecification;
 };
 
-const MatriculationsMap: FC<Props> = ({ style, data }) => {
+const MatriculationsMap: FC<Props> = ({ style, data, isLoading }) => {
   const { places, bounds } = useMemo(() => {
     if (!data)
       return {
@@ -83,8 +84,8 @@ const MatriculationsMap: FC<Props> = ({ style, data }) => {
             ],
             "circle-opacity": [
               "case",
-              ["==", places.features.length, 0],
-              1,
+              ["==", isLoading, true],
+              0.1,
               [
                 "==",
                 ["get", "place_name"],
