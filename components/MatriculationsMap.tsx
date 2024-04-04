@@ -73,15 +73,7 @@ const MatriculationsMap: FC<Props> = ({ style, data, isLoading }) => {
           type="circle"
           paint={{
             "circle-color": "rgb(255,0,0)",
-            "circle-radius": [
-              "interpolate",
-              ["exponential", 0.999],
-              ["get", "number"],
-              1,
-              3,
-              250,
-              75,
-            ],
+            "circle-radius": ["*", ["ln", ["get", "number"]], 8],
             "circle-opacity": [
               "case",
               ["==", isLoading, true],
