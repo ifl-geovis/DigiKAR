@@ -71,10 +71,9 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
     <Map
       ref={mapRef}
       initialViewState={{
-        bounds: bounds,
-        fitBoundsOptions: {
-          padding: { left: 20, top: 20, right: 20, bottom: 20 },
-        },
+        longitude: bounds.getCenter().lng,
+        latitude: bounds.getCenter().lat,
+        zoom: 10,
       }}
       style={{ width: "100%", height: "100%" }}
       mapStyle={mapStyle}
