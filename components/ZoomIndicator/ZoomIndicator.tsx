@@ -9,7 +9,7 @@ const ZoomIndicator: FC = () => {
       <div className="text-xl">
         <TbZoomPan />
       </div>{" "}
-      {map && map.getZoom()}
+      {map && Math.round(map.getZoom() * 100) / 100}
     </div>
   );
 };
