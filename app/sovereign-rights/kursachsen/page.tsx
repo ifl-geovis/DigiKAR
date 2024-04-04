@@ -4,9 +4,10 @@ import RightsMap from "../../../components/RightsMap";
 import { getMapStyle } from "../../../lib/getMapStyle";
 import getVoronoi from "@/lib/getVoronoi";
 import RightsExplorer from "@/components/RightsExplorer";
-import colorMapAnsbach from "@/lib/colorMapAnsbach";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig";
 import SearchBar from "@/components/SearchBar";
+import LegendNominal from "@/components/LegendNominal/LegendNominal";
+import colorMapKursachsen from "@/lib/colorMapKursachsen";
 
 export default async function Wp2() {
   const data = await getElectoralSaxonyData();
@@ -19,7 +20,7 @@ export default async function Wp2() {
       <RightsExplorer
         data={data}
         initialSymbolMap={symbolMap}
-        colorMap={colorMapAnsbach}
+        colorMap={colorMapKursachsen}
       >
         <div className="grid grid-cols-[350px_auto] gap-5">
           <div>
@@ -30,7 +31,7 @@ export default async function Wp2() {
               <RightsMarkerConfig />
               <div>
                 <h3>Legend</h3>
-                <p className="italic">to be defined</p>
+                <LegendNominal />
               </div>
             </div>
           </div>

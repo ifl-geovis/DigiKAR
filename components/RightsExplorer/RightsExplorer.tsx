@@ -15,7 +15,7 @@ type Props = PropsWithChildren<{
   colorMap: Map<string, string>;
 }>;
 
-const RightsMap: FC<Props> = ({
+const RightsExplorer: FC<Props> = ({
   data,
   initialOrder,
   initialSymbolMap,
@@ -61,4 +61,4 @@ const RightsMap: FC<Props> = ({
   );
 };
 
-export default RightsMap;
+export default RightsExplorer;
