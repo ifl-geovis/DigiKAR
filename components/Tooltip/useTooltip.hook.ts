@@ -18,6 +18,7 @@ export function useTooltip({
   placement = "top",
   open: controlledOpen,
   onOpenChange: setControlledOpen,
+  delay = 0,
 }: TooltipOptions = {}) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(initialOpen);
 
@@ -43,6 +44,7 @@ export function useTooltip({
   const hover = useHover(context, {
     move: false,
     enabled: controlledOpen == null,
+    delay,
   });
   const focus = useFocus(context, {
     enabled: controlledOpen == null,

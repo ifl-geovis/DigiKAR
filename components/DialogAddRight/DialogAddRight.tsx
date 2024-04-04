@@ -11,6 +11,7 @@ import {
 import { Button } from "../ui/button";
 import { RxCheck, RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import { twJoin } from "tailwind-merge";
+import ButtonWithTooltip from "../ButtonWithTooltip/ButtonWithTooltip";
 
 const RightIndicator: FC = () => {
   const { order, uniqueSet, setOrder } = useRightsExplorerContext();
@@ -37,7 +38,8 @@ const RightIndicator: FC = () => {
                 key={right}
               >
                 {right}
-                <Button
+                <ButtonWithTooltip
+                  tooltipContent="Toggle visibility"
                   // disabled={!isVisualized}
                   onClick={() =>
                     isVisualized
@@ -48,7 +50,7 @@ const RightIndicator: FC = () => {
                   variant={"ghost"}
                 >
                   {!isVisualized ? <RxEyeClosed /> : <RxEyeOpen />}
-                </Button>
+                </ButtonWithTooltip>
               </div>
             );
           })}

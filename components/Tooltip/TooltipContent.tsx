@@ -1,6 +1,7 @@
 import { FloatingPortal, useMergeRefs } from "@floating-ui/react";
 import { forwardRef } from "react";
 import { useTooltipContext } from "./Tooltip";
+import { cn } from "@/lib/utils";
 
 const TooltipContent = forwardRef<
   HTMLDivElement,
@@ -14,7 +15,6 @@ const TooltipContent = forwardRef<
       {context.open && (
         <div
           ref={ref}
-          className="z-[1000] rounded-sm bg-white p-4 shadow-lg"
           style={{
             position: context.strategy,
             top: context.y ?? 0,
@@ -23,6 +23,10 @@ const TooltipContent = forwardRef<
             ...props.style,
           }}
           {...context.getFloatingProps(props)}
+          className={cn(
+            "z-[1000] rounded-sm bg-white p-4 shadow-lg",
+            props.className,
+          )}
         />
       )}
     </FloatingPortal>

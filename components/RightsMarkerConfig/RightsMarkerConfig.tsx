@@ -7,6 +7,7 @@ import DialogAddRight from "../DialogAddRight";
 import { Button } from "../ui/button";
 import SnowflakePreview from "../SnowflakePreview";
 import DialogHelpSymbol from "../DialogHelpSymbol";
+import ButtonWithTooltip from "../ButtonWithTooltip";
 
 const RightsMarkerConfig: FC = () => {
   return (
@@ -28,9 +29,15 @@ const RightsMarkerConfig: FC = () => {
           </Dialog>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant={"ghost"} size={"icon"}>
-                <RxQuestionMark />
-              </Button>
+              <div>
+                <ButtonWithTooltip
+                  tooltipContent="Help"
+                  variant={"ghost"}
+                  size={"icon"}
+                >
+                  <RxQuestionMark />
+                </ButtonWithTooltip>
+              </div>
             </DialogTrigger>
             <DialogHelpSymbol />
           </Dialog>

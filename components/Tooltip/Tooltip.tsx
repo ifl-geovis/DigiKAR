@@ -9,6 +9,7 @@ export interface TooltipOptions {
   placement?: Placement;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  delay?: number | { open: number; close: number };
 }
 
 type ContextType = ReturnType<typeof useTooltip> | null;
