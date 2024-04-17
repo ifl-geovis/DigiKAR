@@ -6,17 +6,16 @@ import { MapGeoJSONFeature, MapLayerMouseEvent } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useState } from "react";
 import Map, {
-  Layer,
   MapStyle,
   Marker,
   NavigationControl,
   ScaleControl,
-  Source,
   ViewStateChangeEvent,
 } from "react-map-gl/maplibre";
 import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 import RightsMarker from "./RightsMarker";
 import ZoomIndicator from "./ZoomIndicator";
+import BorderLayer from "./BorderLayer";
 
 type Props = {
   borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
@@ -92,27 +91,7 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
           </Marker>
         );
       })}
-      {borders && (
-        <Source type="geojson" data={borders}>
-          <Layer id="borders" type="fill" paint={{ "fill-opacity": 0 }} />
-          <Layer
-            id="borders-outline-blur"
-            type="line"
-            layout={{ "line-join": "round" }}
-            paint={{
-              "line-blur": 100,
-              "line-color": "grey",
-              "line-width": 20,
-            }}
-          />
-          <Layer
-            id="borders-outline"
-            type="line"
-            layout={{ "line-join": "round" }}
-            paint={{ "line-color": "grey", "line-width": 1 }}
-          />
-        </Source>
-      )}
+      {borders && <BorderLayer borders={borders} />}
       {hoverInfo && (
         <div
           className="pointer-events-none absolute rounded-md bg-white p-2 shadow-lg"
