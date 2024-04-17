@@ -1,32 +1,22 @@
 "use client";
 
-import bbox from "@turf/bbox";
-import {
-  FeatureCollection,
-  GeoJsonProperties,
-  MultiPolygon,
-  Point,
-} from "geojson";
-import {
-  LngLatBounds,
-  MapGeoJSONFeature,
-  MapLayerMouseEvent,
-} from "maplibre-gl";
+import { mapToScale } from "@/lib/helpers";
+import { FeatureCollection, GeoJsonProperties, MultiPolygon } from "geojson";
+import { MapGeoJSONFeature, MapLayerMouseEvent } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { FC, useCallback, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import Map, {
   Layer,
-  MapRef,
   MapStyle,
   Marker,
   NavigationControl,
   ScaleControl,
   Source,
+  ViewStateChangeEvent,
 } from "react-map-gl/maplibre";
+import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 import RightsMarker from "./RightsMarker";
 import ZoomIndicator from "./ZoomIndicator";
-import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
-import { mapToScale } from "@/lib/helpers";
 
 type Props = {
   borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
@@ -42,8 +32,6 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
       }
     | undefined
   >(undefined);
-  const mapRef = useRef<MapRef | null>(null);
-  const [, setZoom] = useState(mapRef?.current?.getZoom());
 
   const onHover = useCallback((event: MapLayerMouseEvent) => {
     const {
@@ -54,33 +42,28 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
     setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
   }, []);
 
-  const { data, order, colorScale, symbolMap } = useRightsExplorerContext();
-  const symbolScale = mapToScale(symbolMap, "circle");
+  const { data, order, colorScale, symbolMap, viewState, setViewState } =
+    useRightsExplorerContext();
 
-  const bounds = useMemo(() => {
-    const fc: FeatureCollection<Point> = {
-      type: "FeatureCollection",
-      features: data,
-    };
-    const [e, s, w, n] = bbox(fc);
-    const bounds = [w, s, e, n] as [number, number, number, number];
-    return new LngLatBounds(bounds);
-  }, [data]);
+  const handleMove = useCallback(
+    (event: ViewStateChangeEvent) => {
+      setViewState(event.viewState);
+    },
+    [setViewState],
+  );
+
+  const symbolScale = mapToScale(symbolMap, "circle");
 
   return (
     <Map
-      ref={mapRef}
-      initialViewState={{
-        longitude: bounds.getCenter().lng,
-        latitude: bounds.getCenter().lat,
-        zoom: 10,
-      }}
+      id="rightsMap"
+      initialViewState={viewState}
       style={{ width: "100%", height: "100%" }}
       mapStyle={mapStyle}
       interactiveLayerIds={["borders"]}
       onMouseMove={onHover}
       onMouseOut={() => setHoverInfo(undefined)}
-      onZoomEnd={() => setZoom(mapRef.current?.getZoom())}
+      onMove={handleMove}
     >
       <NavigationControl />
       <ScaleControl />

@@ -1,12 +1,15 @@
 "use client";
 
 import "maplibre-gl/dist/maplibre-gl.css";
-import { PropsWithChildren, useState } from "react";
+import { PropsWithChildren, useMemo, useState } from "react";
 import { FC } from "react";
 import { RightsExplorerContext } from "./RightsExplorerContext";
 import { RightsData } from "@/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
 import { mapToScale } from "@/lib/helpers";
+import { MapProvider, ViewState } from "react-map-gl/maplibre";
+import { LngLatBounds } from "maplibre-gl";
+import bbox from "@turf/bbox";
 
 type Props = PropsWithChildren<{
   data?: RightsData["features"];
@@ -28,6 +31,22 @@ const RightsExplorer: FC<Props> = ({
       .flat()
       .map((d) => d.attributeName),
   );
+
+  const bounds = useMemo(() => {
+    const fc = {
+      type: "FeatureCollection",
+      features: data,
+    };
+    const [e, s, w, n] = bbox(fc);
+    const bounds = [w, s, e, n] as [number, number, number, number];
+    return new LngLatBounds(bounds);
+  }, [data]);
+
+  const [viewState, setViewState] = useState<ViewState>({
+    longitude: bounds.getCenter().lng,
+    latitude: bounds.getCenter().lat,
+    zoom: 10,
+  } as ViewState);
 
   const [order, setOrder] = useState(initialOrder ?? Array.from(uniqueSet));
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
@@ -54,9 +73,11 @@ const RightsExplorer: FC<Props> = ({
         setActiveCategory,
         setColorScale,
         setSymbolMap,
+        viewState,
+        setViewState,
       }}
     >
-      {children}
+      <MapProvider>{children}</MapProvider>
     </RightsExplorerContext.Provider>
   );
 };
