@@ -25,7 +25,7 @@ const RightsExplorer: FC<Props> = ({
   children,
   colorMap,
 }) => {
-  const uniqueSet = new Set(
+  const attributeSet = new Set(
     data
       ?.map((d) => d.properties?.attributes)
       .flat()
@@ -48,7 +48,7 @@ const RightsExplorer: FC<Props> = ({
     zoom: 10,
   } as ViewState);
 
-  const [order, setOrder] = useState(initialOrder ?? Array.from(uniqueSet));
+  const [order, setOrder] = useState(initialOrder ?? Array.from(attributeSet));
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined,
   );
@@ -68,7 +68,7 @@ const RightsExplorer: FC<Props> = ({
         activeCategory,
         colorScale: colorScale,
         symbolMap,
-        uniqueSet,
+        attributeSet,
         setOrder,
         setActiveCategory,
         setColorScale,

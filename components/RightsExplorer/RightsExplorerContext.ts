@@ -9,7 +9,7 @@ type Context = {
   symbolMap: Map<string, string>;
   data: Feature<Point, GeoJsonProperties>[];
   colorScale: ScaleOrdinal<string, string, string>;
-  uniqueSet: Set<string>;
+  attributeSet: Set<string>;
   setActiveCategory: (
     category?: string | ((category?: string) => string | undefined),
   ) => void;

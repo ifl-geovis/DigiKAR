@@ -20,9 +20,9 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 
 const SnowflakePreview = () => {
-  const { order, setOrder, symbolMap, setSymbolMap, uniqueSet } =
+  const { order, setOrder, symbolMap, setSymbolMap, attributeSet } =
     useRightsExplorerContext();
-  const placeAttributes = Array.from(uniqueSet).map((d) => ({
+  const placeAttributes = Array.from(attributeSet).map((d) => ({
     attributeName: d,
     holders: [],
   }));

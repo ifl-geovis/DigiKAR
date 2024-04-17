@@ -14,7 +14,7 @@ import { twJoin } from "tailwind-merge";
 import ButtonWithTooltip from "../ButtonWithTooltip/ButtonWithTooltip";
 
 const RightIndicator: FC = () => {
-  const { order, uniqueSet, setOrder } = useRightsExplorerContext();
+  const { order, attributeSet, setOrder } = useRightsExplorerContext();
   return (
     <DialogContent>
       <DialogHeader>
@@ -27,7 +27,7 @@ const RightIndicator: FC = () => {
       </DialogHeader>
       <div>
         <div className="my-2">
-          {Array.from(uniqueSet.values()).map((right) => {
+          {Array.from(attributeSet.values()).map((right) => {
             const isVisualized = order.includes(right);
             return (
               <div
