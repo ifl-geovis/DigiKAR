@@ -16,6 +16,7 @@ import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext
 import RightsMarker from "./RightsMarker";
 import ZoomIndicator from "./ZoomIndicator";
 import BorderLayer from "./BorderLayer";
+import LayersControl from "./LayersControl/LayersControl";
 
 type Props = {
   borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
@@ -41,8 +42,15 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
     setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
   }, []);
 
-  const { data, order, colorScale, symbolMap, viewState, setViewState } =
-    useRightsExplorerContext();
+  const {
+    data,
+    order,
+    colorScale,
+    symbolMap,
+    viewState,
+    setViewState,
+    layers,
+  } = useRightsExplorerContext();
 
   const handleMove = useCallback(
     (event: ViewStateChangeEvent) => {
@@ -66,7 +74,10 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
     >
       <NavigationControl />
       <ScaleControl />
-      <ZoomIndicator />
+      <div className="z-1 absolute ml-[10px] mt-[10px] flex items-center gap-2">
+        <LayersControl />
+        <ZoomIndicator />
+      </div>
       {data.map((d, idx) => {
         const radius = 20;
         const markerSize = radius * 2 + 3 * 6;
@@ -91,7 +102,9 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
           </Marker>
         );
       })}
-      {borders && <BorderLayer borders={borders} />}
+      {layers.find((d) => d.name === "Borders")?.visible && borders && (
+        <BorderLayer borders={borders} />
+      )}
       {hoverInfo && (
         <div
           className="pointer-events-none absolute rounded-md bg-white p-2 shadow-lg"

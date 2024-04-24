@@ -10,6 +10,7 @@ import { mapToScale } from "@/lib/helpers";
 import { MapProvider, ViewState } from "react-map-gl/maplibre";
 import { LngLatBounds } from "maplibre-gl";
 import bbox from "@turf/bbox";
+import { Layer } from "@/types/Layer";
 
 type Props = PropsWithChildren<{
   data?: RightsData["features"];
@@ -60,6 +61,10 @@ const RightsExplorer: FC<Props> = ({
     ScaleOrdinal<string, string, string>
   >(() => initialColorScale);
 
+  const [layers, setLayers] = useState<Layer[]>([
+    { name: "Borders", visible: false },
+  ]);
+
   return (
     <RightsExplorerContext.Provider
       value={{
@@ -75,6 +80,8 @@ const RightsExplorer: FC<Props> = ({
         setSymbolMap,
         viewState,
         setViewState,
+        layers,
+        setLayers,
       }}
     >
       <MapProvider>{children}</MapProvider>

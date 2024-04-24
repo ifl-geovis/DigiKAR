@@ -1,3 +1,4 @@
+import { Layer } from "@/types/Layer";
 import { ScaleOrdinal } from "d3";
 import { Feature, GeoJsonProperties, Point } from "geojson";
 import { createContext, useContext } from "react";
@@ -18,6 +19,8 @@ type Context = {
   setColorScale: (scale: ScaleOrdinal<string, string, string>) => void;
   setViewState: (viewState: ViewState) => void;
   viewState: ViewState;
+  layers: Layer[];
+  setLayers: (layers: Layer[]) => void;
 };
 
 export const RightsExplorerContext = createContext<Context | null>(null);
