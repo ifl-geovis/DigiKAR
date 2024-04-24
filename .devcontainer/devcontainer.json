@@ -14,7 +14,7 @@
     "ghcr.io/devcontainers-contrib/features/pnpm:2": {},
     "ghcr.io/joshuanianji/devcontainer-features/mount-pnpm-store:1": {},
     "ghcr.io/eitsupi/devcontainer-features/duckdb-cli:1": {
-      "version": "0.9.1",
+      "version": "0.10.0",
       "extensions": "httpfs,spatial"
     }
   },
