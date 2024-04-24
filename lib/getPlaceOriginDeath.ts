@@ -13,12 +13,12 @@ export const getPlaceOriginDeath = async () => {
       FROM events
       WHERE
         event_type IN ('Tod', 'Geburt')
-        AND place IS NOT NULL
-        GROUP BY
-            place_name_geonames,
-            place,
-            event_type
-        HAVING geometry IS NOT NULL AND geometry <> '';
+        AND place_name_geonames IS NOT NULL
+        AND ST_IsValid(place)
+      GROUP BY
+        place_name_geonames,
+        place,
+        event_type;
   `);
 
   await db.close();

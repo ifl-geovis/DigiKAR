@@ -1,6 +1,6 @@
 .open './data/digikar.duckdb';
 ---
-SET extension_directory = './data';
+SET extension_directory = './data/.duckdb/extensions';
 INSTALL spatial;
 LOAD spatial;
 ---
@@ -56,7 +56,7 @@ CREATE OR REPLACE TABLE events (
 --- parse spreadsheet state_calendar erfurt
 CREATE TEMP TABLE erfurt AS
 SELECT CASE
-    WHEN contains(pers_ID_FS, '?')
+    WHEN contains(pers_ID_FS::VARCHAR, '?'::VARCHAR)
     OR pers_ID_FS = 'X' THEN NULL
     WHEN starts_with(pers_ID_FS, 'P-') THEN replace(pers_ID_FS, 'P-', '')
     ELSE pers_ID_FS
@@ -89,7 +89,7 @@ WHERE NOT is_na(event_type);
 --- parse spreadsheet university mainz
 CREATE TEMP TABLE mainz AS
 SELECT CASE
-    WHEN contains(pers_ID, '?') THEN NULL
+    WHEN contains(pers_ID::VARCHAR, '?'::VARCHAR) THEN NULL
     ELSE pers_ID
   END AS person_id,
   nas_to_null(pers_name) AS person_name,
@@ -118,7 +118,7 @@ FROM ST_Read(
 --- parse spreadsheet state calendar aschaffenburg
 CREATE TEMP TABLE aschaffenburg AS
 SELECT CASE
-    WHEN contains(pers_ID, '?') THEN NULL
+    WHEN contains(pers_ID::VARCHAR, '?'::VARCHAR) THEN NULL
     ELSE pers_ID
   END AS person_id,
   nas_to_null(pers_name) AS person_name,
@@ -148,7 +148,7 @@ FROM ST_Read(
 --- parse spreadsheet state_calendar jahns
 CREATE TEMP TABLE jahns AS
 SELECT CASE
-    WHEN contains(pers_ID, '?') THEN NULL
+    WHEN contains(pers_ID::VARCHAR, '?'::VARCHAR) THEN NULL
     WHEN starts_with(pers_ID, 'P-') THEN replace(pers_ID, 'P-', '')
     ELSE pers_ID
   END AS person_id,
