@@ -2,9 +2,11 @@
 
 import { twJoin } from "tailwind-merge";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
+import { useMapStateContext } from "../MapState/MapStateContext";
 
 const LegendNominal = () => {
-  const { colorScale, setActiveCategory, activeCategory, viewState } =
+  const { viewState } = useMapStateContext();
+  const { colorScale, setActiveCategory, activeCategory } =
     useRightsExplorerContext();
   if (viewState.zoom < 10) return <p>Zoom in to see a legend</p>;
   return (

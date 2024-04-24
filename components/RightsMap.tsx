@@ -17,6 +17,7 @@ import RightsMarker from "./RightsMarker";
 import ZoomIndicator from "./ZoomIndicator";
 import BorderLayer from "./BorderLayer";
 import LayersControl from "./LayersControl/LayersControl";
+import { useMapStateContext } from "./MapState/MapStateContext";
 
 type Props = {
   borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
@@ -42,15 +43,8 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
     setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
   }, []);
 
-  const {
-    data,
-    order,
-    colorScale,
-    symbolMap,
-    viewState,
-    setViewState,
-    layers,
-  } = useRightsExplorerContext();
+  const { data, order, colorScale, symbolMap } = useRightsExplorerContext();
+  const { viewState, setViewState, layers } = useMapStateContext();
 
   const handleMove = useCallback(
     (event: ViewStateChangeEvent) => {

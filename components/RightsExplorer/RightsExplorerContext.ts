@@ -2,7 +2,6 @@ import { Layer } from "@/types/Layer";
 import { ScaleOrdinal } from "d3";
 import { Feature, GeoJsonProperties, Point } from "geojson";
 import { createContext, useContext } from "react";
-import { ViewState } from "react-map-gl";
 
 type Context = {
   order: string[];
@@ -17,10 +16,7 @@ type Context = {
   setOrder: (order: string[]) => void;
   setSymbolMap: (symbolMap: Map<string, string>) => void;
   setColorScale: (scale: ScaleOrdinal<string, string, string>) => void;
-  setViewState: (viewState: ViewState) => void;
-  viewState: ViewState;
-  layers: Layer[];
-  setLayers: (layers: Layer[]) => void;
+  availableLayers?: Layer[];
 };
 
 export const RightsExplorerContext = createContext<Context | null>(null);

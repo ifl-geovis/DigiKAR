@@ -3,15 +3,15 @@ import { RxEyeClosed, RxEyeOpen, RxLayers } from "react-icons/rx";
 import MapControl from "../MapControl";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
+import { useMapStateContext } from "../MapState/MapStateContext";
 
 const LayersControl: FC = () => {
-  const { layers, setLayers } = useRightsExplorerContext();
+  const { layers, setLayers } = useMapStateContext();
   return (
     <MapControl>
       <Popover>
         <PopoverTrigger asChild>
-          <Button size={"icon"} variant={"ghost"}>
+          <Button disabled={!layers.length} size={"icon"} variant={"ghost"}>
             <RxLayers />
           </Button>
         </PopoverTrigger>

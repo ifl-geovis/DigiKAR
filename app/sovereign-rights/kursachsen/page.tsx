@@ -21,6 +21,7 @@ export default async function Wp2() {
         data={data}
         initialSymbolMap={symbolMap}
         colorMap={colorMapKursachsen}
+        availableLayers={[{ name: "Borders", visible: false }]}
       >
         <div className="grid grid-cols-[350px_auto] gap-5">
           <div>

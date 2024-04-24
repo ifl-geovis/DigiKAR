@@ -1,0 +1,24 @@
+import { Layer } from "@/types/Layer";
+import { Feature, GeoJsonProperties, Point } from "geojson";
+import { createContext, useContext } from "react";
+import { ViewState } from "react-map-gl";
+
+type Context = {
+  data: Feature<Point, GeoJsonProperties>[];
+  setViewState: (viewState: ViewState) => void;
+  viewState: ViewState;
+  layers: Layer[];
+  setLayers: (layers: Layer[]) => void;
+};
+
+export const MapStateContext = createContext<Context | null>(null);
+
+export const useMapStateContext = () => {
+  const context = useContext(MapStateContext);
+
+  if (context == null) {
+    throw new Error("MapState components must be wrapped in <MapState />");
+  }
+
+  return context;
+};
