@@ -40,7 +40,7 @@ docker build -t digikar --build-arg pguser=user --build-arg pghost=hostname --bu
 Run the container with environment variables for `pg node` (see build command), e.g. by using a `.env` file with:
 
 ```{bash}
-docker run --rm -p 3000:3000 --env-file .path.to.env.file --hostname localhost digikar
+docker run --rm -it -p 3000:3000 --env-file .path.to.env.file --hostname localhost digikar
 ```
 
-If you're on a M1/M2 mac add `--platform linux/amd64`.
+If you're on a M1/M2 mac add `--platform linux/amd64` to both commands.
