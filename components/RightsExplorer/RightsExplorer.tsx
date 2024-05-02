@@ -61,7 +61,7 @@ const RightsExplorer: FC<Props> = ({
         availableLayers,
       }}
     >
-      <MapState availableLayers={availableLayers} data={data ?? []}>
+      <MapState availableLayers={availableLayers} data={data}>
         <MapProvider>{children}</MapProvider>
       </MapState>
     </RightsExplorerContext.Provider>

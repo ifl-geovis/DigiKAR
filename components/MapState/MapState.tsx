@@ -8,9 +8,10 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, PropsWithChildren, useMemo, useState } from "react";
 import { MapProvider, ViewState } from "react-map-gl/maplibre";
 import { MapStateContext } from "./MapStateContext";
+import { bBoxGermany } from "@/lib/bBoxGermany";
 
 type Props = PropsWithChildren<{
-  data: Feature<Point, GeoJsonProperties>[];
+  data?: Feature<Point, GeoJsonProperties>[];
   availableLayers?: Layer[];
 }>;
 
@@ -20,7 +21,7 @@ const MapState: FC<Props> = ({ data, availableLayers, children }) => {
       type: "FeatureCollection",
       features: data,
     };
-    const [e, s, w, n] = bbox(fc);
+    const [e, s, w, n] = data ? bbox(fc) : bBoxGermany;
     const bounds = [w, s, e, n] as [number, number, number, number];
     return new LngLatBounds(bounds);
   }, [data]);
