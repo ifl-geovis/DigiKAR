@@ -1,10 +1,13 @@
-import { promises as fs } from "fs";
 import { Feature, Point, Position } from "geojson";
 import { AnsbachDataRaw, PlaceProperties } from "../types/PlaceProperties";
 
 export const loadAnsbachData = async () => {
-  const file = await fs.readFile("./data/ansbach.json", "utf-8");
-  const ansbachData = (await JSON.parse(file)) as AnsbachDataRaw;
+  const response = await fetch(
+    "https://api.geohistoricaldata.org/digikar/ansbach",
+  );
+  const ansbachData = (await response.json()).map(
+    (d: { place: AnsbachDataRaw[number] }) => d.place,
+  ) as AnsbachDataRaw;
   const data = {
     type: "FeatureCollection" as const,
     features: ansbachData
