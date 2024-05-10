@@ -24,7 +24,7 @@ const SnowflakePreview = () => {
     useRightsExplorerContext();
   const placeAttributes = Array.from(attributeSet).map((d) => ({
     attributeName: d,
-    holders: [],
+    holders: { isShared: false, isDisputed: false },
   }));
 
   const radius = 30;

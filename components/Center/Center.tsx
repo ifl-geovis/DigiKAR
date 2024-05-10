@@ -1,6 +1,6 @@
 import { FC, SVGProps } from "react";
 import Ngon from "../Ngon";
-import { Attribute } from "../../types/PlaceProperties";
+import { Attribute, HoldersGeneralized } from "../../types/PlaceProperties";
 import { interpolateGreys, scaleSequential } from "d3";
 import Tooltip from "../Tooltip";
 import TooltipContent from "../Tooltip/TooltipContent";
@@ -14,7 +14,7 @@ type Props = {
   /**
    * Which attributes should be visualized? (uni or bivariate data with multiple expressions)
    */
-  placeAttributes: Attribute[];
+  placeAttributes: Attribute<HoldersGeneralized>[];
   /**
    * How large should the radius of the Ngon be?
    */
@@ -27,7 +27,7 @@ const Center: FC<Props> = ({ placeName, placeAttributes, radius, ...rest }) => {
   // number of unique related Entities
   // TODO: implement new calculation of complexity, considering multiple right-holders per right
   const complexity = new Set(
-    placeAttributes.map((d) => d.holders.flatMap((d) => d.holderConsolidated)),
+    placeAttributes.map((d) => d.holders.categories?.[0]),
   ).size;
   const colorScale = scaleSequential(interpolateGreys).domain([
     1,

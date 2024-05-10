@@ -1,23 +1,21 @@
 "use client";
 
-import { mapToScale } from "@/lib/helpers";
 import { FeatureCollection, GeoJsonProperties, MultiPolygon } from "geojson";
 import { MapGeoJSONFeature, MapLayerMouseEvent } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useState } from "react";
 import Map, {
   MapStyle,
-  Marker,
   NavigationControl,
   ScaleControl,
   ViewStateChangeEvent,
+  useMap,
 } from "react-map-gl/maplibre";
-import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
-import RightsMarker from "./RightsMarker";
 import ZoomIndicator from "./ZoomIndicator";
 import BorderLayer from "./BorderLayer";
 import LayersControl from "./LayersControl/LayersControl";
 import { useMapStateContext } from "./MapState/MapStateContext";
+import SnowFlakeLayer from "./SnowflakeLayer";
 
 type Props = {
   borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
@@ -25,6 +23,7 @@ type Props = {
 };
 
 const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
+  const { rightsMap } = useMap();
   const [hoverInfo, setHoverInfo] = useState<
     | {
         feature: MapGeoJSONFeature;
@@ -43,8 +42,7 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
     setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
   }, []);
 
-  const { data, order, colorScale, symbolMap } = useRightsExplorerContext();
-  const { viewState, setViewState, layers } = useMapStateContext();
+  const { viewState, setViewState, layers, setBounds } = useMapStateContext();
 
   const handleMove = useCallback(
     (event: ViewStateChangeEvent) => {
@@ -53,7 +51,10 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
     [setViewState],
   );
 
-  const symbolScale = mapToScale(symbolMap, "circle");
+  const handleMoveEnd = useCallback(() => {
+    const bounds = rightsMap?.getBounds();
+    if (bounds) setBounds(bounds);
+  }, [rightsMap, setBounds]);
 
   return (
     <Map
@@ -65,6 +66,7 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
       onMouseMove={onHover}
       onMouseOut={() => setHoverInfo(undefined)}
       onMove={handleMove}
+      onMoveEnd={handleMoveEnd}
     >
       <NavigationControl />
       <ScaleControl />
@@ -72,30 +74,7 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
         <LayersControl />
         <ZoomIndicator />
       </div>
-      {data.map((d, idx) => {
-        const radius = 20;
-        const markerSize = radius * 2 + 3 * 6;
-        return (
-          <Marker
-            key={idx}
-            longitude={d.geometry.coordinates[0]}
-            latitude={d.geometry.coordinates[1]}
-          >
-            <svg width={markerSize} height={markerSize}>
-              <g transform={`translate(${markerSize / 2} ${markerSize / 2})`}>
-                <RightsMarker
-                  placeName={d.properties?.place}
-                  placeAttributes={d.properties?.attributes}
-                  radius={radius}
-                  symbolScale={symbolScale}
-                  colorScale={colorScale}
-                  rightOrder={order}
-                />
-              </g>
-            </svg>
-          </Marker>
-        );
-      })}
+      <SnowFlakeLayer />
       {layers.find((d) => d.name === "Borders")?.visible && borders && (
         <BorderLayer borders={borders} />
       )}

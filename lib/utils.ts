@@ -21,3 +21,5 @@ export const move = (array: string[], value: string, forward = true) => {
   array.splice(newIndex, 0, array.splice(currentIndex, 1)[0]);
   return array;
 };
+
+export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);

@@ -1,4 +1,4 @@
-import { Attribute } from "@/types/PlaceProperties";
+import { Attribute, HoldersGeneralized } from "@/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
 import { FC, useMemo } from "react";
 import LocationAttributeCard from "../LocationAttributeCard";
@@ -6,14 +6,14 @@ import Tooltip from "../Tooltip";
 import TooltipContent from "../Tooltip/TooltipContent";
 import TooltipTrigger from "../Tooltip/TooltipTrigger";
 import * as Popover from "@radix-ui/react-popover";
-import { ArrowRightIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { Cross2Icon } from "@radix-ui/react-icons";
 import RightShape from "../RightShape";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 
 type Props = {
   x: number;
   y: number;
-  attribute: Attribute;
+  attribute: Attribute<HoldersGeneralized>;
   placeName: string;
   circleRadius: number;
   colorScale: ScaleOrdinal<string, string, string>;
@@ -32,23 +32,22 @@ const RightIndicator: FC<Props> = ({
   const { setActiveCategory, activeCategory } = useRightsExplorerContext();
   const { isShared, color, size, opacity, onContextMenuHandler } =
     useMemo(() => {
-      const isWithoutHolder = attribute.holders.length === 0;
-      const isShared = attribute.holders.length > 1;
+      const holder = attribute.holders.categories?.[0]?.normalize();
+      const isWithoutHolder = !holder;
+      const isShared = attribute.holders.isShared;
       const color = isWithoutHolder
         ? "black"
         : isShared
           ? "white"
-          : colorScale(attribute.holders[0].holderConsolidated ?? "");
+          : colorScale(holder);
+
       const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
       const opacity =
         !activeCategory ||
         (activeCategory &&
-          attribute.holders
-            .map((d) => d.holderConsolidated)
-            .includes(activeCategory))
+          attribute.holders.categories?.includes(activeCategory))
           ? 1
           : 0.2;
-      const holder = attribute.holders[0]?.holderConsolidated;
       const onContextMenuHandler =
         (!isShared && !isWithoutHolder) || !holder
           ? () =>
@@ -84,6 +83,7 @@ const RightIndicator: FC<Props> = ({
                 color={color}
                 opacity={opacity}
                 isShared={isShared}
+                //TODO: add alternative symbols here
                 onContextMenuHandler={onContextMenuHandler}
               />
             </TooltipTrigger>
@@ -102,7 +102,7 @@ const RightIndicator: FC<Props> = ({
           <div className="mb-2 border-b border-b-[lightgrey] pb-2">
             <strong>{attribute.attributeName}</strong> in {placeName}
           </div>
-          {attribute.holders.map(({ holder, holderConsolidated }, i) => (
+          {/* {attribute.holders.map(({ holder, holderConsolidated }, i) => (
             <div key={i} className="flex items-center">
               {holder} <ArrowRightIcon />
               <svg
@@ -119,7 +119,7 @@ const RightIndicator: FC<Props> = ({
               </svg>
               {holderConsolidated}
             </div>
-          ))}
+          ))} */}
           <Popover.Close
             className="absolute right-[1rem] top-[1rem] rounded-full"
             aria-label="Close"

@@ -1,17 +1,18 @@
 "use client";
 
 import { mapToScale } from "@/lib/helpers";
-import { RightsData } from "@/types/PlaceProperties";
+import { Bbox } from "@/types/Bbox";
+import { Layer } from "@/types/Layer";
 import { ScaleOrdinal } from "d3";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, PropsWithChildren, useState } from "react";
 import { MapProvider } from "react-map-gl/maplibre";
-import { RightsExplorerContext } from "./RightsExplorerContext";
 import MapState from "../MapState";
-import { Layer } from "@/types/Layer";
+import { RightsExplorerContext } from "./RightsExplorerContext";
 
 type Props = PropsWithChildren<{
-  data?: RightsData["features"];
+  initialBbox: Bbox;
+  attributeSet: Set<string>;
   initialSymbolMap: Map<string, string>;
   initialOrder?: string[];
   colorMap: Map<string, string>;
@@ -19,20 +20,14 @@ type Props = PropsWithChildren<{
 }>;
 
 const RightsExplorer: FC<Props> = ({
-  data,
+  attributeSet,
+  initialBbox,
   initialOrder,
   initialSymbolMap,
   children,
   colorMap,
   availableLayers,
 }) => {
-  const attributeSet = new Set(
-    data
-      ?.map((d) => d.properties?.attributes)
-      .flat()
-      .map((d) => d.attributeName),
-  );
-
   const [order, setOrder] = useState(initialOrder ?? Array.from(attributeSet));
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined,
@@ -48,7 +43,6 @@ const RightsExplorer: FC<Props> = ({
   return (
     <RightsExplorerContext.Provider
       value={{
-        data: data ?? [],
         order,
         activeCategory,
         colorScale: colorScale,
@@ -61,7 +55,7 @@ const RightsExplorer: FC<Props> = ({
         availableLayers,
       }}
     >
-      <MapState availableLayers={availableLayers} data={data}>
+      <MapState availableLayers={availableLayers} initialBbox={initialBbox}>
         <MapProvider>{children}</MapProvider>
       </MapState>
     </RightsExplorerContext.Provider>

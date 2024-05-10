@@ -1,4 +1,3 @@
-import getElectoralSaxonyData from "@/lib/getElectoralSaxonyData";
 import MapStage from "../../../components/MapStage";
 import RightsMap from "../../../components/RightsMap";
 import { getMapStyle } from "../../../lib/getMapStyle";
@@ -11,14 +10,29 @@ import colorMapKursachsen from "@/lib/colorMapKursachsen";
 import Timeline from "@/components/Timeline";
 
 export default async function Wp2() {
-  const data = await getElectoralSaxonyData();
+  const attributeSet = new Set([
+    "Hochgericht",
+    "Niedergericht",
+    "Grundherrschaft",
+    "Landeshoheit",
+    "Verwaltungzugehörigkeit",
+    "Kirchenpatronat",
+    "Jagd",
+  ]);
   const style = await getMapStyle();
   const borders = await getVoronoi();
   const symbolMap = new Map();
 
   return (
     <RightsExplorer
-      data={data}
+      initialBbox={[13.3, 51.0, 14.0, 51.2]}
+      attributeSet={attributeSet}
+      initialOrder={[
+        "Hochgericht",
+        "Niedergericht",
+        "Grundherrschaft",
+        "Landeshoheit",
+      ]}
       initialSymbolMap={symbolMap}
       colorMap={colorMapKursachsen}
       availableLayers={[{ name: "Borders", visible: false }]}
@@ -30,7 +44,7 @@ export default async function Wp2() {
             <SearchBar />
             <RightsMarkerConfig />
             <div>
-              <h3>Legend</h3>
+              <h3>Legende</h3>
               <LegendNominal />
             </div>
           </div>

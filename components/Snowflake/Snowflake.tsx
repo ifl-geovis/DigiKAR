@@ -1,7 +1,6 @@
-import { ScaleOrdinal, range, scaleOrdinal, schemeTableau10, union } from "d3";
-import { FC, SVGProps } from "react";
-import { Attribute } from "../../types/PlaceProperties";
-import Center from "../Center";
+import { ScaleOrdinal, scaleOrdinal, schemeTableau10 } from "d3";
+import { FC, SVGProps, memo } from "react";
+import { Attribute, HoldersGeneralized } from "../../types/PlaceProperties";
 import RightIndicator from "../RightIndicator";
 import useSnowflake from "./useSnowflake.hook";
 
@@ -13,7 +12,7 @@ type Props = {
   /**
    * Which space-establishing attributes should be visualized? (uni or bivariate data with multiple expressions)
    */
-  placeAttributes: Attribute[];
+  placeAttributes: Attribute<HoldersGeneralized>[];
   /**
    * How large should the radius of the snwoflake be?
    */
@@ -50,12 +49,11 @@ const Snowflake: FC<Props> = ({
   radius,
   circleRadius = radius / 3,
   colorScale = scaleOrdinal<string, string>().range(schemeTableau10),
-  drawCenter = false,
   attributeOrder,
   symbolScale,
   ...rest
 }) => {
-  const { points, outerRadius } = useSnowflake(
+  const { points } = useSnowflake(
     placeAttributes,
     radius,
     circleRadius,
@@ -65,9 +63,6 @@ const Snowflake: FC<Props> = ({
   return (
     <g {...rest}>
       {points.map(({ x, y, attributeName, holders }) => {
-        const distHoldersConsolidated = Array.from(
-          union(holders.map((h) => h.holderConsolidated)),
-        );
         return (
           <g key={`ray-${attributeName}`}>
             <line x2={x} y2={y} stroke={"black"} />
@@ -80,32 +75,13 @@ const Snowflake: FC<Props> = ({
               attribute={{ attributeName, holders }}
               placeName={placeName}
             />
-            <g pointerEvents="none">
-              {distHoldersConsolidated.length > 1 &&
-                range(distHoldersConsolidated.length).map((_, i) => (
-                  <circle
-                    key={i}
-                    cx={x}
-                    cy={y}
-                    r={circleRadius + i * 3}
-                    strokeWidth={0.5}
-                    stroke={"grey"}
-                    fill={"none"}
-                  />
-                ))}
-            </g>
           </g>
         );
       })}
-      {drawCenter && (
-        <Center
-          placeName={placeName}
-          radius={outerRadius / 2}
-          placeAttributes={placeAttributes}
-        />
-      )}
     </g>
   );
 };
 
 export default Snowflake;
+
+export const SnowflakeMemoized = memo(Snowflake);

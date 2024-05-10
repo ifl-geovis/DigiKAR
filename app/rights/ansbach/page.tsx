@@ -8,8 +8,11 @@ import { TbDatabaseX } from "react-icons/tb";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig/RightsMarkerConfig";
 import LegendNominal from "@/components/LegendNominal";
 import SearchBar from "@/components/SearchBar";
+import { notFound } from "next/navigation";
 
 export default async function Wp2() {
+  notFound();
+  return;
   const data = await (async () => {
     try {
       return await loadAnsbachData();
@@ -30,7 +33,8 @@ export default async function Wp2() {
   return (
     <>
       <RightsExplorer
-        data={data?.features}
+        attributeSet={new Set(rightsOrder)}
+        initialBbox={[10.4, 49.1, 10.6, 49.3]}
         initialOrder={rightsOrder}
         initialSymbolMap={symbolMap}
         colorMap={colorMapAnsbach}
@@ -38,7 +42,6 @@ export default async function Wp2() {
         <div className="grid grid-cols-[350px_auto] gap-5">
           <div>
             <h2>Ansbach</h2>
-            <h3>Rechteverteilung</h3>
             <div className="flex flex-col gap-3">
               <SearchBar />
               <RightsMarkerConfig />

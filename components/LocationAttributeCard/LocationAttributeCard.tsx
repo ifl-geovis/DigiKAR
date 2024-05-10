@@ -1,4 +1,4 @@
-import { Attribute } from "../../types/PlaceProperties";
+import { Attribute, HoldersGeneralized } from "../../types/PlaceProperties";
 import { FC } from "react";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   /**
    * Which space-establishing attribute should be visualized? (uni or bivariate data with multiple expressions)
    */
-  locationAttribute: Attribute;
+  locationAttribute: Attribute<HoldersGeneralized>;
   /**
    * Which color should the indicator be in?
    */
@@ -21,13 +21,16 @@ const LocationAttributeCard: FC<Props> = ({
   locationAttribute,
   color,
 }) => {
+  const displayName = locationAttribute.holders.isShared
+    ? "geteilt"
+    : locationAttribute.holders.categories?.[0];
   return (
     <>
       <h2 className="mb-2 text-sm font-bold">{placeName}</h2>
       <p className="text-xs">Herrschaftsrecht</p>
       {locationAttribute.attributeName}
       <p className="text-xs">Inhaber:in</p>
-      {locationAttribute.holders[0]?.holderConsolidated ?? <span>NA</span>}
+      {displayName ?? <span className="italic text-gray-500">keine Daten</span>}
       <svg
         className="ml-2 inline"
         width={"1em"}

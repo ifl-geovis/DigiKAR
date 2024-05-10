@@ -1,13 +1,11 @@
 import { Layer } from "@/types/Layer";
 import { ScaleOrdinal } from "d3";
-import { Feature, GeoJsonProperties, Point } from "geojson";
 import { createContext, useContext } from "react";
 
 type Context = {
   order: string[];
   activeCategory?: string;
   symbolMap: Map<string, string>;
-  data: Feature<Point, GeoJsonProperties>[];
   colorScale: ScaleOrdinal<string, string, string>;
   attributeSet: Set<string>;
   setActiveCategory: (

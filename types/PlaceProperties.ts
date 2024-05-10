@@ -9,15 +9,27 @@ export type Holder = {
   comments?: string;
 };
 
-export type Attribute = {
+export type HoldersGeneralized = {
+  categories?: string[];
+  isDisputed: boolean;
+  isShared: boolean;
+};
+
+export type Attribute<T> = {
   attributeName: string;
-  holders: Holder[];
+  holders: T;
 };
 
 export type PlaceProperties = {
-  id?: number;
+  id?: string;
   placeName: string;
-  attributes: Attribute[];
+  attributes: Attribute<Holder[]>[];
+};
+
+export type PlacePropertiesGeneralized = {
+  id?: string;
+  placeName: string;
+  attributes: Attribute<HoldersGeneralized>[];
 };
 
 export type RightsData = FeatureCollection<Point, PlaceProperties>;

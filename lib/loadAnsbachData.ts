@@ -15,7 +15,7 @@ export const loadAnsbachData = async () => {
       .map((d, i) => {
         const feature: Feature<Point, PlaceProperties> = {
           type: "Feature",
-          properties: { ...d, id: i },
+          properties: { ...d, id: i.toString() },
           geometry: {
             type: "Point",
             coordinates: d.coordinates as Position,

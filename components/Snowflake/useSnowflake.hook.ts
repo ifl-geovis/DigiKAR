@@ -1,8 +1,8 @@
-import { Attribute } from "@/types/PlaceProperties";
+import { Attribute, HoldersGeneralized } from "@/types/PlaceProperties";
 import { getNgonPoints } from "../Ngon/Ngon.helpers";
 
 const useSnowflake = (
-  placeAttributes: Attribute[],
+  placeAttributes: Attribute<HoldersGeneralized>[],
   radius: number,
   circleRadius: number,
   order: string[],

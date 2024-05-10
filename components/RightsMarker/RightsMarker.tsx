@@ -1,19 +1,17 @@
-import { Attribute } from "@/types/PlaceProperties";
+import { Attribute, HoldersGeneralized } from "@/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
-import { FC, SVGProps, memo } from "react";
+import { FC, SVGProps } from "react";
 import { useMap } from "react-map-gl/maplibre";
-import Snowflake from "../Snowflake";
+import { SnowflakeMemoized } from "../Snowflake";
 
 type Props = {
   placeName: string;
-  placeAttributes: Attribute[];
+  placeAttributes: Attribute<HoldersGeneralized>[];
   radius: number;
   colorScale?: ScaleOrdinal<string, string, string>;
   rightOrder: string[];
   symbolScale?: ScaleOrdinal<string, string, string>;
 } & SVGProps<SVGGElement>;
-
-const SnowflakeMemoized = memo(Snowflake);
 
 const RightsMarker: FC<Props> = ({
   placeName,
@@ -25,7 +23,7 @@ const RightsMarker: FC<Props> = ({
 }) => {
   const { current: map } = useMap();
   return map && map.getZoom() < 10 ? (
-    <circle fill="red" r="3" />
+    <circle fill="white" stroke="black" strokeWidth={1} r="2" />
   ) : (
     <SnowflakeMemoized
       placeName={placeName}
