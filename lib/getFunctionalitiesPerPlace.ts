@@ -17,7 +17,7 @@ export const getFunctionalitiesPerPlace = async (
         COUNT(*) AS count
       FROM events e
       WHERE
-        analytical_lense LIKE ?
+        analytical_lens LIKE ?
         AND place IS NOT NULL
         AND place_name_geonames IS NOT NULL
         AND person_function SIMILAR TO ?

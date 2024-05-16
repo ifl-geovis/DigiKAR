@@ -45,7 +45,7 @@ CREATE OR REPLACE TABLE events (
     source VARCHAR,
     source_quotations VARCHAR,
     comment VARCHAR,
-    analytical_lense VARCHAR NOT NULL,
+    analytical_lens VARCHAR NOT NULL,
     CHECK (
       event_before BETWEEN 1400 AND 1900
       AND event_after BETWEEN 1400 AND 1900
@@ -80,7 +80,7 @@ SELECT CASE
   --- TODO: check whether source combined is the correct column?
   nas_to_null("source_combined") AS source,
   nas_to_null("source_quotations") AS source_quotations,
-  'state_calendar_erfurt' AS analytical_lense
+  'state_calendar_erfurt' AS analytical_lens
 FROM ST_Read(
     './data/Factoid_Staatskalender-Erfurt_consolidation_coordinates_event-values_person-IDs.xlsx',
     open_options = ['HEADERS=FORCE']
@@ -110,7 +110,7 @@ SELECT CASE
   nas_to_null("comment_fs") AS comment,
   nas_to_null("source") AS source,
   nas_to_null("source_quotations") AS source_quotations,
-  'university_mainz' AS analytical_lense
+  'university_mainz' AS analytical_lens
 FROM ST_Read(
     './data/Factoid_PROFS_v10_geocoded-with-IDs_v2.xlsx',
     open_options = ['HEADERS=FORCE']
@@ -140,7 +140,7 @@ SELECT CASE
   --- TODO: check whether this is correct
   nas_to_null("source_combined") AS source,
   nas_to_null("source_quotations") AS source_quotations,
-  'state_calendar_aschaffenburg' AS analytical_lense
+  'state_calendar_aschaffenburg' AS analytical_lens
 FROM ST_Read(
     './data/Factoid_Staatskalender-Aschaffenburg_TEST.xlsx',
     open_options = ['HEADERS=FORCE']
@@ -171,17 +171,52 @@ SELECT CASE
   nas_to_null("comment") AS comment,
   nas_to_null("source") AS source,
   nas_to_null("source_quotations") AS source_quotations,
-  'state_calendar_jahns' AS analytical_lense
+  'state_calendar_jahns' AS analytical_lens
 FROM ST_Read(
     './data/Factoid_Jahns_consolidation_geocoded_personIDs_2614rows.xlsx',
     open_options = ['HEADERS=FORCE']
   );
+-- parse spreadsheet student data
+CREATE TEMP TABLE students AS
+SELECT
+  999999999 AS person_id,
+  --CASE
+  --  WHEN contains(pers_ID::VARCHAR, '?'::VARCHAR) THEN NULL
+  --  WHEN starts_with(pers_ID, 'P-') THEN replace(pers_ID, 'P-', '')
+  --  ELSE pers_ID
+  -- END
+  nas_to_null(person_name) AS person_name,
+  nas_to_null(person_title) AS person_title,
+  nas_to_null(person_function) AS person_function,
+  nas_to_null(event_related_person) AS related_persons,
+  str_split(event_id, ',') AS factoid_id,
+  event_type,
+  NULL AS event_value,
+  NULL AS event_before,
+  NULL AS event_after,
+  clamp_to_range(str_to_year("date_date")) AS event_start,
+  NULL AS event_end,
+  nas_to_null(institution) AS institution_name,
+  nas_to_null(place_name_y) AS place_name,
+  NULL AS place_name_geonames,
+  point_or_null(place_lng_geonames, place_lat_geonames) AS place,
+  nas_to_null(source) AS source,
+  nas_to_null(source_quotation) AS source_quotations,
+  NULL AS comment,
+  'students' AS analytical_lens
+FROM ST_Read(
+    '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/df_students_geocoded_v1.xlsx',
+    open_options = ['HEADERS=FORCE']
+  );
+
 INSERT INTO events BY NAME
 FROM erfurt
-UNION ALL
+UNION ALL BY NAME
 FROM mainz
-UNION ALL
+UNION ALL BY NAME
 FROM aschaffenburg
-UNION ALL
-FROM jahns;
+UNION ALL BY NAME
+FROM jahns
+UNION ALL BY NAME
+FROM students;
 .exit

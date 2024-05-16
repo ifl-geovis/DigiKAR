@@ -13,7 +13,7 @@ export const getFlowsOriginDeath = async (analyticalLense = `any`) => {
         event_type IN ('Tod', 'Geburt')
         AND place IS NOT NULL
         AND place_name_geonames IS NOT NULL
-        AND analytical_lense LIKE ?
+        AND analytical_lens LIKE ?
       GROUP BY person_id
         HAVING length(place_names) > 1
     ),
