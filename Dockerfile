@@ -1,5 +1,7 @@
 FROM node:20 AS base
 
+RUN apt-get install ca-certificates
+
 RUN wget https://github.com/duckdb/duckdb/releases/download/v0.10.2/duckdb_cli-linux-amd64.zip \
     && unzip duckdb_cli-linux-amd64.zip -d /usr/local/bin \
     && rm duckdb_cli-linux-amd64.zip
@@ -41,6 +43,7 @@ ENV PGUSER=$pguser
 ENV PGDATABASE=$pgdatabase
 ENV PGPASSWORD=$pguser
 ENV PGPORT=$pgport
+ENV CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
 # Disable next.js telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
