@@ -52,18 +52,18 @@ const sovereignRights: LinkItem[] = [
   {
     title: "Kursachsen",
     href: "/sovereign-rights/kursachsen",
-    description: "Sovereign rights in Electoral Saxony.",
+    description: "Rights in Electoral Saxony.",
   },
   {
     title: "Ansbach",
     href: "/sovereign-rights/ansbach",
-    description: "Sovereign rights around Ansbach.",
+    description: "Rights around Ansbach.",
   },
 ];
 
 const pages = [
   {
-    title: "Sovereign Rights",
+    title: "Rights",
     href: "/wp2",
     subtitle: "Focus area Kursachsen",
     subpages: sovereignRights,
