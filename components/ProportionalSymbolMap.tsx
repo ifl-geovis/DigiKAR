@@ -18,7 +18,7 @@ type Props = {
   style: StyleSpecification;
 };
 
-const MatriculationsMap: FC<Props> = ({ style, data, isLoading }) => {
+const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
   const { places, bounds } = useMemo(() => {
     if (!data)
       return {
@@ -107,4 +107,4 @@ const MatriculationsMap: FC<Props> = ({ style, data, isLoading }) => {
   );
 };
 
-export default MatriculationsMap;
+export default ProportionalSymbolMap;

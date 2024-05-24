@@ -9,25 +9,18 @@ import useSWRImmutable from "swr/immutable";
 import fetcher from "../lib/fetcher";
 import MapStage from "./MapStage";
 import { Label } from "./ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 import { Slider } from "./ui/slider";
-import ProportionalSymbolMap from "./ProportionalSymbolMap";
+import ProportionalSymbol from "./ProportionalSymbolMap";
+import { RxMixerVertical } from "react-icons/rx";
 
 type Props = {
   style: StyleSpecification;
 };
 
-const MatriculationsMapContainer: FC<Props> = ({ style }) => {
-  const initialTimeRange = useMemo(() => [1400, 1900], []);
+const OriginsMapContainer: FC<Props> = ({ style }) => {
+  const initialTimeRange = useMemo(() => [1477, 1806], []);
   const [initialMin, initialMax] = initialTimeRange;
 
-  const [eventType, setEventType] = useState<undefined | string>(undefined);
   const [timeRange, setTimeRange] = useState(initialTimeRange);
 
   const [params, setParams] = useState<URLSearchParams>(
@@ -40,7 +33,6 @@ const MatriculationsMapContainer: FC<Props> = ({ style }) => {
   const updateParams = useMemo(
     () =>
       debounce(([min, max]: [number, number]) => {
-        console.log("updating params");
         setParams(
           new URLSearchParams({ min: min.toString(), max: max.toString() }),
         );
@@ -56,17 +48,17 @@ const MatriculationsMapContainer: FC<Props> = ({ style }) => {
     [updateParams],
   );
 
-  eventType ? params.set("eventType", eventType) : params.delete("eventType");
-
   const { data, isLoading } = useSWRImmutable<
     Awaited<ReturnType<typeof getMatriculations>>
-  >(`/api/matriculations?${params}`, fetcher, { keepPreviousData: true });
+  >(`/api/origins-mainz?${params}`, fetcher, { keepPreviousData: true });
 
   return (
     <>
       <div className="my-5 flex gap-10">
         <div className="flex w-64 flex-col gap-3">
-          <Label>Time range ({timeRange.join("–")})</Label>
+          <Label className="flex gap-2">
+            <RxMixerVertical /> Zeitraum ({timeRange.join("-")})
+          </Label>
           <div className="flex gap-5">
             <div>{initialMin}</div>
             <Slider
@@ -78,32 +70,12 @@ const MatriculationsMapContainer: FC<Props> = ({ style }) => {
             <div>{initialMax}</div>
           </div>
         </div>
-        <div>
-          <Label>event type</Label>
-          <Select
-            defaultValue="Immatrikulation"
-            onValueChange={(value) => setEventType(value)}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Wähle eine Sonde" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Immatrikulation">Immatrikulation</SelectItem>
-              <SelectItem value="Studium">Studium</SelectItem>
-              <SelectItem value="Promotion">Promotion</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
       </div>
       <MapStage>
-        <ProportionalSymbolMap
-          style={style}
-          data={data}
-          isLoading={isLoading}
-        />
+        <ProportionalSymbol style={style} data={data} isLoading={isLoading} />
       </MapStage>
     </>
   );
 };
 
-export default MatriculationsMapContainer;
+export default OriginsMapContainer;

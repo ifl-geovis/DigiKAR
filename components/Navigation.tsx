@@ -17,6 +17,11 @@ type LinkItem = { title: string; href: string; description?: string };
 
 const mobility: LinkItem[] = [
   {
+    title: "Origins by study events",
+    href: "/mobility/herkunft",
+    description: "Where students from the University of Mainz came from.",
+  },
+  {
     title: "Biographies",
     href: "/mobility/biographies",
     description: "How individuals move within the Holy Roman Empire.",

@@ -6,10 +6,8 @@ export default async function NextPage() {
 
   return (
     <>
-      <>
-        <h2>Matriculations of professors in Mainz</h2>
-        <MatriculationsMapContainer style={style} />
-      </>
+      <h2>Matriculations of professors in Mainz</h2>
+      <MatriculationsMapContainer style={style} />
     </>
   );
 }

@@ -198,7 +198,7 @@ SELECT
   NULL AS event_end,
   nas_to_null(institution) AS institution_name,
   nas_to_null(place_name_y) AS place_name,
-  NULL AS place_name_geonames,
+  nas_to_null(place_name_y) place_name_geonames,
   point_or_null(place_lng_geonames, place_lat_geonames) AS place,
   nas_to_null(source) AS source,
   nas_to_null(source_quotation) AS source_quotations,
