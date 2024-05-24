@@ -4,7 +4,7 @@ import pool from "./pool";
 const getVoronoi = async () => {
   const result = await pool.query(`
     WITH json AS (
-      SELECT * FROM gis.voronoi
+      SELECT * FROM gis_unplugged.voronoi
     )
     SELECT ST_AsGeoJSON(json)::json AS feature
     FROM json;
