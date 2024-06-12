@@ -3,8 +3,10 @@ export default async function Home() {
     <div className="max-w-screen-sm">
       <h2>Internal prototype for DigiKAR</h2>
       <p>
-        Explorative, point-based visualizations of space constituting phenomena
-        in the Holy&nbsp;Roman&nbsp;Empire (&ldquo;Altes&nbsp;Reich&rdquo;).
+        Explorative, punktbasierte Visualisierungen für das
+        Heilige&nbsp;Römische&nbsp;Reich&nbsp;deutscher&nbsp;Nation
+        (&ldquo;Altes&nbsp;Reich&rdquo;). Über die Konstituierung von Räumen
+        durch Mobilität und plurale Verteilung von Herrschaftsrechten.
       </p>
     </div>
   );

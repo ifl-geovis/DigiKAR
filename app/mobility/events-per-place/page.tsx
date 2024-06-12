@@ -10,7 +10,7 @@ export default async function Wp3() {
   return (
     <>
       <h2>Kurmainz</h2>
-      <p>person-related Data</p>
+      <p>Geburten- und Sterbeereignisse je Ort</p>
       <MapStage>
         <EventsMap style={style} data={data} />
       </MapStage>

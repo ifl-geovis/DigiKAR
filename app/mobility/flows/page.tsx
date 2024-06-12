@@ -7,9 +7,10 @@ export default async function NextPage() {
 
   return (
     <>
-      <h2 className="flex items-center gap-3">
-        Kurmainz Place of Birth <ArrowRightIcon /> Place of Death
-      </h2>
+      <h2 className="flex items-center gap-3">Kurmainz</h2>
+      <p>
+        Geburtsort <ArrowRightIcon /> Sterbeort
+      </p>
       <FlowMapContainer style={style} />
     </>
   );

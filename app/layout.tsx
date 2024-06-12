@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "DigiKAR Prototype",
   description:
-    'Explorative, point-based visualizations for the context of the Holy Roman Empire ("Altes Reich").',
+    'Explorative, punktbasierte Visualisierungen für das Heilige Römische Reich deutscher Nation ("Altes Reich").',
 };
 
 export default function RootLayout({

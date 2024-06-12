@@ -15,14 +15,16 @@ const RightsMarkerConfig: FC = () => {
       <SnowflakePreview />
       <div className="flex flex-col gap-2">
         <p>
-          Click on a right to change its order and its symbol. Customize which
-          rights are displayed by clicking on the button.
+          Klicke auf ein Recht, um seine Reihenfolge und das Symbol zu
+          verändern. Passe an, welche Rechte angezeigt werden, indem du auf den
+          Button klickst.
         </p>
         <div className="flex gap-2">
           <Dialog>
             <DialogTrigger asChild>
               <Button>
-                <RxMixerVertical className="mr-2" /> Appearance
+                <RxMixerVertical className="mr-2" />
+                Symbol ändern
               </Button>
             </DialogTrigger>
             <DialogAddRight />

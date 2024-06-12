@@ -28,7 +28,7 @@ const Biographies: FC<Props> = ({ style }) => {
         {placeIsLoading && <Skeleton className="h-full w-full" />}
         {placeData && (
           <ComboBox
-            optionLabel="place"
+            optionLabel="Ort"
             onSelectHandler={setPlace}
             options={placeData
               .filter((d) => d.place)
@@ -40,7 +40,7 @@ const Biographies: FC<Props> = ({ style }) => {
         )}
         {place && (
           <span>
-            selected Place: <strong>{place}</strong>
+            ausgewählter Ort: <strong>{place}</strong>
           </span>
         )}
       </div>

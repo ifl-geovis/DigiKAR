@@ -92,11 +92,11 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
           </Select>
         </div>
         <div className="my-4 grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="email">Filter</Label>
+          <Label htmlFor="functionality">Filter</Label>
           <Input
             type="text"
-            id="filder"
-            placeholder="Functionality"
+            id="functionality"
+            placeholder="Funktion"
             onBlur={(e) => setFilter(e.target.value)}
           />
         </div>

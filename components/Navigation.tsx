@@ -17,61 +17,61 @@ type LinkItem = { title: string; href: string; description?: string };
 
 const mobility: LinkItem[] = [
   {
-    title: "Origins by study events",
+    title: "Herkunft nach Studienergeignissen",
     href: "/mobility/herkunft",
-    description: "Where students from the University of Mainz came from.",
+    description: "Herkunft der Studenten der Universität Mainz.",
   },
   {
-    title: "Biographies",
+    title: "Biographien",
     href: "/mobility/biographies",
-    description: "How individuals move within the Holy Roman Empire.",
+    description: "Wie bewegen sich Personen durch das Alte Reich.",
   },
   {
-    title: "Matriculations",
+    title: "Immatrikulationen",
     href: "/mobility/matriculations",
-    description: "Where professors studied.",
+    description: "Wo haben Professoren studiert.",
   },
   {
-    title: "Place of birth and death",
+    title: "Mobilität",
     href: "/mobility/flows",
-    description: "Where people come from and where they die.",
+    description: "Gemeinsame Biographien durch Geburts- und Sterbeort.",
   },
   {
-    title: "Functionalities and institutions",
+    title: "Funktionen und Institutionen",
     href: "/mobility/functionalities",
-    description: "Institutions and the functionalities they accumulated.",
+    description: "Institutionen und ihre Funktionen.",
   },
   {
-    title: "Births and deaths per place",
+    title: "Geburts- und Todesereignisse",
     href: "/mobility/events-per-place",
-    description: "How many people are born and die in a certain place.",
+    description: "Wie viele Personen sind an einem Ort geboren und gestorben?",
   },
 ];
 
-const sovereignRights: LinkItem[] = [
+const rights: LinkItem[] = [
   {
     title: "Kursachsen",
-    href: "/sovereign-rights/kursachsen",
-    description: "Rights in Electoral Saxony.",
+    href: "/rights/kursachsen",
+    description: "Rechteverteilung in Kursachsen.",
   },
   {
     title: "Ansbach",
-    href: "/sovereign-rights/ansbach",
-    description: "Rights around Ansbach.",
+    href: "/rights/ansbach",
+    description: "Rechteverteilung in Ansbach.",
   },
 ];
 
 const pages = [
   {
-    title: "Rights",
-    href: "/wp2",
-    subtitle: "Focus area Kursachsen",
-    subpages: sovereignRights,
+    title: "Rechte",
+    href: "/rights",
+    subtitle: "Fallstudie Kursachsen",
+    subpages: rights,
   },
   {
-    title: "Mobility",
+    title: "Mobilität",
     href: "/mobility",
-    subtitle: "Focus area Kurmainz",
+    subtitle: "Fallstudie Kurmainz",
     subpages: mobility,
   },
 ];
@@ -80,7 +80,7 @@ const Navigation = () => {
   return (
     <div className="container mb-10 mt-10 flex items-baseline">
       <Link className="me-5 text-sm" href={"/"}>
-        DigiKAR <sup>prototype</sup>
+        DigiKAR <sup>Prototyp</sup>
       </Link>
       <NavigationMenu>
         <NavigationMenuList>

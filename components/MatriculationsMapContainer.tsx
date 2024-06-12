@@ -66,7 +66,7 @@ const MatriculationsMapContainer: FC<Props> = ({ style }) => {
     <>
       <div className="my-5 flex gap-10">
         <div className="flex w-64 flex-col gap-3">
-          <Label>Time range ({timeRange.join("–")})</Label>
+          <Label>Zeitraum ({timeRange.join("–")})</Label>
           <div className="flex gap-5">
             <div>{initialMin}</div>
             <Slider
@@ -79,7 +79,7 @@ const MatriculationsMapContainer: FC<Props> = ({ style }) => {
           </div>
         </div>
         <div>
-          <Label>event type</Label>
+          <Label>Art des Ereignisses</Label>
           <Select
             defaultValue="Immatrikulation"
             onValueChange={(value) => setEventType(value)}

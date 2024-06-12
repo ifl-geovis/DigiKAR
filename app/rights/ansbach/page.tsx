@@ -38,12 +38,12 @@ export default async function Wp2() {
         <div className="grid grid-cols-[350px_auto] gap-5">
           <div>
             <h2>Ansbach</h2>
-            <h3>Rights and potentates</h3>
+            <h3>Rechteverteilung</h3>
             <div className="flex flex-col gap-3">
               <SearchBar />
               <RightsMarkerConfig />
               <div>
-                <h3>Legend</h3>
+                <h3>Legende</h3>
                 <LegendNominal />
               </div>
             </div>
@@ -57,8 +57,8 @@ export default async function Wp2() {
                   <TbDatabaseX />
                   <h2 className="text-base font-bold">No data available</h2>
                   <p className="max-w-md">
-                    Due to limited access policy from our project partners we
-                    are not able to share and show all data publicly.
+                    Aus rechtlichen Gründen können wir die Daten für Ansbach
+                    nicht online verfügbar machen.
                   </p>
                 </div>
               </div>

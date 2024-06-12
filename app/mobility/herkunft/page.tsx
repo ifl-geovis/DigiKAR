@@ -6,7 +6,8 @@ export default async function NextPage() {
 
   return (
     <>
-      <h2>Herkunft Studenten Universität Mainz</h2>
+      <h2>Kurmainz</h2>
+      <p>Herkunft von Studenten der Universität Mainz</p>
       <OriginsMapContainer style={style} />
     </>
   );

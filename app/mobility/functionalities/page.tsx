@@ -6,7 +6,8 @@ export default async function NextPage() {
 
   return (
     <>
-      <h2>AP3 person functionalities</h2>
+      <h2>Kurmainz</h2>
+      <p>Funktionen von Personen je Institution</p>
       <PlaceFunctionalitiesMap style={style} />
     </>
   );

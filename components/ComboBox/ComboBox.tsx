@@ -41,13 +41,13 @@ const ComboBox: FC<Props> = ({ options, optionLabel, onSelectHandler }) => {
           {value
             ? options.find((option) => option.value.toLowerCase() === value)
                 ?.label
-            : `Select ${optionLabel}...`}
+            : `${optionLabel} wählen ...`}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] overflow-y-scroll p-0">
         <Command>
-          <CommandInput placeholder={`Search ${optionLabel}...`} />
+          <CommandInput placeholder={`${optionLabel} suchen ...`} />
           <CommandEmpty>No {optionLabel} found.</CommandEmpty>
           <ScrollArea className="max-h-[300px]">
             <CommandGroup>
