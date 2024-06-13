@@ -3,10 +3,11 @@ import { createDatabase } from "./createDatabase";
 
 export const getBiographiesByCommonEvent = async (
   event: string,
-  place: string
+  place: string,
 ) => {
   const db = await createDatabase();
 
+  //TODO: remove where condition on lens as soon as student lens has person_id
   const statement = await db.prepare(`
     WITH ordered_events AS (
       FROM events
@@ -16,7 +17,8 @@ export const getBiographiesByCommonEvent = async (
           FROM events
           WHERE 
             event_type = ?
-            AND place_name_geonames LIKE ?
+            AND place_name_geonames ILIKE ?
+            AND analytical_lens <> 'students'
           )
         AND place_name_geonames IS NOT NULL
       ORDER BY event_start
