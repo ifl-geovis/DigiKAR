@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   const filter = request.nextUrl.searchParams.get("filter");
   const functionalities = await getFunctionalitiesPerPlace(
     table ?? "state_calendar_aschaffenburg",
-    filter?.split(",")
+    filter?.split(","),
   );
 
   return NextResponse.json(functionalities);

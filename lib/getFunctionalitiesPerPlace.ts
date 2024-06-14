@@ -10,16 +10,16 @@ export const getFunctionalitiesPerPlace = async (
   const statement = await db.prepare(`
     WITH functions_sum AS (
       SELECT 
-        FIRST(place_name_geonames) AS place_name,
+        FIRST(place_name) AS place_name,
         place,
         person_function AS function,
         institution_name AS institution,
         COUNT(*) AS count
       FROM events e
       WHERE
-        analytical_lens LIKE ?
+        event_analytical_lens LIKE ?
         AND place IS NOT NULL
-        AND place_name_geonames IS NOT NULL
+        AND place_name IS NOT NULL
         AND person_function SIMILAR TO ?
       GROUP BY
         place,

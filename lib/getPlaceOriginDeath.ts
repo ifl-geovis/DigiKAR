@@ -7,16 +7,16 @@ export const getPlaceOriginDeath = async () => {
   const res = await db.all(`
       SELECT
         Count()::INT AS value,
-        place_name_geonames AS place,
+        place_name AS place,
         ST_AsGeoJson(place) AS geometry,
         event_type
       FROM events
       WHERE
         event_type IN ('Tod', 'Geburt')
-        AND place_name_geonames IS NOT NULL
+        AND place_name IS NOT NULL
         AND ST_IsValid(place)
       GROUP BY
-        place_name_geonames,
+        place_name,
         place,
         event_type;
   `);

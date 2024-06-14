@@ -17,11 +17,11 @@ export const getBiographiesByCommonEvent = async (
           FROM events
           WHERE 
             event_type = ?
-            AND place_name_geonames ILIKE ?
-            AND analytical_lens <> 'students'
+            AND place_name ILIKE ?
+            AND event_analytical_lens <> 'students'
           )
-        AND place_name_geonames IS NOT NULL
-      ORDER BY event_start
+        AND place_name IS NOT NULL
+      ORDER BY event_date
     )
     SELECT 
     json_object(
@@ -41,8 +41,8 @@ export const getBiographiesByCommonEvent = async (
                       'type', event_type,
                       'function', person_function,
                       'value', event_value,
-                      'place', place_name_geonames,
-                      'start', event_start
+                      'place', place_name,
+                      'start', event_date_start
                   )
               )
           ),

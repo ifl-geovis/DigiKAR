@@ -39,17 +39,21 @@ const FlowMapContainer: FC<Props> = ({ style }) => {
             <SelectValue placeholder="Wähle eine Sonde" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="any">All analytical lenses</SelectItem>
+            {/* TODO: enable items as soon as students data get person_ids */}
+            <SelectItem disabled value="any">
+              Alle Datensonden
+            </SelectItem>
             <SelectGroup className="mt-1 border-t border-gray-200">
-              <SelectLabel className="mt-2 text-xs">
-                Analytical lenses
-              </SelectLabel>
+              <SelectLabel className="mt-2 text-xs">Datensonde</SelectLabel>
               <SelectItem value="state_calendar_erfurt">Erfurt</SelectItem>
               <SelectItem value="university_mainz">Mainz</SelectItem>
-              <SelectItem value="state_calendar_aschaffenburg">
+              <SelectItem disabled value="state_calendar_aschaffenburg">
                 Aschaffenburg
               </SelectItem>
               <SelectItem value="state_calendar_jahns">Jahns</SelectItem>
+              <SelectItem disabled value="students">
+                Studenten Universität Mainz
+              </SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

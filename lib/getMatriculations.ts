@@ -16,7 +16,7 @@ export const getMatriculations = async (
           'properties',
           json_object(
               'place_name',
-              place_name_geonames,
+              place_name,
               'number',
               COUNT(*)
           ),
@@ -26,10 +26,10 @@ export const getMatriculations = async (
     FROM events
     WHERE
       event_type = ?
-      AND event_start BETWEEN ? AND ?
-    GROUP BY place_name_geonames, place
+      AND event_date BETWEEN ? AND ?
+    GROUP BY place_name, place
     HAVING
-      place_name_geonames IS NOT NULL AND
+      place_name IS NOT NULL AND
       place IS NOT NULL;
   `);
   const res = await statement.all(eventType, min, max);

@@ -9,14 +9,14 @@ export const getUniquePlaces = async (
 
   const statement = await db.prepare(`
     SELECT DISTINCT
-        place_name_geonames AS place
+        place_name AS place
     FROM events
     ${
       source &&
       `WHERE
         list_contains(sources, ?)`
     }
-    ORDER BY place_name_geonames;
+    ORDER BY place_name;
   `);
 
   const res = await statement.all(source);
