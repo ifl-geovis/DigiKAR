@@ -29,7 +29,7 @@ const SnowflakePreview = () => {
 
   const radius = 30;
   const radiusLabels = radius + 20;
-  const circleRadius = 5;
+  const circleRadius = 6.6;
   const padding = 3;
   const { points } = useSnowflake(placeAttributes, radius, circleRadius, order);
   const { points: pointsLabels } = useSnowflake(
