@@ -35,7 +35,7 @@ export default async function Wp2() {
   return (
     <RightsExplorer
       fetcher={fetcher}
-      initialBbox={[13.3, 51.0, 14.0, 51.2]}
+      initialBbox={[13.6, 51.05, 13.7, 51.15]}
       attributeSet={attributeSet}
       initialOrder={[
         "Hochgericht",

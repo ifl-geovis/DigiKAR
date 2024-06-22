@@ -18,7 +18,7 @@ const MapState: FC<Props> = ({ initialBbox, availableLayers, children }) => {
   const [viewState, setViewState] = useState<ViewState>({
     longitude: initialBounds.getCenter().lng,
     latitude: initialBounds.getCenter().lat,
-    zoom: 10,
+    zoom: 12,
   } as ViewState);
 
   const [bounds, setBounds] = useState<LngLatBounds>(initialBounds);

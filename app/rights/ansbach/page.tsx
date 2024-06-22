@@ -26,7 +26,7 @@ export default async function Wp2() {
       <RightsExplorer
         fetcher={fetcher}
         attributeSet={new Set(rightsOrder)}
-        initialBbox={[10.4, 49.1, 10.6, 49.3]}
+        initialBbox={[10.52, 49.25, 10.62, 49.35]}
         initialOrder={rightsOrder}
         initialSymbolMap={symbolMap}
         colorMap={colorMapAnsbach}
