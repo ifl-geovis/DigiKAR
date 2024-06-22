@@ -14,7 +14,7 @@ import { capitalize } from "./utils";
  * @param t The time in years as integer
  * @returns The schema for the right data
  */
-export const toRightSchema = (
+export const kursachsenToRightSchema = (
   data: GeneralizedApiRight,
   t: number,
 ): FeatureCollection<Point, PlacePropertiesGeneralized> => {

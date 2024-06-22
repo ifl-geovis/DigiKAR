@@ -3,6 +3,7 @@ import { ScaleOrdinal } from "d3";
 import { createContext, useContext } from "react";
 
 type Context = {
+  fetcher: { baseUrl: string; params?: string; needsTransform?: boolean };
   order: string[];
   activeCategory?: string;
   symbolMap: Map<string, string>;

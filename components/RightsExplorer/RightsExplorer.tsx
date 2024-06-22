@@ -17,9 +17,11 @@ type Props = PropsWithChildren<{
   initialOrder?: string[];
   colorMap: Map<string, string>;
   availableLayers?: Layer[];
+  fetcher: { baseUrl: string; params?: string; needsTransform?: boolean };
 }>;
 
 const RightsExplorer: FC<Props> = ({
+  fetcher,
   attributeSet,
   initialBbox,
   initialOrder,
@@ -43,6 +45,7 @@ const RightsExplorer: FC<Props> = ({
   return (
     <RightsExplorerContext.Provider
       value={{
+        fetcher,
         order,
         activeCategory,
         colorScale: colorScale,

@@ -19,12 +19,22 @@ export default async function Wp2() {
     "Kirchenpatronat",
     "Jagd",
   ]);
+
+  const columns =
+    "attested,rights_disputed_by,rights_held_by,rightholders_categories";
+  const params = `select=*,grundherrschaft_summary(attested,rights_disputed_by,rights_held_by,rightholders_categories),hochgericht_summary(${columns}),niedergericht_summary(${columns}),verwaltungzugehoerigkeit_summary(${columns}),landeshoheit_summary(${columns}),jagd_summary(${columns}),kirchenpatronat_summary(${columns})&limit=100`;
   const style = await getMapStyle();
+  const fetcher = {
+    baseUrl: "https://api.geohistoricaldata.org/digikar/rpc/orte.geojson",
+    params,
+    needsTransform: true,
+  };
   const borders = await getVoronoi();
   const symbolMap = new Map();
 
   return (
     <RightsExplorer
+      fetcher={fetcher}
       initialBbox={[13.3, 51.0, 14.0, 51.2]}
       attributeSet={attributeSet}
       initialOrder={[

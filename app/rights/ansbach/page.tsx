@@ -3,23 +3,11 @@ import MapStage from "../../../components/MapStage";
 import RightsMap from "../../../components/RightsMap";
 import colorMapAnsbach from "../../../lib/colorMapAnsbach";
 import { getMapStyle } from "../../../lib/getMapStyle";
-import { loadAnsbachData } from "../../../lib/loadAnsbachData";
-import { TbDatabaseX } from "react-icons/tb";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig/RightsMarkerConfig";
 import LegendNominal from "@/components/LegendNominal";
 import SearchBar from "@/components/SearchBar";
-import { notFound } from "next/navigation";
 
 export default async function Wp2() {
-  notFound();
-  return;
-  const data = await (async () => {
-    try {
-      return await loadAnsbachData();
-    } catch (error) {
-      return;
-    }
-  })();
   const style = await getMapStyle();
   const symbolMap = new Map([["Dorf- und Gemeindeherrschaft", "square"]]);
   const rightsOrder = [
@@ -29,10 +17,14 @@ export default async function Wp2() {
     "Niedergericht",
     "Hochgericht",
   ];
+  const fetcher = {
+    baseUrl: "/api/rights/ansbach",
+  };
 
   return (
     <>
       <RightsExplorer
+        fetcher={fetcher}
         attributeSet={new Set(rightsOrder)}
         initialBbox={[10.4, 49.1, 10.6, 49.3]}
         initialOrder={rightsOrder}
@@ -52,20 +44,7 @@ export default async function Wp2() {
             </div>
           </div>
           <MapStage>
-            {data ? (
-              <RightsMap mapStyle={style} />
-            ) : (
-              <div className="grid h-full grid-cols-1 items-center bg-gray-50">
-                <div className="flex flex-col items-center">
-                  <TbDatabaseX />
-                  <h2 className="text-base font-bold">No data available</h2>
-                  <p className="max-w-md">
-                    Aus rechtlichen Gründen können wir die Daten für Ansbach
-                    nicht online verfügbar machen.
-                  </p>
-                </div>
-              </div>
-            )}
+            <RightsMap mapStyle={style} />
           </MapStage>
         </div>
       </RightsExplorer>
