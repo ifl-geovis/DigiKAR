@@ -77,7 +77,7 @@ const SnowflakePreview = () => {
                 <PopoverContent>
                   <div className="flex flex-col gap-2 text-sm">
                     <div className="flex items-center gap-4">
-                      <Label>Right</Label>
+                      <Label>Recht</Label>
                       <span>{attributeName}</span>
                     </div>
                     <div className="flex items-center gap-4">

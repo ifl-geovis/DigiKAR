@@ -18,11 +18,10 @@ const RightIndicator: FC = () => {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Adjust the symbol</DialogTitle>
+        <DialogTitle>Passe das Symbol an</DialogTitle>
         <DialogDescription>
-          Configure which rights from the data you would like to see in the map.
-          You can further customize their order and define a certain shape of
-          per right.
+          Stelle ein wie die Rechte in der Karte dargestellt werden sollen. Du
+          kannst die Reihenfolge und die Form der Rechte anpassen. per right.
         </DialogDescription>
       </DialogHeader>
       <div>
@@ -59,7 +58,7 @@ const RightIndicator: FC = () => {
       <DialogFooter>
         <DialogClose asChild>
           <Button>
-            <RxCheck className="mr-2" /> Done
+            <RxCheck className="mr-2" /> OK
           </Button>
         </DialogClose>
       </DialogFooter>

@@ -1,11 +1,7 @@
 import { FC } from "react";
-import { RxCheck } from "react-icons/rx";
-import { Button } from "../ui/button";
 import {
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
@@ -14,26 +10,19 @@ const RightHelpSybol: FC = () => {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>What does this even mean?</DialogTitle>
+        <DialogTitle>Wie lese ich dieses Symbol?</DialogTitle>
         <DialogDescription>
-          The distribution of rights during the times of the holy Roman empire
-          was complex. We created a symbol with the aim to visualize this
-          complex data effectively. Here&apos;s how it works.
+          The Verteilung der Rechte im Heiligen Römischen Reich war komplex. Wir
+          haben ein Symbol erstellt, um diese komplexen Daten effektiv zu
+          visualisieren. So funktioniert es. Hier erklären wir wie es
+          funktioniert.
         </DialogDescription>
       </DialogHeader>
       <div className="[&_h2]:mt-5 [&_h2]:text-base [&_h2]:font-bold">
-        <h2>A point-based approach</h2>
-        <p>Lorem ipsum</p>
-        <h2>Introducing the snowfloake</h2>
-        <p>Every ray of the snowflakes represents one </p>
+        <h2>Ein punkt-basierter Ansatz</h2>
+        <p>Jeder Strahl des Symbols steht für ein Recht.</p>
+        <p>Rechte können geteilt, umstritten oder unklar sein.</p>
       </div>
-      <DialogFooter>
-        <DialogClose asChild>
-          <Button>
-            <RxCheck className="mr-2" /> Done
-          </Button>
-        </DialogClose>
-      </DialogFooter>
     </DialogContent>
   );
 };
