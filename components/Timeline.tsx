@@ -7,6 +7,8 @@ import useMeasure from "react-use-measure";
 import useSWRImmutable from "swr/immutable";
 import Spinner from "./Spinner";
 import { Skeleton } from "./ui/skeleton";
+import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
+import TimelineBrush from "./TimelineBrush";
 
 type TimelineData = { jahr: number; count: number; right_type: string };
 
@@ -19,6 +21,7 @@ const Timeline: FC = () => {
     "/api/rights/timeline",
     fetcher,
   );
+  const { timeRange } = useRightsExplorerContext();
   const domainY =
     data && new Set(data.data.map((d: TimelineData) => d.right_type));
   const scaleY =
@@ -91,6 +94,11 @@ const Timeline: FC = () => {
                 opacity={0.5}
               />
             ))}
+            <TimelineBrush
+              timeRange={timeRange}
+              scaleX={scaleX}
+              height={height - 2 * margin}
+            />
           </svg>
         )}
       </div>

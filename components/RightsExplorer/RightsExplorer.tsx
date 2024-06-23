@@ -8,7 +8,11 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, PropsWithChildren, useState } from "react";
 import { MapProvider } from "react-map-gl/maplibre";
 import MapState from "../MapState";
-import { RightsExplorerContext } from "./RightsExplorerContext";
+import {
+  RightRequest,
+  TimeRange,
+  RightsExplorerContext,
+} from "./RightsExplorerContext";
 
 type Props = PropsWithChildren<{
   initialBbox: Bbox;
@@ -17,11 +21,13 @@ type Props = PropsWithChildren<{
   initialOrder?: string[];
   colorMap: Map<string, string>;
   availableLayers?: Layer[];
-  fetcher: { baseUrl: string; params?: string; needsTransform?: boolean };
+  rightRequest: RightRequest;
+  timeRange: TimeRange;
 }>;
 
 const RightsExplorer: FC<Props> = ({
-  fetcher,
+  rightRequest,
+  timeRange,
   attributeSet,
   initialBbox,
   initialOrder,
@@ -45,7 +51,8 @@ const RightsExplorer: FC<Props> = ({
   return (
     <RightsExplorerContext.Provider
       value={{
-        fetcher,
+        rightRequest,
+        timeRange,
         order,
         activeCategory,
         colorScale: colorScale,

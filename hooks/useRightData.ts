@@ -6,6 +6,7 @@ import useSWRImmutable from "swr/immutable";
 import useDebounce from "./useDebounce";
 import fetcher from "@/lib/fetcher";
 import { kursachsenToRightSchema } from "../lib/kursachsenToRightSchema";
+import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
 
 const toBbox = (bounds?: LngLatBounds) => {
   if (!bounds) return undefined;
@@ -19,7 +20,7 @@ const toBbox = (bounds?: LngLatBounds) => {
 
 export default function useRightData(
   url: { baseUrl: string; params?: string; needsTransform?: boolean },
-  year: number,
+  year: TimeRange,
   bounds: LngLatBounds,
 ): {
   isLoading: boolean;

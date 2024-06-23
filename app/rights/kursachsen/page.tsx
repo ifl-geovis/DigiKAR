@@ -8,6 +8,7 @@ import SearchBar from "@/components/SearchBar";
 import LegendNominal from "@/components/LegendNominal/LegendNominal";
 import colorMapKursachsen from "@/lib/colorMapKursachsen";
 import Timeline from "@/components/Timeline";
+import { RightRequest } from "@/components/RightsExplorer/RightsExplorerContext";
 
 export default async function Wp2() {
   const attributeSet = new Set([
@@ -24,7 +25,7 @@ export default async function Wp2() {
     "attested,rights_disputed_by,rights_held_by,rightholders_categories";
   const params = `select=*,grundherrschaft_summary(attested,rights_disputed_by,rights_held_by,rightholders_categories),hochgericht_summary(${columns}),niedergericht_summary(${columns}),verwaltungzugehoerigkeit_summary(${columns}),landeshoheit_summary(${columns}),jagd_summary(${columns}),kirchenpatronat_summary(${columns})&limit=100`;
   const style = await getMapStyle();
-  const fetcher = {
+  const rightRequest: RightRequest = {
     baseUrl: "https://api.geohistoricaldata.org/digikar/rpc/orte.geojson",
     params,
     needsTransform: true,
@@ -34,7 +35,7 @@ export default async function Wp2() {
 
   return (
     <RightsExplorer
-      fetcher={fetcher}
+      rightRequest={rightRequest}
       initialBbox={[13.6, 51.05, 13.7, 51.15]}
       attributeSet={attributeSet}
       initialOrder={[
@@ -43,6 +44,7 @@ export default async function Wp2() {
         "Grundherrschaft",
         "Landeshoheit",
       ]}
+      timeRange={{ t: 1700, support: 75 }}
       initialSymbolMap={symbolMap}
       colorMap={colorMapKursachsen}
       availableLayers={[{ name: "Borders", visible: false }]}

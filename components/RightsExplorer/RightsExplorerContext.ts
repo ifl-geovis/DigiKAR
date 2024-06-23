@@ -2,8 +2,20 @@ import { Layer } from "@/types/Layer";
 import { ScaleOrdinal } from "d3";
 import { createContext, useContext } from "react";
 
+export type TimeRange = {
+  t: number;
+  support: number;
+};
+
+export type RightRequest = {
+  baseUrl: string;
+  params?: string;
+  needsTransform?: boolean;
+};
+
 type Context = {
-  fetcher: { baseUrl: string; params?: string; needsTransform?: boolean };
+  rightRequest: RightRequest;
+  timeRange: TimeRange;
   order: string[];
   activeCategory?: string;
   symbolMap: Map<string, string>;

@@ -7,16 +7,17 @@ import {
 } from "@/types/PlaceProperties";
 import { FeatureCollection, Point } from "geojson";
 import { capitalize } from "./utils";
+import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
 
 /**
  * Transform the API response into the right schema
  * @param data Data returned from the API
- * @param t The time in years as integer
+ * @param t A timeRange object
  * @returns The schema for the right data
  */
 export const kursachsenToRightSchema = (
   data: GeneralizedApiRight,
-  t: number,
+  t: TimeRange,
 ): FeatureCollection<Point, PlacePropertiesGeneralized> => {
   const features = data.features.map((feature) => {
     const rights = Object.entries(feature.properties).reduce<

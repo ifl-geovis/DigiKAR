@@ -6,6 +6,7 @@ import { getMapStyle } from "../../../lib/getMapStyle";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig/RightsMarkerConfig";
 import LegendNominal from "@/components/LegendNominal";
 import SearchBar from "@/components/SearchBar";
+import { RightRequest } from "@/components/RightsExplorer/RightsExplorerContext";
 
 export default async function Wp2() {
   const style = await getMapStyle();
@@ -17,14 +18,15 @@ export default async function Wp2() {
     "Niedergericht",
     "Hochgericht",
   ];
-  const fetcher = {
+  const rightRequest: RightRequest = {
     baseUrl: "/api/rights/ansbach",
   };
 
   return (
     <>
       <RightsExplorer
-        fetcher={fetcher}
+        timeRange={{ t: 1600, support: 50 }}
+        rightRequest={rightRequest}
         attributeSet={new Set(rightsOrder)}
         initialBbox={[10.52, 49.25, 10.62, 49.35]}
         initialOrder={rightsOrder}
