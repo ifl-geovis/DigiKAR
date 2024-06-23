@@ -16,6 +16,7 @@ import BorderLayer from "./BorderLayer";
 import LayersControl from "./LayersControl/LayersControl";
 import { useMapStateContext } from "./MapState/MapStateContext";
 import SnowFlakeLayer from "./SnowflakeLayer";
+import LayerMlBerlin from "./LayerMlBerlin";
 
 type Props = {
   borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
@@ -75,8 +76,11 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
         <ZoomIndicator />
       </div>
       <SnowFlakeLayer />
-      {layers.find((d) => d.name === "Borders")?.visible && borders && (
+      {layers.find((d) => d.name === "Voronoi Ämter")?.visible && borders && (
         <BorderLayer borders={borders} />
+      )}
+      {layers.find((d) => d.name === "Meilenblätter Berlin")?.visible && (
+        <LayerMlBerlin />
       )}
       {hoverInfo && (
         <div

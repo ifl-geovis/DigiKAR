@@ -59,6 +59,11 @@ const rights: LinkItem[] = [
     href: "/rights/ansbach",
     description: "Rechteverteilung in Ansbach.",
   },
+  {
+    title: "Anwesen in Höflein",
+    href: "/rights/hoeflein",
+    description: "Rechteverteilung auf Anwesenebene.",
+  },
 ];
 
 const pages = [

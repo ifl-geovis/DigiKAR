@@ -47,7 +47,10 @@ export default async function Wp2() {
       timeRange={{ t: 1700, support: 75 }}
       initialSymbolMap={symbolMap}
       colorMap={colorMapKursachsen}
-      availableLayers={[{ name: "Borders", visible: false }]}
+      availableLayers={[
+        { name: "Voronoi Ämter", visible: false },
+        { name: "Meilenblätter Berlin", visible: false },
+      ]}
     >
       <div className="grid grid-cols-[350px_auto] gap-5">
         <div>

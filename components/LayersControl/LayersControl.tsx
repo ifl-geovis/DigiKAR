@@ -35,7 +35,7 @@ const LayersControl: FC = () => {
                     );
                   }}
                 >
-                  Borders
+                  {layer.name}
                 </Button>
               </li>
             ))}

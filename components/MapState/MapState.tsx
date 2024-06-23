@@ -11,14 +11,20 @@ import { Bbox } from "@/types/Bbox";
 type Props = PropsWithChildren<{
   initialBbox: Bbox;
   availableLayers?: Layer[];
+  initialZoom?: number;
 }>;
 
-const MapState: FC<Props> = ({ initialBbox, availableLayers, children }) => {
+const MapState: FC<Props> = ({
+  initialBbox,
+  initialZoom,
+  availableLayers,
+  children,
+}) => {
   const initialBounds = new LngLatBounds(initialBbox);
   const [viewState, setViewState] = useState<ViewState>({
     longitude: initialBounds.getCenter().lng,
     latitude: initialBounds.getCenter().lat,
-    zoom: 12,
+    zoom: initialZoom ?? 12,
   } as ViewState);
 
   const [bounds, setBounds] = useState<LngLatBounds>(initialBounds);
