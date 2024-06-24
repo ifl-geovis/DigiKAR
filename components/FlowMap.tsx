@@ -6,9 +6,9 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import Map, {
   NavigationControl,
   Source,
+  Layer,
   MapLayerMouseEvent,
 } from "react-map-gl/maplibre";
-import Layer from "react-map-gl/dist/esm/components/layer";
 import { extent } from "d3";
 import length from "@turf/length";
 import midpoint from "@turf/midpoint";
@@ -18,15 +18,15 @@ import bezierSpline from "@turf/bezier-spline";
 import bbox from "@turf/bbox";
 import { lineString } from "@turf/helpers";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import { LngLatBounds, StyleSpecification } from "maplibre-gl";
+import { LngLatBounds } from "maplibre-gl";
 import { HoverInfo } from "@/types/HoverInfo";
+import LayerHillshade from "./LayerHillshade";
 
 type Props = {
   data: Feature<LineString>[];
-  style: StyleSpecification;
 };
 
-const FlowMap: FC<Props> = ({ data, style }) => {
+const FlowMap: FC<Props> = ({ data }) => {
   const { flows, min, max, bounds } = useMemo(() => {
     const flows: FeatureCollection = {
       type: "FeatureCollection",
@@ -83,10 +83,10 @@ const FlowMap: FC<Props> = ({ data, style }) => {
       //@ts-expect-error Map does not accept className prop
       className={"h-full w-full"}
       interactiveLayerIds={["flows"]}
-      mapStyle={style}
       onMouseMove={handleMouseMove}
     >
       <NavigationControl />
+      <LayerHillshade />
       <Source id="flow-data" data={flows} type={"geojson"} lineMetrics>
         <Layer
           id="flows"

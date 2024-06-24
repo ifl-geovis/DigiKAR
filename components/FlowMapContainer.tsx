@@ -12,18 +12,13 @@ import {
   SelectValue,
   SelectGroup,
 } from "@/components/ui/select";
-import { StyleSpecification } from "maplibre-gl";
 import { FC, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import FlowMap from "./FlowMap";
 import MapStage from "./MapStage";
 import { Skeleton } from "./ui/skeleton";
 
-type Props = {
-  style: StyleSpecification;
-};
-
-const FlowMapContainer: FC<Props> = ({ style }) => {
+const FlowMapContainer: FC = () => {
   const [table, setTable] = useState("university_mainz");
 
   const { data, isLoading } = useSWRImmutable<
@@ -60,7 +55,7 @@ const FlowMapContainer: FC<Props> = ({ style }) => {
       </div>
       <MapStage>
         {isLoading && <Skeleton className="h-full w-full" />}
-        {data && data.length > 1 && <FlowMap data={data} style={style} />}
+        {data && data.length > 1 && <FlowMap data={data} />}
       </MapStage>
     </>
   );
