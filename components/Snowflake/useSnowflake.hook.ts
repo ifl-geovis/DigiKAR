@@ -9,6 +9,7 @@ const useSnowflake = (
 ) => {
   const rays = order.length;
   const outerRadius = radius - circleRadius;
+  const noDataPoints = getNgonPoints(outerRadius / 2, rays);
   const points = getNgonPoints(outerRadius, rays)
     .flatMap(({ x, y }, i) => {
       const attribute = placeAttributes.find(
@@ -16,7 +17,10 @@ const useSnowflake = (
       );
       if (!attribute) return [];
       const { attributeName, holders } = attribute;
-      return [{ x, y, attributeName, holders }];
+      const coordinates = holders.categories?.length
+        ? { x, y }
+        : { x: noDataPoints[i].x, y: noDataPoints[i].y };
+      return [{ ...coordinates, attributeName, holders }];
     })
     .sort(
       (a, b) =>
