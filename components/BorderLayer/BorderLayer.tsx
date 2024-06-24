@@ -4,16 +4,22 @@ import { Layer, Source } from "react-map-gl/maplibre";
 
 type Props = {
   borders: FeatureCollection<MultiPolygon, GeoJsonProperties>;
+  visibility?: "visible" | "none";
 };
 
-const BorderLayer: FC<Props> = ({ borders }) => {
+const BorderLayer: FC<Props> = ({ borders, visibility }) => {
   return (
     <Source type="geojson" data={borders}>
-      <Layer id="borders" type="fill" paint={{ "fill-opacity": 0 }} />
+      <Layer
+        id="borders"
+        type="fill"
+        paint={{ "fill-opacity": 0 }}
+        layout={{ visibility }}
+      />
       <Layer
         id="borders-outline-blur"
         type="line"
-        layout={{ "line-join": "round" }}
+        layout={{ "line-join": "round", visibility }}
         paint={{
           "line-blur": 100,
           "line-color": "grey",
@@ -23,7 +29,7 @@ const BorderLayer: FC<Props> = ({ borders }) => {
       <Layer
         id="borders-outline"
         type="line"
-        layout={{ "line-join": "round" }}
+        layout={{ "line-join": "round", visibility }}
         paint={{ "line-color": "grey", "line-width": 1 }}
       />
     </Source>

@@ -22,7 +22,7 @@ export default async function Anwesen() {
       <div>
         <h2>Anwesen in Höflein</h2>
       </div>
-      <MapStage className="h-[500px]">
+      <MapStage className="h-[620px]">
         <MapState
           initialZoom={14}
           initialBbox={bbox}

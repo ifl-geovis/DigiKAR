@@ -76,12 +76,23 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
         <ZoomIndicator />
       </div>
       <SnowFlakeLayer />
-      {layers.find((d) => d.name === "Voronoi Ämter")?.visible && borders && (
-        <BorderLayer borders={borders} />
+      {borders && (
+        <BorderLayer
+          borders={borders}
+          visibility={
+            layers.find((d) => d.name === "Voronoi Ämter")?.visible
+              ? "visible"
+              : "none"
+          }
+        />
       )}
-      {layers.find((d) => d.name === "Meilenblätter Berlin")?.visible && (
-        <LayerMlBerlin />
-      )}
+      <LayerMlBerlin
+        visibility={
+          layers.find((d) => d.name === "Meilenblätter Berlin")?.visible
+            ? "visible"
+            : "none"
+        }
+      />
       {hoverInfo && (
         <div
           className="pointer-events-none absolute rounded-md bg-white p-2 shadow-lg"
