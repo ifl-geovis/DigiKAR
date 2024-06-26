@@ -20,11 +20,7 @@ const BirthDeathSymbol: FC<Props> = ({ scaleR, size, feature }) => {
         fillOpacity={0.5}
         fill="transparent"
         strokeWidth={strokeWidth}
-        stroke={
-          feature.properties?.event_type === "Geburt"
-            ? "cornflowerblue"
-            : "orange"
-        }
+        stroke={feature.properties?.event_type === "Geburt" ? "pink" : "red"}
       />
     </svg>
   );
