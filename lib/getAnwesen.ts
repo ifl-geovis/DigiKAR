@@ -1,3 +1,4 @@
+import { HoldersGeneralized } from "@/types/PlaceProperties";
 import { FeatureCollection, Point } from "geojson";
 
 const category = new Map<string, string>([
@@ -20,15 +21,15 @@ export const getAnwesen = async () => {
       properties: {
         ...f.properties,
         Grundherrschaft: {
-          holder: holderGs,
-          category: category.get(holderGs),
+          categories: [category.get(holderGs) ?? ""],
           isDisputed: holderGs === "umstritten",
-        },
+          isShared: false,
+        } satisfies HoldersGeneralized,
         Niedergericht: {
-          holder: holderNg,
-          category: category.get(holderNg),
+          categories: [category.get(holderNg) ?? ""],
           isDisputed: holderNg === "umstritten",
-        },
+          isShared: false,
+        } satisfies HoldersGeneralized,
       },
     };
   });

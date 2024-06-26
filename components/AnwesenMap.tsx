@@ -1,7 +1,5 @@
 "use client";
 
-import colorMapKursachsen from "@/lib/colorMapKursachsen";
-import { mapToScale } from "@/lib/helpers";
 import { Feature, FeatureCollection, GeoJsonProperties, Point } from "geojson";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useState } from "react";
@@ -14,6 +12,7 @@ import Map, {
   ViewStateChangeEvent,
   useMap,
 } from "react-map-gl/maplibre";
+import AnwesenMarker from "./AnwesenMarker";
 import LayerMlBerlin from "./LayerMlBerlin";
 import LayersControl from "./LayersControl";
 import { useMapStateContext } from "./MapState/MapStateContext";
@@ -28,8 +27,6 @@ const AnwesenMap: FC<Props> = ({ data, mapStyle }) => {
   const { setViewState, viewState, setBounds, layers } = useMapStateContext();
 
   const [popupInfo, setPopupInfo] = useState<Feature<Point> | null>(null);
-
-  const colorScale = mapToScale(colorMapKursachsen, "lightgrey");
 
   const handleMove = useCallback(
     (event: ViewStateChangeEvent) => {
@@ -67,8 +64,6 @@ const AnwesenMap: FC<Props> = ({ data, mapStyle }) => {
           number,
           number,
         ];
-        const markerSize = 29;
-        const radius = markerSize / 2 - 2;
         const gs = feature.properties?.Grundherrschaft;
         const ng = feature.properties?.Niedergericht;
         return (
@@ -80,30 +75,7 @@ const AnwesenMap: FC<Props> = ({ data, mapStyle }) => {
               setPopupInfo(feature);
             }}
           >
-            <svg width={markerSize} height={markerSize}>
-              <g transform="translate(1 1)">
-                <path
-                  d={`M${radius},0 A${radius},${radius} 0 0 1 ${radius},${2 * radius} Z`}
-                  fill={gs.isDisputed ? "white" : colorScale(gs.category)}
-                  stroke="currentColor"
-                />
-                {gs.isDisputed && (
-                  <path
-                    d={`M${radius},${radius * 0.75} A${radius / 4},${radius / 4} 0 0 1 ${radius},${1.25 * radius} Z`}
-                  />
-                )}
-                <path
-                  d={`M${radius},0 A${radius},${radius} 0 0 0 ${radius},${2 * radius} Z`}
-                  fill={gs.isDisputed ? "white" : colorScale(ng?.category)}
-                  stroke="currentColor"
-                />
-                {gs.isDisputed && (
-                  <path
-                    d={`M${radius},${radius * 1.25} A${radius / 4},${radius / 4} 0 0 1 ${radius},${0.75 * radius} Z`}
-                  />
-                )}
-              </g>
-            </svg>
+            <AnwesenMarker gs={gs} ng={ng} size={24} />
           </Marker>
         );
       })}
