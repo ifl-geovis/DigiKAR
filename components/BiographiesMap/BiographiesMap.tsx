@@ -6,6 +6,7 @@ import { Feature, FeatureCollection, LineString } from "geojson";
 import { FC, useMemo } from "react";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
 import Map, { NavigationControl, Source, Layer } from "react-map-gl/maplibre";
+import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
 
 type Props = {
   data: Feature<LineString>[];
@@ -14,9 +15,25 @@ type Props = {
 
 const BiographiesMap: FC<Props> = ({ data, style }) => {
   const { lines, bounds } = useMemo(() => {
+    const features = data.map((d, idx) => {
+      const coordinates = d.geometry.coordinates
+        // get all but the last coordinate for multistring, get the first two for single string
+        .slice(0, -1)
+        .flatMap((a, i) =>
+          coordinatePairToBezierSpline([a, d.geometry.coordinates[i + 1]]),
+        );
+      return {
+        ...d,
+        id: idx,
+        geometry: {
+          type: d.geometry.type,
+          coordinates,
+        },
+      };
+    });
     const fc: FeatureCollection = {
       type: "FeatureCollection",
-      features: data,
+      features,
     };
     const [e, s, w, n] = bbox(fc);
     const bounds = new LngLatBounds([w, s, e, n]);

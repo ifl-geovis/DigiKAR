@@ -10,17 +10,12 @@ import Map, {
   MapLayerMouseEvent,
 } from "react-map-gl/maplibre";
 import { extent } from "d3";
-import length from "@turf/length";
-import midpoint from "@turf/midpoint";
-import bearing from "@turf/bearing";
-import destination from "@turf/destination";
-import bezierSpline from "@turf/bezier-spline";
 import bbox from "@turf/bbox";
-import { lineString } from "@turf/helpers";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { LngLatBounds } from "maplibre-gl";
 import { HoverInfo } from "@/types/HoverInfo";
 import LayerHillshade from "./LayerHillshade";
+import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
 
 type Props = {
   data: Feature<LineString>[];
@@ -34,16 +29,7 @@ const FlowMap: FC<Props> = ({ data }) => {
         .filter((d) => d.geometry)
         .map((d, idx) => {
           const [start, end] = d.geometry.coordinates;
-          const distance = length(d, { units: "kilometers" });
-          const m = midpoint(start, end);
-          const b = bearing(start, end);
-          const cp = destination(m, distance / 6, b + 90, {
-            units: "kilometers",
-          });
-
-          const coordinates = bezierSpline(
-            lineString([start, cp.geometry.coordinates, end]),
-          ).geometry.coordinates;
+          const coordinates = coordinatePairToBezierSpline([start, end]);
 
           return {
             ...d,
