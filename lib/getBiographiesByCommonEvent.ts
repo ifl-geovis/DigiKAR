@@ -3,7 +3,7 @@ import { createDatabase } from "./createDatabase";
 
 export const getBiographiesByCommonEvent = async (
   event: string,
-  place: string,
+  place: string | null,
 ) => {
   const db = await createDatabase();
 
@@ -52,7 +52,7 @@ export const getBiographiesByCommonEvent = async (
     FROM ordered_events
     GROUP BY person_id;
   `);
-  const res = await statement.all(event, place);
+  const res = await statement.all(event, place ?? "Heilbad Heiligenstadt");
   await db.close();
 
   return res.map(({ feature }) => {

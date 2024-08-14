@@ -7,6 +7,7 @@ import { FC, useMemo } from "react";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
 import Map, { NavigationControl, Source, Layer } from "react-map-gl/maplibre";
 import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
+import { bBoxGermany } from "@/lib/bBoxGermany";
 
 type Props = {
   data: Feature<LineString>[];
@@ -35,7 +36,7 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
       type: "FeatureCollection",
       features,
     };
-    const [e, s, w, n] = bbox(fc);
+    const [e, s, w, n] = fc.features.length > 0 ? bbox(fc) : bBoxGermany;
     const bounds = new LngLatBounds([w, s, e, n]);
     return { lines: fc, bounds };
   }, [data]);

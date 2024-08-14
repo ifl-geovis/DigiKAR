@@ -23,11 +23,17 @@ type Props = {
   options: { value: string; label: string }[];
   optionLabel: string;
   onSelectHandler: (value: string) => void;
+  defaultValue?: string;
 };
 
-const ComboBox: FC<Props> = ({ options, optionLabel, onSelectHandler }) => {
+const ComboBox: FC<Props> = ({
+  options,
+  optionLabel,
+  onSelectHandler,
+  defaultValue,
+}) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(defaultValue?.toLowerCase());
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

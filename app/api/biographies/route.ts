@@ -1,9 +1,14 @@
 import { getBiographiesByCommonEvent } from "@/lib/getBiographiesByCommonEvent";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  // TODO: add dynamic arguments here
-  const bios = await getBiographiesByCommonEvent("Geburt", "Heilbad%");
+export async function GET(request: NextRequest) {
+  const place = request.nextUrl.searchParams.get("place");
 
-  return NextResponse.json(bios);
+  try {
+    const bios = await getBiographiesByCommonEvent("Geburt", place);
+    return NextResponse.json(bios);
+  } catch (error) {
+    console.error({ error });
+    return NextResponse.error();
+  }
 }
