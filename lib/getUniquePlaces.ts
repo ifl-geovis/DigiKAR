@@ -1,11 +1,11 @@
-import { createDatabase } from "./createDatabase";
+import { getDatabase } from "./createDatabase";
 
 export const getUniquePlaces = async (
   /** Which data source to be used */
   source?: string,
 ) => {
   //TODO: to avoid white listing table names, create view with all places and source as column
-  const db = await createDatabase();
+  const db = await getDatabase();
 
   const statement = await db.prepare(`
     SELECT DISTINCT
@@ -20,7 +20,6 @@ export const getUniquePlaces = async (
   `);
 
   const res = await statement.all(source);
-  await db.close();
 
   return res;
 };

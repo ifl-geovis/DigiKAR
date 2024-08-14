@@ -1,11 +1,11 @@
 import { Feature, LineString } from "geojson";
-import { createDatabase } from "./createDatabase";
+import { getDatabase } from "./createDatabase";
 
 export const getBiographiesByCommonEvent = async (
   event: string,
   place: string | null,
 ) => {
-  const db = await createDatabase();
+  const db = await getDatabase();
 
   //TODO: remove where condition on lens as soon as student lens has person_id
   const statement = await db.prepare(`
@@ -53,7 +53,6 @@ export const getBiographiesByCommonEvent = async (
     GROUP BY person_id;
   `);
   const res = await statement.all(event, place ?? "Heilbad Heiligenstadt");
-  await db.close();
 
   return res.map(({ feature }) => {
     return JSON.parse(feature);
