@@ -71,7 +71,7 @@ SELECT CASE
   clamp_to_range(str_to_year("event_after-date")) AS event_date_after,
   event_value,
   nas_to_null(inst_name) AS institution_name,
-  nas_to_null("geonames address") AS place_name,
+  nas_to_null(trim("geonames address")) AS place_name,
   point_or_null(longitudes, latitudes) AS place,
   --- TODO: check whether source combined is the correct column?
   nas_to_null("source_combined") AS event_source,
@@ -96,7 +96,7 @@ SELECT CASE
   clamp_to_range(str_to_year("event_after-date")) AS event_date_after,
   event_value,
   nas_to_null(inst_name) AS institution_name,
-  nas_to_null("geonames address") AS place_name,
+  nas_to_null(trim("geonames address")) AS place_name,
   -- nas_to_null("place_name") AS place_name,
   point_or_null(longitudes, latitudes) AS place,
   nas_to_null("comment_fs") AS event_source_comment,
@@ -123,7 +123,7 @@ SELECT
   nas_to_null(person_title) AS person_title,
   nas_to_null(person_function) AS person_function,
   nas_to_null(institution_name) AS institution_name,
-  nas_to_null(place_name) AS place_name,
+  nas_to_null(trim(place_name)) AS place_name,
   point_or_null(place_geonames_longitude, place_geonames_latitude) AS place
 FROM ST_Read(
     '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/df_Aschaffenburg_geocoded_cleaned_2024-06-10.xlsx',
@@ -145,7 +145,7 @@ SELECT CASE
   --- TODO: check why not event_value
   NULL AS event_value,
   nas_to_null(inst_name) AS institution_name,
-  nas_to_null("geonames address") AS place_name,
+  nas_to_null(trim("geonames address")) AS place_name,
   -- nas_to_null(place_name) AS place_name,
   point_or_null(geonames_lng, geonames_lat) AS place,
   nas_to_null("source") AS event_source,
@@ -173,7 +173,7 @@ SELECT
   NULL AS event_date_after,
   clamp_to_range(str_to_year("date_date")) AS event_date,
   nas_to_null(institution) AS institution_name,
-  nas_to_null(place_name_y) AS place_name,
+  nas_to_null(trim(place_name_y)) AS place_name,
   -- nas_to_null(place_name_y) place_name_geonames,
   point_or_null(place_lng_geonames, place_lat_geonames) AS place,
   nas_to_null(source) AS event_source,
