@@ -3,12 +3,19 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import bbox from "@turf/bbox";
 import { Feature, FeatureCollection, LineString } from "geojson";
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
-import Map, { NavigationControl, Source, Layer } from "react-map-gl/maplibre";
+import Map, {
+  NavigationControl,
+  Source,
+  Layer,
+  MapLayerMouseEvent,
+} from "react-map-gl/maplibre";
 import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
 import { bBoxGermany } from "@/lib/bBoxGermany";
 import { scaleOrdinal, schemeCategory10 } from "d3";
+import { HoverInfo } from "@/types/HoverInfo";
+import { User } from "lucide-react";
 
 type Props = {
   data: Feature<LineString>[];
@@ -50,6 +57,17 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
     return { lines: fc, bounds };
   }, [data]);
 
+  const [hoverInfo, setHoverInfo] = useState<HoverInfo | undefined>(undefined);
+  const handleMouseMove = useCallback((event: MapLayerMouseEvent) => {
+    const {
+      features,
+      point: { x, y },
+    } = event;
+    const hoveredFeature = features && features[0];
+    const info = { feature: hoveredFeature, x, y };
+    setHoverInfo(hoveredFeature && info);
+  }, []);
+
   return (
     <Map
       //@ts-expect-error Map does not accept className prop
@@ -61,6 +79,8 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
           padding: { left: 20, top: 20, right: 20, bottom: 20 },
         },
       }}
+      interactiveLayerIds={["bios"]}
+      onMouseMove={handleMouseMove}
     >
       <NavigationControl />
       <Source id="flow-data" data={lines} type={"geojson"} lineMetrics>
@@ -73,6 +93,16 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
           }}
         />
       </Source>
+      {hoverInfo && (
+        <div
+          className={"absolute rounded-sm bg-white p-3 shadow-xl"}
+          style={{ top: hoverInfo.y, left: hoverInfo.x }}
+        >
+          <div className="flex items-center gap-1">
+            <User /> <strong> {hoverInfo.feature?.properties?.name}</strong>
+          </div>
+        </div>
+      )}
     </Map>
   );
 };

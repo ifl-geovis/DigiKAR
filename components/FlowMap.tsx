@@ -103,7 +103,6 @@ const FlowMap: FC<Props> = ({ data }) => {
       {hoverInfo && (
         <div
           id="mytooltip"
-          // Question: Why does it not work via tailwind classes
           className={"absolute rounded-sm bg-white p-3 shadow-xl"}
           style={{ top: hoverInfo.y, left: hoverInfo.x }}
         >
