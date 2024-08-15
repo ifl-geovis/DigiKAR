@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { User } from "lucide-react";
 
 type Props = {
   style: StyleSpecification;
@@ -60,6 +61,11 @@ const Biographies: FC<Props> = ({ style }) => {
             </SelectContent>
           </Select>
         </div>
+        {biographyData && (
+          <div className="flex items-center gap-2">
+            <User /> {biographyData.length}
+          </div>
+        )}
       </div>
       <MapStage>
         {biographyIsLoading && <Skeleton className="h-full w-full" />}
