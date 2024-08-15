@@ -2,10 +2,20 @@ import { getBiographiesByCommonEvent } from "@/lib/getBiographiesByCommonEvent";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const place = request.nextUrl.searchParams.get("place");
+  const params = request.nextUrl.searchParams;
+  const [eventType, place] = [params.get("eventType"), params.get("place")];
+
+  if (!place || !eventType)
+    return NextResponse.json(
+      {
+        error:
+          "Missing paramters. This request requires 2 parameters: place, event_type.",
+      },
+      { status: 500 },
+    );
 
   try {
-    const bios = await getBiographiesByCommonEvent("Geburt", place);
+    const bios = await getBiographiesByCommonEvent(eventType, place);
     return NextResponse.json(bios);
   } catch (error) {
     console.error({ error });

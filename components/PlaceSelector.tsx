@@ -4,6 +4,7 @@ import fetcher from "@/lib/fetcher";
 import { getUniquePlaces } from "@/lib/getUniquePlaces";
 import { FC, useMemo } from "react";
 import useSWRImmutable from "swr/immutable";
+import { Label } from "./ui/label";
 
 type Props = {
   onSelectHandler: (value: string) => void;
@@ -26,8 +27,9 @@ const PlaceSelector: FC<Props> = ({ onSelectHandler, place }) => {
           }));
   }, [placeData]);
   return (
-    <div className="my-10 mt-5 flex h-10 items-center gap-3">
-      {placeIsLoading && <Skeleton className="h-full w-full" />}
+    <div className="my-10 flex items-center gap-3">
+      <Label>Ort</Label>
+      {placeIsLoading && <Skeleton className="h-10 w-[200px]" />}
       {placeData && (
         <ComboBox
           optionLabel="Ort"
