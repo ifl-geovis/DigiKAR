@@ -6,8 +6,9 @@ export const getUniquePlaces = async (
 ) => {
   //TODO: to avoid white listing table names, create view with all places and source as column
   const db = await getDatabase();
+  const connection = await db.connect();
 
-  const statement = await db.prepare(`
+  const statement = await connection.prepare(`
     SELECT DISTINCT
         place_name AS place
     FROM events
@@ -20,6 +21,7 @@ export const getUniquePlaces = async (
   `);
 
   const res = await statement.all(source);
+  connection.close();
 
   return res;
 };

@@ -6,9 +6,10 @@ export const getBiographiesByCommonEvent = async (
   place: string,
 ) => {
   const db = await getDatabase();
+  const connection = await db.connect();
 
   //TODO: remove where condition on lens as soon as student lens has person_id
-  const statement = await db.prepare(`
+  const statement = await connection.prepare(`
     WITH ordered_events AS (
       FROM events
       WHERE 
@@ -53,6 +54,7 @@ export const getBiographiesByCommonEvent = async (
     GROUP BY person_id;
   `);
   const res = await statement.all(event, place);
+  connection.close();
 
   return res.map(({ feature }) => {
     return JSON.parse(feature);
