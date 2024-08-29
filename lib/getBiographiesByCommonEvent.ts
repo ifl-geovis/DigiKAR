@@ -40,7 +40,7 @@ export const getBiographiesByCommonEvent = async (
               json_group_array(
                   json_object(
                       'type', event_type,
-                      'function', person_function,
+                      'functionality', person_function,
                       'value', event_value,
                       'place', place_name,
                       'start', event_date_start
@@ -58,5 +58,18 @@ export const getBiographiesByCommonEvent = async (
 
   return res.map(({ feature }) => {
     return JSON.parse(feature);
-  }) as Feature<LineString>[];
+  }) as Feature<
+    LineString,
+    {
+      id: string;
+      name: string;
+      events: {
+        type: string;
+        functionality: string;
+        value: string;
+        place: string;
+        start: string;
+      }[];
+    }
+  >[];
 };

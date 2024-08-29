@@ -20,6 +20,10 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Skeleton } from "../ui/skeleton";
+import { DataTable } from "../ui/data-table";
+import { columns } from "../biographyTable/columns";
+import MapTitle from "../MapTitle";
+import { getBiographiesByCommonEvent } from "@/lib/getBiographiesByCommonEvent";
 
 type Props = {
   style: StyleSpecification;
@@ -46,14 +50,18 @@ const Biographies: FC<Props> = ({ style }) => {
   );
 
   const { data: biographyData, isLoading: biographyIsLoading } =
-    useSWRImmutable(`/api/biographies?${params}`, fetcher, {
-      keepPreviousData: true,
-    });
+    useSWRImmutable<Awaited<ReturnType<typeof getBiographiesByCommonEvent>>>(
+      `/api/biographies?${params}`,
+      fetcher,
+      {
+        keepPreviousData: true,
+      },
+    );
   return (
     <MapViewLayout>
       <MapAside>
         <Card>
-          <h2 className="flex items-center gap-3">Biographien</h2>
+          <MapTitle>Biographien</MapTitle>
           <p>basierend auf gemeinsamen Ereignissen</p>
         </Card>
         <Card>
@@ -75,20 +83,11 @@ const Biographies: FC<Props> = ({ style }) => {
           </div>
         </Card>
         {biographyData && (
-          <Card>
-            {biographyData.length === 0 ? (
-              <>
-                <div className="flex items-center gap-2 text-red-500">
-                  <UserX2 /> 0 Biographien
-                </div>
-                <p className="italic">Passe die Filter an.</p>
-              </>
-            ) : (
-              <div className="flex items-center gap-2">
-                <User2 /> {biographyData.length} Biographie
-                {biographyData.length > 1 && "n"}
-              </div>
-            )}
+          <Card title="Personen" collapsible>
+            <DataTable
+              data={biographyData.map((d) => d.properties)}
+              columns={columns}
+            />
           </Card>
         )}
       </MapAside>
