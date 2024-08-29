@@ -6,9 +6,6 @@ export default async function NextPage() {
 
   return (
     <>
-      <h2 className="flex items-center gap-3">
-        Biographien basierend auf gemeinsamen Ereignissen
-      </h2>
       <Biographies style={style} />
     </>
   );

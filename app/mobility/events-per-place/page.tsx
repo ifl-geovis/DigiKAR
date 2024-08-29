@@ -1,7 +1,11 @@
-import EventsMap from "../../../components/EventsMap";
-import { getPlaceOriginDeath } from "../../../lib/getPlaceOriginDeath";
-import MapStage from "../../../components/MapStage";
-import { getMapStyle } from "../../../lib/getMapStyle";
+import Card from "@/components/Card";
+import EventsMap from "@/components/EventsMap";
+import MapAside from "@/components/MapAside";
+import MapContainer from "@/components/MapContainer";
+import MapTitle from "@/components/MapTitle";
+import MapViewLayout from "@/components/MapViewLayout";
+import { getMapStyle } from "@/lib/getMapStyle";
+import { getPlaceOriginDeath } from "@/lib/getPlaceOriginDeath";
 import { FC } from "react";
 
 export default async function Wp3() {
@@ -9,16 +13,28 @@ export default async function Wp3() {
   const style = await getMapStyle();
 
   return (
-    <>
-      <h2>Kurmainz</h2>
-      <p className="mb-3">
-        <Circle color="pink" /> Geburten- <Circle color="red" /> und
-        Sterbeereignisse je Ort
-      </p>
-      <MapStage>
+    <MapViewLayout>
+      <MapAside>
+        <Card>
+          <MapTitle>Kurmainz</MapTitle>
+        </Card>
+        <Card>
+          <div className="flex gap-3">
+            <div className="flex items-center gap-1">
+              <Circle color="pink" />
+              Geburten- und
+            </div>
+            <div className="flex items-center gap-1">
+              <Circle color="red" />
+              Sterbeereignisse je Ort
+            </div>
+          </div>
+        </Card>
+      </MapAside>
+      <MapContainer>
         <EventsMap style={style} data={data} />
-      </MapStage>
-    </>
+      </MapContainer>
+    </MapViewLayout>
   );
 }
 

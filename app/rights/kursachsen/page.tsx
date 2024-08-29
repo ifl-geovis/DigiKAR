@@ -1,14 +1,18 @@
-import MapStage from "../../../components/MapStage";
-import RightsMap from "../../../components/RightsMap";
-import { getMapStyle } from "../../../lib/getMapStyle";
-import getVoronoi from "@/lib/getVoronoi";
+import Card from "@/components/Card";
+import LegendNominal from "@/components/LegendNominal/LegendNominal";
+import MapAside from "@/components/MapAside";
+import MapContainer from "@/components/MapContainer";
+import MapTitle from "@/components/MapTitle";
+import MapViewLayout from "@/components/MapViewLayout";
 import RightsExplorer from "@/components/RightsExplorer";
+import { RightRequest } from "@/components/RightsExplorer/RightsExplorerContext";
+import RightsMap from "@/components/RightsMap";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig";
 import SearchBar from "@/components/SearchBar";
-import LegendNominal from "@/components/LegendNominal/LegendNominal";
-import colorMapKursachsen from "@/lib/colorMapKursachsen";
 import Timeline from "@/components/Timeline";
-import { RightRequest } from "@/components/RightsExplorer/RightsExplorerContext";
+import colorMapKursachsen from "@/lib/colorMapKursachsen";
+import { getMapStyle } from "@/lib/getMapStyle";
+import getVoronoi from "@/lib/getVoronoi";
 
 export default async function Wp2() {
   const attributeSet = new Set([
@@ -52,23 +56,23 @@ export default async function Wp2() {
         { name: "Meilenblätter Berlin", visible: false },
       ]}
     >
-      <div className="grid grid-cols-[350px_auto] gap-5">
-        <div>
-          <h2>Kursachsen</h2>
-          <div className="flex flex-col gap-3">
-            <SearchBar />
-            <RightsMarkerConfig />
-            <div>
-              <h3>Legende</h3>
-              <LegendNominal />
-            </div>
-          </div>
-        </div>
-        <MapStage className="h-[500px]">
+      <MapViewLayout>
+        <MapAside>
+          <Card>
+            <MapTitle>Kursachsen</MapTitle>
+          </Card>
+          <SearchBar />
+          <RightsMarkerConfig />
+          <Card title="Legende" collapsible>
+            <h3>Legende</h3>
+            <LegendNominal />
+          </Card>
+        </MapAside>
+        <MapContainer>
           <RightsMap mapStyle={style} borders={borders} />
           <Timeline />
-        </MapStage>
-      </div>
+        </MapContainer>
+      </MapViewLayout>
     </RightsExplorer>
   );
 }

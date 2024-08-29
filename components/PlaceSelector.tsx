@@ -27,7 +27,7 @@ const PlaceSelector: FC<Props> = ({ onSelectHandler, place }) => {
           }));
   }, [placeData]);
   return (
-    <div className="my-10 flex items-center gap-3">
+    <div className="flex items-center gap-3">
       <Label>Ort</Label>
       {placeIsLoading && <Skeleton className="h-10 w-[200px]" />}
       {placeData && (

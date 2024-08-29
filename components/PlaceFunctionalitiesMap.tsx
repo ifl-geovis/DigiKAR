@@ -1,20 +1,12 @@
 "use client";
 
-import { Point, Feature, FeatureCollection } from "geojson";
-import { FC, useMemo, useState } from "react";
-import "maplibre-gl/dist/maplibre-gl.css";
-import Map, { NavigationControl, Marker } from "react-map-gl/maplibre";
-import { rollup } from "d3";
-import bbox from "@turf/bbox";
-import { LngLatBounds, StyleSpecification } from "maplibre-gl";
-import { getFunctionalitiesPerPlace } from "../lib/getFunctionalitiesPerPlace";
-import WheelOfInstitutions from "./WheelOfInstitutions";
-import useSWRImmutable from "swr/immutable";
-import fetcher from "../lib/fetcher";
-import MapStage from "./MapStage";
-import { Label } from "@/components/ui/label";
+import Card from "@/components/Card";
+import MapAside from "@/components/MapAside";
+import MapContainer from "@/components/MapContainer";
+import MapViewLayout from "@/components/MapViewLayout";
+import WheelOfInstitutions from "@/components/WheelOfInstitutions";
 import { Input } from "@/components/ui/input";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -24,6 +16,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import fetcher from "@/lib/fetcher";
+import { getFunctionalitiesPerPlace } from "@/lib/getFunctionalitiesPerPlace";
+import bbox from "@turf/bbox";
+import { rollup } from "d3";
+import { Feature, FeatureCollection, Point } from "geojson";
+import { LngLatBounds, StyleSpecification } from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { FC, useMemo, useState } from "react";
+import Map, { Marker, NavigationControl } from "react-map-gl/maplibre";
+import useSWRImmutable from "swr/immutable";
+import MapTitle from "./MapTitle";
 
 type Props = {
   style: StyleSpecification;
@@ -69,39 +73,47 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
   }, [data]);
 
   return (
-    <>
-      <div className="flex gap-3">
-        <div className="my-4 grid max-w-sm items-center gap-1.5">
-          <Label>Sonde</Label>
-          <Select
-            defaultValue="state_calendar_aschaffenburg"
-            onValueChange={(value) => setTable(value)}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Wähle eine Sonde" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Datensonde</SelectLabel>
-                <SelectItem value="state_calendar_aschaffenburg">
-                  Aschaffenburg
-                </SelectItem>
-                <SelectItem value="university_mainz">Mainz</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="my-4 grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="functionality">Filter</Label>
-          <Input
-            type="text"
-            id="functionality"
-            placeholder="Funktion"
-            onBlur={(e) => setFilter(e.target.value)}
-          />
-        </div>
-      </div>
-      <MapStage>
+    <MapViewLayout>
+      <MapAside>
+        <Card>
+          <MapTitle>Kurmainz</MapTitle>
+          <p>Funktionen von Personen je Institution</p>
+        </Card>
+        <Card>
+          <div className="flex gap-3">
+            <div className="grid max-w-sm items-center gap-1.5">
+              <Label>Sonde</Label>
+              <Select
+                defaultValue="state_calendar_aschaffenburg"
+                onValueChange={(value) => setTable(value)}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Wähle eine Sonde" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Datensonde</SelectLabel>
+                    <SelectItem value="state_calendar_aschaffenburg">
+                      Aschaffenburg
+                    </SelectItem>
+                    <SelectItem value="university_mainz">Mainz</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="functionality">Filter</Label>
+              <Input
+                type="text"
+                id="functionality"
+                placeholder="Funktion"
+                onBlur={(e) => setFilter(e.target.value)}
+              />
+            </div>
+          </div>
+        </Card>
+      </MapAside>
+      <MapContainer>
         {isLoading ? (
           <Skeleton className="h-full w-full" />
         ) : places ? (
@@ -133,8 +145,8 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
         ) : (
           <div>no Data!</div>
         )}
-      </MapStage>
-    </>
+      </MapContainer>
+    </MapViewLayout>
   );
 };
 

@@ -1,6 +1,6 @@
 export default async function Home() {
   return (
-    <div className="max-w-screen-sm">
+    <div className="m-5 max-w-screen-sm">
       <h2>Internal prototype for DigiKAR</h2>
       <p>
         Explorative, punktbasierte Visualisierungen für das

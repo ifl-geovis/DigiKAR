@@ -106,7 +106,7 @@ const FlowMap: FC<Props> = ({ data }) => {
           className={"absolute rounded-sm bg-white p-3 shadow-xl"}
           style={{ top: hoverInfo.y, left: hoverInfo.x }}
         >
-          <div className="flex items-baseline gap-1">
+          <div className="flex items-center gap-1">
             <strong>{hoverInfo.feature?.properties?.value}</strong>
             {hoverInfo.feature?.properties?.birth_place} <ArrowRightIcon />
             {hoverInfo.feature?.properties?.death_place}

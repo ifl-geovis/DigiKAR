@@ -1,17 +1,21 @@
 "use client";
 
+import Card from "@/components/Card";
+import MapAside from "@/components/MapAside";
+import MapContainer from "@/components/MapContainer";
+import MapTitle from "@/components/MapTitle";
+import MapViewLayout from "@/components/MapViewLayout";
+import ProportionalSymbol from "@/components/ProportionalSymbolMap";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
+import fetcher from "@/lib/fetcher";
 import { getMatriculations } from "@/lib/getMatriculations";
 import debounce from "lodash.debounce";
 import { StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useMemo, useState } from "react";
-import useSWRImmutable from "swr/immutable";
-import fetcher from "../lib/fetcher";
-import MapStage from "./MapStage";
-import { Label } from "./ui/label";
-import { Slider } from "./ui/slider";
-import ProportionalSymbol from "./ProportionalSymbolMap";
 import { RxMixerVertical } from "react-icons/rx";
+import useSWRImmutable from "swr/immutable";
 
 type Props = {
   style: StyleSpecification;
@@ -53,28 +57,34 @@ const OriginsMapContainer: FC<Props> = ({ style }) => {
   >(`/api/origins-mainz?${params}`, fetcher, { keepPreviousData: true });
 
   return (
-    <>
-      <div className="my-5 flex gap-10">
-        <div className="flex w-64 flex-col gap-3">
-          <Label className="flex gap-2">
-            <RxMixerVertical /> Zeitraum ({timeRange.join("-")})
-          </Label>
-          <div className="flex gap-5">
-            <div>{initialMin}</div>
-            <Slider
-              onValueChange={onValueChange}
-              min={initialMin}
-              max={initialMax}
-              defaultValue={initialTimeRange}
-            />
-            <div>{initialMax}</div>
+    <MapViewLayout>
+      <MapAside>
+        <Card>
+          <MapTitle>Kurmainz</MapTitle>
+          <p>Herkunft von Studenten der Universität Mainz</p>
+        </Card>
+        <Card>
+          <div className="flex w-64 flex-col gap-3">
+            <Label className="flex gap-2">
+              <RxMixerVertical /> Zeitraum ({timeRange.join("-")})
+            </Label>
+            <div className="flex gap-5">
+              <div>{initialMin}</div>
+              <Slider
+                onValueChange={onValueChange}
+                min={initialMin}
+                max={initialMax}
+                defaultValue={initialTimeRange}
+              />
+              <div>{initialMax}</div>
+            </div>
           </div>
-        </div>
-      </div>
-      <MapStage>
+        </Card>
+      </MapAside>
+      <MapContainer>
         <ProportionalSymbol style={style} data={data} isLoading={isLoading} />
-      </MapStage>
-    </>
+      </MapContainer>
+    </MapViewLayout>
   );
 };
 

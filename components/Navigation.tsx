@@ -83,7 +83,7 @@ const pages = [
 
 const Navigation = () => {
   return (
-    <div className="container mb-10 mt-10 flex items-baseline">
+    <div className="z-20 flex items-baseline px-5 py-2">
       <Link className="me-5 text-sm" href={"/"}>
         DigiKAR <sup>Prototyp</sup>
       </Link>

@@ -2,7 +2,7 @@ import { Input } from "../ui/input";
 
 const SearchBar = () => {
   return (
-    <div className="rounded shadow">
+    <div className="rounded bg-white shadow">
       <Input disabled placeholder="Suche nach einem Rechteinhaber …" />
     </div>
   );
