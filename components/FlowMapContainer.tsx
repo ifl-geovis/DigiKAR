@@ -21,6 +21,7 @@ import { getFlowsOriginDeath } from "@/lib/getFlowsOriginDeath";
 import { ArrowRightIcon } from "lucide-react";
 import { FC, useState } from "react";
 import useSWRImmutable from "swr/immutable";
+import MapTitle from "./MapTitle";
 
 const FlowMapContainer: FC = () => {
   const [table, setTable] = useState("university_mainz");
@@ -33,7 +34,7 @@ const FlowMapContainer: FC = () => {
     <MapViewLayout>
       <MapAside>
         <Card>
-          <h2 className="flex items-baseline gap-3">Kurmainz</h2>
+          <MapTitle>Kurmainz</MapTitle>
           <p>
             Geburtsort <ArrowRightIcon className="inline w-4" /> Sterbeort
           </p>
