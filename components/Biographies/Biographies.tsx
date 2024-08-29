@@ -7,7 +7,7 @@ import MapContainer from "@/components/MapContainer";
 import PlaceSelector from "@/components/PlaceSelector";
 import { Label } from "@/components/ui/label";
 import fetcher from "@/lib/fetcher";
-import { User } from "lucide-react";
+import { User2, UserX2 } from "lucide-react";
 import { StyleSpecification } from "maplibre-gl";
 import { FC, useState } from "react";
 import useSWRImmutable from "swr/immutable";
@@ -46,7 +46,9 @@ const Biographies: FC<Props> = ({ style }) => {
   );
 
   const { data: biographyData, isLoading: biographyIsLoading } =
-    useSWRImmutable(`/api/biographies?${params}`, fetcher);
+    useSWRImmutable(`/api/biographies?${params}`, fetcher, {
+      keepPreviousData: true,
+    });
   return (
     <MapViewLayout>
       <MapAside>
@@ -70,13 +72,25 @@ const Biographies: FC<Props> = ({ style }) => {
                 </SelectContent>
               </Select>
             </div>
-            {biographyData && (
-              <div className="flex items-center gap-2">
-                <User /> {biographyData.length}
-              </div>
-            )}
           </div>
         </Card>
+        {biographyData && (
+          <Card>
+            {biographyData.length === 0 ? (
+              <>
+                <div className="flex items-center gap-2 text-red-500">
+                  <UserX2 /> 0 Biographien
+                </div>
+                <p className="italic">Passe die Filter an.</p>
+              </>
+            ) : (
+              <div className="flex items-center gap-2">
+                <User2 /> {biographyData.length} Biographie
+                {biographyData.length > 1 && "n"}
+              </div>
+            )}
+          </Card>
+        )}
       </MapAside>
 
       <MapContainer>

@@ -1,21 +1,21 @@
 "use client";
 
-import "maplibre-gl/dist/maplibre-gl.css";
+import { bBoxGermany } from "@/lib/bBoxGermany";
+import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
+import { HoverInfo } from "@/types/HoverInfo";
 import bbox from "@turf/bbox";
+import { scaleOrdinal, schemeCategory10 } from "d3";
 import { Feature, FeatureCollection, LineString } from "geojson";
-import { FC, useCallback, useMemo, useState } from "react";
+import { User2 } from "lucide-react";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { FC, useCallback, useMemo, useState } from "react";
 import Map, {
-  NavigationControl,
-  Source,
   Layer,
   MapLayerMouseEvent,
+  NavigationControl,
+  Source,
 } from "react-map-gl/maplibre";
-import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
-import { bBoxGermany } from "@/lib/bBoxGermany";
-import { scaleOrdinal, schemeCategory10 } from "d3";
-import { HoverInfo } from "@/types/HoverInfo";
-import { User } from "lucide-react";
 
 type Props = {
   data: Feature<LineString>[];
@@ -99,7 +99,7 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
           style={{ top: hoverInfo.y, left: hoverInfo.x }}
         >
           <div className="flex items-center gap-1">
-            <User /> <strong> {hoverInfo.feature?.properties?.name}</strong>
+            <User2 /> <strong> {hoverInfo.feature?.properties?.name}</strong>
           </div>
         </div>
       )}
