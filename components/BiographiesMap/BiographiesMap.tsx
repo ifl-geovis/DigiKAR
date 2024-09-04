@@ -4,7 +4,6 @@ import { bBoxGermany } from "@/lib/bBoxGermany";
 import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
 import { HoverInfo } from "@/types/HoverInfo";
 import bbox from "@turf/bbox";
-import { scaleOrdinal, schemeCategory10 } from "d3";
 import { Feature, FeatureCollection, LineString } from "geojson";
 import { User2 } from "lucide-react";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
@@ -24,8 +23,6 @@ type Props = {
 
 const BiographiesMap: FC<Props> = ({ data, style }) => {
   const { lines, bounds } = useMemo(() => {
-    const colorDomain = data.map((d) => d.properties?.name);
-    const colorScale = scaleOrdinal(schemeCategory10).domain(colorDomain);
     const features = data.map((d, idx) => {
       const coordinates = d.geometry.coordinates
         // get all but the last coordinate for multistring, get the first two for single string
@@ -37,10 +34,6 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
         );
       return {
         ...d,
-        properties: {
-          ...d.properties,
-          color: colorScale(d.properties?.name),
-        },
         id: idx,
         geometry: {
           type: d.geometry.type,

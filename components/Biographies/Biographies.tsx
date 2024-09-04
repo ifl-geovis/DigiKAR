@@ -7,9 +7,8 @@ import MapContainer from "@/components/MapContainer";
 import PlaceSelector from "@/components/PlaceSelector";
 import { Label } from "@/components/ui/label";
 import fetcher from "@/lib/fetcher";
-import { User2, UserX2 } from "lucide-react";
 import { StyleSpecification } from "maplibre-gl";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import MapViewLayout from "../MapViewLayout";
 import {
@@ -24,6 +23,7 @@ import { DataTable } from "../ui/data-table";
 import { columns } from "../biographyTable/columns";
 import MapTitle from "../MapTitle";
 import { getBiographiesByCommonEvent } from "@/lib/getBiographiesByCommonEvent";
+import { scaleOrdinal, schemeCategory10 } from "d3";
 
 type Props = {
   style: StyleSpecification;
@@ -49,14 +49,22 @@ const Biographies: FC<Props> = ({ style }) => {
     }),
   );
 
-  const { data: biographyData, isLoading: biographyIsLoading } =
-    useSWRImmutable<Awaited<ReturnType<typeof getBiographiesByCommonEvent>>>(
-      `/api/biographies?${params}`,
-      fetcher,
-      {
-        keepPreviousData: true,
-      },
-    );
+  const { data: biographyData, isLoading } = useSWRImmutable<
+    Awaited<ReturnType<typeof getBiographiesByCommonEvent>>
+  >(`/api/biographies?${params}`, fetcher, {
+    keepPreviousData: true,
+  });
+
+  const data = useMemo(() => {
+    const colorDomain = biographyData?.map((d) => d.properties?.name);
+    if (!colorDomain) return biographyData;
+    const colorScale = scaleOrdinal(schemeCategory10).domain(colorDomain);
+    return biographyData?.map((d) => ({
+      ...d,
+      properties: { ...d.properties, color: colorScale(d.properties?.name) },
+    }));
+  }, [biographyData]);
+
   return (
     <MapViewLayout>
       <MapAside>
@@ -82,19 +90,16 @@ const Biographies: FC<Props> = ({ style }) => {
             </div>
           </div>
         </Card>
-        {biographyData && (
+        {data && (
           <Card title="Personen" collapsible>
-            <DataTable
-              data={biographyData.map((d) => d.properties)}
-              columns={columns}
-            />
+            <DataTable data={data.map((d) => d.properties)} columns={columns} />
           </Card>
         )}
       </MapAside>
 
       <MapContainer>
-        {biographyIsLoading && <Skeleton className="h-full w-full" />}
-        {biographyData && <BiographiesMap style={style} data={biographyData} />}
+        {isLoading && <Skeleton className="h-full w-full" />}
+        {data && <BiographiesMap style={style} data={data} />}
       </MapContainer>
     </MapViewLayout>
   );

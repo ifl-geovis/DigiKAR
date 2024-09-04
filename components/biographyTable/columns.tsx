@@ -38,6 +38,11 @@ export const columns: ColumnDef<Biography>[] = [
     header: "Name",
     cell: ({ row }) => (
       <div className="max-w-40 overflow-hidden text-ellipsis whitespace-nowrap">
+        <div
+          // @ts-expect-error improve typing for modified query response
+          style={{ backgroundColor: row.original.color }}
+          className="mr-2 inline-block h-4 w-4 rounded-full align-text-bottom"
+        />
         {row.getValue("name")}
       </div>
     ),

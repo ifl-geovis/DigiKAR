@@ -17,7 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Ghost } from "lucide-react";
+import { ChevronLeft, ChevronRight, Ghost } from "lucide-react";
 import { ScrollArea } from "./scroll-area";
 
 interface DataTableProps<TData, TValue> {
@@ -38,7 +38,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <ScrollArea className="h-72 w-full rounded-md border">
+      <ScrollArea className="h-64 w-full rounded-md border">
         <Table>
           <TableHeader className="sticky top-0 bg-white">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -88,26 +88,30 @@ export function DataTable<TData, TValue>({
         </Table>
       </ScrollArea>
       <div className="flex items-center justify-between">
-        <div className="flex w-[100px] items-center justify-center text-sm">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
+        <div className="text-sm text-muted-foreground">
+          {table.getFilteredSelectedRowModel().rows.length} von{" "}
+          {table.getFilteredRowModel().rows.length} ausgewählt.
+        </div>
+        <div className="flex w-[100px] text-sm">
+          Seite {table.getState().pagination.pageIndex + 1} von{" "}
           {table.getPageCount()}
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
           <Button
             variant="outline"
-            size="sm"
+            size="icon"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            <ChevronLeft />
           </Button>
           <Button
             variant="outline"
-            size="sm"
+            size="icon"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            <ChevronRight />
           </Button>
         </div>
       </div>
