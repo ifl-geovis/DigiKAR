@@ -4,7 +4,7 @@ import { FC } from "react";
 
 const Footer: FC = () => {
   return (
-    <footer className="flex items-center px-5 py-3 text-xs">
+    <footer className="flex items-center border-t px-5 py-3 text-xs">
       <div>DigiKAR · {new Date().getFullYear()}</div>
       <div className="ml-auto">
         <Link href="https://github.com/ifl-geovis/DigiKAR">
