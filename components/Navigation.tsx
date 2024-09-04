@@ -95,7 +95,11 @@ const Navigation = () => {
           {pages.map((page) => (
             <NavigationMenuItem key={page.title}>
               <NavigationMenuTrigger
-                className={isActive(page.href) ? "font-bold" : ""}
+                className={
+                  isActive(page.href)
+                    ? "border border-accent bg-accent/20 font-bold"
+                    : ""
+                }
               >
                 {page.title}
               </NavigationMenuTrigger>
