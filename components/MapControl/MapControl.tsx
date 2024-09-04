@@ -6,7 +6,7 @@ const MapControl = forwardRef<HTMLDivElement, Props>(({ children }, ref) => {
   return (
     <div
       ref={ref}
-      className="flex min-h-11 min-w-11 items-center justify-center rounded-md border-2 border-gray-200 bg-white"
+      className="flex h-7 min-w-7 items-center justify-center rounded-sm bg-white shadow-[0_0_0_2px_rgba(0,0,0,0.1)]"
     >
       {children}
     </div>

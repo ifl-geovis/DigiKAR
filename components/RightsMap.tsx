@@ -71,7 +71,7 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
     >
       <NavigationControl />
       <ScaleControl position="bottom-right" />
-      <div className="z-1 absolute ml-[10px] mt-[10px] flex items-center gap-2">
+      <div className="z-1 absolute right-[50px] mt-[10px] flex items-center gap-2">
         <LayersControl />
         <ZoomIndicator />
       </div>
