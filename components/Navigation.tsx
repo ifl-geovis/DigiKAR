@@ -12,6 +12,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { usePathname } from "next/navigation";
 
 type LinkItem = { title: string; href: string; description?: string };
 
@@ -82,6 +83,8 @@ const pages = [
 ];
 
 const Navigation = () => {
+  const pathname = usePathname();
+  const isActive = (href: string) => pathname.startsWith(href);
   return (
     <div className="z-20 flex items-baseline border-b px-5 py-2">
       <Link className="me-5 text-sm" href={"/"}>
@@ -91,13 +94,19 @@ const Navigation = () => {
         <NavigationMenuList>
           {pages.map((page) => (
             <NavigationMenuItem key={page.title}>
-              <NavigationMenuTrigger>{page.title}</NavigationMenuTrigger>
+              <NavigationMenuTrigger
+                className={isActive(page.href) ? "font-bold" : ""}
+              >
+                {page.title}
+              </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                   <li className="row-span-5">
                     <NavigationMenuLink asChild>
                       <a
-                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        className={
+                          "flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        }
                         href={page.href}
                       >
                         <div className="h-6 w-6 rounded-sm border border-slate-500">
