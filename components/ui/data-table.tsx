@@ -96,7 +96,7 @@ export function DataTable<TData, TValue>({
           Seite {table.getState().pagination.pageIndex + 1} von{" "}
           {table.getPageCount()}
         </div>
-        <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex items-center justify-end space-x-2 pt-3">
           <Button
             variant="outline"
             size="icon"

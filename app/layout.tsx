@@ -25,7 +25,7 @@ export default function RootLayout({
         }
       >
         <Navigation />
-        <main>{children}</main>
+        <main className="overflow-y-auto">{children}</main>
         <Footer />
       </body>
     </html>

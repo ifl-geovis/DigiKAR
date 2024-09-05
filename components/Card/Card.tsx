@@ -7,11 +7,17 @@ import { Button } from "@/components/ui/button";
 type Props = PropsWithChildren<{
   title?: string;
   collapsible?: boolean;
+  defaultOpen?: boolean;
 }>;
 
-const Card: FC<Props> = ({ children, title, collapsible = false }) => {
+const Card: FC<Props> = ({
+  children,
+  title,
+  collapsible = false,
+  defaultOpen,
+}) => {
   return (
-    <Collapsible.Root defaultOpen={!collapsible}>
+    <Collapsible.Root defaultOpen={defaultOpen ?? !collapsible}>
       <div className="rounded-sm bg-white shadow-md">
         {(title || collapsible) && (
           <div className="flex items-center justify-between border-b border-slate-200 px-5 py-2 font-bold">

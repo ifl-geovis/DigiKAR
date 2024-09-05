@@ -61,7 +61,6 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
     <Map
       id="rightsMap"
       initialViewState={viewState}
-      style={{ width: "100%", height: "100%" }}
       mapStyle={mapStyle}
       interactiveLayerIds={["borders"]}
       onMouseMove={onHover}

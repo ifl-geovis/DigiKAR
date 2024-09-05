@@ -24,6 +24,7 @@ import { columns } from "../biographyTable/columns";
 import MapTitle from "../MapTitle";
 import { getBiographiesByCommonEvent } from "@/lib/getBiographiesByCommonEvent";
 import { scaleOrdinal, schemeCategory10 } from "d3";
+import DataDownloader from "../DataDownloader";
 
 type Props = {
   style: StyleSpecification;
@@ -72,11 +73,11 @@ const Biographies: FC<Props> = ({ style }) => {
           <MapTitle>Biographien</MapTitle>
           <p>basierend auf gemeinsamen Ereignissen</p>
         </Card>
-        <Card>
+        <Card title="Auswahl der Ereignisse" collapsible defaultOpen>
           <div className="flex flex-col gap-5">
             <PlaceSelector place={place} onSelectHandler={updatePlace} />
             <div className="flex items-center gap-3">
-              <Label>Art des Ereignisses</Label>
+              <Label>Ereignistyp</Label>
               <Select defaultValue="Geburt" onValueChange={updateEventType}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Wähle ein Ereignis" />
@@ -91,9 +92,17 @@ const Biographies: FC<Props> = ({ style }) => {
           </div>
         </Card>
         {data && (
-          <Card title="Personen" collapsible>
-            <DataTable data={data.map((d) => d.properties)} columns={columns} />
-          </Card>
+          <>
+            <Card title="Personen" collapsible>
+              <DataTable
+                data={data.map((d) => d.properties)}
+                columns={columns}
+              />
+            </Card>
+            <Card title="Daten export" collapsible>
+              <DataDownloader data={data} />
+            </Card>
+          </>
         )}
       </MapAside>
 

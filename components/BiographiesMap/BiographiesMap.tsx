@@ -13,6 +13,7 @@ import Map, {
   Layer,
   MapLayerMouseEvent,
   NavigationControl,
+  ScaleControl,
   Source,
 } from "react-map-gl/maplibre";
 
@@ -75,6 +76,7 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
       interactiveLayerIds={["bios"]}
       onMouseMove={handleMouseMove}
     >
+      <ScaleControl />
       <NavigationControl />
       <Source id="flow-data" data={lines} type={"geojson"} lineMetrics>
         <Layer
