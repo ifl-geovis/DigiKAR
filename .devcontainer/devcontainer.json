@@ -16,8 +16,7 @@
     "ghcr.io/eitsupi/devcontainer-features/duckdb-cli:1": {
       "version": "0.10.2",
       "extensions": "httpfs,spatial"
-    },
-    "ghcr.io/itsmechlark/features/postgresql:1": {}
+    }
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
