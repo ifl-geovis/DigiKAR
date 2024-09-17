@@ -72,9 +72,27 @@
     @apply bg-background text-foreground;
   }
   h2 {
-    @apply text-3xl mb-3;
+    @apply mb-3 text-3xl;
   }
   h3 {
-    @apply text-xl mb-2;
+    @apply mb-2 text-xl;
+  }
+  h4 {
+    @apply mb-2 text-lg;
+  }
+}
+
+article {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mt-10;
+  }
+
+  a {
+    @apply underline;
   }
 }
