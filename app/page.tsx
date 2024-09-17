@@ -15,6 +15,14 @@ export default async function Home() {
         Allgemeinheit bestimmt, befindet sich in Entwicklung und kann daher Bugs
         enthalten.
       </p>
+      <div className="my-10 rounded-sm border-l-2 border-gray-200 bg-gray-50 p-10">
+        <p>
+          <strong>Wichtig!</strong>
+          <br />
+          Die Daten sind nicht vollständig und können Fehler enthalten. Sie
+          dienen in erster Linien der Evaluation von Visualisierungsansätzen.
+        </p>
+      </div>
       <p>
         Denn Quellcode finden Sie auf{" "}
         <a href="https://github.com/ifl-geovis/DigiKAR">github</a>.
