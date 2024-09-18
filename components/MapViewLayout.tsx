@@ -4,7 +4,7 @@ type Props = PropsWithChildren;
 
 const MapViewLayout: FC<Props> = ({ children }) => {
   return (
-    <div className="grid h-full grid-cols-[400px_1fr] grid-rows-[1fr_50px] overflow-hidden grid-areas-[aside_.,._.]">
+    <div className="grid h-full grid-cols-[400px_1fr] grid-rows-[1fr_auto_50px] overflow-hidden grid-areas-[aside_.,aside_bottom-nav,._.]">
       {children}
     </div>
   );

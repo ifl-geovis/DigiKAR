@@ -70,8 +70,10 @@ export default async function Wp2() {
         </MapAside>
         <MapContainer>
           <RightsMap mapStyle={style} borders={borders} />
-          <Timeline />
         </MapContainer>
+        <div className="z-10 p-2 grid-in-[bottom-nav]">
+          <Timeline />
+        </div>
       </MapViewLayout>
     </RightsExplorer>
   );

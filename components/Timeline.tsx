@@ -46,7 +46,7 @@ const Timeline: FC = () => {
       .domain(extent(data.data.map((d: TimelineData) => d.count)))
       .range([1, 20]);
   return (
-    <div className="mb-7 mt-3 rounded-sm bg-white p-2 shadow">
+    <div className="rounded-sm bg-white p-2 shadow-xl">
       <div ref={ref}>
         {isLoading && (
           <Skeleton
