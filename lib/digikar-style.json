@@ -1,0 +1,130 @@
+{
+  "id": "bm_web_bin",
+  "version": 8,
+  "name": "bm_web_bin",
+  "metadata": {
+    "digikar:style-version": "0.1.0"
+  },
+  "glyphs": "https://tiles.geohistoricaldata.org/tiles/font/{fontstack}/{range}",
+  "transition": {
+    "duration": 300,
+    "delay": 0
+  },
+  "sources": {
+    "s3-hillshade": {
+      "type": "raster-dem",
+      "tiles": [
+        "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
+      ],
+      "tileSize": 256
+    },
+    "orte": {
+      "type": "vector",
+      "url": "https://tiles.geohistoricaldata.org/tiles/orte"
+    },
+    "cities": {
+      "type": "vector",
+      "url": "https://tiles.geohistoricaldata.org/tiles/cities"
+    },
+    "reichsgrenzen1659": {
+      "type": "vector",
+      "url": "https://tiles.geohistoricaldata.org/tiles/reichsgrenzen1659"
+    },
+    "dem": {
+      "type": "raster",
+      "attribution": "&copy; 2023 basemap.de / BKG | Datenquellen: © GeoBasis-DE",
+      "minzoom": 0,
+      "maxzoom": 22,
+      "tiles": [
+        "https://sgx.geodatenzentrum.de/wms_basemapde_schummerung?tiled=true&bbox={bbox-epsg-3857}&service=WMS&version=1.3.0&request=GetMap&layers=de_basemapde_web_raster_combshade&styles=&crs=EPSG:3857&width=256&height=256&format=image/png&transparent=true"
+      ],
+      "tileSize": 256
+    }
+  },
+  "layers": [
+    {
+      "id": "hillshade",
+      "type": "hillshade",
+      "source": "s3-hillshade",
+      "source-layer": "hillshade",
+      "maxzoom": 15,
+      "paint": {
+        "hillshade-shadow-color": "rgb(200,200,200)",
+        "hillshade-accent-color": "rgb(220,220,220)",
+        "hillshade-exaggeration": 0.2
+      }
+    },
+    {
+      "id": "oldEmpireBorders1659",
+      "type": "line",
+      "source": "reichsgrenzen1659",
+      "source-layer": "reichsgrenzen1659",
+      "paint": {
+        "line-color": "rgb(0,0,0)",
+        "line-width": 1,
+        "line-opacity": 0.2
+      }
+    },
+    {
+      "id": "important-cities",
+      "type": "circle",
+      "source": "cities",
+      "source-layer": "cities",
+      "minzoom": 3,
+      "paint": {
+        "circle-radius": 3,
+        "circle-opacity": 0.5,
+        "circle-color": "rgb(0,0,0)"
+      }
+    },
+    {
+      "id": "cities-labels",
+      "type": "symbol",
+      "source": "cities",
+      "source-layer": "cities",
+      "minzoom": 3,
+      "maxzoom": 0,
+      "layout": {
+        "text-field": "{name}",
+        "text-font": ["Inter Regular"],
+        "text-size": 12,
+        "text-anchor": "bottom-left",
+        "text-offset": [0.1, -0.1]
+      }
+    },
+    {
+      "id": "orte",
+      "type": "circle",
+      "source": "orte",
+      "source-layer": "orte",
+      "minzoom": 8,
+      "paint": {
+        "circle-stroke-width": 1,
+        "circle-stroke-color": "rgb(0,0,0)",
+        "circle-radius": 1,
+        "circle-color": "rgb(255,255,255)"
+      }
+    },
+    {
+      "id": "orte-labels",
+      "type": "symbol",
+      "source": "orte",
+      "source-layer": "orte",
+      "minzoom": 11,
+      "maxzoom": 0,
+      "layout": {
+        "text-field": "{label}",
+        "text-font": ["Inter Regular"],
+        "text-size": 9,
+        "text-anchor": "bottom-left",
+        "text-offset": [0.5, -0.5]
+      },
+      "paint": {
+        "text-color": "rgb(100,100,100)",
+        "text-halo-color": "rgb(255,255,255)",
+        "text-halo-width": 2,
+        "text-halo-blur": 5
+      }
+    }
+  ]
+}
