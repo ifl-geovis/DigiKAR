@@ -106,29 +106,6 @@ FROM ST_Read(
     './data/Factoid_PROFS_v10_geocoded-with-IDs_v2.xlsx',
     open_options = ['HEADERS=FORCE']
   );
---- parse spreadsheet state calendar aschaffenburg
-CREATE TEMP TABLE aschaffenburg AS
-SELECT
-  'state_calendar_aschaffenburg' AS event_analytical_lens,
-  'Funktionsausübung' AS event_type,
-  clamp_to_range(str_to_year("event_date")) AS event_date,
-  clamp_to_range(str_to_year("event_date_before")) AS event_date_before,
-  clamp_to_range(str_to_year("event_date_after")) AS event_date_after,
-  clamp_to_range(str_to_year("event_date_end")) AS event_date_end,
-  event_value,
-  nas_to_null("event_source") AS event_source,
-  nas_to_null("event_source_comment") AS event_source_comment,
-  nas_to_null("event_source_quotations") AS event_source_quotations,
-  nas_to_null(person_name) AS person_name,
-  nas_to_null(person_title) AS person_title,
-  nas_to_null(person_function) AS person_function,
-  nas_to_null(institution_name) AS institution_name,
-  nas_to_null(trim(place_name)) AS place_name,
-  point_or_null(place_geonames_longitude, place_geonames_latitude) AS place
-FROM ST_Read(
-    '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/df_Aschaffenburg_geocoded_cleaned_2024-06-10.xlsx',
-    open_options = ['HEADERS=FORCE']
-  );
 --- parse spreadsheet state_calendar jahns
 CREATE TEMP TABLE jahns AS
 SELECT CASE
@@ -188,8 +165,6 @@ INSERT INTO events BY NAME
 FROM erfurt
 UNION ALL BY NAME
 FROM mainz
-UNION ALL BY NAME
-FROM aschaffenburg
 UNION ALL BY NAME
 FROM jahns
 UNION ALL BY NAME
