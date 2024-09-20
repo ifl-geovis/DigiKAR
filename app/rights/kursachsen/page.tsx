@@ -48,7 +48,7 @@ export default async function Wp2() {
         "Grundherrschaft",
         "Landeshoheit",
       ]}
-      timeRange={{ t: 1700, support: 75 }}
+      timeRange={{ t: 1600, support: 250 }}
       initialSymbolMap={symbolMap}
       colorMap={colorMapKursachsen}
       availableLayers={[
