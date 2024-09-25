@@ -29,7 +29,6 @@ CREATE OR REPLACE TABLE events (
     person_name VARCHAR,
     person_function VARCHAR,
     person_title VARCHAR,
-    -- TODO: ask how to parse related persons
     event_type VARCHAR NOT NULL,
     event_value VARCHAR CHECK (length(event_value) == 1),
     event_date INT,
@@ -37,9 +36,11 @@ CREATE OR REPLACE TABLE events (
     event_date_after INT,
     event_date_start INT,
     event_date_end INT,
+    -- TODO: ask how to parse related persons
     event_related_persons VARCHAR,
     event_source VARCHAR,
     event_source_quotations VARCHAR,
+    event_editorial_comment VARCHAR,
     event_source_comment VARCHAR,
     event_analytical_lens VARCHAR NOT NULL,
     institution_name VARCHAR,
@@ -106,30 +107,31 @@ FROM ST_Read(
     './data/Factoid_PROFS_v10_geocoded-with-IDs_v2.xlsx',
     open_options = ['HEADERS=FORCE']
   );
---- parse spreadsheet state_calendar jahns
-CREATE TEMP TABLE jahns AS
-SELECT CASE
-    WHEN contains(pers_ID::VARCHAR, '?'::VARCHAR) THEN NULL
-    WHEN starts_with(pers_ID, 'P-') THEN replace(pers_ID, 'P-', '')
-    ELSE pers_ID
-  END AS person_id,
-  nas_to_null(pers_name) AS person_name,
-  nas_to_null(pers_title) AS person_title,
-  nas_to_null(pers_function) AS person_function,
+--- parse spreadsheet reichskammergericht
+CREATE TEMP TABLE reichskammergericht AS
+SELECT
+  person_id_1 AS person_id,
+  person_name,
+  person_function,
+  person_title,
   event_type,
-  clamp_to_range(str_to_year("event_before-date")) AS event_date_before,
-  clamp_to_range(str_to_year("event_after-date")) AS event_date_after,
-  --- TODO: check why not event_value
-  NULL AS event_value,
-  nas_to_null(inst_name) AS institution_name,
-  nas_to_null(trim("geonames address")) AS place_name,
-  -- nas_to_null(place_name) AS place_name,
-  point_or_null(geonames_lng, geonames_lat) AS place,
-  nas_to_null("source") AS event_source,
-  nas_to_null("comment") AS event_source_comment,
-  'state_calendar_jahns' AS event_analytical_lens,
+  nas_to_null(event_value) AS event_value,
+  str_to_year(event_date) AS event_date,
+  str_to_year(event_date_before) AS event_date_before,
+  str_to_year(event_date_after) AS event_date_after,
+  str_to_year(event_date_start) AS event_date_start,
+  str_to_year(event_date_end) AS event_date_end,
+  event_related_persons,
+  event_source,
+  event_source_quotations,
+  event_editorial_comment,
+  event_source_comment,
+  event_analytical_lens,
+  institution_name,
+  place_name,
+  point_or_null(place_geonames_longitude, place_geonames_latitude) AS place
 FROM ST_Read(
-    './data/Factoid_Jahns_consolidation_geocoded_personIDs_2614rows.xlsx',
+    '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/RKG_df_geocoded_person_id.xlsx',
     open_options = ['HEADERS=FORCE']
   );
 -- parse spreadsheet student data
@@ -157,16 +159,16 @@ SELECT
   nas_to_null(source_quotation) AS event_source_quotations,
   'students' AS event_analytical_lens,
 FROM ST_Read(
-    '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/df_students_geocoded_v1.xlsx',
-    open_options = ['HEADERS=FORCE']
-  );
+  '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/df_students_geocoded_v1.xlsx',
+  open_options = ['HEADERS=FORCE']
+);
 
 INSERT INTO events BY NAME
 FROM erfurt
 UNION ALL BY NAME
 FROM mainz
 UNION ALL BY NAME
-FROM jahns
+FROM reichskammergericht
 UNION ALL BY NAME
 FROM students;
 .exit
