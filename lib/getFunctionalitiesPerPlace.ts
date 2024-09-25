@@ -2,7 +2,7 @@ import { Feature, Point } from "geojson";
 import { createDatabase } from "./createDatabase";
 
 export const getFunctionalitiesPerPlace = async (
-  table = "university_mainz",
+  lens = "university_mainz",
   functions?: string[],
 ) => {
   const db = await createDatabase();
@@ -41,7 +41,7 @@ export const getFunctionalitiesPerPlace = async (
   `);
 
   const res = await statement.all(
-    table ?? "%",
+    lens ?? "%",
     functions ? `'.*(${functions?.join("|")}).*'` : ".*",
   );
 

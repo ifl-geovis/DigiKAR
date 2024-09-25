@@ -34,21 +34,21 @@ type Props = {
 };
 
 const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
-  const [table, setTable] = useState<string | undefined>(undefined);
+  const [lens, setLens] = useState<string>("RKG");
   const [filter, setFilter] = useState<string | undefined>(undefined);
 
   // TODO: fix workaround with unused URL base
   const url = new URL("/api/functionalities", "http://example.org");
   const searchParams = url.searchParams;
-  table ? searchParams.set("table", table) : searchParams.delete("table");
+  lens ? searchParams.set("lens", lens) : searchParams.delete("lens");
   filter ? searchParams.set("filter", filter) : searchParams.delete("filter");
 
-  const { data, isLoading } = useSWRImmutable<
+  const { data, isLoading, error } = useSWRImmutable<
     Awaited<ReturnType<typeof getFunctionalitiesPerPlace>>
   >(`${url.pathname}?${url.searchParams}`, fetcher);
 
   const { places, bounds } = useMemo(() => {
-    if (!data) return { places: undefined, bounds: undefined };
+    if (!data || error) return { places: undefined, bounds: undefined };
     const groupedByPlace = rollup(
       data,
       (D) =>
@@ -70,7 +70,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
     const [e, s, w, n] = bbox(places);
     const bounds = new LngLatBounds([w, s, e, n]);
     return { places, bounds };
-  }, [data]);
+  }, [data, error]);
 
   return (
     <MapViewLayout>
@@ -84,8 +84,8 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
             <div className="grid max-w-sm items-center gap-1.5">
               <Label>Sonde</Label>
               <Select
-                defaultValue="state_calendar_aschaffenburg"
-                onValueChange={(value) => setTable(value)}
+                defaultValue={lens}
+                onValueChange={(value) => setLens(value)}
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Wähle eine Sonde" />
@@ -93,10 +93,12 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Datensonde</SelectLabel>
-                    <SelectItem value="state_calendar_aschaffenburg">
-                      Aschaffenburg
+                    <SelectItem value="state_calendar_erfurt">
+                      Erfurt
                     </SelectItem>
                     <SelectItem value="university_mainz">Mainz</SelectItem>
+                    <SelectItem value="RKG">Reichskammergericht</SelectItem>
+                    <SelectItem value="students">Studierende</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

@@ -2,10 +2,18 @@ import { getFunctionalitiesPerPlace } from "@/lib/getFunctionalitiesPerPlace";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const table = request.nextUrl.searchParams.get("table");
+  const lens = request.nextUrl.searchParams.get("lens");
   const filter = request.nextUrl.searchParams.get("filter");
+
+  if (!lens) {
+    return NextResponse.json({
+      error: "Missing lens parameter",
+      status: 400,
+    });
+  }
+
   const functionalities = await getFunctionalitiesPerPlace(
-    table ?? "state_calendar_aschaffenburg",
+    lens,
     filter?.split(","),
   );
 
