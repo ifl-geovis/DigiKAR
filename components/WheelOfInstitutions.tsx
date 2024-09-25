@@ -15,15 +15,17 @@ type Props = {
 };
 
 const WheelOfInstitutions: FC<Props> = ({ institutions }) => {
-  const markerSize = 300;
+  const markerSize = 100;
+  const padding = 20;
+  const size = markerSize + padding * 2;
   return (
-    <svg width={markerSize} height={markerSize}>
-      <circle cx={markerSize / 2} cy={markerSize / 2} r={2} />
+    <svg width={size} height={size}>
+      <circle cx={size / 2} cy={size / 2} r={2} />
       {institutions.map((d, idx, arr) => {
         return (
           <g
             key={idx}
-            transform={`translate(${markerSize / 2} ${markerSize / 2}) rotate(${
+            transform={`translate(${size / 2} ${size / 2}) rotate(${
               (360 / arr.length) * (idx + 1) - 90
             })`}
           >
@@ -32,10 +34,12 @@ const WheelOfInstitutions: FC<Props> = ({ institutions }) => {
               ([key, value], idx) => (
                 <circle
                   key={key}
-                  cx={15 + 10 * idx}
-                  r={Math.sqrt(value) * 2}
+                  cx={15 + 2 * idx}
+                  r={Math.sqrt(value) * 1.5}
                   fill="red"
-                  fillOpacity={0.75}
+                  stroke="red"
+                  strokeWidth={0.5}
+                  fillOpacity={0.25}
                 />
               ),
             )}
