@@ -57,13 +57,13 @@ const RightShape = forwardRef<Ref, Props>(function RightShape(
         />
       )}
       {isShared && (
-        <SharedIcon className="inline -translate-x-[7px] -translate-y-[7px]" />
+        <SharedIcon className="inline -translate-x-[7px] -translate-y-[7px] text-white" />
       )}
       {isDisputed && (
-        <DisputedIcon className="inline -translate-x-[7px] -translate-y-[7px]" />
+        <DisputedIcon className="inline -translate-x-[7px] -translate-y-[7px] text-white" />
       )}
       {!isShared && isUnclear && (
-        <UnclearIcon className="inline -translate-x-[7px] -translate-y-[7px]" />
+        <UnclearIcon className="inline -translate-x-[7px] -translate-y-[7px] text-black" />
       )}
     </g>
   );

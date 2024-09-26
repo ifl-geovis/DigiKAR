@@ -9,6 +9,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import RightShape from "../RightShape";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
+import getRightStatus from "@/lib/getRightStatus";
 
 type Props = {
   x: number;
@@ -30,26 +31,24 @@ const RightIndicator: FC<Props> = ({
   colorScale,
 }) => {
   const { setActiveCategory, activeCategory } = useRightsExplorerContext();
+
   const {
+    color,
+    size,
     isShared,
     isDisputed,
     isUnclear,
-    color,
-    size,
     opacity,
     onContextMenuHandler,
   } = useMemo(() => {
+    const { isWithoutHolder, isShared, isDisputed, isUnclear } = getRightStatus(
+      attribute.holders,
+    );
     const holder = attribute.holders.categories?.[0]?.normalize();
-    const isWithoutHolder = !holder;
-    const isShared = attribute.holders.isShared;
-    const isDisputed = attribute.holders.isDisputed;
-    const isUnclear = attribute.holders.categories?.[0] === "unklar";
-    const color = isWithoutHolder
-      ? "black"
-      : isShared
-        ? "white"
-        : colorScale(holder);
-
+    const color =
+      isWithoutHolder || isShared || isDisputed
+        ? "black"
+        : colorScale(holder ?? "");
     const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
     const opacity =
       !activeCategory ||
@@ -96,7 +95,6 @@ const RightIndicator: FC<Props> = ({
               <LocationAttributeCard
                 placeName={placeName}
                 locationAttribute={attribute}
-                color={color}
               />
             </TooltipContent>
           </Tooltip>

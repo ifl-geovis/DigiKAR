@@ -29,16 +29,14 @@ export const kursachsenToRightSchema = (
         );
         //@ts-expect-error TS is not able to infer that value is always an entry
         const entry = getClosestEntry(t, value);
-        const categories = entry?.rightholders_categories;
-        const isDisputed =
-          entry?.rights_disputed_by && entry?.rights_disputed_by > 0
-            ? true
-            : false;
-        const isShared =
-          entry?.rights_held_by && entry.rights_held_by > 1 ? true : false;
+        const [categories, heldBy, disputedBy] = [
+          entry?.rightholders_categories,
+          entry?.rights_held_by ?? 0,
+          entry?.rights_disputed_by ?? 0,
+        ];
         const attribute = {
           attributeName,
-          holders: { categories, isDisputed, isShared },
+          holders: { categories, heldBy, disputedBy },
         };
         acc.push(attribute);
       }

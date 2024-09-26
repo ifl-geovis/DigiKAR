@@ -1,5 +1,6 @@
 import { Attribute, HoldersGeneralized } from "@/types/PlaceProperties";
 import { getNgonPoints } from "../Ngon/Ngon.helpers";
+import getRightStatus from "@/lib/getRightStatus";
 
 const useSnowflake = (
   placeAttributes: Attribute<HoldersGeneralized>[],
@@ -16,8 +17,9 @@ const useSnowflake = (
         (d) => d.attributeName == order[i],
       );
       if (!attribute) return [];
+      const { isWithoutHolder } = getRightStatus(attribute.holders);
       const { attributeName, holders } = attribute;
-      const coordinates = holders.categories?.length
+      const coordinates = !isWithoutHolder
         ? { x, y }
         : { x: noDataPoints[i].x, y: noDataPoints[i].y };
       return [{ ...coordinates, attributeName, holders }];

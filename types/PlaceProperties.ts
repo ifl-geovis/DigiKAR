@@ -11,8 +11,8 @@ export type Holder = {
 
 export type HoldersGeneralized = {
   categories?: string[];
-  isDisputed: boolean;
-  isShared: boolean;
+  heldBy: number;
+  disputedBy: number;
 };
 
 export type Attribute<T> = {

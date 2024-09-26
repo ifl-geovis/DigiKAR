@@ -12,21 +12,23 @@ const LegendNominal = () => {
   const { colorScale, setActiveCategory, activeCategory } =
     useRightsExplorerContext();
   const specialCategories = [
-    { label: "geteilt", Icon: SharedIcon },
-    { label: "strittig", Icon: DisputedIcon },
-    { label: "unklar", Icon: UnclearIcon },
+    { label: "geteilt", Icon: SharedIcon, background: "black" },
+    { label: "strittig", Icon: DisputedIcon, background: "black" },
+    { label: "unklar", Icon: UnclearIcon, background: "lightgrey" },
   ];
   if (viewState.zoom < 10) return <p>Zoom in to see a legend</p>;
   return (
     <>
       <ol className="flex flex-col gap-2">
-        {specialCategories.map(({ label, Icon }) => (
+        {specialCategories.map(({ label, Icon, background }) => (
           <li
-            className={twJoin(twJoin(
-              "flex cursor-pointer items-center gap-1 leading-tight transition-opacity",
-              activeCategory === label && "font-bold",
-              activeCategory && activeCategory !== label && "opacity-30",
-            ))}
+            className={twJoin(
+              twJoin(
+                "flex cursor-pointer items-center gap-1 leading-tight transition-opacity",
+                activeCategory === label && "font-bold",
+                activeCategory && activeCategory !== label && "opacity-30",
+              ),
+            )}
             key={label}
             onClick={() =>
               setActiveCategory((prevState?: string) =>
@@ -35,8 +37,13 @@ const LegendNominal = () => {
             }
           >
             <svg width={16} height={16} className="shrink-0">
-              <circle cx={8} cy={8} r={6.6} stroke="black" fill={"white"} />
-              <Icon className="translate-x-[1px] translate-y-[1px]" />
+              <circle cx={8} cy={8} r={6.6} stroke="black" fill={background} />
+              <Icon
+                className={twJoin(
+                  "translate-x-[1px] translate-y-[1px]",
+                  background === "black" && "text-white",
+                )}
+              />
             </svg>
             <div>{label}</div>
           </li>
