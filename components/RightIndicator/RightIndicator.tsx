@@ -30,45 +30,49 @@ const RightIndicator: FC<Props> = ({
   colorScale,
 }) => {
   const { setActiveCategory, activeCategory } = useRightsExplorerContext();
-  const { isShared, color, size, opacity, onContextMenuHandler } =
-    useMemo(() => {
-      const holder = attribute.holders.categories?.[0]?.normalize();
-      const isWithoutHolder = !holder;
-      const isShared = attribute.holders.isShared;
-      const color = isWithoutHolder
-        ? "black"
-        : isShared
-          ? "white"
-          : colorScale(holder);
+  const {
+    isShared,
+    isDisputed,
+    isUnclear,
+    color,
+    size,
+    opacity,
+    onContextMenuHandler,
+  } = useMemo(() => {
+    const holder = attribute.holders.categories?.[0]?.normalize();
+    const isWithoutHolder = !holder;
+    const isShared = attribute.holders.isShared;
+    const isDisputed = attribute.holders.isDisputed;
+    const isUnclear = attribute.holders.categories?.[0] === "unklar";
+    const color = isWithoutHolder
+      ? "black"
+      : isShared
+        ? "white"
+        : colorScale(holder);
 
-      const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
-      const opacity =
-        !activeCategory ||
-        (activeCategory &&
-          attribute.holders.categories?.includes(activeCategory))
-          ? 1
-          : 0.2;
-      const onContextMenuHandler =
-        (!isShared && !isWithoutHolder) || !holder
-          ? () =>
-              setActiveCategory((prevState?: string) =>
-                prevState !== holder ? holder : undefined,
-              )
-          : undefined;
-      return {
-        isShared,
-        color,
-        size,
-        opacity,
-        onContextMenuHandler,
-      };
-    }, [
-      attribute,
-      colorScale,
-      activeCategory,
-      circleRadius,
-      setActiveCategory,
-    ]);
+    const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
+    const opacity =
+      !activeCategory ||
+      (activeCategory && attribute.holders.categories?.includes(activeCategory))
+        ? 1
+        : 0.2;
+    const onContextMenuHandler =
+      (!isShared && !isWithoutHolder) || !holder
+        ? () =>
+            setActiveCategory((prevState?: string) =>
+              prevState !== holder ? holder : undefined,
+            )
+        : undefined;
+    return {
+      color,
+      size,
+      opacity,
+      isShared,
+      isDisputed,
+      isUnclear,
+      onContextMenuHandler,
+    };
+  }, [attribute, colorScale, activeCategory, circleRadius, setActiveCategory]);
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
@@ -83,7 +87,8 @@ const RightIndicator: FC<Props> = ({
                 color={color}
                 opacity={opacity}
                 isShared={isShared}
-                //TODO: add alternative symbols here
+                isDisputed={isDisputed}
+                isUnclear={isUnclear}
                 onContextMenuHandler={onContextMenuHandler}
               />
             </TooltipTrigger>

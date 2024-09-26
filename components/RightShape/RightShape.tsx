@@ -1,4 +1,7 @@
 import { forwardRef } from "react";
+import DisputedIcon from "/public/icons/disputed.svg";
+import SharedIcon from "/public/icons/shared.svg";
+import UnclearIcon from "/public/icons/unclear.svg";
 
 type Props = {
   x: number;
@@ -8,13 +11,26 @@ type Props = {
   color: string;
   opacity: number;
   isShared: boolean;
+  isDisputed: boolean;
+  isUnclear: boolean;
   onContextMenuHandler?: () => void;
 };
 
 type Ref = SVGGElement;
 
 const RightShape = forwardRef<Ref, Props>(function RightShape(
-  { x, y, size, symbol, color, opacity, isShared, onContextMenuHandler },
+  {
+    x,
+    y,
+    size,
+    symbol,
+    color,
+    opacity,
+    isShared,
+    isDisputed,
+    isUnclear,
+    onContextMenuHandler,
+  },
   ref,
 ) {
   const className =
@@ -40,7 +56,15 @@ const RightShape = forwardRef<Ref, Props>(function RightShape(
           onContextMenu={onContextMenuHandler}
         />
       )}
-      {isShared && <circle r={size / 4} />}
+      {isShared && (
+        <SharedIcon className="inline -translate-x-[7px] -translate-y-[7px]" />
+      )}
+      {isDisputed && (
+        <DisputedIcon className="inline -translate-x-[7px] -translate-y-[7px]" />
+      )}
+      {!isShared && isUnclear && (
+        <UnclearIcon className="inline -translate-x-[7px] -translate-y-[7px]" />
+      )}
     </g>
   );
 });

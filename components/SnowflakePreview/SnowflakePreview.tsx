@@ -71,6 +71,8 @@ const SnowflakePreview = () => {
                       size={circleRadius}
                       opacity={1}
                       isShared={false}
+                      isDisputed={false}
+                      isUnclear={false}
                     />
                   </g>
                 </PopoverTrigger>
