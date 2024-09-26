@@ -18,13 +18,25 @@
       ],
       "tileSize": 256
     },
-    "orte": {
+    "orteKursachsen": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/orte"
     },
-    "cities": {
+    "orteMainz": {
+      "type": "vector",
+      "url": "https://tiles.geohistoricaldata.org/tiles/places_w_territory"
+    },
+    "significantPlaces": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/cities"
+    },
+    "ocean": {
+      "type": "vector",
+      "url": "https://tiles.geohistoricaldata.org/tiles/ocean"
+    },
+    "lakes": {
+      "type": "vector",
+      "url": "https://tiles.geohistoricaldata.org/tiles/lakes"
     },
     "reichsgrenzen1659": {
       "type": "vector",
@@ -55,6 +67,26 @@
       }
     },
     {
+      "id": "ocean",
+      "type": "fill",
+      "source": "ocean",
+      "source-layer": "ocean",
+      "paint": {
+        "fill-color": "rgb(90,130,160)",
+        "fill-opacity": 0.6
+      }
+    },
+    {
+      "id": "lakes",
+      "type": "fill",
+      "source": "lakes",
+      "source-layer": "lakes",
+      "paint": {
+        "fill-color": "rgb(90,130,160)",
+        "fill-opacity": 0.6
+      }
+    },
+    {
       "id": "oldEmpireBorders1659",
       "type": "line",
       "source": "reichsgrenzen1659",
@@ -66,9 +98,9 @@
       }
     },
     {
-      "id": "important-cities",
+      "id": "significantPlaces",
       "type": "circle",
-      "source": "cities",
+      "source": "significantPlaces",
       "source-layer": "cities",
       "minzoom": 3,
       "paint": {
@@ -78,24 +110,37 @@
       }
     },
     {
-      "id": "cities-labels",
+      "id": "significantPlacesLabels",
       "type": "symbol",
-      "source": "cities",
+      "source": "significantPlaces",
       "source-layer": "cities",
       "minzoom": 3,
       "maxzoom": 0,
       "layout": {
         "text-field": "{name}",
-        "text-font": ["Inter Regular"],
+        "text-font": ["Inter Bold"],
         "text-size": 12,
         "text-anchor": "bottom-left",
         "text-offset": [0.1, -0.1]
       }
     },
     {
-      "id": "orte",
+      "id": "orteMainz",
       "type": "circle",
-      "source": "orte",
+      "source": "orteMainz",
+      "source-layer": "places_w_territory",
+      "minzoom": 8,
+      "paint": {
+        "circle-stroke-width": 1,
+        "circle-stroke-color": "rgb(0,0,0)",
+        "circle-radius": 1,
+        "circle-color": "rgb(255,255,255)"
+      }
+    },
+    {
+      "id": "orteKursachsen",
+      "type": "circle",
+      "source": "orteKursachsen",
       "source-layer": "orte",
       "minzoom": 8,
       "paint": {
@@ -106,14 +151,35 @@
       }
     },
     {
-      "id": "orte-labels",
+      "id": "orteKursachsenLabels",
       "type": "symbol",
-      "source": "orte",
+      "source": "orteKursachsen",
       "source-layer": "orte",
       "minzoom": 11,
       "maxzoom": 0,
       "layout": {
         "text-field": "{label}",
+        "text-font": ["Inter Regular"],
+        "text-size": 9,
+        "text-anchor": "bottom-left",
+        "text-offset": [0.5, -0.5]
+      },
+      "paint": {
+        "text-color": "rgb(100,100,100)",
+        "text-halo-color": "rgb(255,255,255)",
+        "text-halo-width": 2,
+        "text-halo-blur": 5
+      }
+    },
+    {
+      "id": "orteMainzLabels",
+      "type": "symbol",
+      "source": "orteMainz",
+      "source-layer": "places_w_territory",
+      "minzoom": 11,
+      "maxzoom": 0,
+      "layout": {
+        "text-field": "{place_name}",
         "text-font": ["Inter Regular"],
         "text-size": 9,
         "text-anchor": "bottom-left",
