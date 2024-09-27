@@ -15,14 +15,14 @@ export const ansbachToRightSchema = (
     const rights = row.place_attributes.map((right) => {
       const attributeName = capitalize(right.attributeName);
       const categories = right.holders.map((d) => d.holderConsolidated);
-      const isShared = categories.length > 1;
-      const isDisputed = false;
+      const heldBy = categories.length;
+      const disputedBy = 0;
       return {
         attributeName,
         holders: {
           categories,
-          isShared,
-          isDisputed,
+          heldBy,
+          disputedBy,
         },
       };
     });

@@ -37,8 +37,8 @@ export default async function Anwesen() {
             <div className="text-sm">Grundherrschaft</div>
             <AnwesenMarker
               size={24}
-              ng={{ isDisputed: false, isShared: false }}
-              gs={{ isDisputed: false, isShared: false }}
+              ng={{ disputedBy: 0, heldBy: 0 }}
+              gs={{ disputedBy: 0, heldBy: 0 }}
             />
             <div className="text-sm">Niedergericht</div>
           </div>

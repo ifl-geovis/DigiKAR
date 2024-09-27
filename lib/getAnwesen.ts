@@ -22,13 +22,13 @@ export const getAnwesen = async () => {
         ...f.properties,
         Grundherrschaft: {
           categories: [category.get(holderGs) ?? ""],
-          isDisputed: holderGs === "umstritten",
-          isShared: false,
+          disputedBy: holderGs === "umstritten" ? 1 : 0,
+          heldBy: 1,
         } satisfies HoldersGeneralized,
         Niedergericht: {
           categories: [category.get(holderNg) ?? ""],
-          isDisputed: holderNg === "umstritten",
-          isShared: false,
+          disputedBy: holderNg === "umstritten" ? 1 : 0,
+          heldBy: 1,
         } satisfies HoldersGeneralized,
       },
     };
