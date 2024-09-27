@@ -40,8 +40,10 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
   // TODO: fix workaround with unused URL base
   const url = new URL("/api/functionalities", "http://example.org");
   const searchParams = url.searchParams;
-  lens ? searchParams.set("lens", lens) : searchParams.delete("lens");
-  filter ? searchParams.set("filter", filter) : searchParams.delete("filter");
+  if (lens) searchParams.set("lens", lens);
+  if (!lens) searchParams.delete("lens");
+  if (filter) searchParams.set("filter", filter);
+  if (!filter) searchParams.delete("filter");
 
   const { data, isLoading, error } = useSWRImmutable<
     Awaited<ReturnType<typeof getFunctionalitiesPerPlace>>

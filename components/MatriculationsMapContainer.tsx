@@ -61,7 +61,8 @@ const MatriculationsMapContainer: FC<Props> = ({ style }) => {
     [updateParams],
   );
 
-  eventType ? params.set("eventType", eventType) : params.delete("eventType");
+  if (eventType) params.set("eventType", eventType);
+  if (!eventType) params.delete("eventType");
 
   const { data, isLoading } = useSWRImmutable<
     Awaited<ReturnType<typeof getMatriculations>>
