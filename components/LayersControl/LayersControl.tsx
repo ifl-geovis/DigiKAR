@@ -11,7 +11,11 @@ const LayersControl: FC = () => {
     <MapControl>
       <Popover>
         <PopoverTrigger asChild>
-          <Button disabled={!layers.length} size={"icon"} variant={"ghost"}>
+          <Button
+            className="h-full"
+            disabled={!layers.length}
+            variant={"ghost"}
+          >
             <RxLayers />
           </Button>
         </PopoverTrigger>
