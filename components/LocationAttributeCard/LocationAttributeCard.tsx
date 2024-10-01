@@ -2,6 +2,7 @@ import getRightStatus from "@/lib/getRightStatus";
 import { Attribute, HoldersGeneralized } from "../../types/PlaceProperties";
 import { FC } from "react";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
+import { range, rollups } from "d3";
 
 type Props = {
   /**
@@ -21,6 +22,13 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
   const { isWithoutHolder } = getRightStatus(locationAttribute.holders);
   const { colorScale } = useRightsExplorerContext();
   const categories = locationAttribute.holders.categories;
+  const summarized = categories
+    ? rollups(
+        categories,
+        (v) => v.length,
+        (d) => d ?? "unknown",
+      ).sort((a, b) => b[1] - a[1])
+    : [];
   return (
     <>
       <h2 className="mb-2 text-sm font-bold">{placeName}</h2>
@@ -31,21 +39,22 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
         <span className="italic text-gray-500">keine Daten</span>
       ) : (
         <span>
-          {categories?.map((d) => (
-            <div key="d">
-              <span>{d ?? "Andere Kateogrie"}</span>
-              <svg
-                className="ml-2 inline"
-                width={"1em"}
-                height={"1em"}
-                viewBox={"0 0 1 1"}
-              >
-                <circle
-                  transform="translate(0.5 0.5)"
-                  r={0.5}
-                  fill={colorScale(d ? d.normalize() : "")}
-                />
-              </svg>
+          {summarized.map(([category, number]) => (
+            <div className="flex items-center space-x-2" key={category}>
+              <span className="font-bold">{number}</span>
+              <span>{category ?? "Andere Kateogrie"}</span>
+              <div className="flex -space-x-2">
+                {range(number).map((i) => (
+                  <svg key={i} className="h-[15px] w-[15px]">
+                    <circle
+                      transform="translate(7.5 7.5)"
+                      r={6.5}
+                      stroke="black"
+                      fill={colorScale(category ? category.normalize() : "")}
+                    />
+                  </svg>
+                ))}
+              </div>
             </div>
           ))}
         </span>
