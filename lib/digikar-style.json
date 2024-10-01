@@ -11,16 +11,18 @@
     "delay": 0
   },
   "sources": {
-    "s3-hillshade": {
+    "hillshadeS3": {
       "type": "raster-dem",
       "tiles": [
         "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
       ],
-      "tileSize": 256
+      "tileSize": 256,
+      "attribution": "<a href='https://mapzen.com/tangram'>Tangram</a> | <a href='https://mapzen.com/'>Mapzen</a>"
     },
     "orteKursachsen": {
       "type": "vector",
-      "url": "https://tiles.geohistoricaldata.org/tiles/orte"
+      "url": "https://tiles.geohistoricaldata.org/tiles/orte",
+      "attribution": "HOV"
     },
     "orteMainz": {
       "type": "vector",
@@ -32,17 +34,19 @@
     },
     "ocean": {
       "type": "vector",
-      "url": "https://tiles.geohistoricaldata.org/tiles/ocean"
+      "url": "https://tiles.geohistoricaldata.org/tiles/ocean",
+      "attribution": "<a href='https://www.naturalearthdata.com'>Natural Earth</a>"
     },
     "lakes": {
       "type": "vector",
-      "url": "https://tiles.geohistoricaldata.org/tiles/lakes"
+      "url": "https://tiles.geohistoricaldata.org/tiles/lakes",
+      "attribution": "<a href='https://www.naturalearthdata.com'>Natural Earth</a>"
     },
     "holy_roman_empire_borders": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/holy_roman_empire_borders_1659"
     },
-    "dem": {
+    "hillshadeBasemapDe": {
       "type": "raster",
       "attribution": "&copy; 2023 basemap.de / BKG | Datenquellen: © GeoBasis-DE",
       "minzoom": 0,
@@ -55,15 +59,35 @@
   },
   "layers": [
     {
-      "id": "hillshade",
+      "id": "hillshadeGlobal",
       "type": "hillshade",
-      "source": "s3-hillshade",
+      "source": "hillshadeS3",
       "source-layer": "hillshade",
-      "maxzoom": 15,
+      "maxzoom": 22,
       "paint": {
         "hillshade-shadow-color": "rgb(200,200,200)",
         "hillshade-accent-color": "rgb(220,220,220)",
         "hillshade-exaggeration": 0.2
+      }
+    },
+    {
+      "id": "hillshadeDe",
+      "type": "raster",
+      "source": "hillshadeBasemapDe",
+      "minzoom": 15,
+      "maxzoom": 22,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "raster-brightness-max": 1,
+        "raster-contrast": {
+          "stops": [
+            [0, 0.2],
+            [6, 0]
+          ]
+        },
+        "raster-opacity": 0.1
       }
     },
     {
