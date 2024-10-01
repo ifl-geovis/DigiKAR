@@ -24,7 +24,7 @@
     },
     "orteMainz": {
       "type": "vector",
-      "url": "https://tiles.geohistoricaldata.org/tiles/places_w_territory"
+      "url": "https://tiles.geohistoricaldata.org/tiles/places_with_territory"
     },
     "significantPlaces": {
       "type": "vector",
@@ -38,9 +38,9 @@
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/lakes"
     },
-    "reichsgrenzen1659": {
+    "holy_roman_empire_borders": {
       "type": "vector",
-      "url": "https://tiles.geohistoricaldata.org/tiles/reichsgrenzen1659"
+      "url": "https://tiles.geohistoricaldata.org/tiles/holy_roman_empire_borders_1659"
     },
     "dem": {
       "type": "raster",
@@ -87,10 +87,10 @@
       }
     },
     {
-      "id": "oldEmpireBorders1659",
+      "id": "holy_roman_empire_borders",
       "type": "line",
-      "source": "reichsgrenzen1659",
-      "source-layer": "reichsgrenzen1659",
+      "source": "holy_roman_empire_borders",
+      "source-layer": "holy_roman_empire_borders_1659",
       "paint": {
         "line-color": "rgb(0,0,0)",
         "line-width": 1,
@@ -128,7 +128,7 @@
       "id": "orteMainz",
       "type": "circle",
       "source": "orteMainz",
-      "source-layer": "places_w_territory",
+      "source-layer": "places_with_territory",
       "minzoom": 8,
       "paint": {
         "circle-stroke-width": 1,
@@ -175,7 +175,7 @@
       "id": "orteMainzLabels",
       "type": "symbol",
       "source": "orteMainz",
-      "source-layer": "places_w_territory",
+      "source-layer": "places_with_territory",
       "minzoom": 11,
       "maxzoom": 0,
       "layout": {
