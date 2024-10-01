@@ -43,7 +43,7 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
                 <circle
                   transform="translate(0.5 0.5)"
                   r={0.5}
-                  fill={colorScale(d.normalize())}
+                  fill={colorScale(d ? d.normalize() : "")}
                 />
               </svg>
             </div>

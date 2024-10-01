@@ -10,7 +10,7 @@ export type Holder = {
 };
 
 export type HoldersGeneralized = {
-  categories?: string[];
+  categories?: Array<string | undefined>;
   heldBy: number;
   disputedBy: number;
 };
