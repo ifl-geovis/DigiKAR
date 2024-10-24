@@ -1,10 +1,10 @@
 export default async function Home() {
   return (
-    <article className="mx-auto my-5 max-w-prose">
+    <article className="mx-auto my-5 max-w-prose px-4 md:px-0">
       <h2>Interner Prototyp DigiKAR</h2>
       <p className="mb-4 text-xl">
         Explorative, punktbasierte Visualisierungen für das
-        Heilige&nbsp;Römische&nbsp;Reich&nbsp;deutscher&nbsp;Nation
+        Heilige&nbsp;Römische&nbsp;Reich deutscher&nbsp;Nation
         (&ldquo;Altes&nbsp;Reich&rdquo;). Über die Konstituierung von Räumen
         durch Mobilität und plurale Verteilung von Herrschaftsrechten.
       </p>
@@ -54,9 +54,10 @@ export default async function Home() {
       <h4>Niedergericht</h4>
       <h4>Grundherrschaft</h4>
       <h4>Landeshoheit</h4>
-      <h4>Verwaltungzugehörigkeit</h4>
+      <h4>Verwaltungszugehörigkeit</h4>
       <h4>Kirchenpatronat</h4>
       <h4>Jagd</h4>
+      <hr className="mt-5" />
       <h3 id="mobility">Mobilität</h3>
     </article>
   );
