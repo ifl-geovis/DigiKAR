@@ -1,5 +1,6 @@
 "use client";
 
+import { bBoxGermany } from "@/lib/bBoxGermany";
 import { HoverInfo } from "@/types/HoverInfo";
 import bbox from "@turf/bbox";
 import { Feature, FeatureCollection, Point } from "geojson";
@@ -35,7 +36,8 @@ const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
       type: "FeatureCollection",
       features: data,
     };
-    const [e, s, w, n] = bbox(places);
+    const [e, s, w, n] =
+      places.features.length > 0 ? bbox(places) : bBoxGermany;
     const bounds = new LngLatBounds([w, s, e, n]);
     return { places, bounds };
   }, [data]);
