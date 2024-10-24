@@ -97,7 +97,7 @@ const MatriculationsMapContainer: FC<Props> = ({ style }) => {
                 onValueChange={(value) => setEventType(value)}
               >
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Wähle eine Sonde" />
+                  <SelectValue placeholder="Wähle einen Eventtype" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Immatrikulation">

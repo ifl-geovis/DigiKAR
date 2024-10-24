@@ -4,6 +4,7 @@ import { bBoxGermany } from "@/lib/bBoxGermany";
 import { HoverInfo } from "@/types/HoverInfo";
 import bbox from "@turf/bbox";
 import { Feature, FeatureCollection, Point } from "geojson";
+import { User2 } from "lucide-react";
 import {
   LngLatBounds,
   MapLayerMouseEvent,
@@ -53,6 +54,9 @@ const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
     setHoverInfo(hoveredFeature && info);
   }, []);
 
+  const individuals =
+    hoverInfo && JSON.parse(hoverInfo.feature?.properties?.individuals);
+
   return (
     <Map
       initialViewState={{
@@ -99,9 +103,32 @@ const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
           }
           style={{ top: hoverInfo.y, left: hoverInfo.x }}
         >
-          <div className="flex items-baseline gap-1">
-            <strong>{hoverInfo.feature?.properties?.number}</strong>
-            {hoverInfo.feature?.properties?.place_name}
+          <div className="flex items-center">
+            <strong>{hoverInfo.feature?.properties?.place_name}</strong>
+            <div className="ml-auto flex items-center gap-1">
+              <User2 size={16} />
+              <span className="rounded-full bg-gray-50 px-3 py-1">
+                {hoverInfo.feature?.properties?.number}
+              </span>
+            </div>
+          </div>
+          <div className="mt-2">
+            <ol>
+              {/*
+              TODO: improve workaround
+              the returned feature from active layers seem to be stringified
+              see https://github.com/maplibre/maplibre-gl-js/issues/1325
+              */}
+
+              {individuals.slice(0, 10).map((d: string) => (
+                <li key={d}>{d}</li>
+              ))}
+              {individuals.length > 10 && (
+                <li className="mt-2 inline-block rounded-full bg-gray-500 px-3 py-1 italic text-white">
+                  + {individuals.length - 10} weitere
+                </li>
+              )}
+            </ol>
           </div>
         </div>
       )}

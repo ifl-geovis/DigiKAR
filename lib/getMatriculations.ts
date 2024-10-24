@@ -18,7 +18,9 @@ export const getMatriculations = async (
               'place_name',
               place_name,
               'number',
-              COUNT(*)
+              COUNT(*),
+              'individuals',
+              list(person_name)
           ),
           'geometry',
           ST_AsGeoJSON(place)::JSON
