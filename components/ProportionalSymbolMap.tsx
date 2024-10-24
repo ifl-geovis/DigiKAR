@@ -4,7 +4,7 @@ import { bBoxGermany } from "@/lib/bBoxGermany";
 import { HoverInfo } from "@/types/HoverInfo";
 import bbox from "@turf/bbox";
 import { Feature, FeatureCollection, Point } from "geojson";
-import { User2 } from "lucide-react";
+import { LuUser2 } from "react-icons/lu";
 import {
   LngLatBounds,
   MapLayerMouseEvent,
@@ -106,7 +106,7 @@ const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
           <div className="flex items-center">
             <strong>{hoverInfo.feature?.properties?.place_name}</strong>
             <div className="ml-auto flex items-center gap-1">
-              <User2 size={16} />
+              <LuUser2 size={16} />
               <span className="rounded-full bg-gray-50 px-3 py-1">
                 {hoverInfo.feature?.properties?.number}
               </span>

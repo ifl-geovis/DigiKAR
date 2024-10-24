@@ -1,4 +1,4 @@
-import { CalendarFold, CloudDownload, User2 } from "lucide-react";
+import { LuCalendar, LuDownloadCloud, LuUser2 } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { FC, useCallback } from "react";
 import { Feature, FeatureCollection, LineString } from "geojson";
@@ -35,7 +35,7 @@ const DataDownloader: FC<Props> = ({ data }) => {
         <tr>
           <td className="text-right">{data.length}</td>
           <td>
-            <User2 className="mr-2 inline" />
+            <LuUser2 className="mr-2 inline" />
           </td>
           <td>Biographien</td>
         </tr>
@@ -45,13 +45,13 @@ const DataDownloader: FC<Props> = ({ data }) => {
             {data.reduce((acc, p) => (acc += p.properties?.events.length), 0)}
           </td>
           <td>
-            <CalendarFold className="mr-2 inline" />
+            <LuCalendar className="mr-2 inline" />
           </td>
           <td>Ereignisse</td>
         </tr>
       </table>
       <Button className="flex gap-2" onClick={downloadData}>
-        <CloudDownload />
+        <LuDownloadCloud />
         <span>Daten exportieren</span>
       </Button>
     </>

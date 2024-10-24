@@ -5,7 +5,7 @@ import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
 import { HoverInfo } from "@/types/HoverInfo";
 import bbox from "@turf/bbox";
 import { Feature, FeatureCollection, LineString } from "geojson";
-import { User2 } from "lucide-react";
+import { LuUser2 } from "react-icons/lu";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useMemo, useState } from "react";
@@ -94,7 +94,7 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
           style={{ top: hoverInfo.y, left: hoverInfo.x }}
         >
           <div className="flex items-center gap-1">
-            <User2 /> <strong> {hoverInfo.feature?.properties?.name}</strong>
+            <LuUser2 /> <strong> {hoverInfo.feature?.properties?.name}</strong>
           </div>
         </div>
       )}

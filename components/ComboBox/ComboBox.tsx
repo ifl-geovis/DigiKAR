@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronsUpDown } from "lucide-react";
+import { LuCheck, LuChevronsUpDown } from "react-icons/lu";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -48,7 +48,7 @@ const ComboBox: FC<Props> = ({
             ? options.find((option) => option.value.toLowerCase() === value)
                 ?.label
             : `${optionLabel} wählen ...`}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <LuChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] overflow-y-scroll p-0">
@@ -68,7 +68,7 @@ const ComboBox: FC<Props> = ({
                     setOpen(false);
                   }}
                 >
-                  <Check
+                  <LuCheck
                     className={cn(
                       "mr-2 h-4 w-4",
                       value === option.value ? "opacity-100" : "opacity-0",

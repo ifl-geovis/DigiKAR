@@ -17,7 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Ghost } from "lucide-react";
+import { LuChevronLeft, LuChevronRight, LuGhost } from "react-icons/lu";
 import { ScrollArea } from "./scroll-area";
 
 interface DataTableProps<TData, TValue> {
@@ -79,7 +79,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell colSpan={columns.length}>
                   <div className="flex items-center justify-center gap-2 text-slate-400">
-                    <Ghost /> Keine Ergebnisse.
+                    <LuGhost /> Keine Ergebnisse.
                   </div>
                 </TableCell>
               </TableRow>
@@ -103,7 +103,7 @@ export function DataTable<TData, TValue>({
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            <ChevronLeft />
+            <LuChevronLeft />
           </Button>
           <Button
             variant="outline"
@@ -111,7 +111,7 @@ export function DataTable<TData, TValue>({
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            <ChevronRight />
+            <LuChevronRight />
           </Button>
         </div>
       </div>

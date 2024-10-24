@@ -18,7 +18,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import fetcher from "@/lib/fetcher";
 import { getFlowsOriginDeath } from "@/lib/getFlowsOriginDeath";
-import { ArrowRightIcon } from "lucide-react";
+import { LuArrowRight } from "react-icons/lu";
 import { FC, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import MapTitle from "./MapTitle";
@@ -36,7 +36,7 @@ const FlowMapContainer: FC = () => {
         <Card>
           <MapTitle>Kurmainz</MapTitle>
           <p>
-            Geburtsort <ArrowRightIcon className="inline w-4" /> Sterbeort
+            Geburtsort <LuArrowRight className="inline w-4" /> Sterbeort
           </p>
         </Card>
         <Card>
