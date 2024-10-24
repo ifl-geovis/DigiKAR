@@ -79,7 +79,7 @@ const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
           type="circle"
           paint={{
             "circle-color": "rgb(255,0,0)",
-            "circle-radius": ["*", ["+", 1, ["ln", ["get", "number"]]], 8],
+            "circle-radius": ["*", ["+", 1, ["ln", ["get", "number"]]], 5],
             "circle-opacity": [
               "case",
               ["==", isLoading, true],
