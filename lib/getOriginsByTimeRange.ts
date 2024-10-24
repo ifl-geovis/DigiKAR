@@ -18,7 +18,9 @@ export const getOriginsByTimeRange = async (
           'place_name',
           birth_place.place_name,
           'number',
-          COUNT(*)
+          COUNT(DISTINCT study_events.person_name),
+          'individuals',
+          list(DISTINCT study_events.person_name)
       ),
       'geometry',
       ST_AsGeoJSON(birth_place.place)::JSON
