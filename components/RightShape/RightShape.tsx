@@ -56,14 +56,10 @@ const RightShape = forwardRef<Ref, Props>(function RightShape(
           onContextMenu={onContextMenuHandler}
         />
       )}
-      {isShared && (
-        <SharedIcon className="inline -translate-x-[7px] -translate-y-[7px] text-white" />
-      )}
-      {isDisputed && (
-        <DisputedIcon className="inline -translate-x-[7px] -translate-y-[7px] text-white" />
-      )}
+      {isShared && <SharedIcon x="-7" y="-7" className="text-white" />}
+      {isDisputed && <DisputedIcon x="-7" y="-7" className="text-white" />}
       {!isShared && isUnclear && (
-        <UnclearIcon className="inline -translate-x-[7px] -translate-y-[7px] text-black" />
+        <UnclearIcon x="-7" y="-7" className="text-black" />
       )}
     </g>
   );
