@@ -1,5 +1,5 @@
-import { Position, lineString } from "@turf/helpers";
-import { LineString } from "geojson";
+import { lineString } from "@turf/helpers";
+import { Position, LineString } from "geojson";
 import length from "@turf/length";
 import midpoint from "@turf/midpoint";
 import bearing from "@turf/bearing";

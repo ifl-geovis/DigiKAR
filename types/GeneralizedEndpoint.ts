@@ -1,6 +1,6 @@
 import { FuzzyTimeInterval } from "@/types/FuzzyTimeInterval";
 import { When } from "@/types/When";
-import { FeatureCollection } from "@turf/helpers";
+import { FeatureCollection } from "geojson";
 import { Feature, Point } from "geojson";
 
 export type RightEntry = {
