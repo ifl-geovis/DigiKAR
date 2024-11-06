@@ -6,6 +6,10 @@ import useSnowflake from "./useSnowflake.hook";
 
 type Props = {
   /**
+   * The ID of the place
+   */
+  placeId: string;
+  /**
    * How should the place be labelled?
    */
   placeName: string;
@@ -44,6 +48,7 @@ type Props = {
 } & SVGProps<SVGGElement>;
 
 const Snowflake: FC<Props> = ({
+  placeId,
   placeName,
   placeAttributes,
   radius,
@@ -74,6 +79,7 @@ const Snowflake: FC<Props> = ({
               y={y}
               attribute={{ attributeName, holders }}
               placeName={placeName}
+              placeId={placeId}
             />
           </g>
         );

@@ -38,6 +38,7 @@ const SnowFlakeLayer: FC = () => {
             <svg width={markerSize} height={markerSize}>
               <g transform={`translate(${markerSize / 2} ${markerSize / 2})`}>
                 <RightsMarker
+                  placeId={d.properties.id}
                   placeName={d.properties?.placeName}
                   placeAttributes={d.properties?.attributes}
                   radius={radius}

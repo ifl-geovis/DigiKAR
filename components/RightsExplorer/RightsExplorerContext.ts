@@ -1,3 +1,4 @@
+import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
 import { ScaleOrdinal } from "d3";
 import { createContext, useContext } from "react";
@@ -28,6 +29,8 @@ type Context = {
   setSymbolMap: (symbolMap: Map<string, string>) => void;
   setColorScale: (scale: ScaleOrdinal<string, string, string>) => void;
   availableLayers?: Layer[];
+  detailInfo?: DetailInfo;
+  setDetailInfo: (detail?: DetailInfo) => void;
 };
 
 export const RightsExplorerContext = createContext<Context | null>(null);

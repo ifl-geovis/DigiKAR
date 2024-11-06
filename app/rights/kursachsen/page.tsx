@@ -10,6 +10,7 @@ import RightsMap from "@/components/RightsMap";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig";
 import SearchBar from "@/components/SearchBar";
 import Timeline from "@/components/Timeline";
+import RightDetails from "@/components/right-details";
 import colorMapKursachsen from "@/lib/colorMapKursachsen";
 import { getMapStyle } from "@/lib/getMapStyle";
 import getVoronoi from "@/lib/getVoronoi";
@@ -75,6 +76,7 @@ export default async function Wp2() {
           <Timeline />
         </div>
       </MapViewLayout>
+      <RightDetails />
     </RightsExplorer>
   );
 }

@@ -48,7 +48,6 @@ const AnwesenMap: FC<Props> = ({ data, mapStyle }) => {
       onMoveEnd={handleMoveEnd}
       initialViewState={viewState}
       id="anwesenMap"
-      style={{ width: "100%", height: "100%" }}
       mapStyle={mapStyle}
       minZoom={13.5}
       maxZoom={17}

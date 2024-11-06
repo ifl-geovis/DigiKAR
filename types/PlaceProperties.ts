@@ -27,7 +27,7 @@ export type PlaceProperties = {
 };
 
 export type PlacePropertiesGeneralized = {
-  id?: string;
+  id: string;
   placeName: string;
   attributes: Attribute<HoldersGeneralized>[];
 };

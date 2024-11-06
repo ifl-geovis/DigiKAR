@@ -13,6 +13,7 @@ import {
   TimeRange,
   RightsExplorerContext,
 } from "./RightsExplorerContext";
+import { DetailInfo } from "@/types/DetailInfo";
 
 type Props = PropsWithChildren<{
   initialBbox: Bbox;
@@ -44,6 +45,10 @@ const RightsExplorer: FC<Props> = ({
 
   const initialColorScale = mapToScale(colorMap, "lightgrey");
 
+  const [detailInfo, setDetailInfo] = useState<DetailInfo | undefined>(
+    undefined,
+  );
+
   const [colorScale, setColorScale] = useState<
     ScaleOrdinal<string, string, string>
   >(() => initialColorScale);
@@ -63,6 +68,8 @@ const RightsExplorer: FC<Props> = ({
         setColorScale,
         setSymbolMap,
         availableLayers,
+        detailInfo,
+        setDetailInfo,
       }}
     >
       <MapState availableLayers={availableLayers} initialBbox={initialBbox}>

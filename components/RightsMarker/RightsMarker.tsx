@@ -5,6 +5,7 @@ import { useMap } from "react-map-gl/maplibre";
 import { SnowflakeMemoized } from "../Snowflake";
 
 type Props = {
+  placeId: string;
   placeName: string;
   placeAttributes: Attribute<HoldersGeneralized>[];
   radius: number;
@@ -14,6 +15,7 @@ type Props = {
 } & SVGProps<SVGGElement>;
 
 const RightsMarker: FC<Props> = ({
+  placeId,
   placeName,
   placeAttributes,
   radius,
@@ -26,6 +28,7 @@ const RightsMarker: FC<Props> = ({
     <circle fill="white" stroke="black" strokeWidth={1} r="2" />
   ) : (
     <SnowflakeMemoized
+      placeId={placeId}
       placeName={placeName}
       placeAttributes={placeAttributes}
       radius={radius}
