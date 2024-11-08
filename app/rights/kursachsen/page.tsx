@@ -48,7 +48,7 @@ export default async function Wp2() {
         "grundherrschaft",
         "landeshoheit",
       ]}
-      timeRange={{ t: 1600, support: 250 }}
+      timeRange={{ t: 1750, support: 25 }}
       initialSymbolMap={symbolMap}
       colorMap={colorMapKursachsen}
       availableLayers={[{ name: "Meilenblätter Berlin", visible: false }]}
