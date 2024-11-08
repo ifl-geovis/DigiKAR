@@ -13,7 +13,6 @@ import Timeline from "@/components/Timeline";
 import RightDetails from "@/components/right-details";
 import colorMapKursachsen from "@/lib/colorMapKursachsen";
 import { getMapStyle } from "@/lib/getMapStyle";
-import getVoronoi from "@/lib/getVoronoi";
 import { Right } from "@/types/PlaceProperties";
 
 export default async function Wp2() {
@@ -36,7 +35,6 @@ export default async function Wp2() {
     params,
     needsTransform: true,
   };
-  const borders = await getVoronoi();
   const symbolMap = new Map();
 
   return (
@@ -53,10 +51,7 @@ export default async function Wp2() {
       timeRange={{ t: 1600, support: 250 }}
       initialSymbolMap={symbolMap}
       colorMap={colorMapKursachsen}
-      availableLayers={[
-        { name: "Voronoi Ämter", visible: false },
-        { name: "Meilenblätter Berlin", visible: false },
-      ]}
+      availableLayers={[{ name: "Meilenblätter Berlin", visible: false }]}
     >
       <MapViewLayout>
         <MapAside>
@@ -71,7 +66,7 @@ export default async function Wp2() {
           </Card>
         </MapAside>
         <MapContainer>
-          <RightsMap mapStyle={style} borders={borders} />
+          <RightsMap mapStyle={style} />
         </MapContainer>
         <div className="z-10 p-2 grid-in-[bottom-nav]">
           <Timeline />

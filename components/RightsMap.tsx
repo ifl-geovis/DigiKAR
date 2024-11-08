@@ -1,6 +1,5 @@
 "use client";
 
-import { FeatureCollection, GeoJsonProperties, MultiPolygon } from "geojson";
 import { MapGeoJSONFeature, MapLayerMouseEvent } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useState } from "react";
@@ -12,18 +11,16 @@ import Map, {
   useMap,
 } from "react-map-gl/maplibre";
 import ZoomIndicator from "./ZoomIndicator";
-import BorderLayer from "./BorderLayer";
 import LayersControl from "./LayersControl/LayersControl";
 import { useMapStateContext } from "./MapState/MapStateContext";
 import SnowFlakeLayer from "./SnowflakeLayer";
 import LayerMlBerlin from "./LayerMlBerlin";
 
 type Props = {
-  borders?: FeatureCollection<MultiPolygon, GeoJsonProperties>;
   mapStyle: MapStyle;
 };
 
-const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
+const RightsMap: FC<Props> = ({ mapStyle }) => {
   const { rightsMap } = useMap();
   const [hoverInfo, setHoverInfo] = useState<
     | {
@@ -75,16 +72,6 @@ const RightsMap: FC<Props> = ({ borders, mapStyle }) => {
         <ZoomIndicator />
       </div>
       <SnowFlakeLayer />
-      {borders && (
-        <BorderLayer
-          borders={borders}
-          visibility={
-            layers.find((d) => d.name === "Voronoi Ämter")?.visible
-              ? "visible"
-              : "none"
-          }
-        />
-      )}
       <LayerMlBerlin
         visibility={
           layers.find((d) => d.name === "Meilenblätter Berlin")?.visible
