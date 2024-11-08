@@ -12,32 +12,44 @@ import {
 import fetcher from "@/lib/fetcher";
 import { Skeleton } from "./ui/skeleton";
 import { RightOnPlace } from "@/types/RightOnPlace";
+import { Right } from "@/types/PlaceProperties";
 import { localeDe } from "@/lib/format";
 import { LuKey, LuMapPin } from "react-icons/lu";
+import RightEntry from "./RightEntry";
+import { capitalize } from "@/lib/utils";
 
 const RightDetails = () => {
   const { detailInfo, setDetailInfo } = useRightsExplorerContext();
   const { data, isLoading } = useSWRImmutable<Awaited<RightOnPlace[]>>(
-    `https://api.geohistoricaldata.org/digikar/orte?select=*,${detailInfo?.attribute.toLowerCase()}(*)&id=eq.${detailInfo?.place}`,
+    `https://api.geohistoricaldata.org/digikar/orte?select=*,${detailInfo?.attribute}(*)&id=eq.${detailInfo?.place}&limit=1`,
     fetcher,
   );
 
-  const place = data?.[0];
+  if (!data || !detailInfo) return null;
+  const place = data[0];
+  const attribute = detailInfo.attribute as Right;
+  const entries = place[attribute];
+
   return (
     <Dialog open={!!detailInfo} onOpenChange={() => setDetailInfo(undefined)}>
-      <DialogContent>
+      <DialogContent className="max-w-2xl">
         {isLoading ? (
           <Skeleton className="h-12 w-full" />
         ) : place && detailInfo ? (
           <>
             <DialogHeader>
               <DialogTitle>
-                {detailInfo?.attribute} in {place?.label}
+                {capitalize(detailInfo.attribute)} in {place.label}
               </DialogTitle>
               <DialogDescription>
-                Detailinfos zum ausgewählten Ort und Recht.
+                Detailinformation, chronologisch
               </DialogDescription>
             </DialogHeader>
+            <div className="max-h-[40vh] space-y-10 overflow-y-scroll">
+              {entries.map((entry, i) => {
+                return <RightEntry key={i} entry={entry} />;
+              })}
+            </div>
             <div className="flex flex-col space-y-3">
               <div className="rounded-sm border-t border-gray-100 pt-2 text-xs text-muted-foreground">
                 <h3 className="text-xs">Details zum Ort</h3>

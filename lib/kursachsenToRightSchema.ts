@@ -4,9 +4,9 @@ import {
   Attribute,
   HoldersGeneralized,
   PlacePropertiesGeneralized,
+  Right,
 } from "@/types/PlaceProperties";
 import { FeatureCollection, Point } from "geojson";
-import { capitalize } from "./utils";
 import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
 
 /**
@@ -24,9 +24,9 @@ export const kursachsenToRightSchema = (
       Attribute<HoldersGeneralized>[]
     >((acc, [key, value]) => {
       if (key.match(/(_summary)$/)) {
-        const attributeName = capitalize(
-          key.replace("_summary", "").replace("oe", "ö"),
-        );
+        const attributeName = key
+          .replace("_summary", "")
+          .replace("oe", "ö") as Right;
         //@ts-expect-error TS is not able to infer that value is always an entry
         const entry = getClosestEntry(t, value);
         const [categories, heldBy, disputedBy] = [

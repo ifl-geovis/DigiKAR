@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { move } from "@/lib/utils";
+import { capitalize, move } from "@/lib/utils";
 import { TbRotateDot } from "react-icons/tb";
 import { RxEyeNone } from "react-icons/rx";
 import RightShape from "../RightShape";
@@ -80,7 +80,7 @@ const SnowflakePreview = () => {
                   <div className="flex flex-col gap-2 text-sm">
                     <div className="flex items-center gap-4">
                       <Label>Recht</Label>
-                      <span>{attributeName}</span>
+                      <span>{capitalize(attributeName)}</span>
                     </div>
                     <div className="flex items-center gap-4">
                       <Label>Symbol</Label>

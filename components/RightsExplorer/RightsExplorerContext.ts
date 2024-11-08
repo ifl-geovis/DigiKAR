@@ -1,5 +1,6 @@
 import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
+import { Right } from "@/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
 import { createContext, useContext } from "react";
 
@@ -21,7 +22,7 @@ type Context = {
   activeCategory?: string;
   symbolMap: Map<string, string>;
   colorScale: ScaleOrdinal<string, string, string>;
-  attributeSet: Set<string>;
+  attributeSet: Set<Right>;
   setActiveCategory: (
     category?: string | ((category?: string) => string | undefined),
   ) => void;

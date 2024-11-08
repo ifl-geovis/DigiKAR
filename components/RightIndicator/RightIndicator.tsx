@@ -74,10 +74,10 @@ const RightIndicator: FC<Props> = ({
     };
   }, [attribute, colorScale, activeCategory, circleRadius, setActiveCategory]);
   const onClickHandler = useCallback(() => {
-    setDetailInfo({ place: placeId, attribute: attribute.attributeName });
-    // console.log(
-    //   `https://api.geohistoricaldata.org/digikar/orte?select=*,${attribute.attributeName.toLocaleLowerCase()}(*)&id=eq.${placeId}`,
-    // );
+    setDetailInfo({
+      place: placeId,
+      attribute: attribute.attributeName,
+    });
   }, [attribute.attributeName, placeId, setDetailInfo]);
   return (
     <>

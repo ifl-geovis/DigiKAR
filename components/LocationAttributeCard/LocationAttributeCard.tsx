@@ -3,6 +3,7 @@ import { Attribute, HoldersGeneralized } from "../../types/PlaceProperties";
 import { FC } from "react";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 import { range, rollups } from "d3";
+import { capitalize } from "@/lib/utils";
 
 type Props = {
   /**
@@ -33,7 +34,7 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
     <>
       <h2 className="mb-2 text-sm font-bold">{placeName}</h2>
       <p className="text-xs">Herrschaftsrecht</p>
-      {locationAttribute.attributeName}
+      {capitalize(locationAttribute.attributeName)}
       <p className="text-xs">Inhaber:in</p>
       {isWithoutHolder ? (
         <span className="italic text-gray-500">keine Daten</span>

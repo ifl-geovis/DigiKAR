@@ -12,6 +12,7 @@ import { Button } from "../ui/button";
 import { RxCheck, RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import { twJoin } from "tailwind-merge";
 import ButtonWithTooltip from "../ButtonWithTooltip/ButtonWithTooltip";
+import { capitalize } from "@/lib/utils";
 
 const RightIndicator: FC = () => {
   const { order, attributeSet, setOrder } = useRightsExplorerContext();
@@ -36,7 +37,7 @@ const RightIndicator: FC = () => {
                 )}
                 key={right}
               >
-                {right}
+                {capitalize(right)}
                 <ButtonWithTooltip
                   tooltipContent="Toggle visibility"
                   // disabled={!isVisualized}

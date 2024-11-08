@@ -1,5 +1,12 @@
 import { FeatureCollection, Position, Point } from "geojson";
 
+export type Right =
+  | "grundherrschaft"
+  | "hochgericht"
+  | "niedergericht"
+  | "jagd"
+  | "verwaltungszugehoerigkeit";
+
 export type Holder = {
   holder?: string;
   holderConsolidated?: string;
@@ -16,7 +23,7 @@ export type HoldersGeneralized = {
 };
 
 export type Attribute<T> = {
-  attributeName: string;
+  attributeName: Right;
   holders: T;
 };
 

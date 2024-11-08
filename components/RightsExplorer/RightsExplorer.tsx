@@ -14,10 +14,11 @@ import {
   RightsExplorerContext,
 } from "./RightsExplorerContext";
 import { DetailInfo } from "@/types/DetailInfo";
+import { Right } from "@/types/PlaceProperties";
 
 type Props = PropsWithChildren<{
   initialBbox: Bbox;
-  attributeSet: Set<string>;
+  attributeSet: Set<Right>;
   initialSymbolMap: Map<string, string>;
   initialOrder?: string[];
   colorMap: Map<string, string>;

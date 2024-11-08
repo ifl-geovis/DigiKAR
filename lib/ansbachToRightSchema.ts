@@ -1,7 +1,6 @@
 import { PlacePropertiesGeneralized } from "@/types/PlaceProperties";
 import { Feature, FeatureCollection, Point } from "geojson";
 import { Row } from "./loadAnsbachData";
-import { capitalize } from "./utils";
 
 /**
  * Transform the query results into the right schema
@@ -13,7 +12,7 @@ export const ansbachToRightSchema = (
 ): FeatureCollection<Point, PlacePropertiesGeneralized> => {
   const features = data.map((row) => {
     const rights = row.place_attributes.map((right) => {
-      const attributeName = capitalize(right.attributeName);
+      const attributeName = right.attributeName;
       const categories = right.holders.map((d) => d.holderConsolidated);
       const heldBy = categories.length;
       const disputedBy = 0;

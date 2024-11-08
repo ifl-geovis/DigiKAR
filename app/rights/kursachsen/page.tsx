@@ -14,17 +14,18 @@ import RightDetails from "@/components/right-details";
 import colorMapKursachsen from "@/lib/colorMapKursachsen";
 import { getMapStyle } from "@/lib/getMapStyle";
 import getVoronoi from "@/lib/getVoronoi";
+import { Right } from "@/types/PlaceProperties";
 
 export default async function Wp2() {
   const attributeSet = new Set([
-    "Hochgericht",
-    "Niedergericht",
-    "Grundherrschaft",
-    "Landeshoheit",
-    "Verwaltungzugehörigkeit",
-    "Kirchenpatronat",
-    "Jagd",
-  ]);
+    "hochgericht",
+    "niedergericht",
+    "grundherrschaft",
+    "landeshoheit",
+    "verwaltungzugehörigkeit",
+    "kirchenpatronat",
+    "jagd",
+  ]) as Set<Right>;
 
   const columns =
     "attested,rights_disputed_by,rights_held_by,rightholders_categories";
@@ -44,10 +45,10 @@ export default async function Wp2() {
       initialBbox={[13.2, 51.05, 13.3, 51.15]}
       attributeSet={attributeSet}
       initialOrder={[
-        "Hochgericht",
-        "Niedergericht",
-        "Grundherrschaft",
-        "Landeshoheit",
+        "hochgericht",
+        "niedergericht",
+        "grundherrschaft",
+        "landeshoheit",
       ]}
       timeRange={{ t: 1600, support: 250 }}
       initialSymbolMap={symbolMap}

@@ -31,6 +31,7 @@ export default async function Wp2() {
       <RightsExplorer
         timeRange={{ t: 1600, support: 50 }}
         rightRequest={rightRequest}
+        //@ts-expect-error TODO: fix this by using api call to get ansbach data?
         attributeSet={new Set(rightsOrder)}
         initialBbox={[10.52, 49.25, 10.62, 49.35]}
         initialOrder={rightsOrder}

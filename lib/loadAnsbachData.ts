@@ -2,12 +2,13 @@ import { Bbox } from "@/types/Bbox";
 import pool from "./pool";
 import { Point } from "geojson";
 import { ansbachToRightSchema } from "./ansbachToRightSchema";
+import { Right } from "@/types/PlaceProperties";
 
 export type Row = {
   id: string;
   geometry: Point;
   label: string;
-  place_attributes: { attributeName: string; holders: holder[] }[];
+  place_attributes: { attributeName: Right; holders: holder[] }[];
 };
 
 type holder = {
