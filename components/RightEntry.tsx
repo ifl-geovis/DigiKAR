@@ -1,27 +1,27 @@
-import { RightOnPlace } from "@/types/RightOnPlace";
 import { Right } from "@/types/PlaceProperties";
-import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
+import { RightOnPlace } from "@/types/RightOnPlace";
 import { FC } from "react";
-import { LuCalendar, LuScrollText, LuUser2 } from "react-icons/lu";
+import { LuCalendar, LuUser2 } from "react-icons/lu";
+import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 
 type Props = {
   entry: RightOnPlace[Right][number];
 };
 
 const RightEntry: FC<Props> = ({ entry }) => {
-  const { attested_raw, sources, rightholders } = entry;
+  const { attested_raw, rightholders } = entry;
   const { colorScale } = useRightsExplorerContext();
   return (
     <div className="space-y-2 overflow-y-scroll">
       <div>
         <div className="flex items-center gap-2">
-          <LuCalendar className="self-baseline" />
+          <LuCalendar />
           <span className="text-xs font-bold">Quellendatum</span>
           {attested_raw}
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <LuUser2 className="self-baseline" />
+        <LuUser2 />
         <span className="text-xs font-bold">Inhaber</span>
       </div>
       <div className="grid flex-col gap-4">
@@ -36,11 +36,17 @@ const RightEntry: FC<Props> = ({ entry }) => {
                 <div>Inhaber laut Quelle</div>
                 <div>{d.rightholder}</div>
                 <div>Inhaber normalisiert</div>
-                <div>{d.rightholder_consolidated}</div>
+                <div>
+                  {d.rightholder_consolidated ?? (
+                    <span className="text-muted-foreground">-</span>
+                  )}
+                </div>
                 <div>Kategorie</div>
                 <div>
                   <div className="flex items-center gap-1">
-                    {d.category}
+                    {d.category ?? (
+                      <span className="text-muted-foreground">Andere</span>
+                    )}
                     <svg width={16} height={16}>
                       <circle
                         cx={8}
@@ -53,28 +59,24 @@ const RightEntry: FC<Props> = ({ entry }) => {
                   </div>
                 </div>
                 <div>übergeordnete Herrschaft</div>
-                <div>-</div>
+                <div>
+                  {d.top_level ?? (
+                    <span className="text-muted-foreground">-</span>
+                  )}
+                </div>
+                <div>Quelle</div>
+                <div>
+                  {d.source.startsWith("https") ? (
+                    <a className="underline" target="_blank" href={d.source}>
+                      {d.source}
+                    </a>
+                  ) : (
+                    <>{d.source}</>
+                  )}
+                </div>
               </div>
             );
           })}
-      </div>
-      <div>
-        <div className="flex items-center gap-2">
-          <LuScrollText className="self-baseline" />{" "}
-          <span className="text-xs font-bold">Quellen</span>
-        </div>
-        <ol className="ml-7 list-[lower-roman] marker:text-xs marker:text-muted-foreground">
-          {sources.map((d, i) => {
-            const formatted = d.startsWith("https") ? (
-              <a className="underline" target="_blank" href={d}>
-                {d}
-              </a>
-            ) : (
-              d
-            );
-            return <li key={i}>{formatted}</li>;
-          })}
-        </ol>
       </div>
     </div>
   );

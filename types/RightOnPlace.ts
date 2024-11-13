@@ -8,6 +8,8 @@ type RightHolder = {
   category: string;
   rightholder: string;
   is_disputing: boolean;
+  source: string;
+  top_level: string;
   rightholder_consolidated: string;
 };
 
