@@ -52,13 +52,11 @@ const Biographies: FC<Props> = ({ style }) => {
 
   const { data: biographyData, isLoading } = useSWRImmutable<
     Awaited<ReturnType<typeof getBiographiesByCommonEvent>>
-  >(`/api/biographies?${params}`, fetcher, {
-    keepPreviousData: true,
-  });
+  >(`/api/biographies?${params}`, fetcher);
 
   const data = useMemo(() => {
     const colorDomain = biographyData?.map((d) => d.properties?.name);
-    if (!colorDomain) return biographyData;
+    if (!colorDomain) return;
     const colorScale = scaleOrdinal(schemeCategory10).domain(colorDomain);
     return biographyData?.map((d) => ({
       ...d,
@@ -108,7 +106,7 @@ const Biographies: FC<Props> = ({ style }) => {
 
       <MapContainer>
         {isLoading && <Skeleton className="h-full w-full" />}
-        {data && <BiographiesMap style={style} data={data} />}
+        <BiographiesMap style={style} data={data} />
       </MapContainer>
     </MapViewLayout>
   );
