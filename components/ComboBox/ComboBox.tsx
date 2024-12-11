@@ -10,6 +10,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 import {
   Popover,
@@ -17,7 +18,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { FC, useState } from "react";
-import { ScrollArea } from "../ui/scroll-area";
 
 type Props = {
   options: { value: string; label: string }[];
@@ -33,7 +33,7 @@ const ComboBox: FC<Props> = ({
   defaultValue,
 }) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(defaultValue?.toLowerCase());
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -45,8 +45,7 @@ const ComboBox: FC<Props> = ({
           className="w-[200px] justify-between"
         >
           {value
-            ? options.find((option) => option.value.toLowerCase() === value)
-                ?.label
+            ? options.find((option) => option.value === value)?.label
             : `${optionLabel} wählen ...`}
           <LuChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -54,8 +53,8 @@ const ComboBox: FC<Props> = ({
       <PopoverContent className="w-[200px] overflow-y-scroll p-0">
         <Command>
           <CommandInput placeholder={`${optionLabel} suchen ...`} />
-          <CommandEmpty>No {optionLabel} found.</CommandEmpty>
-          <ScrollArea className="max-h-[300px]">
+          <CommandList>
+            <CommandEmpty>No {optionLabel} found.</CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
                 <CommandItem
@@ -78,7 +77,7 @@ const ComboBox: FC<Props> = ({
                 </CommandItem>
               ))}
             </CommandGroup>
-          </ScrollArea>
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
