@@ -69,7 +69,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
       type: "FeatureCollection",
       features: Array.from(groupedByPlace.values()),
     };
-    const [e, s, w, n] = bbox(places);
+    const [w, s, e, n] = bbox(places);
     const bounds = new LngLatBounds([w, s, e, n]);
     return { places, bounds };
   }, [data, error]);

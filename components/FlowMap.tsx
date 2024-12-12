@@ -42,7 +42,7 @@ const FlowMap: FC<Props> = ({ data }) => {
         }),
     };
     const [min, max] = extent(data.map((d) => d.properties?.value));
-    const [e, s, w, n] = bbox(flows);
+    const [w, s, e, n] = bbox(flows);
     const bounds = new LngLatBounds([w, s, e, n]);
     return { flows, min, max, bounds };
   }, [data]);

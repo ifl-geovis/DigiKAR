@@ -28,16 +28,14 @@ const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
           type: "FeatureCollection",
           features: [],
         } as FeatureCollection<Point>,
-        bounds: new LngLatBounds([
-          5.98865807458, 47.3024876979, 15.0169958839, 54.983104153,
-        ]),
+        bounds: new LngLatBounds(bBoxGermany),
       };
 
     const places: FeatureCollection<Point> = {
       type: "FeatureCollection",
       features: data,
     };
-    const [e, s, w, n] =
+    const [w, s, e, n] =
       places.features.length > 0 ? bbox(places) : bBoxGermany;
     const bounds = new LngLatBounds([w, s, e, n]);
     return { places, bounds };
