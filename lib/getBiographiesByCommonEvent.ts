@@ -51,7 +51,8 @@ export const getBiographiesByCommonEvent = async (
           ST_AsGeoJSON(ST_MakeLine(LIST(place)))::JSON
       ) AS feature
     FROM ordered_events
-    GROUP BY person_id;
+    GROUP BY person_id
+    HAVING COUNT(*) >= 2;
   `);
   const res = await statement.all(event, place);
   connection.close();
