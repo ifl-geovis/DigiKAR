@@ -12,7 +12,7 @@ export default async function Home() {
       </p>
       <p>
         Explorativ erkundet werden sollten stattdessen mit den Mitteln der
-        digitalen Kartographie die Möglichkeiten einer punktbasierten
+        webbasierten Kartographie die Möglichkeiten einer punktbasierten
         Visualisierung mit dem Schwerpunkt auf zwei Bereiche: (1) die plurale
         Verteilung von Herrschaftsrechten in und zwischen den Territorien des
         Alten Reichs und (2) Formen der Mobilität innerhalb und zwischen
@@ -25,6 +25,28 @@ export default async function Home() {
         sowie Kartographinnen und Kartographen bestimmt. Er stellt kein
         abgeschlossenes Arbeitsergebnis dar, sondern befindet sich weiterhin in
         Entwicklung und kann daher Fehler („Bugs“) enthalten.
+      </p>
+      <p>
+        Die im Prototyp verfügbaren Visualisierungen betreffen drei
+        Beispielregionen:
+      </p>
+      <ol className="my-3 list-decimal">
+        <li>
+          Kursachsen (Gegend um Meißen, Teile der Oberlausitz um das Kloster
+          Sankt Marienstern, Teile der Schönburger Herrschaften)
+        </li>
+        <li>Kurmainz</li>
+        <li>Altlandkreis Ansbach (Franken)</li>
+      </ol>
+      <p>
+        Sie beruhen auf verschiedenen Quellen: selbst erhobene Daten (gedruckte
+        und ungedruckte Materialien), aber auch bereits vorhandene
+        Ortsstatistiken und digitale Datenbanken. Wir danken insbesondere dem
+        Institut für sächsische Geschichte und Volkskunde Dresden sowie der
+        Kommission für bayerische Landesgeschichte bei der Bayerischen Akademie
+        der Wissenschaften (Projekt „Historischer Atlas von Bayern“) für die
+        freundliche Zurverfügungstellung von Daten und die fruchtbare
+        Zusammenarbeit bei der Entwicklung des Tools.
       </p>
       <div className="my-10 rounded-sm border-l-2 border-gray-200 bg-gray-50 p-10">
         <p>
@@ -45,29 +67,26 @@ export default async function Home() {
         Denn Quellcode des Prototyps finden Sie auf{" "}
         <a href="https://github.com/ifl-geovis/DigiKAR">github</a>.
       </p>
-      <div>
-        <h2>Inhalt</h2>
-        <ol>
-          <li>
-            <a href="#glossary">Glossar</a>
-            <ol className="list-decimal">
-              <li>
-                <a href="#herrschaftsrechte">Herrschaftsrechte</a>
-              </li>
-              <li>
-                <a href="#mobility">Mobilität</a>
-              </li>
-            </ol>
-          </li>
-          <li>
-            <a href="">Bedienung</a>
-          </li>
-        </ol>
-      </div>
+      <h2>Inhalt</h2>
+      <ol>
+        <li>
+          <a href="#glossary">Glossar</a>
+          <ol className="list-decimal pl-7">
+            <li>
+              <a href="#herrschaftsrechte">Herrschaftsrechte</a>
+            </li>
+            <li>
+              <a href="#mobility">Mobilität</a>
+            </li>
+          </ol>
+        </li>
+        <li>
+          <a href="">Bedienung</a>
+        </li>
+      </ol>
       <h2 id="glossary">Glossar</h2>
       <p>Das nachfolgende Glossar erläutert die wichtigsten Begriffe.</p>
       <h3 id="herrschaftsrechte">Herrschaftsrechte</h3>
-      <h4>Grundherrschaft</h4>
       <p>
         Das Alte Reich war, wie andere frühneuzeitliche Herrschaftsräume auch,
         durch eine Vielzahl verteilter und geteilter Herrschaftsrechte
@@ -107,8 +126,22 @@ export default async function Home() {
         allgemeine Beschreibungen, welche die im Visualisierungstool
         integrierten Herrschaftsrechte auch Nicht-Historikerinnen und
         -historiker verständlich machen wollen. Da der konkrete Inhalt der
-        jeweiligen Rechte jedoch von Region zu Region variieren konnte, können
-        sie eine genauere Beschäftigung mit ihnen nicht ersetzen.
+        jeweiligen Rechte von Region zu Region variieren konnte, können sie eine
+        genauere Beschäftigung mit ihnen jedoch nicht ersetzen.
+      </p>
+      <h4>Dorf- und Gemeindeherrschaft</h4>
+      <p>
+        Die Dorf- und Gemeindeherrschaft bezeichnet in Franken die
+        Gerichtsbarkeit und Policey-Gewalt über den genossenschaftlichen Besitz
+        der dörflichen Gemeinden, also auf gemeindliche Straßen und Wege oder
+        die Allmende (gemeinsam von allen Dorfmitgliedern genutzte Wiesen-,
+        Wald- und Ackerflächen). Teil der Dorf- und Gemeindeherrschaft war auch
+        die Aufsicht über die dörfliche Selbstverwaltung (Funktionsträger,
+        Wirtschaftsführung) und die Überwachung der Hut- und Hirtenrechte.
+        Begrenzt auf ihre jurisdiktionellen Funktionen (vogteiliche
+        Gerichtsbarkeit) und aufgrund der starken Zersplitterung der
+        Herrschaftsrechte in Franken wurde die Dorf- und Gemeindeherrschaft als
+        ein Indikator für die Landeshoheit angesehen.
       </p>
       <h4>Grundherrschaft</h4>
       <p>
@@ -119,11 +152,13 @@ export default async function Home() {
         Herrschaft über die auf dem Grund und Boden eines Grundherrn lebenden
         Menschen verbunden waren. Diese hatten das Land meist vom Grundherrn
         geliehen oder gepachtet und bewirtschafteten es, wofür sie Abgaben und
-        Dienste zu leisten hatten. Darüber hinaus war die Grundherrschaft mit
-        der Ausübung zahlreicher Verwaltungs- und Gerichtsfunktionen verbunden.
-        Grundherren konnten Landesherren sein, aber auch adelige Grundbesitzer,
-        Städte sowie zahlreiche Korporationen (z.B. geistliche Institutionen wie
-        Klöster oder Stifte, aber auch Universitäten oder Schulen usw.).
+        Dienste zu leisten hatten. Darüber hinaus war die Grundherrschaft oft
+        mit der Ausübung zahlreicher Verwaltungs- und Gerichtsfunktionen
+        verbunden. Grundherren konnten Landesherren sein, aber auch adelige
+        Grundbesitzer, Städte sowie zahlreiche Korporationen (z.B. geistliche
+        Institutionen wie Klöster oder Stifte, aber auch Universitäten oder
+        Schulen usw.). Daneben traten in einigen Regionen des Reichs ländliche
+        Gemeinden und sogar Einzelpersonen (z.B. Bürger) als Grundherren auf.
       </p>
       <h4>Hochgericht</h4>
       <p>
@@ -152,23 +187,24 @@ export default async function Home() {
         mussten dem jeweiligen Inhaber des Jagdrechts aber zahlreiche
         Hilfsdienste leisten.
       </p>
-      <h4>Kirchenpatronat</h4>
+      <h4>Kirchenpatronat (Kursachsen) bzw. Kirchenhoheit (Franken)</h4>
       <p>
-        Das Kirchenpatronat bezeichnet die Schirmherrschaft, die ein
-        Herrschaftsträger über eine bestimmte Kirche ausübte. In
-        protestantischen Gebieten kam sie in der Regel dem Landesherrn bzw. dem
-        Landeskonsistorium zu. Verbunden mit ihm war zum Beispiel die
-        Verpflichtung zur baulichen Erhaltung der Kirchengebäude; im Gegenzug
-        kamen dem Kirchenpatron bestimmte Privilegien zu, etwa ein besonderer
-        Platz in der Kirche oder das Recht, sich dort bestatten zu lassen.
-        Teilweise war das Kirchenpatronat mit dem Präsentationsrecht verbunden,
-        also dem Vorrecht, bei einer Vakanz einen neuen Pfarrer vorzuschlagen.{" "}
+        Das Kirchenpatronat bzw. die Kirchenhoheit bezeichnet die
+        Schirmherrschaft, die ein Herrschaftsträger über eine bestimmte Kirche
+        ausübte. In protestantischen Gebieten stand sie in der Regel dem
+        Landesherrn bzw. dem Landeskonsistorium zu. Verbunden mit ihm war zum
+        Beispiel die Verpflichtung zur baulichen Erhaltung der Kirchengebäude;
+        im Gegenzug kamen dem Kirchenpatron bestimmte Privilegien zu, etwa ein
+        besonderer Platz in der Kirche oder das Recht, sich dort bestatten zu
+        lassen. Teilweise waren das Kirchenpatronat bzw. die Kirchenhoheit mit
+        dem Präsentationsrecht verbunden, also dem Vorrecht, bei einer Vakanz
+        einen neuen Pfarrer vorzuschlagen.
       </p>
-      <h4>Landeshoheit</h4>
+      <h4>Landeshoheit bzw. Landesherrschadft</h4>
       <p>
         Mit dem Begriff Landeshoheit wurde seit dem 16. Jahrhundert das
         abstrakte Recht eines Landesherrn bezeichnet, die Oberhoheit über das
-        von ihm beherrschte Land mitsamt aller seiner Einwohner zu beanspruchen.
+        von ihm beherrschte Land mit allen seinen Einwohnern zu beanspruchen.
         Was genau dieses Recht meinte und aus welchen anderen Herrschaftsrechten
         es sich gegebenenfalls ableiten ließ, war unter zeitgenössischen
         Juristen umstritten; eine allgemein verbindliche Definition der
@@ -180,21 +216,26 @@ export default async function Home() {
         weil die Angaben in den Quellen nur der Selbstwahrnehmung des jeweiligen
         Herrschaftsträgers entsprechen, der sie für sich reklamierte. Auch war
         die Landeshoheit kein „höheres“ Herrschaftsrecht, welches alle anderen
-        gewissermaßen überwölbte. Anders als in vielen herkömmlichen
-        Geschichtskarten zum Alten Reich wird sie deshalb im Visualisierungstool
-        nur als ein Herrschaftsrecht neben anderen behandelt.
+        gewissermaßen überwölbte, auch wenn sie (z.B. in Franken) mit anderen
+        Rechten (etwa der Steuererhebung) verbunden sein konnte. Anders als in
+        vielen herkömmlichen Geschichtskarten zum Alten Reich wird sie deshalb
+        im Visualisierungstool nur als ein Herrschaftsrecht neben anderen
+        behandelt.
       </p>
       <h4>Niedergericht</h4>
       <p>
         Die Niedergerichtbarkeit umfasste in der Regel unbedeutendere Delikte,
         zum Beispiel Grenzstreitigkeiten, Wald- und Flurdiebstahl,
-        Wirtshausraufereien ohne ernsthafte Verletzungen oder Beleidigungen. Die
-        Inhaber des Niedergerichts konnten nur leichte Strafen verhängen, etwa
-        Geldbußen, kurze Haftstrafen oder Ehrenstrafen wie das
+        Wirtshausraufereien ohne ernsthafte Verletzungen oder Beleidigungen.
+        Daneben gehörte zu ihr die zivile bzw. bürgerliche Gerichtsbarkeit, die
+        etwa für Erbschaftsangelegenheiten oder Besitzstreitigkeiten zuständig
+        war. Die Inhaber des Niedergerichts konnten nur leichte Strafen
+        verhängen, etwa Geldbußen, kurze Haftstrafen oder Ehrenstrafen wie das
         An-den-Pranger-Stellen. Die Anwendung der Folter bei der richterlichen
         Untersuchung sowie die Verhängung und Vollstreckung von Todesstrafen
         waren ihnen untersagt. Oft, aber nicht immer, war die niedere
-        Gerichtsbarkeit mit der Grundherrschaft verbunden.
+        Gerichtsbarkeit mit der Grundherrschaft verbunden. In Ansbach war sie
+        auch Teil der Vogtei.
       </p>
       <h4>Verwaltungszugehörigkeit</h4>
       <p>
@@ -202,11 +243,11 @@ export default async function Home() {
         Ortes zu einer größeren Verwaltungseinheit, zum Beispiel einem Amt oder
         einem Kreis innerhalb einer Landesverwaltung. Sie bedeutet jedoch nicht,
         dass der landesherrlichen Verwaltung hier auch zwingend bestimmte
-        Herrschaftsrechte (von der Landeshoheit abgesehen). Allerdings kam es
-        vielfach vor, dass Dörfer direkt der Landesverwaltung unterstanden, weil
-        der Landesherr hier auch Grundherr war. Weil die Grundherrschaft in
-        diesem Fall von lokalen Verwaltungseinheiten wie den Ämtern ausgeübt
-        wurde, spricht man auch von „Amtsdörfern“.
+        Herrschaftsrechte (von der Landeshoheit abgesehen) zustanden. Allerdings
+        kam es vielfach vor, dass Dörfer direkt der Landesverwaltung
+        unterstanden, weil der Landesherr hier auch Grundherr war. Weil die
+        Grundherrschaft in diesem Fall von lokalen Verwaltungseinheiten wie den
+        Ämtern ausgeübt wurde, spricht man auch von „Amtsdörfern“.
       </p>
       <hr className="mt-5" />
       <h3 id="mobility">Mobilität</h3>
