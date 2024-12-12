@@ -61,7 +61,6 @@ export default async function Wp2() {
           <SearchBar />
           <RightsMarkerConfig />
           <Card title="Legende" collapsible>
-            <h3>Legende</h3>
             <LegendNominal />
           </Card>
         </MapAside>
