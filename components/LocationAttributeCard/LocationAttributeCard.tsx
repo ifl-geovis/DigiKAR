@@ -27,7 +27,7 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
     ? rollups(
         categories,
         (v) => v.length,
-        (d) => d ?? "unknown",
+        (d) => d ?? "unbekannt",
       ).sort((a, b) => b[1] - a[1])
     : [];
   return (
@@ -35,7 +35,7 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
       <h2 className="mb-2 text-sm font-bold">{placeName}</h2>
       <p className="text-xs">Herrschaftsrecht</p>
       {capitalize(locationAttribute.attributeName)}
-      <p className="text-xs">Inhaber:in</p>
+      <p className="text-xs">Inhaber</p>
       {isWithoutHolder ? (
         <span className="italic text-gray-500">keine Daten</span>
       ) : (

@@ -22,7 +22,7 @@ const RightIndicator: FC = () => {
         <DialogTitle>Passe das Symbol an</DialogTitle>
         <DialogDescription>
           Stelle ein wie die Rechte in der Karte dargestellt werden sollen. Du
-          kannst die Reihenfolge und die Form der Rechte anpassen. per right.
+          kannst die Reihenfolge und die Form der Rechte anpassen.
         </DialogDescription>
       </DialogHeader>
       <div>

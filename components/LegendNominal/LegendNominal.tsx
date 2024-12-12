@@ -16,7 +16,12 @@ const LegendNominal = () => {
     { label: "strittig", Icon: DisputedIcon, background: "black" },
     { label: "unklar", Icon: UnclearIcon, background: "lightgrey" },
   ];
-  if (viewState.zoom < 10) return <p>Zoom in to see a legend</p>;
+  if (viewState.zoom < 10)
+    return (
+      <p className="italic text-muted-foreground">
+        Die Legende ist nur in größeren Zoomstufen sichtbar.
+      </p>
+    );
   return (
     <>
       <ol className="flex flex-col gap-2">
