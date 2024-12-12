@@ -24,13 +24,14 @@ const EventsMap: FC<Props> = ({ data, style }) => {
   }, [data]);
   return (
     <Map
+      //@ts-expect-error Map does not accept className prop
+      className={"h-full w-full"}
+      minZoom={4}
       initialViewState={{
         longitude: 8.5,
         latitude: 49.9,
         zoom: 8,
       }}
-      //@ts-expect-error Map does not accept className prop
-      className={"h-full w-full"}
       mapStyle={style}
     >
       <NavigationControl />

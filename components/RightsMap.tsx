@@ -58,6 +58,7 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
     <Map
       id="rightsMap"
       initialViewState={viewState}
+      minZoom={4}
       mapStyle={mapStyle}
       interactiveLayerIds={["borders"]}
       onMouseMove={onHover}

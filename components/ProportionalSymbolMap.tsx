@@ -57,16 +57,17 @@ const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
 
   return (
     <Map
+      //@ts-expect-error Map does not accept className prop
+      className={"h-full w-full"}
       initialViewState={{
         bounds: bounds,
         fitBoundsOptions: {
           padding: { left: 20, top: 20, right: 20, bottom: 20 },
         },
       }}
-      //@ts-expect-error Map does not accept className prop
-      className={"h-full w-full"}
-      interactiveLayerIds={["places"]}
       mapStyle={style}
+      minZoom={4}
+      interactiveLayerIds={["places"]}
       onMouseMove={handleMouseMove}
     >
       <NavigationControl />

@@ -69,6 +69,7 @@ const FlowMap: FC<Props> = ({ data, mapStyle }) => {
           padding: { left: 20, top: 20, right: 20, bottom: 20 },
         },
       }}
+      minZoom={3}
       interactiveLayerIds={["flows"]}
       onMouseMove={handleMouseMove}
     >
