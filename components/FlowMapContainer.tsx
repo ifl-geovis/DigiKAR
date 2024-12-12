@@ -22,8 +22,13 @@ import { LuArrowRight } from "react-icons/lu";
 import { FC, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import MapTitle from "./MapTitle";
+import { StyleSpecification } from "maplibre-gl";
 
-const FlowMapContainer: FC = () => {
+type Props = {
+  mapStyle: StyleSpecification;
+};
+
+const FlowMapContainer: FC<Props> = ({ mapStyle }) => {
   const [table, setTable] = useState("university_mainz");
 
   const { data, isLoading } = useSWRImmutable<
@@ -73,7 +78,7 @@ const FlowMapContainer: FC = () => {
       </MapAside>
       <MapContainer>
         {isLoading && <Skeleton className="h-full w-full" />}
-        {data && data.length > 1 && <FlowMap data={data} />}
+        {data && data.length > 1 && <FlowMap data={data} mapStyle={mapStyle} />}
       </MapContainer>
     </MapViewLayout>
   );

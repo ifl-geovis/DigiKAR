@@ -12,16 +12,16 @@ import Map, {
 import { extent } from "d3";
 import bbox from "@turf/bbox";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import { LngLatBounds } from "maplibre-gl";
+import { LngLatBounds, StyleSpecification } from "maplibre-gl";
 import { HoverInfo } from "@/types/HoverInfo";
-import LayerHillshade from "./LayerHillshade";
 import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
 
 type Props = {
   data: Feature<LineString>[];
+  mapStyle: StyleSpecification;
 };
 
-const FlowMap: FC<Props> = ({ data }) => {
+const FlowMap: FC<Props> = ({ data, mapStyle }) => {
   const { flows, min, max, bounds } = useMemo(() => {
     const flows: FeatureCollection = {
       type: "FeatureCollection",
@@ -60,19 +60,19 @@ const FlowMap: FC<Props> = ({ data }) => {
 
   return (
     <Map
+      //@ts-expect-error Map does not accept className prop
+      className={"h-full w-full"}
+      mapStyle={mapStyle}
       initialViewState={{
         bounds,
         fitBoundsOptions: {
           padding: { left: 20, top: 20, right: 20, bottom: 20 },
         },
       }}
-      //@ts-expect-error Map does not accept className prop
-      className={"h-full w-full"}
       interactiveLayerIds={["flows"]}
       onMouseMove={handleMouseMove}
     >
       <NavigationControl />
-      <LayerHillshade />
       <Source id="flow-data" data={flows} type={"geojson"} lineMetrics>
         <Layer
           id="flows"
