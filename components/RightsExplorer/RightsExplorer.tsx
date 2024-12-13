@@ -24,12 +24,12 @@ type Props = PropsWithChildren<{
   colorMap: Map<string, string>;
   availableLayers?: Layer[];
   rightRequest: RightRequest;
-  timeRange: TimeRange;
+  initialTimeRange: TimeRange;
 }>;
 
 const RightsExplorer: FC<Props> = ({
   rightRequest,
-  timeRange,
+  initialTimeRange,
   attributeSet,
   initialBbox,
   initialOrder,
@@ -49,6 +49,8 @@ const RightsExplorer: FC<Props> = ({
   const [detailInfo, setDetailInfo] = useState<DetailInfo | undefined>(
     undefined,
   );
+
+  const [timeRange, setTimeRange] = useState(initialTimeRange);
 
   const [colorScale, setColorScale] = useState<
     ScaleOrdinal<string, string, string>
@@ -71,6 +73,7 @@ const RightsExplorer: FC<Props> = ({
         availableLayers,
         detailInfo,
         setDetailInfo,
+        setTimeRange,
       }}
     >
       <MapState availableLayers={availableLayers} initialBbox={initialBbox}>

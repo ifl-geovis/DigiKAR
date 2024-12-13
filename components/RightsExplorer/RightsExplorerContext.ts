@@ -5,8 +5,9 @@ import { ScaleOrdinal } from "d3";
 import { createContext, useContext } from "react";
 
 export type TimeRange = {
+  min: number;
   t: number;
-  support: number;
+  max: number;
 };
 
 export type RightRequest = {
@@ -31,6 +32,7 @@ type Context = {
   setColorScale: (scale: ScaleOrdinal<string, string, string>) => void;
   availableLayers?: Layer[];
   detailInfo?: DetailInfo;
+  setTimeRange: (timeRange: TimeRange) => void;
   setDetailInfo: (detail?: DetailInfo) => void;
 };
 

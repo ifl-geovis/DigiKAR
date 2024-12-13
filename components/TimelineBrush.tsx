@@ -1,30 +1,63 @@
-import { FC } from "react";
-import { TimeRange } from "./RightsExplorer/RightsExplorerContext";
-import { ScaleLinear, range } from "d3";
+import { FC, useCallback } from "react";
+import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
+import { ScaleLinear, range, schemeObservable10 } from "d3";
+import { Drag } from "@visx/drag";
+import { HandlerArgs } from "@visx/drag/lib/Drag";
 
 type Props = {
   scaleX: ScaleLinear<number, number>;
-  timeRange: TimeRange;
   height: number;
 };
 
-const TimelineBrush: FC<Props> = ({ scaleX, timeRange, height }) => {
-  const tmin = timeRange.t - timeRange.support;
-  const tmax = timeRange.t + timeRange.support;
+const TimelineBrush: FC<Props> = ({ scaleX, height }) => {
+  const { timeRange, setTimeRange } = useRightsExplorerContext();
+  const { min, max, t } = timeRange;
+  const width = scaleX.range()[1];
+
+  const onDragEnd = useCallback(
+    (currentDrag: HandlerArgs) => {
+      console.log({ currentDrag, setTimeRange });
+      // setTimeRange((prev: TimeRange) => ({
+      //   ...prev,
+      //   [d]: currentDrag.x,
+      // }));
+    },
+    [setTimeRange],
+  );
   return (
-    <g transform={`translate(${scaleX(timeRange.t)} 1)`}>
-      <rect
-        x={scaleX(tmin) - scaleX(timeRange.t)}
-        y={2}
-        width={scaleX(tmax) - scaleX(tmin)}
-        height={height - 3}
-        fill="none"
-        stroke="darkgrey"
-        rx={2}
-      />
-      <line y2={height} stroke="black" strokeWidth={4} />
-      <Handle height={20} timelineHeight={height} />
-    </g>
+    <div>
+      <svg width={width} height={height}>
+        {[min, t, max].map((d, i) => (
+          <Drag
+            key={`brush-${i}`}
+            width={width}
+            height={height}
+            restrict={{ yMax: height / 2, yMin: height / 2 }}
+            x={scaleX(d)}
+            y={height / 2}
+            onDragEnd={onDragEnd}
+          >
+            {({ dragStart, dragEnd, dragMove, isDragging, x, y, dx }) => (
+              <circle
+                cx={x}
+                cy={y}
+                transform={`translate(${dx}, ${0})`}
+                r={height / 2}
+                fill={schemeObservable10[i]}
+                stroke="black"
+                strokeWidth={isDragging ? 2 : 0}
+                onMouseMove={dragMove}
+                onMouseUp={dragEnd}
+                onMouseDown={dragStart}
+                onTouchStart={dragStart}
+                onTouchMove={dragMove}
+                onTouchEnd={dragEnd}
+              />
+            )}
+          </Drag>
+        ))}
+      </svg>
+    </div>
   );
 };
 

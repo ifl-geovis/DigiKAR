@@ -13,7 +13,8 @@ export const getClosestEntry = (
         Math.abs((d ?? Infinity) - timeRange.t),
       ),
     );
-    if (distance <= timeRange.support) acc.push({ distance, entry });
+    if (distance >= timeRange.min && distance <= timeRange.max)
+      acc.push({ distance, entry });
     return acc;
   }, []);
   if (candidates.length > 0)

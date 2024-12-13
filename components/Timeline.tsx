@@ -3,7 +3,6 @@
 import { scaleLinear } from "d3";
 import { FC } from "react";
 import useMeasure from "react-use-measure";
-import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 import TimelineBrush from "./TimelineBrush";
 
 const height = 40;
@@ -11,15 +10,18 @@ const margin = 10;
 
 const Timeline: FC = () => {
   const [ref, { width }] = useMeasure();
-  const { timeRange } = useRightsExplorerContext();
   const domainX = [1450, 1850];
   const scaleX = scaleLinear()
     .domain(domainX)
     .range([35, width - margin]);
   return (
     <div className="rounded-sm bg-white p-2 shadow-xl">
-      <div ref={ref}>
-        <svg className="rounded bg-gray-100" width={width} height={height}>
+      <div ref={ref} className="grid grid-cols-1 grid-rows-1">
+        <svg
+          className="col-start-1 row-start-1 rounded bg-gray-100"
+          width={width}
+          height={height}
+        >
           <g>
             {scaleX.ticks().map((d: number) => (
               <g key={d} transform={`translate(${scaleX(d)} 0)`}>
@@ -35,12 +37,10 @@ const Timeline: FC = () => {
               </g>
             ))}
           </g>
-          <TimelineBrush
-            timeRange={timeRange}
-            scaleX={scaleX}
-            height={height - 2 * margin}
-          />
         </svg>
+        <div className="col-start-1 row-start-1">
+          <TimelineBrush scaleX={scaleX} height={height - 2 * margin} />
+        </div>
       </div>
     </div>
   );
