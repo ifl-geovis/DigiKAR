@@ -1,9 +1,12 @@
 "use client";
 
-import { max, scaleSqrt } from "d3";
+import { max, scaleOrdinal, scaleSqrt } from "d3";
+import { schemeObservable10 } from "d3-scale-chromatic";
 import { Feature, Point } from "geojson";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useMemo } from "react";
+
+import { LifeEvent } from "@/lib/getPlaceOriginDeath";
 import Map, {
   MapStyle,
   Marker,
@@ -12,16 +15,30 @@ import Map, {
 import BirthDeathSymbol from "./BirthDeathSymbol";
 
 type Props = {
-  data: Feature<Point>[];
+  data: Feature<Point, { events: LifeEvent[]; place: string }>[];
   style: MapStyle;
+  eventDomain: string[];
 };
 
-const EventsMap: FC<Props> = ({ data, style }) => {
+const EventsMap: FC<Props> = ({ data, style, eventDomain }) => {
   const scaleR = useMemo(() => {
-    const maxValue = max(data.map((d) => d.properties?.value));
-    const scaleR = scaleSqrt().domain([0, maxValue]).range([0, 50]);
+    const maxValue = max(
+      data.flatMap((d) => d.properties?.events.flatMap((d) => d.count)),
+    );
+    const scaleR = scaleSqrt()
+      .domain([0, maxValue ?? 1])
+      .range([0, 100]);
     return scaleR;
   }, [data]);
+  const colorScale = useMemo(
+    () =>
+      scaleOrdinal<string, string>()
+        .domain(eventDomain)
+        .range(schemeObservable10)
+        .unknown("gray"),
+    [eventDomain],
+  );
+
   return (
     <Map
       //@ts-expect-error Map does not accept className prop
@@ -35,18 +52,26 @@ const EventsMap: FC<Props> = ({ data, style }) => {
       mapStyle={style}
     >
       <NavigationControl />
-      {data.map((d) => {
-        const size = scaleR(d.properties?.value) * 2;
-        return (
-          <Marker
-            key={d.id}
-            longitude={d.geometry.coordinates[0]}
-            latitude={d.geometry.coordinates[1]}
-          >
-            <BirthDeathSymbol size={size} scaleR={scaleR} feature={d} />
-          </Marker>
-        );
-      })}
+      {data
+        .filter((d) => d.properties.events.length > 1)
+        .map((d) => {
+          const maxCount = max(d.properties.events.map((d) => d.count));
+          const size = scaleR(maxCount ?? 0) * 2;
+          return (
+            <Marker
+              key={d.id}
+              longitude={d.geometry.coordinates[0]}
+              latitude={d.geometry.coordinates[1]}
+            >
+              <BirthDeathSymbol
+                colorScale={colorScale}
+                size={size}
+                scaleR={scaleR}
+                feature={d}
+              />
+            </Marker>
+          );
+        })}
     </Map>
   );
 };
