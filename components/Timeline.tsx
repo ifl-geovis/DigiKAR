@@ -39,7 +39,7 @@ const Timeline: FC = () => {
           </g>
         </svg>
         <div className="col-start-1 row-start-1">
-          <TimelineBrush scaleX={scaleX} height={height - 2 * margin} />
+          <TimelineBrush scaleX={scaleX} height={height} />
         </div>
       </div>
     </div>
