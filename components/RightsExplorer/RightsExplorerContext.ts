@@ -10,6 +10,8 @@ export type TimeRange = {
   max: number;
 };
 
+export type TimeRangeHandle = keyof TimeRange;
+
 export type RightRequest = {
   baseUrl: string;
   params?: string;
@@ -17,22 +19,24 @@ export type RightRequest = {
 };
 
 type Context = {
+  attributeSet: Set<Right>;
+  availableLayers?: Layer[];
   rightRequest: RightRequest;
   timeRange: TimeRange;
+  setTimeRange: (
+    timeRange: TimeRange | ((timeRange: TimeRange) => TimeRange),
+  ) => void;
   order: string[];
+  setOrder: (order: string[]) => void;
   activeCategory?: string;
-  symbolMap: Map<string, string>;
-  colorScale: ScaleOrdinal<string, string, string>;
-  attributeSet: Set<Right>;
   setActiveCategory: (
     category?: string | ((category?: string) => string | undefined),
   ) => void;
-  setOrder: (order: string[]) => void;
+  symbolMap: Map<string, string>;
   setSymbolMap: (symbolMap: Map<string, string>) => void;
+  colorScale: ScaleOrdinal<string, string, string>;
   setColorScale: (scale: ScaleOrdinal<string, string, string>) => void;
-  availableLayers?: Layer[];
   detailInfo?: DetailInfo;
-  setTimeRange: (timeRange: TimeRange) => void;
   setDetailInfo: (detail?: DetailInfo) => void;
 };
 

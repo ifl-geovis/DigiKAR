@@ -50,7 +50,7 @@ const RightsExplorer: FC<Props> = ({
     undefined,
   );
 
-  const [timeRange, setTimeRange] = useState(initialTimeRange);
+  const [timeRange, setTimeRange] = useState<TimeRange>(initialTimeRange);
 
   const [colorScale, setColorScale] = useState<
     ScaleOrdinal<string, string, string>
