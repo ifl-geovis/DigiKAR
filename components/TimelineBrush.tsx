@@ -7,8 +7,11 @@ import {
 import { ScaleLinear, range } from "d3";
 import { Drag, raise } from "@visx/drag";
 import { HandlerArgs } from "@visx/drag/lib/Drag";
-import { Polygon } from "@visx/shape";
+import { Line, Polygon } from "@visx/shape";
 import { PatternLines } from "@visx/pattern";
+import Tooltip from "./Tooltip";
+import TooltipTrigger from "./Tooltip/TooltipTrigger";
+import TooltipContent from "./Tooltip/TooltipContent";
 
 type Props = {
   scaleX: ScaleLinear<number, number>;
@@ -87,50 +90,60 @@ const TimelineBrush: FC<Props> = ({ scaleX, height }) => {
             onDragMove={(currentDrag) => onDragMove(currentDrag, handle)}
           >
             {({ dragStart, dragEnd, dragMove, isDragging, x, y, dx }) => (
-              <g
-                className="cursor-col-resize"
-                transform={`translate(${dx}, ${0})`}
-                onMouseMove={dragMove}
-                onMouseUp={dragEnd}
-                onMouseDown={dragStart}
-                onTouchStart={dragStart}
-                onTouchMove={dragMove}
-                onTouchEnd={dragEnd}
-              >
-                <rect
-                  x={(x ?? 0) - 20}
-                  y={(y ?? 0) + 2}
-                  rx={3}
-                  height={handleHeight - 4}
-                  width={40}
-                  fill="white"
-                  stroke={isDragging ? "black" : "gray"}
-                  strokeWidth={isDragging ? 2 : 1}
-                />
-                <text
-                  className="pointer-events-none"
-                  dominantBaseline="middle"
-                  fontSize={12}
-                  x={x}
-                  dy={handleHeight / 2}
-                  textAnchor="middle"
-                >
-                  {handle === "min"
-                    ? (handles.find(([k]) => k === "min")?.[1] ?? 0) -
-                      (handles.find(([k]) => k === "t")?.[1] ?? 0)
-                    : handle === "t"
-                      ? handles.find(([k]) => k === "t")?.[1]
-                      : (handles.find(([k]) => k === "max")?.[1] ?? 0) -
-                        (handles.find(([k]) => k === "t")?.[1] ?? 0)}
-                </text>
-                <Polygon
-                  transform={`translate(${x}, ${handleHeight})`}
-                  rotate={-90}
-                  sides={3}
-                  size={3}
-                  fill="gray"
-                />
-              </g>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <g
+                    className="cursor-col-resize"
+                    transform={`translate(${dx}, ${0})`}
+                    onMouseMove={dragMove}
+                    onMouseUp={dragEnd}
+                    onMouseDown={dragStart}
+                    onTouchStart={dragStart}
+                    onTouchMove={dragMove}
+                    onTouchEnd={dragEnd}
+                  >
+                    <Polygon
+                      transform={`translate(${x}, ${handleHeight})`}
+                      rotate={-90}
+                      sides={3}
+                      size={3}
+                      fill="gray"
+                    />
+                    <Line x1={x} x2={x} y2={30} stroke="gray" />
+                    <rect
+                      x={(x ?? 0) - 20}
+                      y={(y ?? 0) + 2}
+                      rx={2}
+                      height={handleHeight - 4}
+                      width={40}
+                      fill="white"
+                      stroke={isDragging ? "black" : "gray"}
+                      strokeWidth={isDragging ? 2 : 1}
+                    />
+                    <text
+                      className="pointer-events-none"
+                      dominantBaseline="middle"
+                      fontSize={12}
+                      x={x}
+                      dy={handleHeight / 2}
+                      textAnchor="middle"
+                    >
+                      {handle === "min"
+                        ? (handles.find(([k]) => k === "min")?.[1] ?? 0) -
+                          (handles.find(([k]) => k === "t")?.[1] ?? 0)
+                        : handle === "t"
+                          ? handles.find(([k]) => k === "t")?.[1]
+                          : `+${
+                              (handles.find(([k]) => k === "max")?.[1] ?? 0) -
+                              (handles.find(([k]) => k === "t")?.[1] ?? 0)
+                            }`}
+                    </text>
+                  </g>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {handles.find(([k]) => k === handle)?.[1]}
+                </TooltipContent>
+              </Tooltip>
             )}
           </Drag>
         ))}
