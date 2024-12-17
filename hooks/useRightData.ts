@@ -20,7 +20,7 @@ const toBbox = (bounds?: LngLatBounds) => {
 
 export default function useRightData(
   url: { baseUrl: string; params?: string; needsTransform?: boolean },
-  year: TimeRange,
+  timeRange: TimeRange,
   bounds: LngLatBounds,
 ): {
   isLoading: boolean;
@@ -38,7 +38,9 @@ export default function useRightData(
     return {
       isLoading,
       //@ts-expect-error Should the data returned from the apis be a generic? useRightData<T>()?
-      data: url.needsTransform ? kursachsenToRightSchema(data, year) : data,
+      data: url.needsTransform
+        ? kursachsenToRightSchema(data, timeRange)
+        : data,
       error,
     };
   }
