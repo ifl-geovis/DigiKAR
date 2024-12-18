@@ -17,8 +17,8 @@ type RightAttributes = {
   [K in Right]: {
     place_id: string;
     attested_fuzzy: {
-      kernel: "string";
-      support: "string";
+      kernel: string;
+      support: string;
     };
     attested_raw: string;
     attested_json: FuzzyTimeInterval;
