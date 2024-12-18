@@ -40,7 +40,7 @@ export default async function Wp2() {
   return (
     <RightsExplorer
       rightRequest={rightRequest}
-      initialBbox={[13.2, 51.05, 13.3, 51.15]}
+      initialBbox={[13.739 - 0.5, 51.049 - 0.2, 13.739 + 0.5, 51.049 + 0.2]}
       attributeSet={attributeSet}
       initialOrder={[
         "hochgericht",

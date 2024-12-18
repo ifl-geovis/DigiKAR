@@ -24,7 +24,7 @@ const MapState: FC<Props> = ({
   const [viewState, setViewState] = useState<ViewState>({
     longitude: initialBounds.getCenter().lng,
     latitude: initialBounds.getCenter().lat,
-    zoom: initialZoom ?? 12,
+    zoom: initialZoom ?? 10,
   } as ViewState);
 
   const [bounds, setBounds] = useState<LngLatBounds>(initialBounds);
