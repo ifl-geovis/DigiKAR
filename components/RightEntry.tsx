@@ -53,7 +53,9 @@ const RightEntry: FC<Props> = ({ entry }) => {
                         cy={8}
                         r={6.6}
                         stroke="black"
-                        fill={colorScale(d.category)}
+                        fill={colorScale(
+                          d.category ? d.category.normalize() : "",
+                        )}
                       />
                     </svg>
                   </div>
