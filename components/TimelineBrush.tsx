@@ -16,17 +16,19 @@ import TooltipContent from "./Tooltip/TooltipContent";
 type Props = {
   scaleX: ScaleLinear<number, number>;
   height: number;
+  width: number;
 };
 
-const TimelineBrush: FC<Props> = ({ scaleX, height }) => {
-  const width = scaleX.range()[1];
+type Entries<T> = {
+  [K in keyof T]: [K, T[K]];
+}[keyof T][];
+
+const TimelineBrush: FC<Props> = ({ scaleX, width, height }) => {
   const handleHeight = height / 2;
 
   const { timeRange, setTimeRange } = useRightsExplorerContext();
 
-  const [handles, setHandles] = useState(
-    Object.entries(timeRange) as [TimeRangeHandle, number][],
-  );
+  const [handles, setHandles] = useState(timeRange);
 
   const onDragEnd = useCallback(
     (currentDrag: HandlerArgs, handle: TimeRangeHandle) => {
@@ -42,21 +44,18 @@ const TimelineBrush: FC<Props> = ({ scaleX, height }) => {
 
   const onDragMove = useCallback(
     (currentDrag: HandlerArgs, handle: TimeRangeHandle) => {
-      setHandles((prev) => [
-        ...prev.filter((d) => d[0] !== handle),
-        [
-          handle,
-          Math.round(scaleX.invert((currentDrag.x ?? 0) + currentDrag.dx)),
-        ],
-      ]);
+      setHandles((prev) => ({
+        ...prev,
+        [handle]: Math.round(
+          scaleX.invert((currentDrag.x ?? 0) + currentDrag.dx),
+        ),
+      }));
     },
     [scaleX],
   );
 
-  const brushWidth =
-    scaleX(handles?.find(([key]) => key === "max")?.[1] ?? 1) -
-    scaleX(handles?.find(([key]) => key === "min")?.[1] ?? 1);
-  const brushX = scaleX(handles?.find(([key]) => key === "min")?.[1] ?? 0);
+  const handlesEntries = Object.entries(handles) as Entries<typeof timeRange>;
+
   return (
     <div>
       <svg width={width} height={height}>
@@ -69,23 +68,42 @@ const TimelineBrush: FC<Props> = ({ scaleX, height }) => {
           orientation={["diagonal"]}
         />
         <rect
-          x={brushX}
+          x={scaleX(handles.min)}
           y={2}
-          width={brushWidth}
+          width={scaleX(handles.max) - scaleX(handles.min)}
           height={handleHeight - 4}
           fill="url(#lines)"
           stroke="lightgrey"
           rx={2}
         />
-        {handles.map(([handle, value], i) => (
+        {handlesEntries.map(([handle, value], i) => (
           <Drag
             key={`brush-${handle}`}
             width={width}
             height={height}
-            restrict={{ yMax: height / 2, yMin: height / 2 }}
+            restrict={{
+              xMin:
+                handle === "t"
+                  ? scaleX(timeRange.min + 1)
+                  : handle === "max"
+                    ? scaleX(timeRange.t + 1)
+                    : scaleX(scaleX.domain()[0]),
+              xMax:
+                handle === "min"
+                  ? scaleX(timeRange.t - 1)
+                  : handle === "t"
+                    ? scaleX(timeRange.max - 1)
+                    : scaleX(scaleX.domain()[1]),
+              yMin: height / 2,
+              yMax: height / 2,
+            }}
             x={scaleX(value)}
             y={0}
-            onDragStart={() => setHandles(raise(handles, i))}
+            onDragStart={() =>
+              setHandles(
+                Object.fromEntries(raise(handlesEntries, i)) as TimeRange,
+              )
+            }
             onDragEnd={(currentDrag) => onDragEnd(currentDrag, handle)}
             onDragMove={(currentDrag) => onDragMove(currentDrag, handle)}
           >
@@ -107,9 +125,14 @@ const TimelineBrush: FC<Props> = ({ scaleX, height }) => {
                       rotate={-90}
                       sides={3}
                       size={3}
-                      fill="gray"
+                      fill={isDragging ? "black" : "gray"}
                     />
-                    <Line x1={x} x2={x} y2={30} stroke="gray" />
+                    <Line
+                      x1={x}
+                      x2={x}
+                      y2={height - 5}
+                      stroke={isDragging ? "black" : "gray"}
+                    />
                     <rect
                       x={(x ?? 0) - 20}
                       y={(y ?? 0) + 2}
@@ -129,19 +152,15 @@ const TimelineBrush: FC<Props> = ({ scaleX, height }) => {
                       textAnchor="middle"
                     >
                       {handle === "min"
-                        ? (handles.find(([k]) => k === "min")?.[1] ?? 0) -
-                          (handles.find(([k]) => k === "t")?.[1] ?? 0)
+                        ? handles.min - handles.t
                         : handle === "t"
-                          ? handles.find(([k]) => k === "t")?.[1]
-                          : `+${
-                              (handles.find(([k]) => k === "max")?.[1] ?? 0) -
-                              (handles.find(([k]) => k === "t")?.[1] ?? 0)
-                            }`}
+                          ? handles.t
+                          : `+${handles.max - handles.t}`}
                     </text>
                   </g>
                 </TooltipTrigger>
-                <TooltipContent>
-                  {handles.find(([k]) => k === handle)?.[1]}
+                <TooltipContent className="p-2">
+                  <div className="text-xs font-bold">{handles[handle]}</div>
                 </TooltipContent>
               </Tooltip>
             )}
