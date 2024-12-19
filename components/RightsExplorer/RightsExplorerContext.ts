@@ -1,6 +1,7 @@
 import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
 import { Right } from "@/types/PlaceProperties";
+import { TooltipInfo } from "@/types/TooltipInfo";
 import { ScaleOrdinal } from "d3";
 import { createContext, useContext } from "react";
 
@@ -38,6 +39,8 @@ type Context = {
   setColorScale: (scale: ScaleOrdinal<string, string, string>) => void;
   detailInfo?: DetailInfo;
   setDetailInfo: (detail?: DetailInfo) => void;
+  tooltipInfo?: TooltipInfo;
+  setTooltipInfo: (detail?: TooltipInfo) => void;
 };
 
 export const RightsExplorerContext = createContext<Context | null>(null);

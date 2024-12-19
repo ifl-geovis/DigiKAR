@@ -1,6 +1,6 @@
 "use client";
 
-import { MapGeoJSONFeature, MapLayerMouseEvent } from "maplibre-gl";
+import { MapLayerMouseEvent } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useState } from "react";
 import Map, {
@@ -10,11 +10,13 @@ import Map, {
   ViewStateChangeEvent,
   useMap,
 } from "react-map-gl/maplibre";
-import ZoomIndicator from "./ZoomIndicator";
-import LayersControl from "./LayersControl/LayersControl";
-import { useMapStateContext } from "./MapState/MapStateContext";
-import SnowFlakeLayer from "./SnowflakeLayer";
 import LayerMlBerlin from "./LayerMlBerlin";
+import LayersControl from "./LayersControl/LayersControl";
+import LocationAttributeCard from "./LocationAttributeCard";
+import { useMapStateContext } from "./MapState/MapStateContext";
+import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
+import SnowFlakeLayer from "./SnowflakeLayer";
+import ZoomIndicator from "./ZoomIndicator";
 
 type Props = {
   mapStyle: MapStyle;
@@ -22,31 +24,24 @@ type Props = {
 
 const RightsMap: FC<Props> = ({ mapStyle }) => {
   const { rightsMap } = useMap();
-  const [hoverInfo, setHoverInfo] = useState<
-    | {
-        feature: MapGeoJSONFeature;
-        x: number;
-        y: number;
-      }
-    | undefined
-  >(undefined);
+  const [positionInfo, setPositionInfo] = useState<{
+    x: number;
+    y: number;
+  }>({ x: 0, y: 0 });
 
   const onHover = useCallback((event: MapLayerMouseEvent) => {
-    const {
-      features,
-      point: { x, y },
-    } = event;
-    const hoveredFeature = features && features[0];
-    setHoverInfo(hoveredFeature && { feature: hoveredFeature, x, y });
+    setPositionInfo({ ...event.point });
   }, []);
 
   const { viewState, setViewState, layers, setBounds } = useMapStateContext();
+  const { tooltipInfo, setTooltipInfo } = useRightsExplorerContext();
 
   const handleMove = useCallback(
     (event: ViewStateChangeEvent) => {
       setViewState(event.viewState);
+      setTooltipInfo(undefined);
     },
-    [setViewState],
+    [setViewState, setTooltipInfo],
   );
 
   const handleMoveEnd = useCallback(() => {
@@ -60,9 +55,7 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
       initialViewState={viewState}
       minZoom={4}
       mapStyle={mapStyle}
-      interactiveLayerIds={["borders"]}
       onMouseMove={onHover}
-      onMouseOut={() => setHoverInfo(undefined)}
       onMove={handleMove}
       onMoveEnd={handleMoveEnd}
     >
@@ -80,12 +73,15 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
             : "none"
         }
       />
-      {hoverInfo && (
+      {tooltipInfo && (
         <div
-          className="pointer-events-none absolute rounded-md bg-white p-2 shadow-lg"
-          style={{ left: hoverInfo.x, top: hoverInfo.y }}
+          className="pointer-events-none absolute z-50 rounded-md bg-white p-2 shadow-lg"
+          style={{ left: positionInfo.x, top: positionInfo.y }}
         >
-          <div>Amt: {hoverInfo.feature.properties?.amt}</div>
+          <LocationAttributeCard
+            placeName={tooltipInfo.placeName}
+            locationAttribute={tooltipInfo.attribute}
+          />
         </div>
       )}
     </Map>

@@ -31,11 +31,11 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
       ).sort((a, b) => b[1] - a[1])
     : [];
   return (
-    <>
-      <h2 className="mb-2 text-sm font-bold">{placeName}</h2>
-      <p className="text-xs">Herrschaftsrecht</p>
+    <div className="text-base">
+      <h2 className="mb-2 text-base font-bold">{placeName}</h2>
+      <p className="text-sm text-muted-foreground">Herrschaftsrecht</p>
       {capitalize(locationAttribute.attributeName)}
-      <p className="text-xs">Inhaber</p>
+      <p className="mt-2 text-sm text-muted-foreground">Inhaber</p>
       {isWithoutHolder ? (
         <span className="italic text-gray-500">keine Daten</span>
       ) : (
@@ -60,7 +60,7 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
           ))}
         </span>
       )}
-    </>
+    </div>
   );
 };
 

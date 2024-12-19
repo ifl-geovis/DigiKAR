@@ -2,7 +2,10 @@
 
 import { mapToScale } from "@/lib/helpers";
 import { Bbox } from "@/types/Bbox";
+import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
+import { Right } from "@/types/PlaceProperties";
+import { TooltipInfo } from "@/types/TooltipInfo";
 import { ScaleOrdinal } from "d3";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, PropsWithChildren, useState } from "react";
@@ -10,11 +13,9 @@ import { MapProvider } from "react-map-gl/maplibre";
 import MapState from "../MapState";
 import {
   RightRequest,
-  TimeRange,
   RightsExplorerContext,
+  TimeRange,
 } from "./RightsExplorerContext";
-import { DetailInfo } from "@/types/DetailInfo";
-import { Right } from "@/types/PlaceProperties";
 
 type Props = PropsWithChildren<{
   initialBbox: Bbox;
@@ -50,6 +51,10 @@ const RightsExplorer: FC<Props> = ({
     undefined,
   );
 
+  const [tooltipInfo, setTooltipInfo] = useState<TooltipInfo | undefined>(
+    undefined,
+  );
+
   const [timeRange, setTimeRange] = useState<TimeRange>(initialTimeRange);
 
   const [colorScale, setColorScale] = useState<
@@ -62,6 +67,7 @@ const RightsExplorer: FC<Props> = ({
         rightRequest,
         timeRange,
         order,
+        setTimeRange,
         activeCategory,
         colorScale: colorScale,
         symbolMap,
@@ -73,7 +79,8 @@ const RightsExplorer: FC<Props> = ({
         availableLayers,
         detailInfo,
         setDetailInfo,
-        setTimeRange,
+        tooltipInfo,
+        setTooltipInfo,
       }}
     >
       <MapState availableLayers={availableLayers} initialBbox={initialBbox}>

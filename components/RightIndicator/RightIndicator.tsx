@@ -2,12 +2,8 @@ import getRightStatus from "@/lib/getRightStatus";
 import { Attribute, HoldersGeneralized } from "@/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
 import { FC, useCallback, useMemo } from "react";
-import LocationAttributeCard from "../LocationAttributeCard";
 import RightShape from "../RightShape";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
-import Tooltip from "../Tooltip";
-import TooltipContent from "../Tooltip/TooltipContent";
-import TooltipTrigger from "../Tooltip/TooltipTrigger";
 
 type Props = {
   x: number;
@@ -30,7 +26,7 @@ const RightIndicator: FC<Props> = ({
   symbol = "circle",
   colorScale,
 }) => {
-  const { setActiveCategory, activeCategory, setDetailInfo } =
+  const { setActiveCategory, activeCategory, setDetailInfo, setTooltipInfo } =
     useRightsExplorerContext();
 
   const {
@@ -79,33 +75,31 @@ const RightIndicator: FC<Props> = ({
       attribute: attribute.attributeName,
     });
   }, [attribute.attributeName, placeId, setDetailInfo]);
+  const onMouseEnterHandler = useCallback(() => {
+    setTooltipInfo({
+      placeName: placeName,
+      attribute: attribute,
+    });
+  }, [attribute, placeName, setTooltipInfo]);
+  const onMouseLeaveHandler = useCallback(() => {
+    setTooltipInfo(undefined);
+  }, [setTooltipInfo]);
   return (
-    <>
-      <g className="group" onClick={onClickHandler}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <RightShape
-              x={x}
-              y={y}
-              symbol={symbol}
-              size={size}
-              color={color}
-              opacity={opacity}
-              isShared={isShared}
-              isDisputed={isDisputed}
-              isUnclear={isUnclear}
-              onContextMenuHandler={onContextMenuHandler}
-            />
-          </TooltipTrigger>
-          <TooltipContent>
-            <LocationAttributeCard
-              placeName={placeName}
-              locationAttribute={attribute}
-            />
-          </TooltipContent>
-        </Tooltip>
-      </g>
-    </>
+    <RightShape
+      x={x}
+      y={y}
+      symbol={symbol}
+      size={size}
+      color={color}
+      opacity={opacity}
+      isShared={isShared}
+      isDisputed={isDisputed}
+      isUnclear={isUnclear}
+      onMouseLeave={onMouseLeaveHandler}
+      onMouseEnter={onMouseEnterHandler}
+      onContextMenu={onContextMenuHandler}
+      onClick={onClickHandler}
+    />
   );
 };
 

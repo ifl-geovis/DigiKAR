@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { FC, SVGProps } from "react";
 import DisputedIcon from "/public/icons/disputed.svg";
 import SharedIcon from "/public/icons/shared.svg";
 import UnclearIcon from "/public/icons/unclear.svg";
@@ -13,30 +13,24 @@ type Props = {
   isShared: boolean;
   isDisputed: boolean;
   isUnclear: boolean;
-  onContextMenuHandler?: () => void;
-};
+} & SVGProps<SVGGElement>;
 
-type Ref = SVGGElement;
-
-const RightShape = forwardRef<Ref, Props>(function RightShape(
-  {
-    x,
-    y,
-    size,
-    symbol,
-    color,
-    opacity,
-    isShared,
-    isDisputed,
-    isUnclear,
-    onContextMenuHandler,
-  },
-  ref,
-) {
+const RightShape: FC<Props> = ({
+  x,
+  y,
+  size,
+  symbol,
+  color,
+  opacity,
+  isShared,
+  isDisputed,
+  isUnclear,
+  ...rest
+}) => {
   const className =
     "cursor-pointer stroke-black hover:stroke-2 transition-all group-data-[state=open]:stroke-[3px]";
   return (
-    <g ref={ref} transform={`translate(${x} ${y})`}>
+    <g transform={`translate(${x} ${y})`} {...rest}>
       {symbol === "square" ? (
         <rect
           width={(size * 5) / 3}
@@ -45,16 +39,9 @@ const RightShape = forwardRef<Ref, Props>(function RightShape(
           fill={color}
           className={className}
           opacity={opacity}
-          onContextMenu={onContextMenuHandler}
         />
       ) : (
-        <circle
-          r={size}
-          fill={color}
-          className={className}
-          opacity={opacity}
-          onContextMenu={onContextMenuHandler}
-        />
+        <circle r={size} fill={color} className={className} opacity={opacity} />
       )}
       {isShared && <SharedIcon x="-7" y="-7" className="text-white" />}
       {isDisputed && <DisputedIcon x="-7" y="-7" className="text-white" />}
@@ -63,6 +50,6 @@ const RightShape = forwardRef<Ref, Props>(function RightShape(
       )}
     </g>
   );
-});
+};
 
 export default RightShape;
