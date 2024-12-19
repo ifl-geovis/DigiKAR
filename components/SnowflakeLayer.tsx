@@ -2,15 +2,21 @@
 
 import useRightData from "@/hooks/useRightData";
 import { mapToScale } from "@/lib/helpers";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useEffect } from "react";
 import { Marker } from "react-map-gl/maplibre";
 import { useMapStateContext } from "./MapState/MapStateContext";
 import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 import RightsMarker from "./RightsMarker";
 
 const SnowFlakeLayer: FC = () => {
-  const { order, timeRange, colorScale, symbolMap, rightRequest } =
-    useRightsExplorerContext();
+  const {
+    order,
+    timeRange,
+    colorScale,
+    symbolMap,
+    rightRequest,
+    setDataState,
+  } = useRightsExplorerContext();
   const { bounds } = useMapStateContext();
 
   const symbolScale = useCallback(
@@ -18,11 +24,15 @@ const SnowFlakeLayer: FC = () => {
     [symbolMap],
   );
 
-  const { data: transformedData } = useRightData(
-    rightRequest,
-    timeRange,
-    bounds,
-  );
+  const {
+    data: transformedData,
+    isLoading,
+    error,
+  } = useRightData(rightRequest, timeRange, bounds);
+
+  useEffect(() => {
+    setDataState({ isLoading, error });
+  }, [isLoading, error, setDataState]);
 
   return (
     <>

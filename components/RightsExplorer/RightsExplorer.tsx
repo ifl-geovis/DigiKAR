@@ -28,6 +28,11 @@ type Props = PropsWithChildren<{
   initialTimeRange: TimeRange;
 }>;
 
+export type DataState = {
+  isLoading?: boolean;
+  error?: boolean;
+};
+
 const RightsExplorer: FC<Props> = ({
   rightRequest,
   initialTimeRange,
@@ -55,6 +60,8 @@ const RightsExplorer: FC<Props> = ({
     undefined,
   );
 
+  const [dataState, setDataState] = useState<DataState | undefined>(undefined);
+
   const [timeRange, setTimeRange] = useState<TimeRange>(initialTimeRange);
 
   const [colorScale, setColorScale] = useState<
@@ -81,6 +88,8 @@ const RightsExplorer: FC<Props> = ({
         setDetailInfo,
         tooltipInfo,
         setTooltipInfo,
+        dataState,
+        setDataState,
       }}
     >
       <MapState availableLayers={availableLayers} initialBbox={initialBbox}>

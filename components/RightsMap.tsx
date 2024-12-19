@@ -17,6 +17,7 @@ import { useMapStateContext } from "./MapState/MapStateContext";
 import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 import SnowFlakeLayer from "./SnowflakeLayer";
 import ZoomIndicator from "./ZoomIndicator";
+import DataStateIndicator from "./data-state-indicator";
 
 type Props = {
   mapStyle: MapStyle;
@@ -62,8 +63,9 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
       <NavigationControl />
       <ScaleControl position="bottom-right" />
       <div className="z-1 absolute right-[50px] mt-[10px] flex items-center gap-2">
-        <LayersControl />
+        <DataStateIndicator />
         <ZoomIndicator />
+        <LayersControl />
       </div>
       <SnowFlakeLayer />
       <LayerMlBerlin
