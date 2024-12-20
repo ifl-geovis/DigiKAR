@@ -180,6 +180,7 @@
       "type": "symbol",
       "source": "orteKursachsen",
       "source-layer": "orte",
+      "filter": ["==", ["get", "in_sample_regions"], true],
       "minzoom": 11,
       "maxzoom": 0,
       "layout": {
