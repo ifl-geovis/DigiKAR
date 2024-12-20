@@ -28,7 +28,7 @@ export default async function Wp2() {
 
   const columns =
     "attested,rights_disputed_by,rights_held_by,rightholders_categories";
-  const params = `select=*,grundherrschaft_summary(${columns}),hochgericht_summary(${columns}),niedergericht_summary(${columns}),verwaltungzugehoerigkeit_summary(${columns}),landeshoheit_summary(${columns}),jagd_summary(${columns}),kirchenpatronat_summary(${columns})`;
+  const params = `select=*,grundherrschaft_summary(${columns}),hochgericht_summary(${columns}),niedergericht_summary(${columns}),verwaltungzugehoerigkeit_summary(${columns}),landeshoheit_summary(${columns}),jagd_summary(${columns}),kirchenpatronat_summary(${columns})&in_sample_regions=is.true`;
   const style = await getMapStyle();
   const rightRequest: RightRequest = {
     baseUrl: "https://api.geohistoricaldata.org/digikar/rpc/orte.geojson",

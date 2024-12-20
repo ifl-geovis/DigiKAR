@@ -167,6 +167,7 @@
       "source": "orteKursachsen",
       "source-layer": "orte",
       "minzoom": 8,
+      "filter": ["==", ["get", "in_sample_regions"], true],
       "paint": {
         "circle-stroke-width": 1,
         "circle-stroke-color": "rgb(0,0,0)",
