@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "Missing paramters. This request requires 2 parameters: place, event_type.",
+          "Missing paramters. This request requires 2 parameters: place, eventType.",
       },
       { status: 500 },
     );
