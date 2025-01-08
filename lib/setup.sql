@@ -16,8 +16,12 @@ CREATE MACRO clamp_to_range(year) AS CASE
   ELSE NULL
 END;
 CREATE MACRO point_or_null(longitude, latitude) AS CASE
-  WHEN TRY_CAST(longitude AS DOUBLE)
-  AND TRY_CAST(latitude AS DOUBLE) THEN ST_Point(longitude::DOUBLE, latitude::DOUBLE)
+  WHEN
+    longitude != 'nan'
+    AND latitude != 'nan'
+    AND TRY_CAST(longitude AS DOUBLE)
+    AND TRY_CAST(latitude AS DOUBLE)
+  THEN ST_Point(longitude::DOUBLE, latitude::DOUBLE)
   ELSE NULL
 END;
 ---
