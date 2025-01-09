@@ -36,7 +36,7 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
         .slice(0, -1)
         .flatMap((a, i) =>
           coordinatePairToBezierSpline([a, d.geometry.coordinates[i + 1]]).map(
-            (d) => [...d, 100],
+            (d) => [...d],
           ),
         );
       return {
