@@ -98,8 +98,17 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
             id="bios"
             type="line"
             paint={{
-              "line-width": 1,
+              "line-width": [
+                "interpolate",
+                ["linear"],
+                ["-", 1, ["get", "progress"]],
+                0,
+                1,
+                1,
+                3,
+              ],
               "line-color": ["get", "color"],
+              "line-opacity": ["-", 1.25, ["get", "progress"]],
             }}
           />
         </Source>

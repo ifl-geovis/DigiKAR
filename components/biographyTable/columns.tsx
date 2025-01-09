@@ -2,13 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getBiographiesByCommonEvent } from "@/lib/getBiographiesByCommonEvent";
+import { BiographyIndividuals } from "@/lib/flowsToIndividuals";
 
-type Biography = Awaited<
-  ReturnType<typeof getBiographiesByCommonEvent>
->[number]["properties"];
-
-export const columns: ColumnDef<Biography>[] = [
+export const columns: ColumnDef<BiographyIndividuals[number]>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -39,7 +35,6 @@ export const columns: ColumnDef<Biography>[] = [
     cell: ({ row }) => (
       <div className="max-w-40 overflow-hidden text-ellipsis whitespace-nowrap">
         <div
-          // @ts-expect-error improve typing for modified query response
           style={{ backgroundColor: row.original.color }}
           className="mr-2 inline-block h-4 w-4 rounded-full align-text-bottom"
         />
@@ -51,7 +46,7 @@ export const columns: ColumnDef<Biography>[] = [
     accessorKey: "events",
     header: "Ereignisse",
     cell: ({ row }) => {
-      const amount = row.getValue<Biography["events"]>("events").length;
+      const amount = row.getValue<BiographyIndividuals>("events").length;
       return <div className="text-right font-medium">{amount}</div>;
     },
   },

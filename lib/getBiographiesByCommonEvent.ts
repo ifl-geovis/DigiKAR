@@ -48,7 +48,8 @@ export const getBiographiesByCommonEvent = async (
       'properties', json_object(
         'personId', person_id,
         'name', person_name,
-        'order', rn,
+        'eventIdx', rn,
+        'totalEvents', total_events,
         'progress', (rn + 1) / total_events,
         'events', json_array(
           json_object(
@@ -98,7 +99,8 @@ export const getBiographiesByCommonEvent = async (
     {
       personId: string;
       name: string;
-      order: number;
+      eventIdx: number;
+      totalEvents: number;
       progress: number;
       events: [BiographyEvent, BiographyEvent];
     }

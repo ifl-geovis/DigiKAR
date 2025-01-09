@@ -23,8 +23,9 @@ import { DataTable } from "../ui/data-table";
 import { columns } from "../biographyTable/columns";
 import MapTitle from "../MapTitle";
 import { getBiographiesByCommonEvent } from "@/lib/getBiographiesByCommonEvent";
-import { scaleOrdinal, schemeCategory10 } from "d3";
 import DataDownloader from "../DataDownloader";
+import { flowsToIndividuals } from "@/lib/flowsToIndividuals";
+import { addColorsToFlows } from "@/lib/addColorsToFlows";
 
 type Props = {
   style: StyleSpecification;
@@ -54,14 +55,12 @@ const Biographies: FC<Props> = ({ style }) => {
     Awaited<ReturnType<typeof getBiographiesByCommonEvent>>
   >(`/api/biographies?${params}`, fetcher);
 
-  const data = useMemo(() => {
-    const colorDomain = biographyData?.map((d) => d.properties?.name);
-    if (!colorDomain) return;
-    const colorScale = scaleOrdinal(schemeCategory10).domain(colorDomain);
-    return biographyData?.map((d) => ({
-      ...d,
-      properties: { ...d.properties, color: colorScale(d.properties?.name) },
-    }));
+  const { data, individuals } = useMemo(() => {
+    if (!biographyData) return { data: undefined, individuals: undefined };
+    const flows = addColorsToFlows(biographyData);
+    if (!flows) return { data: undefined, individuals: undefined };
+    const individuals = flowsToIndividuals(flows);
+    return { data: flows, individuals };
   }, [biographyData]);
 
   return (
@@ -92,10 +91,7 @@ const Biographies: FC<Props> = ({ style }) => {
         {data && (
           <>
             <Card title="Personen" collapsible>
-              <DataTable
-                data={data.map((d) => d.properties)}
-                columns={columns}
-              />
+              <DataTable data={individuals} columns={columns} />
             </Card>
             <Card title="Daten export" collapsible>
               <DataDownloader data={data} />
