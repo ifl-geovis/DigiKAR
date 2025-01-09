@@ -26,6 +26,7 @@ import { getBiographiesByCommonEvent } from "@/lib/getBiographiesByCommonEvent";
 import DataDownloader from "../DataDownloader";
 import { flowsToIndividuals } from "@/lib/flowsToIndividuals";
 import { addColorsToFlows } from "@/lib/addColorsToFlows";
+import { RowSelectionState } from "@tanstack/react-table";
 
 type Props = {
   style: StyleSpecification;
@@ -43,13 +44,15 @@ const Biographies: FC<Props> = ({ style }) => {
   };
 
   const [eventType, setEventType] = useState<string>("Geburt");
-  const [place, setPlace] = useState<string>("Heilbad Heiligenstadt");
+  const [place, setPlace] = useState<string>("Mainz");
   const [params, setParams] = useState<URLSearchParams>(
     new URLSearchParams({
       place,
       eventType,
     }),
   );
+
+  const [selectedRows, setSelectedRows] = useState<RowSelectionState>({}); //manage your own row selection state
 
   const { data: biographyData, isLoading } = useSWRImmutable<
     Awaited<ReturnType<typeof getBiographiesByCommonEvent>>
@@ -91,7 +94,12 @@ const Biographies: FC<Props> = ({ style }) => {
         {data && (
           <>
             <Card title="Personen" collapsible>
-              <DataTable data={individuals} columns={columns} />
+              <DataTable
+                data={individuals}
+                columns={columns}
+                getRowId={(row) => row.personId}
+                rowSelectionChangeHandler={setSelectedRows}
+              />
             </Card>
             <Card title="Daten export" collapsible>
               <DataDownloader data={data} />
@@ -102,7 +110,7 @@ const Biographies: FC<Props> = ({ style }) => {
 
       <MapContainer>
         {isLoading && <Skeleton className="h-full w-full" />}
-        <BiographiesMap style={style} data={data} />
+        <BiographiesMap style={style} data={data} selected={selectedRows} />
       </MapContainer>
     </MapViewLayout>
   );

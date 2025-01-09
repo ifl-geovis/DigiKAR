@@ -30,6 +30,13 @@ export const columns: ColumnDef<BiographyIndividuals[number]>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "personId",
+    header: "Id",
+    cell: ({ row }) => (
+      <div className="font-mono">{row.getValue("personId")}</div>
+    ),
+  },
+  {
     accessorKey: "name",
     header: "Name",
     cell: ({ row }) => (
@@ -47,7 +54,7 @@ export const columns: ColumnDef<BiographyIndividuals[number]>[] = [
     header: "Ereignisse",
     cell: ({ row }) => {
       const amount = row.getValue<BiographyIndividuals>("events").length;
-      return <div className="text-right font-medium">{amount}</div>;
+      return <div className="text-right">{amount}</div>;
     },
   },
 ];

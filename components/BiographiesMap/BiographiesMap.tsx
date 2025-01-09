@@ -3,6 +3,7 @@
 import { bBoxGermany } from "@/lib/bBoxGermany";
 import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
 import { HoverInfo } from "@/types/HoverInfo";
+import { RowSelectionState } from "@tanstack/react-table";
 import bbox from "@turf/bbox";
 import { featureCollection } from "@turf/helpers";
 import { Feature, LineString } from "geojson";
@@ -22,15 +23,25 @@ import Map, {
 type Props = {
   data?: Feature<LineString>[];
   style: StyleSpecification;
+  selected: RowSelectionState;
 };
 
-const BiographiesMap: FC<Props> = ({ data, style }) => {
+const BiographiesMap: FC<Props> = ({ data, style, selected }) => {
   const mapRef = useRef<MapRef>(null);
 
+  const filteredData = useMemo(() => {
+    if (!data) return;
+    return data.filter((d) => {
+      const selectedIds = Object.keys(selected).map((d) => parseInt(d));
+      const id = d.properties?.personId;
+      return selectedIds.includes(id);
+    });
+  }, [selected, data]);
+
   const { lines, bounds } = useMemo(() => {
-    if (!data || data.length === 0)
+    if (!filteredData || filteredData.length === 0)
       return { lines: undefined, bounds: new LngLatBounds(bBoxGermany) };
-    const features = data.map((d, idx) => {
+    const features = filteredData.map((d, idx) => {
       const coordinates = d.geometry.coordinates
         // get all but the last coordinate for multistring, get the first two for single string
         .slice(0, -1)
@@ -52,7 +63,7 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
     const [w, s, e, n] = bbox(fc);
     const bounds = new LngLatBounds([w, s, e, n]);
     return { lines: fc, bounds };
-  }, [data]);
+  }, [filteredData]);
 
   const [hoverInfo, setHoverInfo] = useState<HoverInfo | undefined>(undefined);
   const handleMouseMove = useCallback((event: MapLayerMouseEvent) => {
@@ -98,6 +109,7 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
             id="bios"
             type="line"
             paint={{
+              "line-color": ["get", "color"],
               "line-width": [
                 "interpolate",
                 ["linear"],
@@ -107,7 +119,6 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
                 1,
                 3,
               ],
-              "line-color": ["get", "color"],
               "line-opacity": ["-", 1.25, ["get", "progress"]],
             }}
           />

@@ -5,6 +5,7 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  RowSelectionState,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -19,22 +20,40 @@ import {
 import { Button } from "@/components/ui/button";
 import { LuChevronLeft, LuChevronRight, LuGhost } from "react-icons/lu";
 import { ScrollArea } from "./scroll-area";
+import { useEffect, useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  getRowId?: (row: TData) => string;
+  rowSelectionChangeHandler?: (rowSelection: RowSelectionState) => void;
 }
 
 export function DataTable<TData, TValue>({
-  columns,
   data,
+  columns,
+  getRowId,
+  rowSelectionChangeHandler,
 }: DataTableProps<TData, TValue>) {
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({}); //manage your own row selection state
   const table = useReactTable({
     data,
     columns,
+    state: {
+      rowSelection,
+    },
+    getRowId,
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+
+  useEffect(() => {
+    if (rowSelectionChangeHandler) {
+      const selectedRows = table.getState().rowSelection;
+      rowSelectionChangeHandler(selectedRows);
+    }
+  }, [rowSelection, rowSelectionChangeHandler, table]);
 
   return (
     <div>
