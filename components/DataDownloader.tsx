@@ -32,23 +32,25 @@ const DataDownloader: FC<Props> = ({ data }) => {
   return (
     <>
       <table className="mb-3 [&_td]:pr-2">
-        <tr>
-          <td className="text-right">{data.length}</td>
-          <td>
-            <LuUser2 className="mr-2 inline" />
-          </td>
-          <td>Biographien</td>
-        </tr>
-        <tr>
-          <td>
-            {" "}
-            {data.reduce((acc, p) => (acc += p.properties?.events.length), 0)}
-          </td>
-          <td>
-            <LuCalendar className="mr-2 inline" />
-          </td>
-          <td>Ereignisse</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td className="text-right">{data.length}</td>
+            <td>
+              <LuUser2 className="mr-2 inline" />
+            </td>
+            <td>Biographien</td>
+          </tr>
+          <tr>
+            <td>
+              {" "}
+              {data.reduce((acc, p) => (acc += p.properties?.events.length), 0)}
+            </td>
+            <td>
+              <LuCalendar className="mr-2 inline" />
+            </td>
+            <td>Ereignisse</td>
+          </tr>
+        </tbody>
       </table>
       <Button className="flex gap-2" onClick={downloadData}>
         <LuDownloadCloud />
