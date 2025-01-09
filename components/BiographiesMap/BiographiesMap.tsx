@@ -113,17 +113,32 @@ const BiographiesMap: FC<Props> = ({ data, style }) => {
           />
         </Source>
       )}
-      {hoverInfo && (
-        <div
-          className={"absolute rounded-sm bg-white p-3 shadow-xl"}
-          style={{ top: hoverInfo.y, left: hoverInfo.x }}
-        >
-          <div className="flex items-center gap-1">
-            <LuUser2 /> <strong> {hoverInfo.feature?.properties?.name}</strong>
-          </div>
-        </div>
-      )}
+      {hoverInfo && <Tooltip hoverInfo={hoverInfo} />}
     </Map>
+  );
+};
+
+const Tooltip = ({ hoverInfo }: { hoverInfo: HoverInfo }) => {
+  const { feature, x, y } = hoverInfo;
+  const properties = feature?.properties;
+  if (!properties) return null;
+  const { name, personId, eventIdx, totalEvents } = properties;
+  return (
+    <div
+      className={"absolute rounded-sm bg-white p-3 shadow-xl"}
+      style={{ top: y, left: x }}
+    >
+      <div className="flex items-center gap-1">
+        <LuUser2 /> <strong> {name}</strong>
+        <code>{personId}</code>
+      </div>
+      <div className="flex items-center gap-1">
+        <span>Events</span>
+        <code>
+          #{eventIdx}, #{eventIdx + 1} (von {totalEvents})
+        </code>
+      </div>
+    </div>
   );
 };
 
