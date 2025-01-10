@@ -1,7 +1,8 @@
 "use client";
 
 import { bBoxGermany } from "@/lib/bBoxGermany";
-import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
+import coordinatePairToFlow from "@/lib/coordinatePairToFlow";
+import { BiographyEvent } from "@/lib/getBiographiesByCommonEvent";
 import { HoverInfo } from "@/types/HoverInfo";
 import { RowSelectionState } from "@tanstack/react-table";
 import bbox from "@turf/bbox";
@@ -46,9 +47,10 @@ const BiographiesMap: FC<Props> = ({ data, style, selected }) => {
         // get all but the last coordinate for multistring, get the first two for single string
         .slice(0, -1)
         .flatMap((a, i) =>
-          coordinatePairToBezierSpline([a, d.geometry.coordinates[i + 1]]).map(
-            (d) => [...d],
-          ),
+          coordinatePairToFlow(
+            [a, d.geometry.coordinates[i + 1]],
+            d.properties?.progress,
+          ).map((d) => [...d]),
         );
       return {
         ...d,
@@ -108,6 +110,7 @@ const BiographiesMap: FC<Props> = ({ data, style, selected }) => {
           <Layer
             id="bios"
             type="line"
+            layout={{ "line-cap": "round" }}
             paint={{
               "line-color": ["get", "color"],
               "line-width": [
@@ -117,9 +120,8 @@ const BiographiesMap: FC<Props> = ({ data, style, selected }) => {
                 0,
                 1,
                 1,
-                3,
+                4,
               ],
-              "line-opacity": ["-", 1.25, ["get", "progress"]],
             }}
           />
         </Source>

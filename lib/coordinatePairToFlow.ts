@@ -14,18 +14,31 @@ const abcToBezierCoordinates = (abc: [Position, Position, Position]) => {
   return bezierSpline(lineString(abc)).geometry.coordinates;
 };
 
-const getControllPoint = (start: Position, end: Position, offset?: number) => {
+const getControllPoint = (
+  start: Position,
+  end: Position,
+  offset?: number,
+  _options: { considerDistance?: boolean } = {},
+) => {
+  const options = {
+    considerDistance: false,
+    ..._options,
+  };
   const distance = length(lineString([start, end]), { units: "kilometers" });
+  const cpDistance = options.considerDistance
+    ? (distance / 6) * 1 + (offset ?? 0) ** 1.5
+    : (offset ?? 1);
   const m = midpoint(start, end);
   const b = bearing(start, end);
-  const cp = destination(m, offset ?? distance / 6, b + 90, {
+  const cp = destination(m, cpDistance, b + 90, {
     units: "kilometers",
   });
   return cp;
 };
 
-const coordinatePairToBezierSpline = (
+const coordinatePairToFlow = (
   pair: [Position, Position],
+  bend: number = 1,
 ): LineString["coordinates"] => {
   const [start, end] = pair;
 
@@ -34,15 +47,18 @@ const coordinatePairToBezierSpline = (
 
   // draw simple bended line for open loops
   if (!isClosedLoop) {
-    const cp = getControllPoint(start, end);
+    const cp = getControllPoint(start, end, 1 + bend, {
+      considerDistance: true,
+    });
     return abcToBezierCoordinates([start, cp.geometry.coordinates, end]);
   }
   // draw a circle-like thing for closed loops
   else {
-    const radius = 10;
+    const radius = 3 * (1 + bend);
+    const steps = 64;
     const buffered = buffer(point(start), radius, {
       units: "kilometers",
-      steps: 64,
+      steps,
     });
     if (!buffered) return [];
     const line = polygonToLine(buffered) as Feature<
@@ -50,22 +66,27 @@ const coordinatePairToBezierSpline = (
       GeoJsonProperties
     >;
     const coordinates = line.geometry.coordinates;
-    const cp1 = getControllPoint(coordinates[0], coordinates[9], -2);
+    const offset = Math.floor(steps / 2);
+    const cp1 = getControllPoint(
+      coordinates[0],
+      coordinates[offset],
+      radius / -8,
+    );
     // TODO: improve typing: avoid type assertion for positions
     const cp2 = getControllPoint(
-      coordinates.at(-9) as Position,
+      coordinates.at(-offset) as Position,
       coordinates.at(-1) as Position,
-      -2,
+      radius / -8,
     );
     return [
       ...abcToBezierCoordinates([
         start,
         cp1.geometry.coordinates,
-        coordinates[9],
+        coordinates[offset],
       ]),
-      ...line.geometry.coordinates.slice(9, -11),
+      ...line.geometry.coordinates.slice(offset, -offset - 2),
       ...abcToBezierCoordinates([
-        coordinates.at(-9) as Position,
+        coordinates.at(-offset) as Position,
         cp2.geometry.coordinates,
         end,
       ]),
@@ -73,4 +94,4 @@ const coordinatePairToBezierSpline = (
   }
 };
 
-export default coordinatePairToBezierSpline;
+export default coordinatePairToFlow;

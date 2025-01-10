@@ -14,7 +14,7 @@ import bbox from "@turf/bbox";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
 import { HoverInfo } from "@/types/HoverInfo";
-import coordinatePairToBezierSpline from "@/lib/coordinatePairToBezierSpline";
+import coordinatePairToFlow from "@/lib/coordinatePairToFlow";
 
 type Props = {
   data: Feature<LineString>[];
@@ -29,7 +29,7 @@ const FlowMap: FC<Props> = ({ data, mapStyle }) => {
         .filter((d) => d.geometry)
         .map((d, idx) => {
           const [start, end] = d.geometry.coordinates;
-          const coordinates = coordinatePairToBezierSpline([start, end]);
+          const coordinates = coordinatePairToFlow([start, end]);
 
           return {
             ...d,
@@ -78,6 +78,7 @@ const FlowMap: FC<Props> = ({ data, mapStyle }) => {
         <Layer
           id="flows"
           type="line"
+          layout={{ "line-cap": "round" }}
           paint={{
             "line-width": [
               "interpolate",
