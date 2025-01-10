@@ -51,11 +51,11 @@ CREATE OR REPLACE TABLE events (
     place_name VARCHAR,
     place GEOMETRY,
     CHECK (
-      event_date BETWEEN 1400 AND 1900
-      ANd event_date_start BETWEEN 1400 AND 1900
-      ANd event_date_end BETWEEN 1400 AND 1900
-      ANd event_date_before BETWEEN 1400 AND 1900
-      AND event_date_after BETWEEN 1400 AND 1900
+      event_date BETWEEN 1000 AND 1900
+      ANd event_date_start BETWEEN 1000 AND 1900
+      ANd event_date_end BETWEEN 1000 AND 1900
+      ANd event_date_before BETWEEN 1000 AND 1900
+      AND event_date_after BETWEEN 1000 AND 1900
     )
   );
 --- parse spreadsheet of analytical lens Staatskalender Erfurt
@@ -114,7 +114,7 @@ FROM ST_Read(
     '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/reichskammergericht.xlsx',
     open_options = ['HEADERS=FORCE']
   );
--- parse spreadsheet of analytical lens Domkapitulare Mainz
+-- parse spreadsheet of analytical lens Universität Mainz Studierende
 CREATE TEMP TABLE students AS
 SELECT
   999999999 AS person_id,
@@ -137,16 +137,35 @@ SELECT
   point_or_null(place_lng_geonames, place_lat_geonames) AS place,
   nas_to_null(source) AS event_source,
   nas_to_null(source_quotation) AS event_source_quotations,
-  'students' AS event_analytical_lens,
+  'Universität Mainz Studierende' AS event_analytical_lens,
 FROM ST_Read(
   '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/universitaet_mainz_studierende.xlsx',
   open_options = ['HEADERS=FORCE']
 );
+-- parse spreadsheet of analytical lens Domkapitulare Mainz
+CREATE TEMP TABLE domkapitulare_mainz AS
+SELECT
+  replace(right(person_id, 9), '-', '') as person_id,
+  person_name,
+  person_function
+  person_title,
+  'Funktionsausübung' AS event_type,
+  event_value,
+  event_date_start,
+  event_date_end,
+  event_source,
+  institution_name,
+  place_name,
+  point_or_null(place_geonames_longitude, place_geonames_latitude) AS place,
+  'Domkapitulare Mainz' AS event_analytical_lens
+FROM 'https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/domkapitulare_mainz.csv';
 
 INSERT INTO events BY NAME
 FROM erfurt
 UNION ALL BY NAME
 FROM reichskammergericht
 UNION ALL BY NAME
-FROM students;
+FROM students
+UNION ALL BY NAME
+FROM domkapitulare_mainz;
 .exit
