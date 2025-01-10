@@ -58,7 +58,7 @@ CREATE OR REPLACE TABLE events (
       AND event_date_after BETWEEN 1400 AND 1900
     )
   );
---- parse spreadsheet state_calendar erfurt
+--- parse spreadsheet of analytical lens Staatskalender Erfurt
 -- TODO: check why there are multiple factoid IDs per event
 CREATE TEMP TABLE erfurt AS
 SELECT CASE
@@ -83,35 +83,11 @@ SELECT CASE
   nas_to_null("comment") AS event_source_comment,
   'state_calendar_erfurt' AS event_analytical_lens,
 FROM ST_Read(
-    './data/Factoid_Staatskalender-Erfurt_consolidation_coordinates_event-values_person-IDs.xlsx',
+    '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/staatskalender_erfurt.xlsx',
     open_options = ['HEADERS=FORCE']
   )
 WHERE NOT is_na(event_type);
---- parse spreadsheet university mainz
-CREATE TEMP TABLE mainz AS
-SELECT CASE
-    WHEN contains(pers_ID::VARCHAR, '?'::VARCHAR) THEN NULL
-    ELSE pers_ID
-  END AS person_id,
-  nas_to_null(pers_name) AS person_name,
-  nas_to_null(pers_title) AS person_title,
-  nas_to_null(pers_function) AS person_function,
-  event_type,
-  clamp_to_range(str_to_year("event_before-date")) AS event_date_before,
-  clamp_to_range(str_to_year("event_after-date")) AS event_date_after,
-  event_value,
-  nas_to_null(inst_name) AS institution_name,
-  nas_to_null(trim("geonames address")) AS place_name,
-  -- nas_to_null("place_name") AS place_name,
-  point_or_null(longitudes, latitudes) AS place,
-  nas_to_null("comment_fs") AS event_source_comment,
-  nas_to_null("source") AS event_source,
-  'university_mainz' AS event_analytical_lens,
-FROM ST_Read(
-    './data/Factoid_PROFS_v10_geocoded-with-IDs_v2.xlsx',
-    open_options = ['HEADERS=FORCE']
-  );
---- parse spreadsheet reichskammergericht
+--- parse spreadsheet of analytical lens Reichskammergericht
 CREATE TEMP TABLE reichskammergericht AS
 SELECT
   person_id_1 AS person_id,
@@ -135,10 +111,10 @@ SELECT
   place_name,
   point_or_null(place_geonames_longitude, place_geonames_latitude) AS place
 FROM ST_Read(
-    '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/RKG_df_geocoded_person_id.xlsx',
+    '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/reichskammergericht.xlsx',
     open_options = ['HEADERS=FORCE']
   );
--- parse spreadsheet student data
+-- parse spreadsheet of analytical lens Domkapitulare Mainz
 CREATE TEMP TABLE students AS
 SELECT
   999999999 AS person_id,
@@ -163,14 +139,12 @@ SELECT
   nas_to_null(source_quotation) AS event_source_quotations,
   'students' AS event_analytical_lens,
 FROM ST_Read(
-  '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/df_students_geocoded_v1.xlsx',
+  '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/universitaet_mainz_studierende.xlsx',
   open_options = ['HEADERS=FORCE']
 );
 
 INSERT INTO events BY NAME
 FROM erfurt
-UNION ALL BY NAME
-FROM mainz
 UNION ALL BY NAME
 FROM reichskammergericht
 UNION ALL BY NAME
