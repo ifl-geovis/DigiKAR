@@ -135,20 +135,47 @@ const Tooltip = ({ hoverInfo }: { hoverInfo: HoverInfo }) => {
   const { feature, x, y } = hoverInfo;
   const properties = feature?.properties;
   if (!properties) return null;
-  const { name, personId, eventIdx, totalEvents } = properties;
+  const { name, personId, eventIdx, totalEvents, events } = properties;
   return (
     <div
       className={"absolute rounded-sm bg-white p-3 shadow-xl"}
       style={{ top: y, left: x }}
     >
       <div className="flex items-center gap-1">
-        <LuUser2 /> <strong> {name}</strong>
+        <div
+          className="rounded-full bg-gray-200 p-1 text-white"
+          style={{ background: properties.color }}
+        >
+          <LuUser2 />
+        </div>
+        <strong> {name}</strong>
         <code>{personId}</code>
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-start gap-1">
         <span>Events</span>
         <code>
-          #{eventIdx}, #{eventIdx + 1} (von {totalEvents})
+          #{eventIdx}, #{eventIdx + 1} (von {totalEvents})<br />
+          {JSON.parse(events).map((d: BiographyEvent, i: number) => (
+            <div key={i}>
+              {d.type ?? (
+                <span className="text-muted-foreground">
+                  Eventart nicht bekannt
+                </span>
+              )}
+              ,{" "}
+              {d.personFunction ?? (
+                <span className="text-muted-foreground">
+                  Funktion nicht bekannt
+                </span>
+              )}
+              ,{" "}
+              {d.institutionName ?? (
+                <span className="text-muted-foreground">
+                  Institution nicht bekannt
+                </span>
+              )}
+            </div>
+          ))}
         </code>
       </div>
     </div>

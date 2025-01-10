@@ -1,6 +1,25 @@
 import { Feature, LineString } from "geojson";
 import { getDatabase } from "./createDatabase";
 
+export type BiographyEvent = {
+  type: string;
+  functionality: string;
+  value: string;
+  place: string;
+  start: string;
+  personFunction: string;
+  institutionName: string;
+};
+
+type BiographyFlowProperties = {
+  personId: string;
+  name: string;
+  eventIdx: number;
+  totalEvents: number;
+  progress: number;
+  events: [BiographyEvent, BiographyEvent];
+};
+
 export const getBiographiesByCommonEvent = async (
   event: string,
   place: string,
@@ -37,6 +56,7 @@ export const getBiographiesByCommonEvent = async (
         *,
         LEAD(event_type) OVER (PARTITION BY person_id ORDER BY rn) AS next_event_type,
         LEAD(person_function) OVER (PARTITION BY person_id ORDER BY rn) AS next_person_function,
+        LEAD(institution_name) OVER (PARTITION BY person_id ORDER BY rn) AS next_institution_name,
         LEAD(event_value) OVER (PARTITION BY person_id ORDER BY rn) AS next_event_value,
         LEAD(place_name) OVER (PARTITION BY person_id ORDER BY rn) AS next_place_name,
         LEAD(event_date_start) OVER (PARTITION BY person_id ORDER BY rn) AS next_event_date_start,
@@ -55,6 +75,7 @@ export const getBiographiesByCommonEvent = async (
           json_object(
             'type', event_type,
             'personFunction', person_function,
+            'institutionName', institution_name,
             'eventValue', event_value,
             'place', place_name,
             'start', event_date_start
@@ -62,6 +83,7 @@ export const getBiographiesByCommonEvent = async (
           json_object(
             'type', next_event_type,
             'personFunction', next_person_function,
+            'institutionName', next_institution_name,
             'eventValue', next_event_value,
             'place', next_place_name,
             'start', next_event_date_start
@@ -84,25 +106,7 @@ export const getBiographiesByCommonEvent = async (
 
   connection.close();
 
-  type BiographyEvent = {
-    type: string;
-    functionality: string;
-    value: string;
-    place: string;
-    start: string;
-  };
-
   return res.map(({ feature }) => {
     return JSON.parse(feature);
-  }) as Feature<
-    LineString,
-    {
-      personId: string;
-      name: string;
-      eventIdx: number;
-      totalEvents: number;
-      progress: number;
-      events: [BiographyEvent, BiographyEvent];
-    }
-  >[];
+  }) as Feature<LineString, BiographyFlowProperties>[];
 };
