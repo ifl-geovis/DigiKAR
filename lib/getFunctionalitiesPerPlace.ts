@@ -2,7 +2,7 @@ import { Feature, Point } from "geojson";
 import { createDatabase } from "./createDatabase";
 
 export const getFunctionalitiesPerPlace = async (
-  lens = "university_mainz",
+  lens = "Universität Mainz Studierende",
   functions?: string[],
 ) => {
   const db = await createDatabase();

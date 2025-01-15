@@ -29,11 +29,11 @@ type Props = {
 };
 
 const FlowMapContainer: FC<Props> = ({ mapStyle }) => {
-  const [table, setTable] = useState("university_mainz");
+  const [lens, setLens] = useState("Staatskalender Erfurt");
 
   const { data, isLoading } = useSWRImmutable<
     Awaited<ReturnType<typeof getFlowsOriginDeath>>
-  >(`/api/origin-death-flows/${table}`, fetcher);
+  >(`/api/origin-death-flows/${lens}`, fetcher);
 
   return (
     <MapViewLayout>
@@ -48,30 +48,34 @@ const FlowMapContainer: FC<Props> = ({ mapStyle }) => {
           <div className="grid max-w-sm items-center gap-1.5">
             <Label>Sonde</Label>
             <Select
-              defaultValue={table}
-              onValueChange={(value) => setTable(value)}
+              defaultValue={lens}
+              onValueChange={(value) => setLens(value)}
             >
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Wähle eine Sonde" />
               </SelectTrigger>
               <SelectContent>
-                {/* TODO: enable items as soon as students data get person_ids */}
-                <SelectItem disabled value="any">
-                  Alle Datensonden
-                </SelectItem>
+                <SelectItem value="any">Alle Datensonden</SelectItem>
                 <SelectGroup className="mt-1 border-t border-gray-200">
                   <SelectLabel className="mt-2 text-xs">Datensonde</SelectLabel>
-                  <SelectItem value="state_calendar_erfurt">Erfurt</SelectItem>
-                  <SelectItem value="university_mainz">Mainz</SelectItem>
-                  <SelectItem value="RKG">Reichskammergericht</SelectItem>
-                  <SelectItem disabled value="students">
-                    Studenten
+                  <SelectItem value="Staatskalender Erfurt">Erfurt</SelectItem>
+                  <SelectItem value="Reichskammergericht">
+                    Reichskammergericht
                   </SelectItem>
-                  <SelectItem disabled value="state_calendar_aschaffenburg">
-                    Aschaffenburg
+                  <SelectItem disabled value="Universität Mainz Studierende">
+                    Universität Mainz Studierende
                   </SelectItem>
-                  <SelectItem disabled value="state_calendar_jahns">
-                    Jahns
+                  <SelectItem disabled value="Domkapitulare Mainz">
+                    Domkapitulare Mainz
+                  </SelectItem>
+                  <SelectItem disabled value="Staatskalendar Aschaffenburg">
+                    Staatskalendar Aschaffenburg
+                  </SelectItem>
+                  <SelectItem disabled value="Staatskalendar Jahns">
+                    Staatskalendar Jahns
+                  </SelectItem>
+                  <SelectItem disabled value="Universität Mainz Professoren">
+                    Universität Mainz Professoren
                   </SelectItem>
                 </SelectGroup>
               </SelectContent>

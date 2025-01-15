@@ -27,13 +27,11 @@ export const getBiographiesByCommonEvent = async (
   const db = await getDatabase();
   const connection = await db.connect();
 
-  //TODO: remove where condition on lens as soon as student lens has person_id
   const statement = await connection.prepare(`
     WITH initial_events AS (
       FROM events
       WHERE
-        event_analytical_lens <> 'students'
-        AND place IS NOT NULL
+        place IS NOT NULL
         AND event_type = ?
         AND place_name ILIKE ?
     ),

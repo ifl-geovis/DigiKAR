@@ -81,7 +81,7 @@ SELECT CASE
   --- TODO: check whether source combined is the correct column?
   nas_to_null("source_combined") AS event_source,
   nas_to_null("comment") AS event_source_comment,
-  'state_calendar_erfurt' AS event_analytical_lens,
+  'Staatskalender Erfurt' AS event_analytical_lens,
 FROM ST_Read(
     '/vsicurl/https://github.com/ieg-dhr/DigiKAR/raw/main/Consolidated%20data%20for%20visualisation/staatskalender_erfurt.xlsx',
     open_options = ['HEADERS=FORCE']
@@ -106,7 +106,7 @@ SELECT
   event_source_quotations,
   event_editorial_comment,
   event_source_comment,
-  event_analytical_lens,
+  'Reichskammergericht' AS event_analytical_lens,
   institution_name,
   place_name,
   point_or_null(place_geonames_longitude, place_geonames_latitude) AS place
@@ -117,7 +117,7 @@ FROM ST_Read(
 -- parse spreadsheet of analytical lens Universität Mainz Studierende
 CREATE TEMP TABLE students AS
 SELECT
-  999999999 AS person_id,
+  Field1 AS person_id,
   --CASE
   --  WHEN contains(pers_ID::VARCHAR, '?'::VARCHAR) THEN NULL
   --  WHEN starts_with(pers_ID, 'P-') THEN replace(pers_ID, 'P-', '')

@@ -4,7 +4,7 @@ import { createDatabase } from "./createDatabase";
 export const getOriginsByTimeRange = async (
   min: number,
   max: number,
-  lens: string = "students",
+  lens: string = "Universität Mainz Studierende",
 ) => {
   const db = await createDatabase();
 

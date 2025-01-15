@@ -34,7 +34,7 @@ type Props = {
 };
 
 const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
-  const [lens, setLens] = useState<string>("RKG");
+  const [lens, setLens] = useState<string>("Reichskammergericht");
   const [filter, setFilter] = useState<string | undefined>(undefined);
 
   // TODO: fix workaround with unused URL base
@@ -95,12 +95,19 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Datensonde</SelectLabel>
-                    <SelectItem value="state_calendar_erfurt">
-                      Erfurt
+                    <SelectItem value="Staatskalender Erfurt">
+                      Staatskalender Erfurt
                     </SelectItem>
-                    <SelectItem value="university_mainz">Mainz</SelectItem>
-                    <SelectItem value="RKG">Reichskammergericht</SelectItem>
-                    <SelectItem value="students">Studierende</SelectItem>
+                    <SelectItem value="Universität Mainz Studierende">
+                      Universität Mainz Studierende
+                    </SelectItem>
+                    <SelectItem value="Reichskammergericht">
+                      Reichskammergericht
+                    </SelectItem>
+                    {/* lens Domkapitulare Mainz does not have person_function */}
+                    <SelectItem disabled value="Domkapitulare Mainz">
+                      Domkapitulare Mainz
+                    </SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
