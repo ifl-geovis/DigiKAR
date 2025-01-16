@@ -16,7 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
 import fetcher from "@/lib/fetcher";
 import { getFunctionalitiesPerPlace } from "@/lib/getFunctionalitiesPerPlace";
 import bbox from "@turf/bbox";
@@ -28,6 +27,9 @@ import { FC, useMemo, useState } from "react";
 import Map, { Marker, NavigationControl } from "react-map-gl/maplibre";
 import useSWRImmutable from "swr/immutable";
 import MapTitle from "./MapTitle";
+import { bBoxGermany } from "@/lib/bBoxGermany";
+import MapControl from "./MapControl";
+import Spinner from "./Spinner";
 
 type Props = {
   style: StyleSpecification;
@@ -50,7 +52,8 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
   >(`${url.pathname}?${url.searchParams}`, fetcher);
 
   const { places, bounds } = useMemo(() => {
-    if (!data || error) return { places: undefined, bounds: undefined };
+    if (!data || data.length === 0 || error)
+      return { places: undefined, bounds: new LngLatBounds(bBoxGermany) };
     const groupedByPlace = rollup(
       data,
       (D) =>
@@ -82,8 +85,8 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
           <p>Funktionen von Personen je Institution</p>
         </Card>
         <Card>
-          <div className="flex gap-3">
-            <div className="grid max-w-sm items-center gap-1.5">
+          <div className="flex flex-col gap-3">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label>Sonde</Label>
               <Select
                 defaultValue={lens}
@@ -125,24 +128,33 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
         </Card>
       </MapAside>
       <MapContainer>
-        {isLoading ? (
-          <Skeleton className="h-full w-full" />
-        ) : places ? (
-          <Map
-            //@ts-expect-error Map does not accept className prop
-            className={"h-full w-full"}
-            initialViewState={{
-              bounds: bounds,
-              fitBoundsOptions: {
-                padding: { left: 20, top: 20, right: 20, bottom: 20 },
-              },
-            }}
-            minZoom={4}
-            interactiveLayerIds={["flows"]}
-            mapStyle={style}
-          >
-            <NavigationControl />
-            {places.features.map((d) => (
+        <Map
+          //@ts-expect-error Map does not accept className prop
+          className={"h-full w-full"}
+          initialViewState={{
+            bounds: bounds,
+            fitBoundsOptions: {
+              padding: { left: 20, top: 20, right: 20, bottom: 20 },
+            },
+          }}
+          minZoom={4}
+          interactiveLayerIds={["flows"]}
+          mapStyle={style}
+        >
+          <div className="z-1 absolute right-[50px] mt-[10px] flex items-center gap-2">
+            {isLoading && (
+              <MapControl>
+                <MapControl>
+                  <div className="px-3">
+                    <Spinner />
+                  </div>
+                </MapControl>
+              </MapControl>
+            )}
+          </div>
+          <NavigationControl />
+          {places &&
+            places.features.map((d) => (
               <Marker
                 key={d.id}
                 longitude={d.geometry.coordinates[0]}
@@ -153,10 +165,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
                 />
               </Marker>
             ))}
-          </Map>
-        ) : (
-          <div>no Data!</div>
-        )}
+        </Map>
       </MapContainer>
     </MapViewLayout>
   );
