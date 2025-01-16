@@ -58,7 +58,7 @@ const RightDetails = () => {
                 <div>
                   <h3 className="mb-0 text-sm">Weitere Einträge</h3>
                   <div className="text-sm text-muted-foreground">
-                    chronolgisch geordnet
+                    chronologisch geordnet
                   </div>
                 </div>
                 {entries.map((entry, i) => {
