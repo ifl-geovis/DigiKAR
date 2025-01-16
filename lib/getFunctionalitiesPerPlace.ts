@@ -40,10 +40,11 @@ export const getFunctionalitiesPerPlace = async (
       institution;
   `);
 
-  const res = await statement.all(
-    lens ?? "%",
-    functions ? `'.*(${functions?.join("|")}).*'` : ".*",
-  );
+  const functionsParsed = functions
+    ? `.*(${functions?.map((d) => decodeURI(d).normalize()).join("|")}).*`
+    : ".*";
+  const lensParsed = lens ? decodeURI(lens).normalize() : "%";
+  const res = await statement.all(lensParsed, functionsParsed);
 
   await db.close();
 
