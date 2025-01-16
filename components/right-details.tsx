@@ -61,7 +61,9 @@ const RightDetails = () => {
                 <div className="mt-5 space-y-10 rounded-sm bg-gray-50 p-4">
                   <div>
                     <h3 className="mb-0 text-sm">
-                      {otherEntries.length} weitere Einträge
+                      {otherEntries.length === 1
+                        ? "Ein weiterer Eintrag"
+                        : `${otherEntries.length} weitere Einträge`}
                     </h3>
                     <div className="text-sm text-muted-foreground">
                       chronologisch geordnet
