@@ -17,7 +17,7 @@ import { localeDe } from "@/lib/format";
 import { LuKey, LuMapPin } from "react-icons/lu";
 import RightEntry from "./RightEntry";
 import { capitalize } from "@/lib/utils";
-import { getClosestEntry } from "@/lib/getClosestEntry";
+import { getAllButClosestEntry, getClosestEntry } from "@/lib/getClosestEntry";
 
 const RightDetails = () => {
   const { detailInfo, setDetailInfo, timeRange } = useRightsExplorerContext();
@@ -31,12 +31,15 @@ const RightDetails = () => {
   const attribute = detailInfo.attribute as Right;
   const entries = place[attribute];
 
-  const closest = getClosestEntry(
-    timeRange,
-    //TODO: fix typing
-    //@ts-expect-error wrong typing: RightEntry vs. RightOnPlace
-    entries.map((d) => ({ ...d, attested: d.attested_json })),
-  );
+  const fixedEntries = entries.map((d) => ({
+    ...d,
+    attested: d.attested_json,
+  }));
+
+  //@ts-expect-error TODO: fix typing wrong typing: RightEntry vs. RightOnPlace
+  const closest = getClosestEntry(timeRange, fixedEntries);
+  //@ts-expect-error TODO: fix typing wrong typing: RightEntry vs. RightOnPlace
+  const otherEntries = getAllButClosestEntry(timeRange, fixedEntries);
 
   return (
     <Dialog open={!!detailInfo} onOpenChange={() => setDetailInfo(undefined)}>
@@ -54,17 +57,22 @@ const RightDetails = () => {
             <div className="max-h-[40vh] overflow-y-scroll">
               {/* @ts-expect-error wrong typing: RightEntry vs. RightOnPlace */}
               <RightEntry entry={closest} />
-              <div className="mt-5 space-y-10 rounded-sm bg-gray-50 p-4">
-                <div>
-                  <h3 className="mb-0 text-sm">Weitere Einträge</h3>
-                  <div className="text-sm text-muted-foreground">
-                    chronologisch geordnet
+              {otherEntries.length > 0 && (
+                <div className="mt-5 space-y-10 rounded-sm bg-gray-50 p-4">
+                  <div>
+                    <h3 className="mb-0 text-sm">
+                      {otherEntries.length} weitere Einträge
+                    </h3>
+                    <div className="text-sm text-muted-foreground">
+                      chronologisch geordnet
+                    </div>
                   </div>
+                  {otherEntries?.map((entry, i) => {
+                    //@ts-expect-error wrong typing: RightEntry vs. RightOnPlaces
+                    return <RightEntry key={i} entry={entry} />;
+                  })}
                 </div>
-                {entries.map((entry, i) => {
-                  return <RightEntry key={i} entry={entry} />;
-                })}
-              </div>
+              )}
             </div>
             <div className="flex flex-col space-y-3">
               <div className="rounded-sm border-t border-gray-100 pt-2 text-xs text-muted-foreground">
