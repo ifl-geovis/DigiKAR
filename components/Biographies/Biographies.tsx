@@ -8,7 +8,7 @@ import PlaceSelector from "@/components/PlaceSelector";
 import { Label } from "@/components/ui/label";
 import fetcher from "@/lib/fetcher";
 import { StyleSpecification } from "maplibre-gl";
-import { FC, useMemo, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import MapViewLayout from "../MapViewLayout";
 import {
@@ -27,6 +27,9 @@ import DataDownloader from "../DataDownloader";
 import { flowsToIndividuals } from "@/lib/flowsToIndividuals";
 import { addColorsToFlows } from "@/lib/addColorsToFlows";
 import { RowSelectionState } from "@tanstack/react-table";
+import debounce from "lodash.debounce";
+import { RxMixerVertical } from "react-icons/rx";
+import { Slider } from "../ui/slider";
 
 type Props = {
   style: StyleSpecification;
@@ -35,21 +38,87 @@ type Props = {
 const Biographies: FC<Props> = ({ style }) => {
   const updatePlace = (place: string) => {
     setPlace(place);
-    setParams(new URLSearchParams({ eventType, place }));
+    setParams(
+      new URLSearchParams({
+        eventType,
+        place,
+        functionality: functionality ?? "",
+        timeRangeMin: timeRange?.[0].toString() ?? "",
+        timeRangeMax: timeRange?.[1].toString() ?? "",
+      }),
+    );
   };
 
   const updateEventType = (eventType: string) => {
     setEventType(eventType);
-    setParams(new URLSearchParams({ eventType, place }));
+    setParams(
+      new URLSearchParams({
+        eventType,
+        place,
+        functionality: functionality ?? "",
+        timeRangeMin: timeRange?.[0].toString() ?? "",
+        timeRangeMax: timeRange?.[1].toString() ?? "",
+      }),
+    );
   };
 
+  const initialTimeRange = useMemo(() => [1477, 1806], []);
+  const [initialMin, initialMax] = initialTimeRange;
+
+  const [timeRange, setTimeRange] = useState(initialTimeRange);
+
+  const updateFunctionality = (functionality: string | undefined) => {
+    setFunctionality(functionality);
+    setParams(
+      new URLSearchParams({
+        eventType,
+        place,
+        functionality: functionality ?? "",
+        timeRangeMin: timeRange?.[0].toString() ?? "",
+        timeRangeMax: timeRange?.[1].toString() ?? "",
+      }),
+    );
+  };
+
+  const [functionality, setFunctionality] = useState<string | undefined>(
+    undefined,
+  );
   const [eventType, setEventType] = useState<string>("Geburt");
   const [place, setPlace] = useState<string>("Mainz");
+
+  const updateTimeRange = useMemo(
+    () =>
+      debounce(([min, max]: [number, number]) => {
+        setTimeRange(timeRange);
+        setParams(
+          new URLSearchParams({
+            eventType,
+            place,
+            functionality: functionality ?? "",
+            timeRangeMin: min.toString(),
+            timeRangeMax: max.toString(),
+          }),
+        );
+      }, 1000),
+    [place, eventType, timeRange, functionality],
+  );
+
   const [params, setParams] = useState<URLSearchParams>(
     new URLSearchParams({
-      place,
-      eventType,
+      place: "Mainz",
+      eventType: "Funktionsausübung",
+      timerangeMin: initialTimeRange[0].toString(),
+      timerangeMax: initialTimeRange[1].toString(),
+      functionality: "Rat",
     }),
+  );
+
+  const onValueChange = useCallback(
+    (value: [number, number]) => {
+      setTimeRange(value);
+      updateTimeRange(value);
+    },
+    [updateTimeRange, setTimeRange],
   );
 
   const [selectedRows, setSelectedRows] = useState<RowSelectionState>({}); //manage your own row selection state
@@ -78,16 +147,51 @@ const Biographies: FC<Props> = ({ style }) => {
             <PlaceSelector place={place} onSelectHandler={updatePlace} />
             <div className="flex items-center gap-3">
               <Label>Ereignistyp</Label>
-              <Select defaultValue="Geburt" onValueChange={updateEventType}>
+              <Select
+                defaultValue="Funktionsausübung"
+                onValueChange={updateEventType}
+              >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Wähle ein Ereignis" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Geburt">Geburt</SelectItem>
+                  <SelectItem value="Funktionsausübung">
+                    Funktionsausübung
+                  </SelectItem>
                   <SelectItem value="Studium">Studium</SelectItem>
                   <SelectItem value="Tod">Tod</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div className="flex items-center gap-3">
+              <Label>Funktion (der Person)</Label>
+              <Select defaultValue="Rat" onValueChange={updateFunctionality}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Wähle eine Funktion" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Rat">Rat</SelectItem>
+                  <SelectItem value="Schultheiß">Schultheiß</SelectItem>
+                  <SelectItem value="Kind">Kind</SelectItem>
+                  <SelectItem value="Student">Student</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex w-64 flex-col gap-3">
+              <Label className="flex gap-2">
+                <RxMixerVertical /> Zeitraum ({timeRange.join("-")})
+              </Label>
+              <div className="flex gap-5">
+                <div>{initialMin}</div>
+                <Slider
+                  onValueChange={onValueChange}
+                  min={initialMin}
+                  max={initialMax}
+                  defaultValue={initialTimeRange}
+                />
+                <div>{initialMax}</div>
+              </div>
             </div>
           </div>
         </Card>
