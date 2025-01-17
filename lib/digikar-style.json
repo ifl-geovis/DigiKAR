@@ -10,6 +10,7 @@
     "duration": 300,
     "delay": 0
   },
+  "sprite": "https://tiles.geohistoricaldata.org/tiles/sprite/digikar",
   "sources": {
     "hillshadeS3": {
       "type": "raster-dem",
@@ -23,6 +24,10 @@
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/orte",
       "attribution": "HOV"
+    },
+    "placesOfExecution": {
+      "type": "vector",
+      "url": "https://tiles.geohistoricaldata.org/tiles/richtstaetten"
     },
     "orteMainz": {
       "type": "vector",
@@ -176,6 +181,18 @@
       }
     },
     {
+      "id": "richtstaetten",
+      "type": "symbol",
+      "source": "placesOfExecution",
+      "source-layer": "richtstaetten",
+      "minzoom": 8,
+      "maxzoom": 0,
+      "layout": {
+        "icon-image": "gallow",
+        "icon-allow-overlap": true
+      }
+    },
+    {
       "id": "orteKursachsenLabels",
       "type": "symbol",
       "source": "orteKursachsen",
@@ -210,6 +227,26 @@
         "text-size": 12,
         "text-anchor": "bottom-left",
         "text-offset": [0.5, -0.5]
+      },
+      "paint": {
+        "text-color": "rgb(100,100,100)",
+        "text-halo-color": "rgb(255,255,255)",
+        "text-halo-width": 2,
+        "text-halo-blur": 5
+      }
+    },
+    {
+      "id": "richtstaettenLabels",
+      "type": "symbol",
+      "source": "placesOfExecution",
+      "source-layer": "richtstaetten",
+      "minzoom": 8,
+      "layout": {
+        "text-field": "{ort}",
+        "text-font": ["Inter Bold Italic"],
+        "text-size": 12,
+        "text-anchor": "bottom-left",
+        "text-offset": [0, 1]
       },
       "paint": {
         "text-color": "rgb(100,100,100)",
