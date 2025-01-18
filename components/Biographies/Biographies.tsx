@@ -8,7 +8,7 @@ import PlaceSelector from "@/components/PlaceSelector";
 import { Label } from "@/components/ui/label";
 import fetcher from "@/lib/fetcher";
 import { StyleSpecification } from "maplibre-gl";
-import { FC, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import MapViewLayout from "../MapViewLayout";
 import {
@@ -36,90 +36,48 @@ type Props = {
 };
 
 const Biographies: FC<Props> = ({ style }) => {
-  const updatePlace = (place: string) => {
-    setPlace(place);
-    setParams(
-      new URLSearchParams({
-        eventType,
-        place,
-        functionality: functionality ?? "",
-        timeRangeMin: timeRange?.[0].toString() ?? "",
-        timeRangeMax: timeRange?.[1].toString() ?? "",
-      }),
-    );
-  };
-
-  const updateEventType = (eventType: string) => {
-    setEventType(eventType);
-    setParams(
-      new URLSearchParams({
-        eventType,
-        place,
-        functionality: functionality ?? "",
-        timeRangeMin: timeRange?.[0].toString() ?? "",
-        timeRangeMax: timeRange?.[1].toString() ?? "",
-      }),
-    );
-  };
-
   const initialTimeRange = useMemo(() => [1477, 1806], []);
-  const [initialMin, initialMax] = initialTimeRange;
-
-  const [timeRange, setTimeRange] = useState(initialTimeRange);
-
-  const updateFunctionality = (functionality: string | undefined) => {
-    setFunctionality(functionality);
-    setParams(
-      new URLSearchParams({
-        eventType,
-        place,
-        functionality: functionality ?? "",
-        timeRangeMin: timeRange?.[0].toString() ?? "",
-        timeRangeMax: timeRange?.[1].toString() ?? "",
-      }),
-    );
-  };
-
-  const [functionality, setFunctionality] = useState<string | undefined>(
-    undefined,
-  );
-  const [eventType, setEventType] = useState<string>("Geburt");
-  const [place, setPlace] = useState<string>("Mainz");
-
-  const updateTimeRange = useMemo(
-    () =>
-      debounce(([min, max]: [number, number]) => {
-        setTimeRange(timeRange);
-        setParams(
-          new URLSearchParams({
-            eventType,
-            place,
-            functionality: functionality ?? "",
-            timeRangeMin: min.toString(),
-            timeRangeMax: max.toString(),
-          }),
-        );
-      }, 1000),
-    [place, eventType, timeRange, functionality],
-  );
+  const [state, setState] = useState({
+    place: "Mainz",
+    eventType: "Funktionsausübung",
+    timeRange: initialTimeRange,
+    functionality: "Rat",
+  });
 
   const [params, setParams] = useState<URLSearchParams>(
     new URLSearchParams({
-      place: "Mainz",
-      eventType: "Funktionsausübung",
-      timerangeMin: initialTimeRange[0].toString(),
-      timerangeMax: initialTimeRange[1].toString(),
-      functionality: "Rat",
+      place: state.place,
+      eventType: state.eventType,
+      timeRangeMin: state.timeRange[0].toString(),
+      timeRangeMax: state.timeRange[1].toString(),
+      functionality: state.functionality,
     }),
   );
 
-  const onValueChange = useCallback(
-    (value: [number, number]) => {
-      setTimeRange(value);
-      updateTimeRange(value);
-    },
-    [updateTimeRange, setTimeRange],
-  );
+  const updateParams = useCallback((newState: typeof state) => {
+    setParams(
+      new URLSearchParams({
+        place: newState.place,
+        eventType: newState.eventType,
+        timeRangeMin: newState.timeRange[0].toString(),
+        timeRangeMax: newState.timeRange[1].toString(),
+        functionality: newState.functionality ?? "",
+      }),
+    );
+  }, []);
+
+  useEffect(() => {
+    debounce(() => {
+      updateParams(state);
+    }, 1000);
+  }, [state, updateParams]);
+
+  const onValueChange = useCallback((value: [number, number]) => {
+    setState((prevState) => ({
+      ...prevState,
+      timeRange: value,
+    }));
+  }, []);
 
   const [selectedRows, setSelectedRows] = useState<RowSelectionState>({}); //manage your own row selection state
 
@@ -144,12 +102,19 @@ const Biographies: FC<Props> = ({ style }) => {
         </Card>
         <Card title="Auswahl der Ereignisse" collapsible defaultOpen>
           <div className="flex flex-col gap-5">
-            <PlaceSelector place={place} onSelectHandler={updatePlace} />
+            <PlaceSelector
+              place={state.place}
+              onSelectHandler={(place) =>
+                setState((prevState) => ({ ...prevState, place }))
+              }
+            />
             <div className="flex items-center gap-3">
               <Label>Ereignistyp</Label>
               <Select
-                defaultValue="Funktionsausübung"
-                onValueChange={updateEventType}
+                defaultValue={state.eventType}
+                onValueChange={(eventType) =>
+                  setState((prevState) => ({ ...prevState, eventType }))
+                }
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Wähle ein Ereignis" />
@@ -166,7 +131,12 @@ const Biographies: FC<Props> = ({ style }) => {
             </div>
             <div className="flex items-center gap-3">
               <Label>Funktion (der Person)</Label>
-              <Select defaultValue="Rat" onValueChange={updateFunctionality}>
+              <Select
+                defaultValue={state.functionality}
+                onValueChange={(functionality) =>
+                  setState((prevState) => ({ ...prevState, functionality }))
+                }
+              >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Wähle eine Funktion" />
                 </SelectTrigger>
@@ -180,17 +150,17 @@ const Biographies: FC<Props> = ({ style }) => {
             </div>
             <div className="flex w-64 flex-col gap-3">
               <Label className="flex gap-2">
-                <RxMixerVertical /> Zeitraum ({timeRange.join("-")})
+                <RxMixerVertical /> Zeitraum ({state.timeRange.join("-")})
               </Label>
               <div className="flex gap-5">
-                <div>{initialMin}</div>
+                <div>{initialTimeRange[0]}</div>
                 <Slider
                   onValueChange={onValueChange}
-                  min={initialMin}
-                  max={initialMax}
+                  min={initialTimeRange[0]}
+                  max={initialTimeRange[1]}
                   defaultValue={initialTimeRange}
                 />
-                <div>{initialMax}</div>
+                <div>{initialTimeRange[1]}</div>
               </div>
             </div>
           </div>
