@@ -23,6 +23,8 @@ type BiographyFlowProperties = {
 export const getBiographiesByCommonEvent = async (
   event: string,
   place: string,
+  functionality: string,
+  timeRange: [number, number],
 ) => {
   const db = await getDatabase();
   const connection = await db.connect();
@@ -34,6 +36,8 @@ export const getBiographiesByCommonEvent = async (
         place IS NOT NULL
         AND event_type = ?
         AND place_name ILIKE ?
+        AND person_function ILIKE ?
+        AND event_date_start BETWEEN ? AND ?
     ),
     ordered_events AS (
       SELECT
@@ -100,7 +104,13 @@ export const getBiographiesByCommonEvent = async (
       next_event_type IS NOT NULL
       AND total_events >= 2;
   `);
-  const res = await statement.all(event, place);
+  const res = await statement.all(
+    event,
+    place,
+    functionality,
+    timeRange[0],
+    timeRange[1],
+  );
 
   connection.close();
 

@@ -3,7 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
-  const [eventType, place] = [params.get("eventType"), params.get("place")];
+  const [eventType, place, min, max, functionality] = [
+    params.get("eventType"),
+    params.get("place"),
+    params.get("timeRangeMin"),
+    params.get("timeRangeMax"),
+    params.get("functionality"),
+  ];
 
   if (!place || !eventType)
     return NextResponse.json(
@@ -15,7 +21,12 @@ export async function GET(request: NextRequest) {
     );
 
   try {
-    const bios = await getBiographiesByCommonEvent(eventType, place);
+    const bios = await getBiographiesByCommonEvent(
+      eventType,
+      place,
+      functionality ?? "",
+      [min ? parseInt(min) : 0, max ? parseInt(max) : new Date().getFullYear()],
+    );
     return NextResponse.json(bios);
   } catch (error) {
     console.error({ error });
