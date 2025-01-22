@@ -72,6 +72,7 @@ SELECT CASE
   nas_to_null(pers_title) AS person_title,
   nas_to_null(rel_pers) AS event_related_persons,
   event_type,
+  clamp_to_range(str_to_year("event_start")) AS event_date_start,
   clamp_to_range(str_to_year("event_before-date")) AS event_date_before,
   clamp_to_range(str_to_year("event_after-date")) AS event_date_after,
   event_value,
@@ -118,18 +119,10 @@ FROM ST_Read(
 CREATE TEMP TABLE students AS
 SELECT
   Field1 AS person_id,
-  --CASE
-  --  WHEN contains(pers_ID::VARCHAR, '?'::VARCHAR) THEN NULL
-  --  WHEN starts_with(pers_ID, 'P-') THEN replace(pers_ID, 'P-', '')
-  --  ELSE pers_ID
-  -- END
   nas_to_null(person_name) AS person_name,
   nas_to_null(person_title) AS person_title,
   nas_to_null(person_function) AS person_function,
   event_type,
-  NULL AS event_value,
-  NULL AS event_date_before,
-  NULL AS event_date_after,
   clamp_to_range(str_to_year("date_date")) AS event_date,
   nas_to_null(institution) AS institution_name,
   nas_to_null(trim(place_name_y)) AS place_name,
