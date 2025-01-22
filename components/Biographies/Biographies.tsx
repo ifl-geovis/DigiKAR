@@ -40,9 +40,9 @@ const Biographies: FC<Props> = ({ style }) => {
   const initialTimeRange = useMemo(() => [1477, 1806], []);
   const [state, setState] = useState({
     place: "Mainz",
-    eventType: "Funktionsausübung",
+    eventType: "Geburt",
     timeRange: initialTimeRange,
-    functionality: "Rat",
+    functionality: "Kind",
   });
 
   const params = new URLSearchParams({
