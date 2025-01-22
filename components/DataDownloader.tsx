@@ -1,7 +1,7 @@
-import { LuCalendar, LuDownloadCloud, LuUser2 } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
-import { FC, useCallback } from "react";
 import { Feature, FeatureCollection, LineString } from "geojson";
+import { FC, useCallback } from "react";
+import { LuDownloadCloud } from "react-icons/lu";
 
 type Props = {
   data: Feature<LineString>[];
@@ -30,33 +30,10 @@ const DataDownloader: FC<Props> = ({ data }) => {
   }, [data]);
 
   return (
-    <>
-      <table className="mb-3 [&_td]:pr-2">
-        <tbody>
-          <tr>
-            <td className="text-right">{data.length}</td>
-            <td>
-              <LuUser2 className="mr-2 inline" />
-            </td>
-            <td>Biographien</td>
-          </tr>
-          <tr>
-            <td>
-              {" "}
-              {data.reduce((acc, p) => (acc += p.properties?.events.length), 0)}
-            </td>
-            <td>
-              <LuCalendar className="mr-2 inline" />
-            </td>
-            <td>Ereignisse</td>
-          </tr>
-        </tbody>
-      </table>
-      <Button className="flex gap-2" onClick={downloadData}>
-        <LuDownloadCloud />
-        <span>Daten exportieren</span>
-      </Button>
-    </>
+    <Button className="flex gap-2" onClick={downloadData}>
+      <LuDownloadCloud />
+      <span>Daten exportieren</span>
+    </Button>
   );
 };
 
