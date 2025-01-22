@@ -6,7 +6,7 @@ export type BiographyEvent = {
   functionality: string;
   value: string;
   place: string;
-  start: string;
+  date: string;
   personFunction: string;
   institutionName: string;
 };
@@ -37,12 +37,12 @@ export const getBiographiesByCommonEvent = async (
         AND event_type = ?
         AND place_name ILIKE ?
         AND person_function ILIKE ?
-        AND event_date_start BETWEEN ? AND ?
+        AND event_date BETWEEN ? AND ?
     ),
     ordered_events AS (
       SELECT
         *,
-        ROW_NUMBER() OVER (PARTITION BY person_id ORDER BY event_value, event_date_start) AS rn,
+        ROW_NUMBER() OVER (PARTITION BY person_id ORDER BY event_value, event_date) AS rn,
         COUNT(*) OVER (PARTITION BY person_id) AS total_events
       FROM events
       WHERE
@@ -61,7 +61,7 @@ export const getBiographiesByCommonEvent = async (
         LEAD(institution_name) OVER (PARTITION BY person_id ORDER BY rn) AS next_institution_name,
         LEAD(event_value) OVER (PARTITION BY person_id ORDER BY rn) AS next_event_value,
         LEAD(place_name) OVER (PARTITION BY person_id ORDER BY rn) AS next_place_name,
-        LEAD(event_date_start) OVER (PARTITION BY person_id ORDER BY rn) AS next_event_date_start,
+        LEAD(event_date) OVER (PARTITION BY person_id ORDER BY rn) AS next_event_date,
         LEAD(place) OVER (PARTITION BY person_id ORDER BY rn) AS next_place
       FROM ordered_events
     )
@@ -80,7 +80,7 @@ export const getBiographiesByCommonEvent = async (
             'institutionName', institution_name,
             'eventValue', event_value,
             'place', place_name,
-            'start', event_date_start
+            'date', event_date
           ),
           json_object(
             'type', next_event_type,
@@ -88,7 +88,7 @@ export const getBiographiesByCommonEvent = async (
             'institutionName', next_institution_name,
             'eventValue', next_event_value,
             'place', next_place_name,
-            'start', next_event_date_start
+            'date', next_event_date
           )
         )
       ),
