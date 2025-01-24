@@ -69,12 +69,18 @@ const RightIndicator: FC<Props> = ({
       onContextMenuHandler,
     };
   }, [attribute, colorScale, activeCategory, circleRadius, setActiveCategory]);
-  const onClickHandler = useCallback(() => {
-    setDetailInfo({
-      place: placeId,
-      attribute: attribute.attributeName,
-    });
-  }, [attribute.attributeName, placeId, setDetailInfo]);
+  const onClickHandler = useCallback(
+    () =>
+      setDetailInfo(
+        attribute.holders.categories?.length
+          ? {
+              place: placeId,
+              attribute: attribute.attributeName,
+            }
+          : undefined,
+      ),
+    [attribute.attributeName, attribute.holders, placeId, setDetailInfo],
+  );
   const onMouseEnterHandler = useCallback(() => {
     setTooltipInfo({
       placeName: placeName,
