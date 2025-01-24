@@ -1,4 +1,4 @@
-import { FeatureCollection, Position, Point } from "geojson";
+import { FeatureCollection, Point } from "geojson";
 
 export type Right =
   | "grundherrschaft"
@@ -40,5 +40,3 @@ export type PlacePropertiesGeneralized = {
 };
 
 export type RightsData = FeatureCollection<Point, PlaceProperties>;
-
-export type AnsbachDataRaw = (PlaceProperties & { coordinates: Position })[];

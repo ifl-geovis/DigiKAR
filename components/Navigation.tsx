@@ -51,14 +51,9 @@ const mobility: LinkItem[] = [
 
 const rights: LinkItem[] = [
   {
-    title: "Kursachsen",
-    href: "/rights/kursachsen",
-    description: "Rechteverteilung in Kursachsen.",
-  },
-  {
-    title: "Ansbach",
-    href: "/rights/ansbach",
-    description: "Rechteverteilung in Ansbach.",
+    title: "Rechteverteilung",
+    href: "/rights/map",
+    description: "Rechteverteilung im Alten Reich auf Ortsebene.",
   },
   {
     title: "Anwesen in Höflein",
