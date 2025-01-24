@@ -9,14 +9,8 @@ import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext
 import RightsMarker from "./RightsMarker";
 
 const SnowFlakeLayer: FC = () => {
-  const {
-    order,
-    timeRange,
-    colorScale,
-    symbolMap,
-    rightRequest,
-    setDataState,
-  } = useRightsExplorerContext();
+  const { order, timeRange, colorScale, symbolMap, setDataState } =
+    useRightsExplorerContext();
   const { bounds } = useMapStateContext();
 
   const symbolScale = useCallback(
@@ -28,7 +22,7 @@ const SnowFlakeLayer: FC = () => {
     data: transformedData,
     isLoading,
     error,
-  } = useRightData(rightRequest, timeRange, bounds);
+  } = useRightData(order, timeRange, bounds);
 
   useEffect(() => {
     setDataState({ isLoading, error });

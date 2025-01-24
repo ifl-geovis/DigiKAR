@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const move = (array: string[], value: string, forward = true) => {
+export const move = <T>(array: T[], value: T, forward = true) => {
   const currentIndex = array.indexOf(value);
   if (currentIndex < 0) return array;
 

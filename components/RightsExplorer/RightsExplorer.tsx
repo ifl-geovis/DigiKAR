@@ -1,30 +1,26 @@
 "use client";
 
 import { mapToScale } from "@/lib/helpers";
+import { rightSet } from "@/lib/rightSet";
 import { Bbox } from "@/types/Bbox";
 import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
-import { Right } from "@/types/PlaceProperties";
 import { TooltipInfo } from "@/types/TooltipInfo";
 import { ScaleOrdinal } from "d3";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, PropsWithChildren, useState } from "react";
 import { MapProvider } from "react-map-gl/maplibre";
 import MapState from "../MapState";
-import {
-  RightRequest,
-  RightsExplorerContext,
-  TimeRange,
-} from "./RightsExplorerContext";
+import { RightsExplorerContext, TimeRange } from "./RightsExplorerContext";
+import { Right } from "@/types/PlaceProperties";
 
 type Props = PropsWithChildren<{
   initialBbox: Bbox;
-  attributeSet: Set<Right>;
+  attributes: typeof rightSet;
   initialSymbolMap: Map<string, string>;
-  initialOrder?: string[];
+  initialOrder?: Right[];
   colorMap: Map<string, string>;
   availableLayers?: Layer[];
-  rightRequest: RightRequest;
   initialTimeRange: TimeRange;
 }>;
 
@@ -34,9 +30,8 @@ export type DataState = {
 };
 
 const RightsExplorer: FC<Props> = ({
-  rightRequest,
   initialTimeRange,
-  attributeSet,
+  attributes,
   initialBbox,
   initialOrder,
   initialSymbolMap,
@@ -44,7 +39,9 @@ const RightsExplorer: FC<Props> = ({
   colorMap,
   availableLayers,
 }) => {
-  const [order, setOrder] = useState(initialOrder ?? Array.from(attributeSet));
+  const [order, setOrder] = useState(
+    initialOrder ?? [...attributes.keys()].map((relation) => relation),
+  );
   const [activeCategory, setActiveCategory] = useState<string | undefined>(
     undefined,
   );
@@ -71,14 +68,13 @@ const RightsExplorer: FC<Props> = ({
   return (
     <RightsExplorerContext.Provider
       value={{
-        rightRequest,
         timeRange,
         order,
         setTimeRange,
         activeCategory,
         colorScale: colorScale,
         symbolMap,
-        attributeSet,
+        rightSet,
         setOrder,
         setActiveCategory,
         setColorScale,

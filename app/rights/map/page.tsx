@@ -5,7 +5,6 @@ import MapContainer from "@/components/MapContainer";
 import MapTitle from "@/components/MapTitle";
 import MapViewLayout from "@/components/MapViewLayout";
 import RightsExplorer from "@/components/RightsExplorer";
-import { RightRequest } from "@/components/RightsExplorer/RightsExplorerContext";
 import RightsMap from "@/components/RightsMap";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig";
 import SearchBar from "@/components/SearchBar";
@@ -13,35 +12,16 @@ import Timeline from "@/components/Timeline";
 import RightDetails from "@/components/right-details";
 import colorMapKursachsen from "@/lib/colorMapKursachsen";
 import { getMapStyle } from "@/lib/getMapStyle";
-import { Right } from "@/types/PlaceProperties";
+import { rightSet } from "@/lib/rightSet";
 
 export default async function Wp2() {
-  const attributeSet = new Set([
-    "hochgericht",
-    "niedergericht",
-    "grundherrschaft",
-    "landeshoheit",
-    "verwaltungzugehörigkeit",
-    "kirchenpatronat",
-    "jagd",
-  ]) as Set<Right>;
-
-  const columns =
-    "attested,rights_disputed_by,rights_held_by,rightholders_categories";
-  const params = `select=*,grundherrschaft_summary(${columns}),hochgericht_summary(${columns}),niedergericht_summary(${columns}),verwaltungzugehoerigkeit_summary(${columns}),landeshoheit_summary(${columns}),jagd_summary(${columns}),kirchenpatronat_summary(${columns})&in_sample_regions=is.true`;
   const style = await getMapStyle();
-  const rightRequest: RightRequest = {
-    baseUrl: "https://api.geohistoricaldata.org/digikar/rpc/orte.geojson",
-    params,
-    needsTransform: true,
-  };
   const symbolMap = new Map();
 
   return (
     <RightsExplorer
-      rightRequest={rightRequest}
       initialBbox={[13.739 - 0.5, 51.049 - 0.2, 13.739 + 0.5, 51.049 + 0.2]}
-      attributeSet={attributeSet}
+      attributes={rightSet}
       initialOrder={[
         "hochgericht",
         "niedergericht",

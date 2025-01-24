@@ -20,10 +20,10 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 
 const SnowflakePreview = () => {
-  const { order, setOrder, symbolMap, setSymbolMap, attributeSet } =
+  const { order, setOrder, symbolMap, setSymbolMap, rightSet } =
     useRightsExplorerContext();
-  const placeAttributes = Array.from(attributeSet).map((d) => ({
-    attributeName: d,
+  const placeAttributes = [...rightSet.keys()].map((relation) => ({
+    attributeName: relation,
     holders: { categories: [""], disputedBy: 0, heldBy: 1 },
   }));
 

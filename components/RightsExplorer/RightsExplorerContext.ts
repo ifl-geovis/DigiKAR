@@ -1,10 +1,11 @@
+import { rightSet } from "@/lib/rightSet";
 import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
-import { Right } from "@/types/PlaceProperties";
 import { TooltipInfo } from "@/types/TooltipInfo";
 import { ScaleOrdinal } from "d3";
 import { createContext, useContext } from "react";
 import { DataState } from "./RightsExplorer";
+import { Right } from "@/types/PlaceProperties";
 
 export type TimeRange = {
   min: number;
@@ -14,22 +15,15 @@ export type TimeRange = {
 
 export type TimeRangeHandle = keyof TimeRange;
 
-export type RightRequest = {
-  baseUrl: string;
-  params?: string;
-  needsTransform?: boolean;
-};
-
 type Context = {
-  attributeSet: Set<Right>;
+  rightSet: typeof rightSet;
   availableLayers?: Layer[];
-  rightRequest: RightRequest;
   timeRange: TimeRange;
   setTimeRange: (
     timeRange: TimeRange | ((timeRange: TimeRange) => TimeRange),
   ) => void;
-  order: string[];
-  setOrder: (order: string[]) => void;
+  order: Right[];
+  setOrder: (order: Right[]) => void;
   activeCategory?: string;
   setActiveCategory: (
     category?: string | ((category?: string) => string | undefined),

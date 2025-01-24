@@ -12,10 +12,9 @@ import { Button } from "../ui/button";
 import { RxCheck, RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 import { twJoin } from "tailwind-merge";
 import ButtonWithTooltip from "../ButtonWithTooltip/ButtonWithTooltip";
-import { capitalize } from "@/lib/utils";
 
 const RightIndicator: FC = () => {
-  const { order, attributeSet, setOrder } = useRightsExplorerContext();
+  const { order, rightSet, setOrder } = useRightsExplorerContext();
   return (
     <DialogContent>
       <DialogHeader>
@@ -27,24 +26,24 @@ const RightIndicator: FC = () => {
       </DialogHeader>
       <div>
         <div className="my-2">
-          {Array.from(attributeSet.values()).map((right) => {
-            const isVisualized = order.includes(right);
+          {[...rightSet.entries()].map(([relation, label]) => {
+            const isVisualized = order.includes(relation);
             return (
               <div
                 className={twJoin(
                   `my-1 flex items-center justify-between rounded p-1 px-2 shadow`,
                   !isVisualized && "text-gray-400",
                 )}
-                key={right}
+                key={relation}
               >
-                {capitalize(right)}
+                {label}
                 <ButtonWithTooltip
                   tooltipContent="Toggle visibility"
                   // disabled={!isVisualized}
                   onClick={() =>
                     isVisualized
-                      ? setOrder([...order.filter((d) => d != right)])
-                      : setOrder([...order, right])
+                      ? setOrder([...order.filter((d) => d != relation)])
+                      : setOrder([...order, relation])
                   }
                   size={"sm"}
                   variant={"ghost"}

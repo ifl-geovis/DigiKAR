@@ -1,12 +1,12 @@
+import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
+import fetcher from "@/lib/fetcher";
 import { GeneralizedApiRight } from "@/types/GeneralizedEndpoint";
-import { PlacePropertiesGeneralized } from "@/types/PlaceProperties";
+import { PlacePropertiesGeneralized, Right } from "@/types/PlaceProperties";
 import { FeatureCollection, Point } from "geojson";
 import { LngLatBounds } from "maplibre-gl";
 import useSWRImmutable from "swr/immutable";
-import useDebounce from "./useDebounce";
-import fetcher from "@/lib/fetcher";
 import { kursachsenToRightSchema } from "../lib/kursachsenToRightSchema";
-import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
+import useDebounce from "./useDebounce";
 
 const toBbox = (bounds?: LngLatBounds) => {
   if (!bounds) return undefined;
@@ -19,7 +19,7 @@ const toBbox = (bounds?: LngLatBounds) => {
 };
 
 export default function useRightData(
-  url: { baseUrl: string; params?: string; needsTransform?: boolean },
+  rights: Right[],
   timeRange: TimeRange,
   bounds: LngLatBounds,
 ): {
@@ -27,8 +27,13 @@ export default function useRightData(
   data?: FeatureCollection<Point, PlacePropertiesGeneralized>;
   error: boolean;
 } {
+  const url = "https://api.geohistoricaldata.org/digikar/rpc/orte.geojson";
+
+  const columns =
+    "attested,rights_disputed_by,rights_held_by,rightholders_categories";
+  const params = `select=*,${rights.map((d) => `${d}_summary(${columns})`)}&in_sample_regions=is.true`;
   const debouncedBBox = useDebounce<LngLatBounds>(bounds, 300);
-  const request = `${url.baseUrl}?bbox={${toBbox(debouncedBBox)}}${url.params ? `&${url.params}` : ""}`;
+  const request = `${url}?bbox={${toBbox(debouncedBBox)}}${params ? `&${params}` : ""}`;
   const { data, isLoading, error } = useSWRImmutable<GeneralizedApiRight>(
     request,
     fetcher,
@@ -37,10 +42,7 @@ export default function useRightData(
   if (data) {
     return {
       isLoading,
-      //@ts-expect-error Should the data returned from the apis be a generic? useRightData<T>()?
-      data: url.needsTransform
-        ? kursachsenToRightSchema(data, timeRange)
-        : data,
+      data: kursachsenToRightSchema(data, timeRange),
       error,
     };
   }

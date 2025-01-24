@@ -5,7 +5,11 @@ export type Right =
   | "hochgericht"
   | "niedergericht"
   | "jagd"
-  | "verwaltungszugehoerigkeit";
+  | "dorf_und_gemeindeherrschaft"
+  | "kollatur"
+  | "landeshoheit"
+  | "kirchenpatronat"
+  | "verwaltungzugehoerigkeit";
 
 export type Holder = {
   holder?: string;
