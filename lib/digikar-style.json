@@ -10,7 +10,7 @@
     "duration": 300,
     "delay": 0
   },
-  "sprite": "https://tiles.geohistoricaldata.org/tiles/sprite/digikar",
+  "sprite": "https://tiles.geohistoricaldata.org/tiles/sdf_sprite/digikar",
   "sources": {
     "hillshadeS3": {
       "type": "raster-dem",
@@ -190,6 +190,11 @@
       "layout": {
         "icon-image": "gallow",
         "icon-allow-overlap": true
+      },
+      "paint": {
+        "icon-color": "rgb(100,60,0)",
+        "icon-halo-color": "rgb(255,255,255)",
+        "icon-halo-width": 5
       }
     },
     {
