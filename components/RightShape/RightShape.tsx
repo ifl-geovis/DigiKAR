@@ -43,8 +43,8 @@ const RightShape: FC<Props> = ({
       ) : (
         <circle r={size} fill={color} className={className} opacity={opacity} />
       )}
-      {isShared && <SharedIcon x="-7" y="-7" className="text-white" />}
-      {isDisputed && <DisputedIcon x="-7" y="-7" className="text-white" />}
+      {isShared && <SharedIcon x="-7" y="-7" />}
+      {isDisputed && <DisputedIcon x="-7" y="-7" />}
       {!isShared && isUnclear && (
         <UnclearIcon x="-7" y="-7" className="text-black" />
       )}

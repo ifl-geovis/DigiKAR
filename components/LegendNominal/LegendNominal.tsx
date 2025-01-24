@@ -12,8 +12,8 @@ const LegendNominal = () => {
   const { colorScale, setActiveCategory, activeCategory } =
     useRightsExplorerContext();
   const specialCategories = [
-    { label: "geteilt", Icon: SharedIcon, background: "black" },
-    { label: "strittig", Icon: DisputedIcon, background: "black" },
+    { label: "geteilt", Icon: SharedIcon },
+    { label: "strittig", Icon: DisputedIcon },
     { label: "unklar", Icon: UnclearIcon, background: "lightgrey" },
   ];
   if (viewState.zoom < 10)
@@ -68,7 +68,13 @@ const LegendNominal = () => {
             }
           >
             <svg width={16} height={16} className="shrink-0">
-              <circle cx={8} cy={8} r={6.6} stroke="black" fill={background} />
+              <circle
+                cx={8}
+                cy={8}
+                r={6.6}
+                stroke="black"
+                fill={background ?? "white"}
+              />
               <Icon
                 className={twJoin(
                   "translate-x-[1px] translate-y-[1px]",

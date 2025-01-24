@@ -42,9 +42,10 @@ const RightIndicator: FC<Props> = ({
       attribute.holders,
     );
     const holder = attribute.holders.categories?.[0]?.normalize();
-    const color =
-      isWithoutHolder || isShared || isDisputed
-        ? "black"
+    const color = isWithoutHolder
+      ? "black"
+      : isShared || isDisputed
+        ? "white"
         : colorScale(holder ?? "");
     const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
     const opacity =
