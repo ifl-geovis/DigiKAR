@@ -36,7 +36,7 @@ export default async function Wp2() {
       <MapViewLayout>
         <MapAside>
           <Card>
-            <MapTitle>Kursachsen</MapTitle>
+            <MapTitle>Rechteverteilung</MapTitle>
           </Card>
           <SearchBar />
           <RightsMarkerConfig />

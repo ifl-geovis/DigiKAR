@@ -1,7 +1,9 @@
 export default async function Home() {
   return (
     <article className="mx-auto my-5 max-w-prose px-4 md:px-0 [&_>_p]:mb-3">
-      <h2>Interner Prototyp DigiKAR</h2>
+      <h2>
+        Prototyp für eine moderne Geschichtskartographie des Alten Reiches
+      </h2>
       <p className="mb-4 text-xl">
         Dieser Prototyp eines Visualisierungstools ist aus dem Projekt „Digitale
         Kartenwerkstatt Altes Reich“ (
