@@ -24,9 +24,7 @@ export const kursachsenToRightSchema = (
       Attribute<HoldersGeneralized>[]
     >((acc, [key, value]) => {
       if (key.match(/(_summary)$/)) {
-        const attributeName = key
-          .replace("_summary", "")
-          .replace("oe", "ö") as Right;
+        const attributeName = key.replace("_summary", "") as Right;
         //@ts-expect-error TS is not able to infer that value is always an entry
         const entry = getClosestEntry(t, value);
         const [categories, heldBy, disputedBy] = [
