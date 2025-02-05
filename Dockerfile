@@ -11,6 +11,9 @@ RUN mkdir -p /app/data/.duckdb/extensions/v0.10.2/linux_amd64 && \
     curl -sSL http://extensions.duckdb.org/v0.10.2/linux_amd64/spatial.duckdb_extension.gz | \
     gunzip -c > /app/data/.duckdb/extensions/v0.10.2/linux_amd64/spatial.duckdb_extension
 
+# Install latest corepack
+RUN npm install -g corepack@latest
+
 # Install dependencies only when needed
 FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
