@@ -73,13 +73,13 @@ To learn more about Next.js, take a look at the following resources:
 Build the container and parse in the environment variables for `pg node` via the `--build arg` with:
 
 ```{bash}
-docker build -t digikar --build-arg pguser=user --build-arg pghost=hostname --build-arg pgdatabase=databasename --build-arg pgpassword=password --build-arg pgport=port .
+docker build -t digikar .
 ```
 
-Run the container with environment variables for `pg node` (see build command), e.g. by re-using the variables of the `.env` file with:
+Run the container with:
 
 ```{bash}
-docker run --rm -it -p 3000:3000 --env-file <path-to-env.file> --hostname localhost digikar
+docker run --rm -it -p 3000:3000 --hostname localhost digikar
 ```
 
 If you're on a M1/M2 mac add `--platform linux/amd64` to both commands.
