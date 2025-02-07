@@ -6,7 +6,7 @@ console.log("Setting up database ...");
 
 (async () => {
   const sqlPath = "./lib/setup.sql";
-  const dbPath = "data/digikar.duckdb";
+  const dbPath = "./data/digikar.duckdb";
 
   if (existsSync(dbPath)) {
     unlinkSync(dbPath);
