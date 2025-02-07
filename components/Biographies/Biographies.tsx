@@ -81,7 +81,7 @@ const Biographies: FC<Props> = ({ style }) => {
       <MapAside>
         <Card>
           <MapTitle>Biographien</MapTitle>
-          <p>basierend auf gemeinsamen Ereignissen</p>
+          <p>Mobilität und Vernetzung einzelner Funktionsträger</p>
         </Card>
         <Card title="Auswahl der Ereignisse" collapsible defaultOpen>
           <div className="flex flex-col gap-5">
