@@ -1,10 +1,11 @@
 import { Feature, Point } from "geojson";
-import { createDatabase } from "./createDatabase";
+import { createDatabase } from "./setupDatabase";
 
 export const getPlaceOriginDeath = async () => {
   const db = await createDatabase();
+  const connection = await db.connect();
 
-  const res = await db.all(`
+  const query = await connection.runAndReadAll(`
     WITH event_counts AS (
       SELECT
         place_name,
@@ -24,12 +25,12 @@ export const getPlaceOriginDeath = async () => {
     )
     SELECT
       place_name AS place,
-      ST_AsGeoJson(place) AS geometry,
-      json_group_array(
-        json_object(
-          'event_type', event_type,
-          'count', event_count
-        )
+      ST_AsGeoJson(place)::JSON AS geometry,
+      list(
+        {
+          'event_type': event_type,
+          'count': event_count
+        }
       ) AS events
     FROM event_counts
     GROUP BY
@@ -37,17 +38,21 @@ export const getPlaceOriginDeath = async () => {
       place;
   `);
 
-  await db.close();
-
-  return res.map(
-    ({ place, events, geometry }, id) =>
-      ({
+  const res = query
+    .getRowObjectsJson()
+    .map(({ place, events, geometry }, id) => {
+      const geometryStr = geometry?.toString();
+      return {
         type: "Feature",
         id,
-        properties: { place, events: JSON.parse(events) },
-        geometry: JSON.parse(geometry),
-      }) as Feature<Point, { place: string; events: LifeEvent[] }>,
-  );
+        properties: { place, events },
+        geometry: geometryStr ? JSON.parse(geometryStr) : null,
+      } as Feature<Point, { place: string; events: LifeEvent[] }>;
+    });
+
+  connection.close();
+
+  return res;
 };
 
 export type LifeEvent = {

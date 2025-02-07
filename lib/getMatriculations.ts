@@ -1,5 +1,6 @@
 import { Feature, Point } from "geojson";
-import { createDatabase } from "./createDatabase";
+import { createDatabase } from "./setupDatabase";
+import { INTEGER, VARCHAR } from "@duckdb/node-api";
 
 export const getMatriculations = async (
   min: number,
@@ -7,8 +8,9 @@ export const getMatriculations = async (
   eventType: string = "Immatrikulation",
 ) => {
   const db = await createDatabase();
+  const connection = await db.connect();
 
-  const statement = await db.prepare(`
+  const prepared = await connection.prepare(`
     SELECT
     json_object(
           'type',
@@ -27,17 +29,31 @@ export const getMatriculations = async (
       ) AS feature
     FROM events
     WHERE
-      event_type = ?
-      AND event_date BETWEEN ? AND ?
+      event_type = $eventType
+      AND event_date BETWEEN $min AND $max
     GROUP BY place_name, place
     HAVING
       place_name IS NOT NULL AND
       place IS NOT NULL;
   `);
-  const res = await statement.all(eventType, min, max);
-  await db.close();
+  prepared.bind(
+    {
+      eventType,
+      min,
+      max,
+    },
+    {
+      eventType: VARCHAR,
+      min: INTEGER,
+      max: INTEGER,
+    },
+  );
+  const reader = await prepared.runAndReadAll();
+  const res = reader.getRowObjects().map(({ feature }) => {
+    const str = feature?.toString();
+    if (str) return JSON.parse(str);
+  });
+  connection.close();
 
-  return res.map(({ feature }) => {
-    return JSON.parse(feature);
-  }) as Feature<Point>[];
+  return res satisfies Feature<Point>[];
 };

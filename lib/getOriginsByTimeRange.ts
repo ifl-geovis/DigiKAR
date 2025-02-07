@@ -1,5 +1,6 @@
 import { Feature, Point } from "geojson";
-import { createDatabase } from "./createDatabase";
+import { createDatabase } from "./setupDatabase";
+import { INTEGER, VARCHAR } from "@duckdb/node-api";
 
 export const getOriginsByTimeRange = async (
   min: number,
@@ -7,8 +8,9 @@ export const getOriginsByTimeRange = async (
   lens: string = "Universität Mainz Studierende",
 ) => {
   const db = await createDatabase();
+  const connection = await db.connect();
 
-  const statement = await db.prepare(`
+  const prepared = await connection.prepare(`
   SELECT
   json_object(
       'type',
@@ -30,9 +32,9 @@ export const getOriginsByTimeRange = async (
   JOIN
     events AS birth_place ON study_events.person_name = birth_place.person_name
   WHERE
-    study_events.event_analytical_lens = ?
+    study_events.event_analytical_lens = $lens
     AND study_events.event_type IN ('Immatrikulation', 'Studium', 'Graduation', 'Promotion')
-    AND study_events.event_date BETWEEN ? AND ?
+    AND study_events.event_date BETWEEN $min AND $max
     AND birth_place.event_type IN ('Geburt', 'Taufe')
   GROUP BY
     birth_place.place_name,
@@ -41,10 +43,24 @@ export const getOriginsByTimeRange = async (
     birth_place.place_name IS NOT NULL AND
     birth_place.place IS NOT NULL;
   `);
-  const res = await statement.all(lens, min, max);
-  await db.close();
+  prepared.bind(
+    {
+      lens,
+      min,
+      max,
+    },
+    {
+      lens: VARCHAR,
+      min: INTEGER,
+      max: INTEGER,
+    },
+  );
+  const reader = await prepared.runAndReadAll();
+  const res = reader.getRowObjects().map(({ feature }) => {
+    const str = feature?.toString();
+    return str ? JSON.parse(str) : null;
+  });
+  connection.close();
 
-  return res.map(({ feature }) => {
-    return JSON.parse(feature);
-  }) as Feature<Point>[];
+  return res satisfies Feature<Point>[];
 };

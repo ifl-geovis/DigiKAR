@@ -1,5 +1,6 @@
 import { Feature, LineString } from "geojson";
-import { getDatabase } from "./createDatabase";
+import { getDatabase } from "./setupDatabase";
+import { INTEGER, VARCHAR } from "@duckdb/node-api";
 
 export type BiographyEvent = {
   type: string;
@@ -104,17 +105,30 @@ export const getBiographiesByCommonEvent = async (
       next_event_type IS NOT NULL
       AND total_events >= 2;
   `);
-  const res = await statement.all(
-    event,
-    place,
-    functionality,
-    timeRange[0],
-    timeRange[1],
-  );
 
+  statement.bind(
+    {
+      1: event,
+      2: place,
+      3: functionality,
+      4: timeRange[0],
+      5: timeRange[1],
+    },
+    {
+      1: VARCHAR,
+      2: VARCHAR,
+      3: VARCHAR,
+      4: INTEGER,
+      5: INTEGER,
+    },
+  );
+  const reader = await statement.runAndReadAll();
   connection.close();
 
+  const res = reader.getRowObjects();
+
   return res.map(({ feature }) => {
-    return JSON.parse(feature);
+    const str = feature?.toString();
+    if (str) return JSON.parse(str);
   }) as Feature<LineString, BiographyFlowProperties>[];
 };

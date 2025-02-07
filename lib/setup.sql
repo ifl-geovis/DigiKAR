@@ -1,5 +1,3 @@
-.open './data/digikar.duckdb';
----
 SET extension_directory = './data/.duckdb/extensions';
 INSTALL spatial;
 LOAD spatial;
@@ -161,4 +159,3 @@ UNION ALL BY NAME
 FROM students
 UNION ALL BY NAME
 FROM domkapitulare_mainz;
-.exit

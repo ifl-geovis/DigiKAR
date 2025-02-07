@@ -35,6 +35,7 @@ const PlaceSelector: FC<Props> = ({ onSelectHandler, place }) => {
           optionLabel="Ort"
           defaultValue={place}
           onSelectHandler={onSelectHandler}
+          // @ts-expect-error improve typing of duckdb query
           options={options}
         />
       )}

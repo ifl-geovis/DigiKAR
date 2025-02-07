@@ -2,15 +2,6 @@ FROM node:20 AS base
 
 RUN apt-get install ca-certificates
 
-RUN wget https://github.com/duckdb/duckdb/releases/download/v0.10.2/duckdb_cli-linux-amd64.zip \
-    && unzip duckdb_cli-linux-amd64.zip -d /usr/local/bin \
-    && rm duckdb_cli-linux-amd64.zip
-
-# Download and extract the file
-RUN mkdir -p /app/data/.duckdb/extensions/v0.10.2/linux_amd64 && \
-    curl -sSL http://extensions.duckdb.org/v0.10.2/linux_amd64/spatial.duckdb_extension.gz | \
-    gunzip -c > /app/data/.duckdb/extensions/v0.10.2/linux_amd64/spatial.duckdb_extension
-
 # Install latest corepack
 RUN npm install -g corepack@latest
 

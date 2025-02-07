@@ -1,13 +1,15 @@
 import { Feature, Point } from "geojson";
-import { createDatabase } from "./createDatabase";
+import { createDatabase } from "./setupDatabase";
+import { VARCHAR } from "@duckdb/node-api";
 
 export const getFunctionalitiesPerPlace = async (
   lens = "Universität Mainz Studierende",
   functions?: string[],
 ) => {
   const db = await createDatabase();
+  const connection = await db.connect();
 
-  const statement = await db.prepare(`
+  const prepared = await connection.prepare(`
     WITH functions_sum AS (
       SELECT 
         FIRST(place_name) AS place_name,
@@ -17,10 +19,10 @@ export const getFunctionalitiesPerPlace = async (
         COUNT(*) AS count
       FROM events e
       WHERE
-        event_analytical_lens LIKE ?
+        event_analytical_lens LIKE $lens
         AND place IS NOT NULL
         AND place_name IS NOT NULL
-        AND person_function SIMILAR TO ?
+        AND person_function SIMILAR TO $functionality
       GROUP BY
         place,
         institution_name,
@@ -44,28 +46,38 @@ export const getFunctionalitiesPerPlace = async (
     ? `.*(${functions?.map((d) => decodeURI(d).normalize()).join("|")}).*`
     : ".*";
   const lensParsed = lens ? decodeURI(lens).normalize() : "%";
-  const res = await statement.all(lensParsed, functionsParsed);
-
-  await db.close();
-
-  return res.map(
-    ({ place, functionalities, institution, geometry }, id) =>
-      ({
-        id,
-        type: "Feature",
-        properties: {
-          place,
-          institution,
-          functionalities: JSON.parse(functionalities),
-        },
-        geometry: JSON.parse(geometry),
-      }) as Feature<
-        Point,
-        {
-          place: string;
-          institution: string;
-          functionalities: { function: number };
-        }
-      >,
+  prepared.bind(
+    {
+      lens: lensParsed,
+      functionality: functionsParsed,
+    },
+    {
+      lens: VARCHAR,
+      functionality: VARCHAR,
+    },
   );
+  const reader = await prepared.runAndReadAll();
+  const res = reader.getRowObjectsJson();
+  connection.close();
+
+  return res.map(({ place, functionalities, institution, geometry }, id) => {
+    const geometryStr = geometry?.toString();
+    return {
+      id,
+      type: "Feature",
+      properties: {
+        place,
+        institution,
+        functionalities,
+      },
+      geometry: geometryStr ? JSON.parse(geometryStr) : null,
+    } as Feature<
+      Point,
+      {
+        place: string;
+        institution: string;
+        functionalities: { function: number };
+      }
+    >;
+  });
 };

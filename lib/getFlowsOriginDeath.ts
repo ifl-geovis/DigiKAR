@@ -1,10 +1,12 @@
 import { Feature, LineString } from "geojson";
-import { createDatabase } from "./createDatabase";
+import { createDatabase } from "./setupDatabase";
+import { VARCHAR } from "@duckdb/node-api";
 
 export const getFlowsOriginDeath = async (analyticalLens = `any`) => {
   const db = await createDatabase();
+  const connection = await db.connect();
 
-  const statement = await db.prepare(`
+  const prepared = await connection.prepare(`
     WITH per_person AS (
       SELECT list(place_name ORDER BY event_value) AS place_names,
       LIST(place ORDER BY event_value) AS places
@@ -13,7 +15,7 @@ export const getFlowsOriginDeath = async (analyticalLens = `any`) => {
         event_type IN ('Tod', 'Geburt')
         AND place IS NOT NULL
         AND place_name IS NOT NULL
-        AND event_analytical_lens LIKE ?
+        AND event_analytical_lens LIKE $lens
       GROUP BY person_id
         HAVING length(place_names) > 1
     ),
@@ -33,18 +35,24 @@ export const getFlowsOriginDeath = async (analyticalLens = `any`) => {
     ORDER BY value DESC;
   `);
 
-  const res = await statement.all(
-    analyticalLens === "any" ? "%" : analyticalLens,
+  prepared.bind(
+    {
+      lens: analyticalLens === "any" ? "%" : analyticalLens,
+    },
+    {
+      lens: VARCHAR,
+    },
   );
+  const reader = await prepared.runAndReadAll();
+  const res = reader.getRowObjectsJson();
+  connection.close();
 
-  await db.close();
-
-  return res.map(
-    ({ value, birth_place, death_place, geometry }) =>
-      ({
-        type: "Feature",
-        properties: { birth_place, death_place, value },
-        geometry: JSON.parse(geometry),
-      }) as Feature<LineString>,
-  );
+  return res.map(({ value, birth_place, death_place, geometry }) => {
+    const geometryStr = geometry?.toString();
+    return {
+      type: "Feature",
+      properties: { birth_place, death_place, value },
+      geometry: geometryStr ? JSON.parse(geometryStr) : null,
+    } as Feature<LineString>;
+  });
 };

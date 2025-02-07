@@ -1,4 +1,5 @@
-import { getDatabase } from "./createDatabase";
+import { VARCHAR } from "@duckdb/node-api";
+import { getDatabase } from "./setupDatabase";
 
 export const getUniquePlaces = async (
   /** Which data source to be used */
@@ -7,20 +8,20 @@ export const getUniquePlaces = async (
   const db = await getDatabase();
   const connection = await db.connect();
 
-  const statement = await connection.prepare(`
+  const prepared = await connection.prepare(`
     SELECT DISTINCT
         place_name AS place
     FROM events
     ${
       source &&
       `WHERE
-        list_contains(sources, ?)`
+        list_contains(sources, $source)`
     }
     ORDER BY place_name;
   `);
-
-  const res = await statement.all(source);
+  if (source) prepared.bind({ source }, { source: VARCHAR });
+  const reader = await prepared.runAndReadAll();
   connection.close();
 
-  return res;
+  return reader.getRowObjectsJson();
 };

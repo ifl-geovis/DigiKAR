@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverComponentsExternalPackages: ["duckdb-async"],
+    serverComponentsExternalPackages: ["@duckdb/node-api"],
   },
   output: "standalone",
   webpack(config) {

@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "setupdb": "rm -f data/digikar.duckdb && duckdb -c '.read ./lib/setup.sql'",
+    "seedDatabase": "pnpx tsx seedDatabase.ts",
     "dev": "next dev",
-    "prebuild": "npm run setupdb",
+    "prebuild": "pnpm seedDatabase",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky"
   },
   "dependencies": {
+    "@duckdb/node-api": "1.2.0-alpha.13",
     "@floating-ui/react": "^0.26.25",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-collapsible": "^1.1.1",
@@ -52,8 +53,6 @@
     "cmdk": "^1.0.0",
     "d3": "^7.9.0",
     "d3-scale-chromatic": "^3.1.0",
-    "duckdb-async": "^0.10.2",
-    "encoding": "^0.1.13",
     "lodash.debounce": "^4.0.8",
     "maplibre-gl": "^4.7.1",
     "next": "14.2.13",
