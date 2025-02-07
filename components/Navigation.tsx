@@ -66,7 +66,7 @@ const pages = [
   {
     title: "Rechte",
     href: "/rights",
-    subtitle: "Fallstudie Kursachsen",
+    subtitle: "Fallstudie Kursachsen und Altlandkreis Ansbach (Franken)",
     subpages: rights,
   },
   {
@@ -111,11 +111,14 @@ const Navigation = () => {
                         <div className="h-6 w-6 rounded-sm border border-slate-500">
                           &nbsp;
                         </div>
-                        <div className="mb-2 mt-4 text-lg font-medium">
+                        <div className="mb-2 mt-4 text-lg font-bold">
                           {page.title}
                         </div>
+                        <div className="mb-2 mt-4 text-sm text-muted-foreground">
+                          Informationen und Bedienungsanleitungen
+                        </div>
                         <p className="text-sm leading-tight text-muted-foreground">
-                          {page.subtitle}{" "}
+                          {page.subtitle}
                         </p>
                       </a>
                     </NavigationMenuLink>
