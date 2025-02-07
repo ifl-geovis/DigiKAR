@@ -15,11 +15,6 @@ Build Container:
     - docker pull $CI_REGISTRY/group/project/image:latest || true
     - docker build
       --pull
-      --build-arg pguser=$pguser
-      --build-arg pghost=$pghost
-      --build-arg pgdatabase=$pgdatabase
-      --build-arg pgpassword=$pgpassword
-      --build-arg pgport=$pgport
       -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
       .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
