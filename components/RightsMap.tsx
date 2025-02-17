@@ -18,6 +18,7 @@ import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext
 import SnowFlakeLayer from "./SnowflakeLayer";
 import ZoomIndicator from "./ZoomIndicator";
 import DataStateIndicator from "./data-state-indicator";
+import MapDebugger from "./map-debugger";
 
 type Props = {
   mapStyle: MapStyle;
@@ -64,6 +65,7 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
       <ScaleControl position="bottom-right" />
       <div className="z-1 absolute right-[50px] mt-[10px] flex items-center gap-2">
         <DataStateIndicator />
+        <MapDebugger />
         <ZoomIndicator />
         <LayersControl />
       </div>
