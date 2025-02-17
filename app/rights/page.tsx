@@ -309,7 +309,7 @@ export default function Wp2() {
         <p>
           Bei Klick auf „Rechteverteilung im Alten Reich auf Ortsebene“ öffnet
           sich eine Karte, zentriert auf Dresden, die Residenz des
-          Kurfürstentums Sachsen. Die Zoomstufe ist auf den Wert <pre>10</pre>
+          Kurfürstentums Sachsen. Die Zoomstufe ist auf den Wert <code>10</code>{" "}
           eingestellt (rechts oben neben dem Weltkugel-Symbol), was ganz grob
           einem Maßstab 1:250.000 nahekommt. Der Zeitschieber am unteren
           Bildrand ist automatisch eingestellt auf das Stichjahr 1750, mit einer
