@@ -18,6 +18,8 @@ export type Perspective = "individual" | "category" | "top_level";
 
 type Context = {
   rightSet: typeof rightSet;
+  isMultivariate: boolean;
+  setIsMultivariate: (isMultivariate: boolean) => void;
   perspective: Perspective;
   setPerspective: (perspective: Perspective) => void;
   availableLayers?: Layer[];

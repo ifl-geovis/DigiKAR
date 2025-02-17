@@ -47,6 +47,8 @@ const RightsExplorer: FC<Props> = ({
     initialOrder ?? [...attributes.keys()].map((relation) => relation),
   );
 
+  const [isMultivariate, setIsMultivariate] = useState(true);
+
   const [perspective, setPerspective] = useState<Perspective>("category");
 
   const [selectedLegendItem, setSelectedLegendItem] = useState<
@@ -79,6 +81,7 @@ const RightsExplorer: FC<Props> = ({
         colorScale: colorScale,
         dataState,
         detailInfo,
+        isMultivariate,
         order,
         perspective,
         rightSet,
@@ -89,6 +92,7 @@ const RightsExplorer: FC<Props> = ({
         setColorScale,
         setDataState,
         setDetailInfo,
+        setIsMultivariate,
         setPerspective,
         setOrder,
         setSelectedLegendItem,

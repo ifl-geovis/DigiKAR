@@ -3,7 +3,7 @@ import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext
 import MapControl from "./MapControl";
 
 const MapDebugger: FC = () => {
-  const { perspective } = useRightsExplorerContext();
+  const { perspective, isMultivariate } = useRightsExplorerContext();
 
   if (process.env.NODE_ENV !== "development") {
     return null;
@@ -12,7 +12,9 @@ const MapDebugger: FC = () => {
   return (
     <MapControl>
       <div className="px-3">
-        <p>{perspective} · symboltyp</p>
+        <p>
+          {perspective} · {isMultivariate ? "multivariate" : "univariate"}
+        </p>
       </div>
     </MapControl>
   );
