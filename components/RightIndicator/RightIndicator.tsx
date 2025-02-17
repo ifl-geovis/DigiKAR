@@ -26,8 +26,12 @@ const RightIndicator: FC<Props> = ({
   symbol = "circle",
   colorScale,
 }) => {
-  const { setActiveCategory, activeCategory, setDetailInfo, setTooltipInfo } =
-    useRightsExplorerContext();
+  const {
+    setSelectedLegendItem,
+    selectedLegendItem,
+    setDetailInfo,
+    setTooltipInfo,
+  } = useRightsExplorerContext();
 
   const {
     color,
@@ -49,14 +53,17 @@ const RightIndicator: FC<Props> = ({
         : colorScale(holder ?? "");
     const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
     const opacity =
-      !activeCategory ||
-      (activeCategory && attribute.holders.categories?.includes(activeCategory))
+      !selectedLegendItem ||
+      (selectedLegendItem &&
+        attribute.holders.categories
+          ?.map((d) => d?.normalize())
+          .includes(selectedLegendItem))
         ? 1
         : 0.2;
     const onContextMenuHandler =
       (!isShared && !isWithoutHolder) || !holder
         ? () =>
-            setActiveCategory((prevState?: string) =>
+            setSelectedLegendItem((prevState?: string) =>
               prevState !== holder ? holder : undefined,
             )
         : undefined;
@@ -69,7 +76,13 @@ const RightIndicator: FC<Props> = ({
       isUnclear,
       onContextMenuHandler,
     };
-  }, [attribute, colorScale, activeCategory, circleRadius, setActiveCategory]);
+  }, [
+    attribute,
+    colorScale,
+    selectedLegendItem,
+    circleRadius,
+    setSelectedLegendItem,
+  ]);
   const onClickHandler = useCallback(
     () =>
       setDetailInfo(

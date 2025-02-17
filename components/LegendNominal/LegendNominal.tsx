@@ -9,7 +9,7 @@ import UnclearIcon from "/public/icons/unclear.svg";
 
 const LegendNominal = () => {
   const { viewState } = useMapStateContext();
-  const { colorScale, setActiveCategory, activeCategory } =
+  const { colorScale, setSelectedLegendItem, selectedLegendItem } =
     useRightsExplorerContext();
   const specialCategories = [
     { label: "geteilt", Icon: SharedIcon },
@@ -30,12 +30,12 @@ const LegendNominal = () => {
             key={d}
             className={twJoin(
               "flex cursor-pointer items-center gap-1 leading-tight transition-opacity",
-              activeCategory === d && "font-bold",
-              activeCategory && activeCategory !== d && "opacity-30",
+              selectedLegendItem === d && "font-bold",
+              selectedLegendItem && selectedLegendItem !== d && "opacity-30",
             )}
             onClick={() =>
-              setActiveCategory((prevState?: string) =>
-                prevState !== d ? d : undefined,
+              setSelectedLegendItem((prevState?: string) =>
+                prevState !== d ? d.normalize() : undefined,
               )
             }
           >
@@ -56,13 +56,15 @@ const LegendNominal = () => {
             className={twJoin(
               twJoin(
                 "flex cursor-pointer items-center gap-1 leading-tight transition-opacity",
-                activeCategory === label && "font-bold",
-                activeCategory && activeCategory !== label && "opacity-30",
+                selectedLegendItem === label && "font-bold",
+                selectedLegendItem &&
+                  selectedLegendItem !== label &&
+                  "opacity-30",
               ),
             )}
             key={label}
             onClick={() =>
-              setActiveCategory((prevState?: string) =>
+              setSelectedLegendItem((prevState?: string) =>
                 prevState !== label ? label : undefined,
               )
             }

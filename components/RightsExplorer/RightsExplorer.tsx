@@ -42,9 +42,9 @@ const RightsExplorer: FC<Props> = ({
   const [order, setOrder] = useState(
     initialOrder ?? [...attributes.keys()].map((relation) => relation),
   );
-  const [activeCategory, setActiveCategory] = useState<string | undefined>(
-    undefined,
-  );
+  const [selectedLegendItem, setSelectedLegendItem] = useState<
+    string | undefined
+  >(undefined);
   const [symbolMap, setSymbolMap] = useState(initialSymbolMap);
 
   const initialColorScale = mapToScale(colorMap, "lightgrey");
@@ -71,12 +71,12 @@ const RightsExplorer: FC<Props> = ({
         timeRange,
         order,
         setTimeRange,
-        activeCategory,
+        selectedLegendItem,
         colorScale: colorScale,
         symbolMap,
         rightSet,
         setOrder,
-        setActiveCategory,
+        setSelectedLegendItem,
         setColorScale,
         setSymbolMap,
         availableLayers,

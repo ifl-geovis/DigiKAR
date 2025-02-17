@@ -24,9 +24,9 @@ type Context = {
   ) => void;
   order: Right[];
   setOrder: (order: Right[]) => void;
-  activeCategory?: string;
-  setActiveCategory: (
-    category?: string | ((category?: string) => string | undefined),
+  selectedLegendItem?: string;
+  setSelectedLegendItem: (
+    legendItem?: string | ((legendItem?: string) => string | undefined),
   ) => void;
   symbolMap: Map<string, string>;
   setSymbolMap: (symbolMap: Map<string, string>) => void;
