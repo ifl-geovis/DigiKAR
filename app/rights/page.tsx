@@ -333,8 +333,9 @@ export default function Wp2() {
         <p>Die folgenden Videos erläutern die einzelnen Elemente genauer:</p>
         <ol className="my-5 list-decimal pl-10">
           <li>
-            Anzeige der Grundkarte, Bewegung in der Karte, Zoomen, Anzeige
-            einzelner Rechte auf Ortsebene. <VideoLink />
+            Karte aufrufen, Bewegung in der Karte, Zoomen, Anzeige der
+            Grundkarte, Funktionen der Legende, Anzeige einzelner Rechte auf
+            Ortsebene. <VideoLink />
           </li>
           <li>
             Einstellungen der Zeitregler <VideoLink />
@@ -342,9 +343,6 @@ export default function Wp2() {
           <li>
             Veränderungen des Symbols für die Anzeige einzelner Rechte
             <VideoLink />
-          </li>
-          <li>
-            Funktionen der Legende <VideoLink />
           </li>
         </ol>
 
