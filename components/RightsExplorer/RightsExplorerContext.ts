@@ -14,9 +14,12 @@ export type TimeRange = {
 };
 
 export type TimeRangeHandle = keyof TimeRange;
+export type Perspective = "individual" | "category" | "top_level";
 
 type Context = {
   rightSet: typeof rightSet;
+  perspective: Perspective;
+  setPerspective: (perspective: Perspective) => void;
   availableLayers?: Layer[];
   timeRange: TimeRange;
   setTimeRange: (

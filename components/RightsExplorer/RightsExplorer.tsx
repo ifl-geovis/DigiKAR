@@ -11,7 +11,11 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, PropsWithChildren, useState } from "react";
 import { MapProvider } from "react-map-gl/maplibre";
 import MapState from "../MapState";
-import { RightsExplorerContext, TimeRange } from "./RightsExplorerContext";
+import {
+  Perspective,
+  RightsExplorerContext,
+  TimeRange,
+} from "./RightsExplorerContext";
 import { Right } from "@/types/PlaceProperties";
 
 type Props = PropsWithChildren<{
@@ -42,6 +46,9 @@ const RightsExplorer: FC<Props> = ({
   const [order, setOrder] = useState(
     initialOrder ?? [...attributes.keys()].map((relation) => relation),
   );
+
+  const [perspective, setPerspective] = useState<Perspective>("category");
+
   const [selectedLegendItem, setSelectedLegendItem] = useState<
     string | undefined
   >(undefined);
@@ -68,24 +75,26 @@ const RightsExplorer: FC<Props> = ({
   return (
     <RightsExplorerContext.Provider
       value={{
-        timeRange,
-        order,
-        setTimeRange,
-        selectedLegendItem,
+        availableLayers,
         colorScale: colorScale,
-        symbolMap,
+        dataState,
+        detailInfo,
+        order,
+        perspective,
         rightSet,
+        selectedLegendItem,
+        symbolMap,
+        timeRange,
+        tooltipInfo,
+        setColorScale,
+        setDataState,
+        setDetailInfo,
+        setPerspective,
         setOrder,
         setSelectedLegendItem,
-        setColorScale,
         setSymbolMap,
-        availableLayers,
-        detailInfo,
-        setDetailInfo,
-        tooltipInfo,
+        setTimeRange,
         setTooltipInfo,
-        dataState,
-        setDataState,
       }}
     >
       <MapState availableLayers={availableLayers} initialBbox={initialBbox}>
