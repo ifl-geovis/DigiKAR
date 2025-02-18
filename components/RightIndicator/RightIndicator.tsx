@@ -1,14 +1,15 @@
 import getRightStatus from "@/lib/getRightStatus";
-import { Attribute, HoldersGeneralized } from "@/types/PlaceProperties";
+import { Attribute, RightWithPerspectives } from "@/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
 import { FC, useCallback, useMemo } from "react";
 import RightShape from "../RightShape";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
+import { getRightHolderNames } from "@/lib/getRightHolderNames";
 
 type Props = {
   x: number;
   y: number;
-  attribute: Attribute<HoldersGeneralized>;
+  attribute: Attribute<RightWithPerspectives>;
   placeId: string;
   placeName: string;
   circleRadius: number;
@@ -31,6 +32,7 @@ const RightIndicator: FC<Props> = ({
     selectedLegendItem,
     setDetailInfo,
     setTooltipInfo,
+    perspective,
   } = useRightsExplorerContext();
 
   const {
@@ -45,19 +47,18 @@ const RightIndicator: FC<Props> = ({
     const { isWithoutHolder, isShared, isDisputed, isUnclear } = getRightStatus(
       attribute.holders,
     );
-    const holder = attribute.holders.categories?.[0]?.normalize();
+
+    const names = getRightHolderNames(attribute.holders[perspective]);
+    const holder = names?.[0] ?? "";
     const color = isWithoutHolder
       ? "black"
       : isShared || isDisputed
         ? "white"
-        : colorScale(holder ?? "");
+        : colorScale(holder);
     const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
     const opacity =
       !selectedLegendItem ||
-      (selectedLegendItem &&
-        attribute.holders.categories
-          ?.map((d) => d?.normalize())
-          .includes(selectedLegendItem))
+      (selectedLegendItem && names.includes(selectedLegendItem))
         ? 1
         : 0.2;
     const onContextMenuHandler =
@@ -77,6 +78,7 @@ const RightIndicator: FC<Props> = ({
       onContextMenuHandler,
     };
   }, [
+    perspective,
     attribute,
     colorScale,
     selectedLegendItem,

@@ -1,6 +1,6 @@
-import { Attribute, HoldersGeneralized } from "./PlaceProperties";
+import { Attribute, RightWithPerspectives } from "./PlaceProperties";
 
 export type TooltipInfo = {
   placeName: string;
-  attribute: Attribute<HoldersGeneralized>;
+  attribute: Attribute<RightWithPerspectives>;
 };

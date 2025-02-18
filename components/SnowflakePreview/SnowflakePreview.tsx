@@ -24,7 +24,13 @@ const SnowflakePreview = () => {
     useRightsExplorerContext();
   const placeAttributes = [...rightSet.keys()].map((relation) => ({
     attributeName: relation,
-    holders: { categories: [""], disputedBy: 0, heldBy: 1 },
+    holders: {
+      categories: [],
+      individuals: [],
+      topLevels: [],
+      disputedBy: 0,
+      heldBy: 1,
+    },
   }));
 
   const radius = 30;

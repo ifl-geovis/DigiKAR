@@ -1,4 +1,6 @@
 import { FeatureCollection, Point } from "geojson";
+import { IndividualType } from "./GeneralizedEndpoint";
+import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
 
 export type Right =
   | "grundherrschaft"
@@ -9,7 +11,7 @@ export type Right =
   | "kollatur"
   | "landeshoheit"
   | "kirchenpatronat"
-  | "verwaltungzugehoerigkeit";
+  | "verwaltungszugehoerigkeit";
 
 export type Holder = {
   holder?: string;
@@ -20,11 +22,15 @@ export type Holder = {
   comments?: string;
 };
 
-export type HoldersGeneralized = {
-  categories?: Array<string | undefined>;
+export type IndividualDatum = { name: string; type: IndividualType };
+
+export type PerspectiveDatum = string | IndividualDatum;
+export type Perspectives = Record<Perspective, PerspectiveDatum[]>;
+
+export type RightWithPerspectives = {
   heldBy: number;
   disputedBy: number;
-};
+} & Perspectives;
 
 export type Attribute<T> = {
   attributeName: Right;
@@ -37,10 +43,10 @@ export type PlaceProperties = {
   attributes: Attribute<Holder[]>[];
 };
 
-export type PlacePropertiesGeneralized = {
+export type PlacePropertiesWithPerspectives = {
   id: string;
   placeName: string;
-  attributes: Attribute<HoldersGeneralized>[];
+  attributes: Attribute<RightWithPerspectives>[];
 };
 
 export type RightsData = FeatureCollection<Point, PlaceProperties>;

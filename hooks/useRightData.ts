@@ -1,7 +1,10 @@
 import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
 import fetcher from "@/lib/fetcher";
 import { GeneralizedApiRight } from "@/types/GeneralizedEndpoint";
-import { PlacePropertiesGeneralized, Right } from "@/types/PlaceProperties";
+import {
+  PlacePropertiesWithPerspectives,
+  Right,
+} from "@/types/PlaceProperties";
 import { FeatureCollection, Point } from "geojson";
 import { LngLatBounds } from "maplibre-gl";
 import useSWRImmutable from "swr/immutable";
@@ -24,13 +27,13 @@ export default function useRightData(
   bounds: LngLatBounds,
 ): {
   isLoading: boolean;
-  data?: FeatureCollection<Point, PlacePropertiesGeneralized>;
+  data?: FeatureCollection<Point, PlacePropertiesWithPerspectives>;
   error: boolean;
 } {
   const url = "https://api.geohistoricaldata.org/digikar/rpc/orte.geojson";
 
   const columns =
-    "attested,rights_disputed_by,rights_held_by,rightholders_categories";
+    "attested,rights_disputed_by,rights_held_by,rightholders_individuals";
   const params = `select=*,${rights.map((d) => `${d}_summary(${columns})`)}&in_sample_regions=is.true`;
   const debouncedBBox = useDebounce<LngLatBounds>(bounds, 300);
   const request = `${url}?bbox={${toBbox(debouncedBBox)}}${params ? `&${params}` : ""}`;

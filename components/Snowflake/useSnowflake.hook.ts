@@ -1,9 +1,9 @@
-import { Attribute, HoldersGeneralized } from "@/types/PlaceProperties";
+import { Attribute, RightWithPerspectives } from "@/types/PlaceProperties";
 import { getNgonPoints } from "../Ngon/Ngon.helpers";
 import getRightStatus from "@/lib/getRightStatus";
 
 const useSnowflake = (
-  placeAttributes: Attribute<HoldersGeneralized>[],
+  placeAttributes: Attribute<RightWithPerspectives>[],
   radius: number,
   circleRadius: number,
   order: string[],

@@ -1,6 +1,6 @@
 import { FC, SVGProps } from "react";
 import Ngon from "../Ngon";
-import { Attribute, HoldersGeneralized } from "../../types/PlaceProperties";
+import { Attribute, RightWithPerspectives } from "../../types/PlaceProperties";
 import { interpolateGreys, scaleSequential } from "d3";
 import Tooltip from "../Tooltip";
 import TooltipContent from "../Tooltip/TooltipContent";
@@ -14,7 +14,7 @@ type Props = {
   /**
    * Which attributes should be visualized? (uni or bivariate data with multiple expressions)
    */
-  placeAttributes: Attribute<HoldersGeneralized>[];
+  placeAttributes: Attribute<RightWithPerspectives>[];
   /**
    * How large should the radius of the Ngon be?
    */

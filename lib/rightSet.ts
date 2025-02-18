@@ -18,7 +18,7 @@ const rights = [
     label: "Landeshoheit",
   },
   {
-    relation: "verwaltungzugehoerigkeit",
+    relation: "verwaltungszugehoerigkeit",
     label: "Verwaltungszugehörigkeit",
   },
   {

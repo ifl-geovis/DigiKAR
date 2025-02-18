@@ -14,7 +14,7 @@ export type TimeRange = {
 };
 
 export type TimeRangeHandle = keyof TimeRange;
-export type Perspective = "individual" | "category" | "top_level";
+export type Perspective = "individuals" | "categories" | "topLevels";
 
 type Context = {
   rightSet: typeof rightSet;

@@ -31,9 +31,9 @@ const PerspectiveSelect = () => {
             <SelectValue placeholder="Wähle einen Eventtype" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="category">Kategorie</SelectItem>
-            <SelectItem value="individual">Rechteinhaber</SelectItem>
-            <SelectItem value="top_level">
+            <SelectItem value="categories">Kategorie</SelectItem>
+            <SelectItem value="individuals">Rechteinhaber</SelectItem>
+            <SelectItem value="topLevels">
               Übergeordneter Herrschaftsträger
             </SelectItem>
           </SelectContent>

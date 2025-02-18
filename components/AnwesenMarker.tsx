@@ -1,13 +1,20 @@
 import colorMapKursachsen from "@/lib/colorMapKursachsen";
 import getRightStatus from "@/lib/getRightStatus";
 import { mapToScale } from "@/lib/helpers";
-import { HoldersGeneralized } from "@/types/PlaceProperties";
 import { FC } from "react";
+
+type AnwesenProps = {
+  categories: string[];
+  topLevels: [];
+  individuals: [];
+  heldBy: number;
+  disputedBy: number;
+};
 
 type Props = {
   size: number;
-  gs: HoldersGeneralized;
-  ng: HoldersGeneralized;
+  gs: AnwesenProps;
+  ng: AnwesenProps;
 };
 
 const AnwesenMarker: FC<Props> = ({ size, gs, ng }) => {

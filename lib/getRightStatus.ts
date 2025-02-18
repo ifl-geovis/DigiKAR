@@ -1,6 +1,6 @@
-import { HoldersGeneralized } from "@/types/PlaceProperties";
+import { RightWithPerspectives } from "@/types/PlaceProperties";
 
-const getRightStatus = (right: HoldersGeneralized) => {
+const getRightStatus = (right: RightWithPerspectives) => {
   const isWithoutHolder = right.heldBy === 0;
   const isShared = right.heldBy > 1;
   const isDisputed = right.disputedBy > 0;

@@ -41,6 +41,8 @@ const RightEntry: FC<Props> = ({ entry }) => {
                     <span className="text-muted-foreground">-</span>
                   )}
                 </div>
+                <div>Art des Inhabers</div>
+                <div>{d.type}</div>
                 <div>Kategorie</div>
                 <div>
                   <div className="flex items-center gap-1">

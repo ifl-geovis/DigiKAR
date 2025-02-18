@@ -1,13 +1,13 @@
-import { Attribute, HoldersGeneralized } from "@/types/PlaceProperties";
+import { Attribute, RightWithPerspectives } from "@/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
 import { FC, SVGProps } from "react";
-import { useMap } from "react-map-gl/maplibre";
+import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 import { SnowflakeMemoized } from "../Snowflake";
 
 type Props = {
   placeId: string;
   placeName: string;
-  placeAttributes: Attribute<HoldersGeneralized>[];
+  placeAttributes: Attribute<RightWithPerspectives>[];
   radius: number;
   colorScale?: ScaleOrdinal<string, string, string>;
   rightOrder: string[];
@@ -23,10 +23,8 @@ const RightsMarker: FC<Props> = ({
   symbolScale,
   rightOrder,
 }) => {
-  const { current: map } = useMap();
-  return map && map.getZoom() < 10 ? (
-    <circle fill="white" stroke="black" strokeWidth={1} r="2" />
-  ) : (
+  const { isMultivariate } = useRightsExplorerContext();
+  return isMultivariate ? (
     <SnowflakeMemoized
       placeId={placeId}
       placeName={placeName}
@@ -36,6 +34,8 @@ const RightsMarker: FC<Props> = ({
       attributeOrder={rightOrder}
       symbolScale={symbolScale}
     />
+  ) : (
+    <circle fill="white" stroke="black" strokeWidth={1} r="2" />
   );
 };
 

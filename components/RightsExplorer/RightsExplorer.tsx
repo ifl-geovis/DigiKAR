@@ -49,7 +49,7 @@ const RightsExplorer: FC<Props> = ({
 
   const [isMultivariate, setIsMultivariate] = useState(true);
 
-  const [perspective, setPerspective] = useState<Perspective>("category");
+  const [perspective, setPerspective] = useState<Perspective>("categories");
 
   const [selectedLegendItem, setSelectedLegendItem] = useState<
     string | undefined

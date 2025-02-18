@@ -1,6 +1,6 @@
 import { ScaleOrdinal, scaleOrdinal, schemeTableau10 } from "d3";
 import { FC, SVGProps, memo } from "react";
-import { Attribute, HoldersGeneralized } from "../../types/PlaceProperties";
+import { Attribute, RightWithPerspectives } from "../../types/PlaceProperties";
 import RightIndicator from "../RightIndicator";
 import useSnowflake from "./useSnowflake.hook";
 
@@ -16,7 +16,7 @@ type Props = {
   /**
    * Which space-establishing attributes should be visualized? (uni or bivariate data with multiple expressions)
    */
-  placeAttributes: Attribute<HoldersGeneralized>[];
+  placeAttributes: Attribute<RightWithPerspectives>[];
   /**
    * How large should the radius of the snwoflake be?
    */
