@@ -42,7 +42,7 @@ const RightsMarkerConfig: FC = () => {
                 <DialogTrigger asChild>
                   <div>
                     <ButtonWithTooltip
-                      tooltipContent="Help"
+                      tooltipContent="Hilfe"
                       variant={"ghost"}
                       size={"icon"}
                     >

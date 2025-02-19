@@ -12,7 +12,7 @@ const ButtonWithTooltip: FC<Props> = ({ tooltipContent, ...rest }) => {
       <TooltipTrigger asChild>
         <Button {...rest} />
       </TooltipTrigger>
-      <TooltipContent className="bg-slate-700 p-2 text-xs text-white transition-opacity">
+      <TooltipContent className="bg-primary p-2 text-xs text-white transition-opacity">
         {tooltipContent}
       </TooltipContent>
     </Tooltip>
