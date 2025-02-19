@@ -14,6 +14,8 @@ import RightsMarker from "./RightsMarker";
 const SnowFlakeLayer: FC = () => {
   const {
     order,
+    isMultivariate,
+    univariateRight,
     timeRange,
     colorScales,
     symbolMap,
@@ -31,7 +33,11 @@ const SnowFlakeLayer: FC = () => {
     data: transformedData,
     isLoading,
     error,
-  } = useRightData(order, timeRange, bounds);
+  } = useRightData(
+    isMultivariate ? order : [univariateRight],
+    timeRange,
+    bounds,
+  );
 
   useEffect(() => {
     setDataState({ isLoading, error });

@@ -11,9 +11,20 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { FC } from "react";
 import { RxMixerVertical, RxQuestionMark } from "react-icons/rx";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
+import { Label } from "../ui/label";
+import { Right } from "@/types/PlaceProperties";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { rights } from "@/lib/rightSet";
 
 const RightsMarkerConfig: FC = () => {
-  const { isMultivariate } = useRightsExplorerContext();
+  const { isMultivariate, univariateRight, setUnivariateRight } =
+    useRightsExplorerContext();
   return (
     <Card>
       <div>
@@ -58,7 +69,22 @@ const RightsMarkerConfig: FC = () => {
       )}
       {!isMultivariate && (
         <div>
-          <p>Welches Recht möchtest du in der Karte darstellen?</p>
+          <Label>Angezeigtes Recht</Label>
+          <Select
+            defaultValue={univariateRight}
+            onValueChange={(value) => setUnivariateRight(value as Right)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Wähle ein Recht" />
+            </SelectTrigger>
+            <SelectContent>
+              {rights.map(({ label, relation }) => (
+                <SelectItem key={relation} value={relation}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       )}
     </Card>

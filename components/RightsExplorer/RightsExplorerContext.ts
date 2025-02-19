@@ -20,6 +20,8 @@ type Context = {
   rightSet: typeof rightSet;
   isMultivariate: boolean;
   setIsMultivariate: (isMultivariate: boolean) => void;
+  univariateRight: Right;
+  setUnivariateRight: (right: Right) => void;
   perspective: Perspective;
   setPerspective: (perspective: Perspective) => void;
   availableLayers?: Layer[];

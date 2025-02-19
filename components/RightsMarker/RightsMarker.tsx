@@ -1,6 +1,7 @@
 import { Attribute, RightWithPerspectives } from "@/types/PlaceProperties";
-import { ScaleOrdinal } from "d3";
+import { scaleOrdinal, ScaleOrdinal, schemeTableau10 } from "d3";
 import { FC, SVGProps } from "react";
+import RightIndicator from "../RightIndicator";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 import { SnowflakeMemoized } from "../Snowflake";
 
@@ -23,7 +24,10 @@ const RightsMarker: FC<Props> = ({
   symbolScale,
   rightOrder,
 }) => {
-  const { isMultivariate } = useRightsExplorerContext();
+  const { isMultivariate, univariateRight } = useRightsExplorerContext();
+  const univariateAttribute = placeAttributes.find(
+    (d) => d.attributeName === univariateRight,
+  );
   return isMultivariate ? (
     <SnowflakeMemoized
       placeId={placeId}
@@ -35,7 +39,20 @@ const RightsMarker: FC<Props> = ({
       symbolScale={symbolScale}
     />
   ) : (
-    <circle fill="white" stroke="black" strokeWidth={1} r="2" />
+    univariateAttribute && (
+      <RightIndicator
+        colorScale={
+          colorScale ??
+          scaleOrdinal<string, string, string>().range(schemeTableau10)
+        }
+        x={0}
+        y={0}
+        circleRadius={6}
+        placeName={placeName}
+        placeId={placeId}
+        attribute={univariateAttribute}
+      />
+    )
   );
 };
 

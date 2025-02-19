@@ -1,6 +1,6 @@
 "use client";
 
-import { rightSet } from "@/lib/rightSet";
+import { rights, rightSet } from "@/lib/rightSet";
 import { Bbox } from "@/types/Bbox";
 import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
@@ -47,6 +47,8 @@ const RightsExplorer: FC<Props> = ({
     initialOrder ?? [...attributes.keys()].map((relation) => relation),
   );
 
+  const [univariateRight, setUnivariateRight] = useState(rights[2].relation);
+
   const [isMultivariate, setIsMultivariate] = useState(true);
 
   const [perspective, setPerspective] = useState<Perspective>("categories");
@@ -91,6 +93,7 @@ const RightsExplorer: FC<Props> = ({
         rightSet,
         selectedLegendItem,
         symbolMap,
+        univariateRight,
         timeRange,
         tooltipInfo,
         setDataState,
@@ -101,6 +104,7 @@ const RightsExplorer: FC<Props> = ({
         setSelectedLegendItem,
         setSymbolMap,
         setTimeRange,
+        setUnivariateRight,
         setTooltipInfo,
       }}
     >
