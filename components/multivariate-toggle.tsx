@@ -2,9 +2,16 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { range } from "d3";
 import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
+import { useMapStateContext } from "./MapState/MapStateContext";
+import { RxExclamationTriangle } from "react-icons/rx";
+import Tooltip from "./Tooltip";
+import TooltipTrigger from "./Tooltip/TooltipTrigger";
+import TooltipContent from "./Tooltip/TooltipContent";
 
 const MultivariatToggle = () => {
   const { isMultivariate, setIsMultivariate } = useRightsExplorerContext();
+  const { viewState } = useMapStateContext();
+
   const rays = 5;
   return (
     <div className="mb-2 flex items-center gap-3">
@@ -30,6 +37,18 @@ const MultivariatToggle = () => {
         </svg>
         <Label>Multivariat</Label>
       </div>
+      {viewState.zoom < 10 && isMultivariate && (
+        <Tooltip>
+          <TooltipTrigger>
+            <div className="rounded-full bg-yellow-300 p-1">
+              <RxExclamationTriangle className="text-yellow-800" />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent className="bg-primary text-sm text-white">
+            In geringen Zoomstufe ist die Univariante Ansicht empfohlen.
+          </TooltipContent>
+        </Tooltip>
+      )}
     </div>
   );
 };
