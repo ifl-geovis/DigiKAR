@@ -5,18 +5,27 @@ import MapContainer from "@/components/MapContainer";
 import MapTitle from "@/components/MapTitle";
 import MapViewLayout from "@/components/MapViewLayout";
 import RightsExplorer from "@/components/RightsExplorer";
+import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
 import RightsMap from "@/components/RightsMap";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig";
 import SearchBar from "@/components/SearchBar";
 import Timeline from "@/components/Timeline";
 import PerspectiveSelect from "@/components/perspective-select";
 import RightDetails from "@/components/right-details";
-import colorMapKursachsen from "@/lib/colorMapKursachsen";
+import colorMapCategories from "@/lib/colorMapCategories";
+import { getIndividualsDomain, getTopLevelDomain } from "@/lib/getDomains";
 import { getMapStyle } from "@/lib/getMapStyle";
 import { rightSet } from "@/lib/rightSet";
 
-export default async function Wp2() {
+export default async function Rights() {
   const style = await getMapStyle();
+  const colorMapTopLevels = await getTopLevelDomain();
+  const colorMapIndividuals = await getIndividualsDomain();
+  const colorMaps = new Map<Perspective, Map<string, string>>([
+    ["categories", colorMapCategories],
+    ["topLevels", colorMapTopLevels],
+    ["individuals", colorMapIndividuals],
+  ]);
   const symbolMap = new Map();
 
   return (
@@ -29,9 +38,9 @@ export default async function Wp2() {
         "grundherrschaft",
         "landeshoheit",
       ]}
+      colorMaps={colorMaps}
       initialTimeRange={{ t: 1750, min: 1750 - 25, max: 1750 + 25 }}
       initialSymbolMap={symbolMap}
-      colorMap={colorMapKursachsen}
       availableLayers={[{ name: "Meilenblätter Berlin", visible: false }]}
     >
       <MapViewLayout>

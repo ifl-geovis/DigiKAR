@@ -6,7 +6,7 @@ import MapContainer from "@/components/MapContainer";
 import MapState from "@/components/MapState";
 import MapTitle from "@/components/MapTitle";
 import MapViewLayout from "@/components/MapViewLayout";
-import colorMapKursachsen from "@/lib/colorMapKursachsen";
+import colorMapCategories from "@/lib/colorMapCategories";
 import { getAnwesen } from "@/lib/getAnwesen";
 import { getMapStyle } from "@/lib/getMapStyle";
 import { mapToScale } from "@/lib/helpers";
@@ -23,7 +23,7 @@ const bbox = [
 export default async function Anwesen() {
   const anwesen = await getAnwesen();
   const mapStyle = await getMapStyle();
-  const colorScale = mapToScale(colorMapKursachsen, "lightgrey");
+  const colorScale = mapToScale(colorMapCategories, "lightgrey");
 
   return (
     <MapViewLayout>

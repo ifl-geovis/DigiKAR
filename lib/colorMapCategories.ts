@@ -1,4 +1,4 @@
-const colorMapKursachsen = new Map([
+const colorMapCategories = new Map([
   ["geistliche Kurfürsten", "#4e0065"],
   ["geistliche Fürsten und Prälate", "#8a3fa3"],
   ["andere geistliche Reichsstände", "#c977e6"],
@@ -14,4 +14,4 @@ const colorMapKursachsen = new Map([
   ["Andere", "#b2b2b2"],
 ]);
 
-export default colorMapKursachsen;
+export default colorMapCategories;

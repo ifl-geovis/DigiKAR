@@ -9,8 +9,13 @@ import UnclearIcon from "/public/icons/unclear.svg";
 
 const LegendNominal = () => {
   const { viewState } = useMapStateContext();
-  const { colorScale, setSelectedLegendItem, selectedLegendItem } =
-    useRightsExplorerContext();
+  const {
+    colorScales,
+    perspective,
+    setSelectedLegendItem,
+    selectedLegendItem,
+  } = useRightsExplorerContext();
+  const colorScale = colorScales.get(perspective)!;
   const specialCategories = [
     { label: "geteilt", Icon: SharedIcon },
     { label: "strittig", Icon: DisputedIcon },

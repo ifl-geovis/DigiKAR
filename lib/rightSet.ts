@@ -1,6 +1,6 @@
 import { Right } from "@/types/PlaceProperties";
 
-const rights = [
+export const rights = [
   {
     relation: "hochgericht",
     label: "Hochgericht",

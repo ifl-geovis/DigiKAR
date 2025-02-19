@@ -1,4 +1,4 @@
-import colorMapKursachsen from "@/lib/colorMapKursachsen";
+import colorMapCategories from "@/lib/colorMapCategories";
 import getRightStatus from "@/lib/getRightStatus";
 import { mapToScale } from "@/lib/helpers";
 import { FC } from "react";
@@ -18,7 +18,7 @@ type Props = {
 };
 
 const AnwesenMarker: FC<Props> = ({ size, gs, ng }) => {
-  const colorScale = mapToScale(colorMapKursachsen, "lightgrey");
+  const colorScale = mapToScale(colorMapCategories, "lightgrey");
 
   const radius = size / 2 - 2;
   const { isDisputed } = getRightStatus(gs);

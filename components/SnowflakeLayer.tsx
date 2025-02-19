@@ -5,12 +5,21 @@ import { mapToScale } from "@/lib/helpers";
 import { FC, useCallback, useEffect } from "react";
 import { Marker } from "react-map-gl/maplibre";
 import { useMapStateContext } from "./MapState/MapStateContext";
-import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
+import {
+  Perspective,
+  useRightsExplorerContext,
+} from "./RightsExplorer/RightsExplorerContext";
 import RightsMarker from "./RightsMarker";
 
 const SnowFlakeLayer: FC = () => {
-  const { order, timeRange, colorScale, symbolMap, setDataState } =
-    useRightsExplorerContext();
+  const {
+    order,
+    timeRange,
+    colorScales,
+    symbolMap,
+    perspective,
+    setDataState,
+  } = useRightsExplorerContext();
   const { bounds } = useMapStateContext();
 
   const symbolScale = useCallback(
@@ -47,7 +56,9 @@ const SnowFlakeLayer: FC = () => {
                   placeAttributes={d.properties?.attributes}
                   radius={radius}
                   symbolScale={symbolScale()}
-                  colorScale={colorScale}
+                  colorScale={colorScales.get(
+                    perspective satisfies Perspective,
+                  )}
                   rightOrder={order}
                 />
               </g>

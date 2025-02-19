@@ -1,6 +1,5 @@
 "use client";
 
-import { mapToScale } from "@/lib/helpers";
 import { rightSet } from "@/lib/rightSet";
 import { Bbox } from "@/types/Bbox";
 import { DetailInfo } from "@/types/DetailInfo";
@@ -17,15 +16,16 @@ import {
   TimeRange,
 } from "./RightsExplorerContext";
 import { Right } from "@/types/PlaceProperties";
+import { mapToScale } from "@/lib/helpers";
 
 type Props = PropsWithChildren<{
   initialBbox: Bbox;
   attributes: typeof rightSet;
   initialSymbolMap: Map<string, string>;
   initialOrder?: Right[];
-  colorMap: Map<string, string>;
   availableLayers?: Layer[];
   initialTimeRange: TimeRange;
+  colorMaps: Map<Perspective, Map<string, string>>;
 }>;
 
 export type DataState = {
@@ -40,8 +40,8 @@ const RightsExplorer: FC<Props> = ({
   initialOrder,
   initialSymbolMap,
   children,
-  colorMap,
   availableLayers,
+  colorMaps,
 }) => {
   const [order, setOrder] = useState(
     initialOrder ?? [...attributes.keys()].map((relation) => relation),
@@ -56,7 +56,15 @@ const RightsExplorer: FC<Props> = ({
   >(undefined);
   const [symbolMap, setSymbolMap] = useState(initialSymbolMap);
 
-  const initialColorScale = mapToScale(colorMap, "lightgrey");
+  const colorScales: Map<
+    Perspective,
+    ScaleOrdinal<string, string, string>
+  > = new Map(
+    [...colorMaps.entries()].map(([key, value]) => [
+      key,
+      mapToScale(value, "lightgrey"),
+    ]),
+  );
 
   const [detailInfo, setDetailInfo] = useState<DetailInfo | undefined>(
     undefined,
@@ -70,15 +78,11 @@ const RightsExplorer: FC<Props> = ({
 
   const [timeRange, setTimeRange] = useState<TimeRange>(initialTimeRange);
 
-  const [colorScale, setColorScale] = useState<
-    ScaleOrdinal<string, string, string>
-  >(() => initialColorScale);
-
   return (
     <RightsExplorerContext.Provider
       value={{
         availableLayers,
-        colorScale: colorScale,
+        colorScales,
         dataState,
         detailInfo,
         isMultivariate,
@@ -89,7 +93,6 @@ const RightsExplorer: FC<Props> = ({
         symbolMap,
         timeRange,
         tooltipInfo,
-        setColorScale,
         setDataState,
         setDetailInfo,
         setIsMultivariate,

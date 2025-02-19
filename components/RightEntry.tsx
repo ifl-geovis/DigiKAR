@@ -10,7 +10,8 @@ type Props = {
 
 const RightEntry: FC<Props> = ({ entry }) => {
   const { attested_raw, rightholders } = entry;
-  const { colorScale } = useRightsExplorerContext();
+  const { colorScales } = useRightsExplorerContext();
+  const colorScale = colorScales.get("categories")!;
   return (
     <div className="space-y-2 overflow-y-scroll">
       <div>
