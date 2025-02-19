@@ -2,13 +2,11 @@
 
 import { twJoin } from "tailwind-merge";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
-import { useMapStateContext } from "../MapState/MapStateContext";
 import DisputedIcon from "/public/icons/disputed.svg";
 import SharedIcon from "/public/icons/shared.svg";
 import UnclearIcon from "/public/icons/unclear.svg";
 
 const LegendNominal = () => {
-  const { viewState } = useMapStateContext();
   const {
     colorScales,
     perspective,
@@ -21,12 +19,6 @@ const LegendNominal = () => {
     { label: "strittig", Icon: DisputedIcon },
     { label: "unklar", Icon: UnclearIcon, background: "lightgrey" },
   ];
-  if (viewState.zoom < 10)
-    return (
-      <p className="italic text-muted-foreground">
-        Die Legende ist nur in größeren Zoomstufen sichtbar.
-      </p>
-    );
   return (
     <>
       <ol className="flex flex-col gap-2">
