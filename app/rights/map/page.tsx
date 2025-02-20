@@ -60,7 +60,7 @@ export default async function Rights() {
         <MapContainer>
           <RightsMap mapStyle={style} />
         </MapContainer>
-        <div className="z-10 p-2 grid-in-[bottom-nav]">
+        <div className="z-10 p-2 [grid-area:_bottom-nav]">
           <Timeline />
         </div>
       </MapViewLayout>

@@ -60,8 +60,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("@savvywombat/tailwindcss-grid-areas"),
-  ],
+  plugins: [require("tailwindcss-animate")],
 };
