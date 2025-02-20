@@ -62,7 +62,7 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
       onMoveEnd={handleMoveEnd}
     >
       <NavigationControl />
-      <ScaleControl position="bottom-right" />
+      <ScaleControl />
       <div className="z-1 absolute right-[50px] mt-[10px] flex items-center gap-2">
         <DataStateIndicator />
         <MapDebugger />
