@@ -31,7 +31,7 @@ const RightIndicator: FC = () => {
             return (
               <div
                 className={twJoin(
-                  `my-1 flex items-center justify-between rounded p-1 px-2 shadow`,
+                  `my-1 flex items-center justify-between rounded p-1 px-2 shadow-sm`,
                   !isVisualized && "text-gray-400",
                 )}
                 key={relation}

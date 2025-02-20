@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={
-          inter.className + " grid h-dvh w-dvw grid-rows-[auto,_1fr,_auto]"
+          inter.className + " grid h-dvh w-dvw grid-rows-[auto__1fr__auto]"
         }
       >
         <Navigation />

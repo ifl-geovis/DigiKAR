@@ -24,7 +24,7 @@ const TooltipContent = forwardRef<
           }}
           {...context.getFloatingProps(props)}
           className={cn(
-            "z-[1000] rounded-sm bg-white p-4 shadow-lg",
+            "z-1000 rounded-sm bg-white p-4 shadow-lg",
             props.className,
           )}
         />
