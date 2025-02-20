@@ -1,26 +1,29 @@
 "use client";
 
 import { Layer } from "@/types/Layer";
-import { LngLatBounds } from "maplibre-gl";
+import { LngLat, LngLatBounds } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, PropsWithChildren, useState } from "react";
 import { MapProvider, ViewState } from "react-map-gl/maplibre";
 import { MapStateContext } from "./MapStateContext";
-import { Bbox } from "@/types/Bbox";
 
 type Props = PropsWithChildren<{
-  initialBbox: Bbox;
+  initialCenter: { longitude: number; latitude: number };
   availableLayers?: Layer[];
   initialZoom?: number;
 }>;
 
 const MapState: FC<Props> = ({
-  initialBbox,
+  initialCenter,
   initialZoom,
   availableLayers,
   children,
 }) => {
-  const initialBounds = new LngLatBounds(initialBbox);
+  const { longitude, latitude } = initialCenter;
+  const margin = 0.75;
+  const sw = new LngLat(longitude - margin, latitude - margin);
+  const ne = new LngLat(longitude + margin, latitude + margin);
+  const initialBounds = new LngLatBounds(sw, ne);
   const [viewState, setViewState] = useState<ViewState>({
     longitude: initialBounds.getCenter().lng,
     latitude: initialBounds.getCenter().lat,

@@ -29,7 +29,7 @@ export default async function Rights() {
 
   return (
     <RightsExplorer
-      initialBbox={[13.25 - 0.5, 51.125 - 0.2, 13.25 + 0.5, 51.125 + 0.2]}
+      initialViewState={{ longitude: 13.73, latitude: 51.05, zoom: 10 }}
       attributes={rightSet}
       initialOrder={[
         "hochgericht",

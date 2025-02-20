@@ -1,7 +1,6 @@
 "use client";
 
 import { rights, rightSet } from "@/lib/rightSet";
-import { Bbox } from "@/types/Bbox";
 import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
 import { TooltipInfo } from "@/types/TooltipInfo";
@@ -19,7 +18,7 @@ import { Right } from "@/types/PlaceProperties";
 import { mapToScale } from "@/lib/helpers";
 
 type Props = PropsWithChildren<{
-  initialBbox: Bbox;
+  initialViewState: { longitude: number; latitude: number; zoom: number };
   attributes: typeof rightSet;
   initialSymbolMap: Map<string, string>;
   initialOrder?: Right[];
@@ -36,7 +35,7 @@ export type DataState = {
 const RightsExplorer: FC<Props> = ({
   initialTimeRange,
   attributes,
-  initialBbox,
+  initialViewState,
   initialOrder,
   initialSymbolMap,
   children,
@@ -108,7 +107,14 @@ const RightsExplorer: FC<Props> = ({
         setTooltipInfo,
       }}
     >
-      <MapState availableLayers={availableLayers} initialBbox={initialBbox}>
+      <MapState
+        availableLayers={availableLayers}
+        initialCenter={{
+          longitude: initialViewState.longitude,
+          latitude: initialViewState.latitude,
+        }}
+        initialZoom={initialViewState.zoom}
+      >
         <MapProvider>{children}</MapProvider>
       </MapState>
     </RightsExplorerContext.Provider>

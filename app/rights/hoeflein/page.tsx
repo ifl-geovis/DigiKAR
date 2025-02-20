@@ -10,15 +10,8 @@ import colorMapCategories from "@/lib/colorMapCategories";
 import { getAnwesen } from "@/lib/getAnwesen";
 import { getMapStyle } from "@/lib/getMapStyle";
 import { mapToScale } from "@/lib/helpers";
-import { Bbox } from "@/types/Bbox";
 
 const center = { lng: 14.215, lat: 51.25 };
-const bbox = [
-  center.lng - 0.5,
-  center.lat - 0.5,
-  center.lng + 0.5,
-  center.lat + 0.5,
-] satisfies Bbox;
 
 export default async function Anwesen() {
   const anwesen = await getAnwesen();
@@ -78,7 +71,7 @@ export default async function Anwesen() {
       <MapContainer>
         <MapState
           initialZoom={14}
-          initialBbox={bbox}
+          initialCenter={{ longitude: center.lng, latitude: center.lat }}
           availableLayers={[{ name: "Meilenblätter Berlin", visible: false }]}
         >
           <AnwesenMap mapStyle={mapStyle} data={anwesen} />
