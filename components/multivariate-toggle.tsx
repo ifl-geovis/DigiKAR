@@ -16,7 +16,7 @@ const MultivariatToggle = () => {
   return (
     <div className="mb-2 flex items-center gap-3">
       <div className="flex items-center gap-1">
-        <Label>Univariat</Label>
+        <Label>Einzelrecht</Label>
         <svg width={10} height={10}>
           <circle className="fill-slate-500" cx={5} cy={5} r={1} />
           <circle className="fill-none stroke-slate-500" cx={5} cy={5} r={4} />
@@ -35,7 +35,7 @@ const MultivariatToggle = () => {
             </g>
           ))}
         </svg>
-        <Label>Multivariat</Label>
+        <Label>Kombination</Label>
       </div>
       {viewState.zoom < 10 && isMultivariate && (
         <Tooltip>

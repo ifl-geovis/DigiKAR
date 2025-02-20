@@ -12,7 +12,7 @@ const RightHelpSybol: FC = () => {
       <DialogHeader>
         <DialogTitle>Wie lese ich dieses Symbol?</DialogTitle>
         <DialogDescription>
-          The Verteilung der Rechte im Heiligen Römischen Reich war komplex. Wir
+          Die Verteilung der Rechte im Heiligen Römischen Reich war komplex. Wir
           haben ein Symbol erstellt, um diese komplexen Daten effektiv zu
           visualisieren. Hier erklären wir wie es funktioniert.
         </DialogDescription>

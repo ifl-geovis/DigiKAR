@@ -21,21 +21,19 @@ const PerspectiveSelect = () => {
   const { setPerspective, perspective } = useRightsExplorerContext();
   return (
     <div>
-      <Label>Perspektive</Label>
+      <Label>Herrschaftsträger</Label>
       <div className="flex gap-2">
         <Select
           defaultValue={perspective}
           onValueChange={(value: Perspective) => setPerspective(value)}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Wähle einen Eventtype" />
+            <SelectValue placeholder="Wähle ein Art von Herrschaftsträgern" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="categories">Kategorie</SelectItem>
-            <SelectItem value="individuals">Rechteinhaber</SelectItem>
-            <SelectItem value="topLevels">
-              Übergeordneter Herrschaftsträger
-            </SelectItem>
+            <SelectItem value="categories">kategorisiert</SelectItem>
+            <SelectItem value="individuals">normalisiert</SelectItem>
+            <SelectItem value="topLevels">übergeordnet</SelectItem>
           </SelectContent>
         </Select>
         <Dialog>
