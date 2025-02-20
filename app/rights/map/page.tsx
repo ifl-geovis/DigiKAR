@@ -8,7 +8,6 @@ import RightsExplorer from "@/components/RightsExplorer";
 import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
 import RightsMap from "@/components/RightsMap";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig";
-import SearchBar from "@/components/SearchBar";
 import Timeline from "@/components/Timeline";
 import PerspectiveSelect from "@/components/perspective-select";
 import RightDetails from "@/components/right-details";
@@ -48,7 +47,6 @@ export default async function Rights() {
           <Card>
             <MapTitle>Rechteverteilung</MapTitle>
           </Card>
-          <SearchBar />
           <Card>
             <PerspectiveSelect />
           </Card>
