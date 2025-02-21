@@ -1,7 +1,6 @@
 import { FC } from "react";
 import {
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -11,29 +10,40 @@ const RightHelpSybol: FC = () => {
     <DialogContent>
       <DialogHeader>
         <DialogTitle>
-          Was bedeutet <em>Perspektive</em>?
+          Was bedeutet <em>Herrschaftsträger</em>?
         </DialogTitle>
-        <DialogDescription>
-          The Verteilung der Rechte im Heiligen Römischen Reich war komplex. Es
-          ist daher hilfreich aus unterschiedlichen Perspektiven auf die
-          Rechteinhaber zu blicken.
-        </DialogDescription>
       </DialogHeader>
-      <div className="[&_h2]:mt-5 [&_h2]:text-base [&_h2]:font-bold">
-        <h2>Unterschiedliche Perspektiven auf Rechteinhaber </h2>
+      <div className="space-y-2 [&_h2]:mt-5 [&_h2]:text-base [&_h2]:font-bold">
         <p>
-          Die Karte bietet daher die Möglichkeit je Recht (z. B. Niedergericht)
-          den
+          Unter Herrschaftsträgern werden Körperschaften (z.B. ein fürstliches
+          Amt oder ein Rittergut) bzw. Personen (z.B. ein Rittergutsbesitzer)
+          verstanden, die ein bestimmtes Herrschaftsrecht ausübten.
         </p>
-        <ol className="list-inside list-disc">
-          <li>konkreten Rechteinhaber</li>
-          <li>eine zugeordnete Kategorie</li>
-          <li>den übergeordneten Herrschaftsträger</li>
-        </ol>
-        <p>anzeigen zu lassen.</p>
         <p>
-          Der konkrete Rechteinhaber kann dabei entweder eine Körperschaft oder
-          eine Person sein. Die Kategorien lehnen sich an übliche Kategorien an.
+          Das Menü erlaubt, zwischen verschiedenen Klassifikationen auszuwählen:
+        </p>
+        <ol className="my-3 list-inside list-disc">
+          <li>
+            <strong>kategorisiert</strong> – die Herrschaftsträger sind nach
+            Kategorien (z.B. weltliche Kurfürsten, Reichsritterschaft) geordnet,
+          </li>
+          <li>
+            <strong>normalisiert</strong> – die Herrschaftsträger werden
+            einzeln, aber mit normalisierten Bezeichnungen angezeigt
+            (unterschiedliche Schreibweisen in den Quellen z.B. werden nicht
+            berücksichtigt),
+          </li>
+          <li>
+            <strong>übergeordnet</strong> – die Herrschaftsträger sind einer
+            übergeordneten Herrschaftseinheit zugeordnet, die i.d.R. die
+            Landesherrschaft ausübt.
+          </li>
+        </ol>
+        <p>
+          Jede Klassifikation entspricht einer eigenen Legende. Die konkreten
+          Inhaber der einzelnen Herrschaftsrechte (inklusive der konkreten
+          Angabe in den Quellen) sind in der Legende aufgeführt, die sich beim
+          Klick auf jeden einzelnen Punkt öffnet.
         </p>
       </div>
     </DialogContent>

@@ -1,4 +1,5 @@
 import VideoLink from "@/components/VideoLink";
+import { RxGlobe, RxLayers, RxQuestionMark } from "react-icons/rx";
 
 export default function Wp2() {
   return (
@@ -311,14 +312,18 @@ export default function Wp2() {
           sich eine Karte, zentriert auf Dresden, die Residenz des
           Kurfürstentums Sachsen. Die Zoomstufe ist auf den Wert <code>10</code>{" "}
           eingestellt (rechts oben neben dem Weltkugel-Symbol), was ganz grob
-          einem Maßstab 1:250.000 nahekommt. Der Zeitschieber am unteren
+          einem Maßstab 1:250.000 entspricht. Der Zeitschieber am unteren
           Bildrand ist automatisch eingestellt auf das Stichjahr 1750, mit einer
           Toleranz von +/- 25 Jahren, die Legende auf der linken Seite ist
           geschlossen. Sie können sich in der Karte bewegen, um zu den anderen
           Beispielregionen zu gelangen, zoomen, die drei Zeitregler verstellen,
-          die Legende öffnen und schließen und das Symbol für die Anzeige der
-          einzelnen Rechte verändern. Zudem können Sie weitere Kartenlayer
-          einblenden, wenn Sie oben rechts auf das Ebenensymbol klicken. Sie
+          die Legende öffnen und schließen, verschiedene Klassifikationen der
+          Herrschaftsträger wählen und das Symbol für die Anzeige der einzelnen
+          Rechte verändern. Beim Klick auf{" "}
+          <RxQuestionMark className="inline align-baseline text-xs" /> erhalten
+          Sie detailliertere Erläuterungen. Zudem können Sie weitere Kartenlayer
+          einblenden, wenn Sie oben rechts auf das Ebenensymbol (
+          <RxLayers className="inline align-baseline text-xs" />) klicken. Sie
           haben dort die Möglichkeit, die kursächsischen Meilenblätter
           anzuzeigen (Berliner Exemplar), eine topographische Landesaufnahme aus
           den Jahren 1780–1825 (weitere Informationen dazu finden Sie{" "}
@@ -355,14 +360,17 @@ export default function Wp2() {
           Die sich öffnende Karte ist auf Höflein zentriert, ein Dorf in der
           Oberlausitz, für das eine Kartierung einiger Herrschaftsrechte auf
           Anwesenebene vorliegt. Die voreingestellte Zoomstufe 14 (oben rechts
-          neben dem Weltkugelsymbol) entspricht ungefähr einem Maßstab 1:15.000.
-          Die Legende auf der linken Seite ist geschlossen. Sie können sich in
-          der Karte bewegen, hineinzoomen, die Legende öffnen und schließen
-          sowie weitere Kartenlayer einblenden (oben rechts auf das Ebenensymbol
-          klicken). Sie haben dort die Möglichkeit, den entsprechenden
-          Ausschnitt der kursächsischen Meilenblätter anzuzeigen (Berliner
-          Exemplar, Blatt 289), eine topographische Landesaufnahme aus den
-          Jahren 1780–1825 (weitere Informationen dazu finden Sie{" "}
+          neben dem Weltkugelsymbol{" "}
+          <RxGlobe className="inline align-baseline text-xs" />) entspricht
+          ungefähr einem Maßstab 1:15.000. Die Legende auf der linken Seite ist
+          geschlossen. Sie können sich in der Karte bewegen, hineinzoomen, die
+          Legende öffnen und schließen sowie weitere Kartenlayer einblenden
+          (oben rechts auf das Ebenensymbol{" "}
+          <RxLayers className="inline align-baseline text-xs" /> klicken). Sie
+          haben dort die Möglichkeit, den entsprechenden Ausschnitt der
+          kursächsischen Meilenblätter anzuzeigen (Berliner Exemplar, Blatt
+          289), eine topographische Landesaufnahme aus den Jahren 1780–1825
+          (weitere Informationen dazu finden Sie{" "}
           <a
             className="underline"
             href="https://de.wikipedia.org/wiki/Meilenbl%C3%A4tter_von_Sachsen"
