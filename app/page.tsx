@@ -1,3 +1,5 @@
+import PartnersGrid from "@/components/partners-grid";
+
 export default function Home() {
   return (
     <article className="mx-auto my-5 max-w-prose px-4 md:px-0 [&_>_p]:mb-3">
@@ -151,31 +153,40 @@ export default function Home() {
         2021–2024 im Rahmen des Programms „Leibniz-Kooperative Exzellenz“ von
         der Leibniz-Gemeinschaft gefördert.
       </p>
-      <div className="cols-3 my-10 grid grid-cols-2 gap-5 md:grid-cols-3">
-        {[
-          { image: "wgl.png", href: "https://www.leibniz-gemeinschaft.de/" },
-          { image: "ehess.svg", href: "https://www.ehess.fr/fr" },
-          { image: "jgu.png", href: "https://www.uni-mainz.de/" },
-          { image: "ios.svg", href: "https://leibniz-ios.de/" },
-          { image: "ieg.svg", href: "https://www.ieg-mainz.de/" },
-          { image: "ifl.svg", href: "https://leibniz-ifl.de/" },
-        ].map((partner, idx) => (
-          <a
-            href="partner.href"
-            key={idx}
-            className="flex items-center rounded-sm bg-gray-50 p-4 transition-colors hover:bg-gray-200"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="max-h-28 object-contain"
-              alt="Logo"
-              src={`/logos/${partner.image}`}
-              width={200}
-              height={200}
-            />
-          </a>
-        ))}
-      </div>
+      <PartnersGrid
+        partners={[
+          {
+            name: "Leibniz Gemeinschaft",
+            image: "wgl.png",
+            href: "https://www.leibniz-gemeinschaft.de/",
+          },
+          {
+            name: "EHESS",
+            image: "ehess.svg",
+            href: "https://www.ehess.fr/fr",
+          },
+          {
+            name: "Johannes Gutenberg Universität Mainz",
+            image: "jgu.png",
+            href: "https://www.uni-mainz.de/",
+          },
+          {
+            name: "Leibniz Institut für Ost= und Südost-Europaforschung",
+            image: "ios.svg",
+            href: "https://leibniz-ios.de/",
+          },
+          {
+            name: "Leibniz-Institut für Europäische Geschichte",
+            image: "ieg.svg",
+            href: "https://www.ieg-mainz.de/",
+          },
+          {
+            name: "Leibniz Institut für Länderkunde",
+            image: "ifl.svg",
+            href: "https://leibniz-ifl.de/",
+          },
+        ]}
+      />
     </article>
   );
 }
