@@ -1,3 +1,4 @@
+import PartnersGrid from "@/components/partners-grid";
 import VideoLink from "@/components/VideoLink";
 import { RxGlobe, RxLayers, RxQuestionMark } from "react-icons/rx";
 
@@ -115,6 +116,16 @@ export default function Wp2() {
           dem Institut franco-allemand de sciences historiques et sociales
           IFRA-SHS in Frankfurt/M.
         </p>
+        <PartnersGrid
+          partners={[
+            { name: "ISGV", image: "isgv.svg", href: "https://www.isgv.de/" },
+            {
+              name: "Institut Franco-Allemand",
+              image: "ifra.svg",
+              href: "https://ifra-francfort.fr/de",
+            },
+          ]}
+        />
         <h3 className="mt-10">Glossar</h3>
         <p>
           Aus arbeitsökonomischen Gründen ist die Zahl der Herrschaftsrechte,
