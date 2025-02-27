@@ -124,6 +124,11 @@ export default function Wp2() {
               image: "ifra.svg",
               href: "https://ifra-francfort.fr/de",
             },
+            {
+              name: "Kommission für bayerische Landesgeschichte bei der Bayerischen Akademie der Wissenschaften",
+              image: "kblg.svg",
+              href: "https://kblg.badw.de/",
+            },
           ]}
         />
         <h3 className="mt-10">Glossar</h3>
