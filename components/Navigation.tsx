@@ -10,7 +10,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { usePathname } from "next/navigation";
 
@@ -136,18 +135,6 @@ const Navigation = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
           ))}
-          <NavigationMenuItem>
-            <Link href="" legacyBehavior passHref aria-disabled>
-              <NavigationMenuLink
-                className={cn(
-                  "cursor-not-allowed opacity-50",
-                  navigationMenuTriggerStyle(),
-                )}
-              >
-                Storybook
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
     </div>
