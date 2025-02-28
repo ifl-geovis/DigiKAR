@@ -203,7 +203,7 @@ export default function Wp3() {
           enthält die Karte “Biographien”, deren Funktionen in folgendem Video
           verdeutlicht werden:
         </p>
-        <VideoLink />
+        <VideoLink label="Tutorial Mobilität" id="1057455464" />
       </div>
     </article>
   );

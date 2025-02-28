@@ -1,7 +1,24 @@
-const VideoLink = () => (
-  <div className="my-3 block size-fit rounded-sm bg-gray-200 px-4 py-2 text-gray-400">
-    Link zum Video
-  </div>
+import { FC } from "react";
+import { RiVimeoFill } from "react-icons/ri";
+import { Button } from "./ui/button";
+
+type Props = {
+  label: string;
+  id: string;
+};
+
+const VideoLink: FC<Props> = ({ id, label }) => (
+  <a
+    className="mt-1 mb-4 block"
+    href={`https://vimeo.com/${id}`}
+    target="_blank"
+    rel="noreferrer"
+  >
+    <Button size={"sm"}>
+      <RiVimeoFill className="mr-1" />
+      {label}
+    </Button>
+  </a>
 );
 
 export default VideoLink;

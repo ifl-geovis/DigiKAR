@@ -356,14 +356,15 @@ export default function Wp2() {
           <li>
             Karte aufrufen, Bewegung in der Karte, Zoomen, Anzeige der
             Grundkarte, Funktionen der Legende, Anzeige einzelner Rechte auf
-            Ortsebene. <VideoLink />
+            Ortsebene. <VideoLink label="Tutorial 1" id="1057414723" />
           </li>
           <li>
-            Einstellungen der Zeitregler <VideoLink />
+            Einstellungen der Zeitregler{" "}
+            <VideoLink label="Tutorial 2" id="1057414774" />
           </li>
           <li>
             Veränderungen des Symbols für die Anzeige einzelner Rechte
-            <VideoLink />
+            <VideoLink label="Tutorial 3" id="1057414750" />
           </li>
         </ol>
 
@@ -402,7 +403,7 @@ export default function Wp2() {
           Grundherrschaft und Niedergericht (die jeweils in derselben Hand
           lagen). Weitere Hinweise, u.a. zur Legende, erhalten Sie im Video
         </p>
-        <VideoLink />
+        <VideoLink label="Tutorial 4" id="1057414801" />
         <p>
           Aufgrund der zahlreichen Schwierigkeiten, die mit einer anwesengenauen
           Zuordnung von Daten für Räume des Alten Reichs verbunden sind, bedarf
