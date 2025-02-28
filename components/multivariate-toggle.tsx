@@ -45,7 +45,7 @@ const MultivariatToggle = () => {
             </div>
           </TooltipTrigger>
           <TooltipContent className="bg-primary text-sm text-white">
-            In geringen Zoomstufe ist die Univariante Ansicht empfohlen.
+            In geringen Zoomstufe ist die Einzelrecht-Ansicht empfohlen.
           </TooltipContent>
         </Tooltip>
       )}

@@ -10,9 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { capitalize, move } from "@/lib/utils";
-import { TbRotateDot } from "react-icons/tb";
+import { move } from "@/lib/utils";
 import { RxEyeNone } from "react-icons/rx";
+import { TbRotateDot } from "react-icons/tb";
 import RightShape from "../RightShape";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 import useSnowflake from "../Snowflake/useSnowflake.hook";
@@ -66,7 +66,9 @@ const SnowflakePreview = () => {
                       dominantBaseline="middle"
                       className="group-data-[state=open]:font-bold"
                     >
-                      {attributeName.slice(0, 1).toUpperCase()}
+                      {attributeName
+                        ?.toUpperCase()
+                        .slice(0, attributeName.startsWith("k") ? 2 : 1)}
                     </text>
                     <line x2={x} y2={y} stroke="black" />
                     <RightShape
@@ -86,7 +88,7 @@ const SnowflakePreview = () => {
                   <div className="flex flex-col gap-2 text-sm">
                     <div className="flex items-center gap-4">
                       <Label>Recht</Label>
-                      <span>{capitalize(attributeName)}</span>
+                      <span>{rightSet.get(attributeName)}</span>
                     </div>
                     <div className="flex items-center gap-4">
                       <Label>Symbol</Label>
@@ -102,8 +104,8 @@ const SnowflakePreview = () => {
                           <SelectValue placeholder="Choose a symbol" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value={"square"}>Square</SelectItem>
-                          <SelectItem value={"circle"}>Circle</SelectItem>
+                          <SelectItem value={"square"}>Quadrat</SelectItem>
+                          <SelectItem value={"circle"}>Kreis</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

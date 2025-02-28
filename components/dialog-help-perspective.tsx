@@ -40,10 +40,10 @@ const RightHelpSybol: FC = () => {
           </li>
         </ol>
         <p>
-          Jede Klassifikation entspricht einer eigenen Legende. Die konkreten
-          Inhaber der einzelnen Herrschaftsrechte (inklusive der konkreten
-          Angabe in den Quellen) sind in der Legende aufgeführt, die sich beim
-          Klick auf jeden einzelnen Punkt öffnet.
+          Jede Klassifikation hat eine eigene Legende. Die konkreten Inhaber der
+          einzelnen Herrschaftsrechte (inklusive der konkreten Angabe in den
+          Quellen) sind in der Legende aufgeführt, die sich beim Klick auf jeden
+          einzelnen Punkt öffnet.
         </p>
       </div>
     </DialogContent>

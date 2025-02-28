@@ -86,7 +86,7 @@ export default function Home() {
         </p>
       </div>
       <p>
-        Denn Quellcode des Prototyps finden Sie auf{" "}
+        Den Quellcode des Prototyps finden Sie auf{" "}
         <a href="https://github.com/ifl-geovis/DigiKAR">github</a>.
       </p>
       <h3>Allgemeine Hinweise zur Bedienung</h3>
