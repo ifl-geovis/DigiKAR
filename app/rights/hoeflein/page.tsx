@@ -72,7 +72,7 @@ export default async function Anwesen() {
         <MapState
           initialZoom={14}
           initialCenter={{ longitude: center.lng, latitude: center.lat }}
-          availableLayers={[{ name: "Meilenblätter Berlin", visible: false }]}
+          availableLayers={[{ name: "Meilenblätter", visible: false }]}
         >
           <AnwesenMap mapStyle={mapStyle} data={anwesen} />
         </MapState>

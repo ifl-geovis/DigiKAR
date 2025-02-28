@@ -9,7 +9,12 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { RxCheck, RxEyeClosed, RxEyeOpen } from "react-icons/rx";
+import {
+  RxCheck,
+  RxExclamationTriangle,
+  RxEyeClosed,
+  RxEyeOpen,
+} from "react-icons/rx";
 import { twJoin } from "tailwind-merge";
 import ButtonWithTooltip from "../ButtonWithTooltip/ButtonWithTooltip";
 
@@ -18,14 +23,24 @@ const RightIndicator: FC = () => {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Passe das Symbol an</DialogTitle>
+        <DialogTitle>Auswahl der Herrschaftsrechte</DialogTitle>
         <DialogDescription>
-          Stelle ein wie die Rechte in der Karte dargestellt werden sollen. Du
-          kannst die Reihenfolge und die Form der Rechte anpassen.
+          Stelle ein, welche Rechte in der Karte dargestellt werden sollen.
         </DialogDescription>
       </DialogHeader>
       <div>
         <div className="my-2">
+          {order.length > 5 && (
+            <div className="mb-4 flex items-start gap-3 rounded-sm bg-gray-50 p-2">
+              <div className="inline-block rounded-full bg-yellow-300 p-1">
+                <RxExclamationTriangle className="text-yellow-800" />
+              </div>
+              <p>
+                Aus Gründen der Darstellbarkeit empfehlen wir maximal 5
+                Herrschaftsrechte.
+              </p>
+            </div>
+          )}
           {[...rightSet.entries()].map(([relation, { label }]) => {
             const isVisualized = order.includes(relation);
             return (

@@ -63,7 +63,7 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
     >
       <NavigationControl />
       <ScaleControl />
-      <div className="z-1 absolute right-[50px] mt-[10px] flex items-center gap-2">
+      <div className="absolute right-[50px] z-1 mt-[10px] flex items-center gap-2">
         <DataStateIndicator />
         <MapDebugger />
         <ZoomIndicator />
@@ -72,7 +72,7 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
       <SnowFlakeLayer />
       <LayerMlBerlin
         visibility={
-          layers.find((d) => d.name === "Meilenblätter Berlin")?.visible
+          layers.find((d) => d.name === "Meilenblätter")?.visible
             ? "visible"
             : "none"
         }
