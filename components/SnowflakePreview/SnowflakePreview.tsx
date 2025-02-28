@@ -66,9 +66,7 @@ const SnowflakePreview = () => {
                       dominantBaseline="middle"
                       className="group-data-[state=open]:font-bold"
                     >
-                      {attributeName
-                        ?.toUpperCase()
-                        .slice(0, attributeName.startsWith("k") ? 2 : 1)}
+                      {rightSet.get(attributeName)?.shortcode}
                     </text>
                     <line x2={x} y2={y} stroke="black" />
                     <RightShape
@@ -88,7 +86,7 @@ const SnowflakePreview = () => {
                   <div className="flex flex-col gap-2 text-sm">
                     <div className="flex items-center gap-4">
                       <Label>Recht</Label>
-                      <span>{rightSet.get(attributeName)}</span>
+                      <span>{rightSet.get(attributeName)?.label}</span>
                     </div>
                     <div className="flex items-center gap-4">
                       <Label>Symbol</Label>

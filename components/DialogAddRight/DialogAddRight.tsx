@@ -26,7 +26,7 @@ const RightIndicator: FC = () => {
       </DialogHeader>
       <div>
         <div className="my-2">
-          {[...rightSet.entries()].map(([relation, label]) => {
+          {[...rightSet.entries()].map(([relation, { label }]) => {
             const isVisualized = order.includes(relation);
             return (
               <div
