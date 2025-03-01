@@ -2,7 +2,6 @@ import Card from "@/components/Card";
 import LegendNominal from "@/components/LegendNominal/LegendNominal";
 import MapAside from "@/components/MapAside";
 import MapContainer from "@/components/MapContainer";
-import MapTitle from "@/components/MapTitle";
 import MapViewLayout from "@/components/MapViewLayout";
 import RightsExplorer from "@/components/RightsExplorer";
 import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
@@ -47,9 +46,6 @@ export default async function Rights() {
     >
       <MapViewLayout>
         <MapAside>
-          <Card>
-            <MapTitle>Rechteverteilung</MapTitle>
-          </Card>
           <Card>
             <PerspectiveSelect />
           </Card>
