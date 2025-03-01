@@ -19,6 +19,7 @@ import SnowFlakeLayer from "./SnowflakeLayer";
 import ZoomIndicator from "./ZoomIndicator";
 import DataStateIndicator from "./data-state-indicator";
 import MapDebugger from "./map-debugger";
+import LayerGallow from "./LayerGallow";
 
 type Props = {
   mapStyle: MapStyle;
@@ -73,6 +74,13 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
       <LayerMlBerlin
         visibility={
           layers.find((d) => d.name === "Meilenblätter")?.visible
+            ? "visible"
+            : "none"
+        }
+      />
+      <LayerGallow
+        visibility={
+          layers.find((d) => d.name === "Galgenstandorte")?.visible
             ? "visible"
             : "none"
         }

@@ -40,7 +40,10 @@ export default async function Rights() {
       colorMaps={colorMaps}
       initialTimeRange={{ t: 1750, min: 1750 - 25, max: 1750 + 25 }}
       initialSymbolMap={symbolMap}
-      availableLayers={[{ name: "Meilenblätter", visible: false }]}
+      availableLayers={[
+        { name: "Meilenblätter", visible: false },
+        { name: "Galgenstandorte", visible: true },
+      ]}
     >
       <MapViewLayout>
         <MapAside>
