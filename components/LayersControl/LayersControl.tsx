@@ -14,21 +14,20 @@ const LayersControl: FC = () => {
           <Button
             className="h-full"
             disabled={!layers.length}
+            size={"icon"}
             variant={"ghost"}
           >
             <RxLayers />
           </Button>
         </PopoverTrigger>
-        <PopoverContent>
-          <div className="font-bold">Layers</div>
+        <PopoverContent className="w-auto text-sm" align="end">
+          <div className="mb-2 text-xs font-bold">Kartenebenen</div>
           <ul>
             {layers.map((layer) => (
-              <li key={layer.name} className="my-3 flex items-center gap-5">
-                {layer.visible ? <RxEyeOpen /> : <RxEyeClosed />}
+              <li key={layer.name} className="flex items-center gap-3">
                 <Button
-                  size="sm"
+                  className="h-auto p-2"
                   variant="ghost"
-                  className="grow"
                   onClick={() => {
                     setLayers(
                       layers.map((l) =>
@@ -39,8 +38,9 @@ const LayersControl: FC = () => {
                     );
                   }}
                 >
-                  {layer.name}
+                  {layer.visible ? <RxEyeOpen /> : <RxEyeClosed />}
                 </Button>
+                {layer.name}
               </li>
             ))}
           </ul>
