@@ -10,6 +10,7 @@ import RightsMarkerConfig from "@/components/RightsMarkerConfig";
 import Timeline from "@/components/Timeline";
 import PerspectiveSelect from "@/components/perspective-select";
 import RightDetails from "@/components/right-details";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import colorMapCategories from "@/lib/colorMapCategories";
 import { getIndividualsDomain, getTopLevelDomain } from "@/lib/getDomains";
 import { getMapStyle } from "@/lib/getMapStyle";
@@ -50,8 +51,12 @@ export default async function Rights() {
             <PerspectiveSelect />
           </Card>
           <RightsMarkerConfig />
-          <Card title="Legende" collapsible>
-            <LegendNominal />
+          <Card inset={false} title="Legende" collapsible>
+            <ScrollArea className="h-64 rounded">
+              <div className="px-5 py-3">
+                <LegendNominal />
+              </div>
+            </ScrollArea>
           </Card>
         </MapAside>
         <MapContainer>

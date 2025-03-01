@@ -3,17 +3,20 @@ import * as Collapsible from "@radix-ui/react-collapsible";
 import "./styles.css";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
+import { twJoin } from "tailwind-merge";
 
 type Props = PropsWithChildren<{
   title?: string;
   collapsible?: boolean;
   defaultOpen?: boolean;
+  inset?: boolean;
 }>;
 
 const Card: FC<Props> = ({
   children,
   title,
   collapsible = false,
+  inset = true,
   defaultOpen,
 }) => {
   return (
@@ -30,7 +33,7 @@ const Card: FC<Props> = ({
           </div>
         )}
         <Collapsible.Content>
-          <div className="p-5">{children}</div>
+          <div className={twJoin(inset && "p-5")}>{children}</div>
         </Collapsible.Content>
       </div>
     </Collapsible.Root>
