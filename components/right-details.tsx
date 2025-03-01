@@ -16,8 +16,8 @@ import { Right } from "@/types/PlaceProperties";
 import { localeDe } from "@/lib/format";
 import { LuKey, LuMapPin } from "react-icons/lu";
 import RightEntry from "./RightEntry";
-import { capitalize } from "@/lib/utils";
 import { getAllButClosestEntry, getClosestEntry } from "@/lib/getClosestEntry";
+import { rightSet } from "@/lib/rightSet";
 
 const RightDetails = () => {
   const { detailInfo, setDetailInfo, timeRange } = useRightsExplorerContext();
@@ -50,7 +50,7 @@ const RightDetails = () => {
           <>
             <DialogHeader>
               <DialogTitle>
-                {capitalize(detailInfo.attribute)} in {place.label}
+                {rightSet.get(attribute)?.label} in {place.label}
               </DialogTitle>
               <DialogDescription>Detailinformation</DialogDescription>
             </DialogHeader>
@@ -65,7 +65,7 @@ const RightDetails = () => {
                         ? "Ein weiterer Eintrag"
                         : `${otherEntries.length} weitere Einträge`}
                     </h3>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-muted-foreground text-sm">
                       chronologisch geordnet
                     </div>
                   </div>
@@ -77,7 +77,7 @@ const RightDetails = () => {
               )}
             </div>
             <div className="flex flex-col space-y-3">
-              <div className="rounded-sm border-t border-gray-100 pt-2 text-xs text-muted-foreground">
+              <div className="text-muted-foreground rounded-sm border-t border-gray-100 pt-2 text-xs">
                 <h3 className="text-xs">Details zum Ort</h3>
                 <div className="font-bold">{place.label}</div>
                 <div className="flex items-center gap-2">

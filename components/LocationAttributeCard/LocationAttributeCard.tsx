@@ -3,8 +3,8 @@ import { Attribute, RightWithPerspectives } from "../../types/PlaceProperties";
 import { FC } from "react";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 import { range, rollups } from "d3";
-import { capitalize } from "@/lib/utils";
 import { getRightHolderNames } from "@/lib/getRightHolderNames";
+import { rightSet } from "@/lib/rightSet";
 
 type Props = {
   /**
@@ -37,11 +37,11 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
   return (
     <div className="text-base">
       <h2 className="mb-2 text-base font-bold">{placeName}</h2>
-      <p className="text-sm text-muted-foreground">Herrschaftsrecht</p>
-      {capitalize(locationAttribute.attributeName)}
-      <p className="mt-2 text-sm text-muted-foreground">Inhaber</p>
+      <p className="text-muted-foreground text-sm">Herrschaftsrecht</p>
+      {rightSet.get(locationAttribute.attributeName)?.label}
+      <p className="text-muted-foreground mt-2 text-sm">Inhaber</p>
       {isWithoutHolder ? (
-        <span className="italic text-gray-500">keine Daten</span>
+        <span className="text-gray-500 italic">keine Daten</span>
       ) : (
         <span>
           {summarized.map(([attribute, number]) => (
