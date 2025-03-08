@@ -1,102 +1,71 @@
 "use client";
 
-import fetcher from "@/lib/fetcher";
-import { cn } from "@/lib/utils";
-import { Point } from "geojson";
-import { LngLat } from "maplibre-gl";
-import { useEffect, useState } from "react";
-import { LuCheck } from "react-icons/lu";
-import { useMap } from "react-map-gl/maplibre";
-import useSWRImmutable from "swr/immutable";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "../ui/command";
+// import fetcher from "@/lib/fetcher";
+// import { Point } from "geojson";
+// import { LngLat } from "maplibre-gl";
+// import { useEffect, useState } from "react";
+// import { useMap } from "react-map-gl/maplibre";
+// import useSWRImmutable from "swr/immutable";
+import { AutoComplete } from "../autocomplete";
+import { useState } from "react";
 
-type Place = {
-  id: string;
-  geometry: Point;
-  label: string;
-  case_study: string;
-};
+// type Place = {
+//   id: string;
+//   geometry: Point;
+//   label: string;
+//   case_study: string;
+// };
 
 const SearchBar = () => {
-  const { data } = useSWRImmutable<Place[]>(
-    `https://api.geohistoricaldata.org/digikar/orte?in_sample_regions=is.true&order=label.asc`,
-    fetcher,
-  );
-  const { rightsMap } = useMap();
-  console.log({ rightsMap });
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string>("");
 
-  const [value, setValue] = useState<string | undefined>(undefined);
-  const [isListVisible, setIsListVisible] = useState(false);
-  const [selectedPlace, setSelectedPlace] = useState<Place | undefined>(
-    undefined,
-  );
-  console.log({ value, open, place: selectedPlace });
+  // const { data, isLoading } = useSWRImmutable<Place[]>(
+  //   `https://api.geohistoricaldata.org/digikar/orte?in_sample_regions=is.true&order=label.asc&label=ilike.*${searchValue}*`,
+  //   fetcher,
+  // );
+  const data = [
+    { id: "1", label: "one" },
+    { id: "2", label: "two" },
+    { id: "3", label: "three" },
+  ];
+  const isLoading = false;
+  const items =
+    data?.map((d) => ({
+      value: d.id,
+      label: d.label,
+    })) ?? [];
 
-  useEffect(() => {
-    if (!selectedPlace || !data) return;
-    const coordinates = data.find((d) => d.id == selectedPlace?.id)?.geometry
-      .coordinates;
-    const center = coordinates
-      ? new LngLat(coordinates[0], coordinates[1])
-      : undefined;
-    if (rightsMap && center) {
-      rightsMap.flyTo({
-        center,
-        zoom: 14,
-        speed: 3,
-      });
-    }
-  }, [selectedPlace, data, rightsMap]);
+  console.log({ items });
 
-  const handleSelect = (place: Place) => {
-    setValue(place.label);
-    setSelectedPlace(place);
-    setIsListVisible(false);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    setIsListVisible(true);
-  };
+  // const { rightsMap } = useMap();
+  // useEffect(() => {
+  //   if (!selectedValue || !data) return;
+  //   const coordinates = data.find((d) => d.id == selectedValue)?.geometry
+  //     .coordinates;
+  //   const center = coordinates
+  //     ? new LngLat(coordinates[0], coordinates[1])
+  //     : undefined;
+  //   if (rightsMap && center) {
+  //     rightsMap.flyTo({
+  //       center,
+  //       zoom: 14,
+  //       speed: 3,
+  //     });
+  //   }
+  // }, [selectedValue, data, rightsMap]);
 
   return (
-    <Command>
-      <CommandInput
-        value={value}
-        onChangeCapture={handleInputChange}
-        placeholder={`Suchen nach einem Ort ...`}
-      />
-      <CommandList>
-        {isListVisible && (
-          <>
-            <CommandEmpty>Kein Ergebnis.</CommandEmpty>
-            <CommandGroup>
-              {isListVisible &&
-                data?.map((d) => (
-                  <CommandItem key={d.id} onSelect={() => handleSelect(d)}>
-                    <LuCheck
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        selectedPlace?.id === d.id
-                          ? "opacity-100"
-                          : "opacity-0",
-                      )}
-                    />
-                    {d.label}
-                  </CommandItem>
-                ))}
-            </CommandGroup>
-          </>
-        )}
-      </CommandList>
-    </Command>
+    <AutoComplete
+      selectedValue={selectedValue}
+      onSelectedValueChange={setSelectedValue}
+      searchValue={searchValue}
+      onSearchValueChange={setSearchValue}
+      items={items ?? []}
+      isLoading={isLoading}
+      emptyMessage="Keine Orte gefunden"
+      placeholder="Ort suchen ..."
+    />
   );
 };
 
