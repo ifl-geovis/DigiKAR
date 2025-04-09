@@ -10,8 +10,7 @@ export type Right =
   | "dorf_und_gemeindeherrschaft"
   | "kollatur"
   | "landeshoheit"
-  | "kirchenpatronat"
-  | "verwaltungszugehoerigkeit";
+  | "kirchenpatronat";
 
 export type Holder = {
   holder?: string;

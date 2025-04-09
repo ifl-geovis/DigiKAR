@@ -22,11 +22,6 @@ export const rights = [
     shortcode: "L",
   },
   {
-    relation: "verwaltungszugehoerigkeit",
-    label: "Verwaltungszugehörigkeit",
-    shortcode: "V",
-  },
-  {
     relation: "kirchenpatronat",
     label: "Kirchenpatronat/Kirchenhoheit",
     shortcode: "Ki",
