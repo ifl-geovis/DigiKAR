@@ -26,7 +26,7 @@ const getSortedCandidates = (timeRange: TimeRange, entries: RightSummary) => {
   const candidates = addIds(entries).filter((entry) => {
     const lowerSupport = entry.attested[0].support[0] ?? -Infinity;
     const upperSupport = entry.attested[0].support[1] ?? Infinity;
-    return Math.max(lowerSupport, min) < Math.min(upperSupport, max);
+    return Math.max(lowerSupport, min) <= Math.min(upperSupport, max);
   }, []);
   if (candidates.length > 0) {
     const sorted = candidates
