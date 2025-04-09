@@ -38,7 +38,7 @@ export default async function Rights() {
         "landeshoheit",
       ]}
       colorMaps={colorMaps}
-      initialTimeRange={{ t: 1750, min: 1750 - 25, max: 1750 + 25 }}
+      initialTimeRange={{ t: 1800, min: 1800 - 25, max: 1800 + 25 }}
       initialSymbolMap={symbolMap}
       availableLayers={[
         { name: "Meilenblätter", visible: false },
