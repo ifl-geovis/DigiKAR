@@ -48,6 +48,9 @@ export const rights = [
   },
 ] satisfies { label: string; shortcode: string; relation: Right }[];
 
+// Sort rights by label
+rights.sort((a, b) => a.label.localeCompare(b.label));
+
 export const rightSet = new Map(
   rights.map(({ relation, label, shortcode }) => [
     relation,
