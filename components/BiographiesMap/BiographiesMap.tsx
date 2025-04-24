@@ -11,7 +11,7 @@ import { Feature, LineString } from "geojson";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { LuUser2 } from "react-icons/lu";
+import { LuUserRound } from "react-icons/lu";
 import Map, {
   Layer,
   MapLayerMouseEvent,
@@ -146,7 +146,7 @@ const Tooltip = ({ hoverInfo }: { hoverInfo: HoverInfo }) => {
           className="rounded-full bg-gray-200 p-1 text-white"
           style={{ background: properties.color }}
         >
-          <LuUser2 />
+          <LuUserRound />
         </div>
         <strong> {name}</strong>
         <code>{personId}</code>

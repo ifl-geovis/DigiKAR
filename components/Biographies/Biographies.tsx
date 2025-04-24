@@ -30,7 +30,7 @@ import {
 } from "../ui/select";
 import { Skeleton } from "../ui/skeleton";
 import { Slider } from "../ui/slider";
-import { LuCalendar, LuUser2 } from "react-icons/lu";
+import { LuCalendar, LuUserRound } from "react-icons/lu";
 
 type Props = {
   style: StyleSpecification;
@@ -151,7 +151,7 @@ const Biographies: FC<Props> = ({ style }) => {
             ) : (
               <div className="grid grid-cols-[min-content_min-content_auto] gap-x-2 text-sm">
                 <div>
-                  <LuUser2 className="inline align-baseline" />
+                  <LuUserRound className="inline align-baseline" />
                 </div>
                 <div>{individuals?.length}</div>
                 <div>Biographien</div>

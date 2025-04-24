@@ -1,7 +1,7 @@
 import { Right } from "@/types/PlaceProperties";
 import { RightOnPlace } from "@/types/RightOnPlace";
 import { FC } from "react";
-import { LuCalendar, LuUser2 } from "react-icons/lu";
+import { LuCalendar, LuUserRound } from "react-icons/lu";
 import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 
 type Props = {
@@ -22,7 +22,7 @@ const RightEntry: FC<Props> = ({ entry }) => {
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <LuUser2 />
+        <LuUserRound />
         <span className="text-xs font-bold">Inhaber</span>
       </div>
       <div className="grid flex-col gap-4">

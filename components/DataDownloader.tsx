@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Feature, FeatureCollection, LineString } from "geojson";
 import { FC, useCallback } from "react";
-import { LuDownloadCloud } from "react-icons/lu";
+import { LuCloudDownload } from "react-icons/lu";
 
 type Props = {
   data: Feature<LineString>[];
@@ -31,7 +31,7 @@ const DataDownloader: FC<Props> = ({ data }) => {
 
   return (
     <Button className="flex gap-2" onClick={downloadData}>
-      <LuDownloadCloud />
+      <LuCloudDownload />
       <span>Daten exportieren</span>
     </Button>
   );

@@ -4,7 +4,7 @@ import { bBoxGermany } from "@/lib/bBoxGermany";
 import { HoverInfo } from "@/types/HoverInfo";
 import bbox from "@turf/bbox";
 import { Feature, FeatureCollection, Point } from "geojson";
-import { LuUser2 } from "react-icons/lu";
+import { LuUserRound } from "react-icons/lu";
 import {
   LngLatBounds,
   MapLayerMouseEvent,
@@ -105,7 +105,7 @@ const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
           <div className="flex items-center">
             <strong>{hoverInfo.feature?.properties?.place_name}</strong>
             <div className="ml-auto flex items-center gap-1">
-              <LuUser2 size={16} />
+              <LuUserRound size={16} />
               <span className="rounded-full bg-gray-50 px-3 py-1">
                 {hoverInfo.feature?.properties?.number}
               </span>
@@ -123,7 +123,7 @@ const ProportionalSymbolMap: FC<Props> = ({ style, data, isLoading }) => {
                 <li key={d}>{d}</li>
               ))}
               {individuals.length > 10 && (
-                <li className="mt-2 inline-block rounded-full bg-gray-500 px-3 py-1 italic text-white">
+                <li className="mt-2 inline-block rounded-full bg-gray-500 px-3 py-1 text-white italic">
                   + {individuals.length - 10} weitere
                 </li>
               )}
