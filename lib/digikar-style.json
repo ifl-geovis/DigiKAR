@@ -68,7 +68,7 @@
       "type": "hillshade",
       "source": "hillshadeS3",
       "source-layer": "hillshade",
-      "maxzoom": 22,
+      "maxzoom": 15,
       "paint": {
         "hillshade-shadow-color": "rgb(200,200,200)",
         "hillshade-accent-color": "rgb(220,220,220)",
