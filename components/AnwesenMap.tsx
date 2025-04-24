@@ -4,7 +4,7 @@ import { Feature, FeatureCollection, GeoJsonProperties, Point } from "geojson";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useState } from "react";
 import Map, {
-  MapStyle,
+  StyleSpecification,
   Marker,
   NavigationControl,
   Popup,
@@ -20,7 +20,7 @@ import ZoomIndicator from "./ZoomIndicator";
 
 type Props = {
   data: FeatureCollection<Point, GeoJsonProperties>;
-  mapStyle: MapStyle;
+  mapStyle: StyleSpecification;
 };
 
 const AnwesenMap: FC<Props> = ({ data, mapStyle }) => {
@@ -54,7 +54,7 @@ const AnwesenMap: FC<Props> = ({ data, mapStyle }) => {
     >
       <NavigationControl />
       <ScaleControl />
-      <div className="z-1 absolute right-[50px] mt-[10px] flex items-center gap-2">
+      <div className="absolute right-[50px] z-1 mt-[10px] flex items-center gap-2">
         <LayersControl />
         <ZoomIndicator />
       </div>

@@ -1,7 +1,7 @@
 import { Layer } from "@/types/Layer";
 import { LngLatBounds } from "maplibre-gl";
 import { createContext, useContext } from "react";
-import { ViewState } from "react-map-gl";
+import { ViewState } from "react-map-gl/maplibre";
 
 type Context = {
   setViewState: (viewState: ViewState) => void;

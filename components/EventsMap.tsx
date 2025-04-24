@@ -8,7 +8,7 @@ import { FC, useMemo } from "react";
 
 import { LifeEvent } from "@/lib/getPlaceOriginDeath";
 import Map, {
-  MapStyle,
+  StyleSpecification,
   Marker,
   NavigationControl,
 } from "react-map-gl/maplibre";
@@ -16,7 +16,7 @@ import BirthDeathSymbol from "./BirthDeathSymbol";
 
 type Props = {
   data: Feature<Point, { events: LifeEvent[]; place: string }>[];
-  style: MapStyle;
+  style: StyleSpecification;
   eventDomain: string[];
 };
 

@@ -4,7 +4,7 @@ import { MapLayerMouseEvent } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useState } from "react";
 import Map, {
-  MapStyle,
+  StyleSpecification,
   NavigationControl,
   ScaleControl,
   ViewStateChangeEvent,
@@ -22,7 +22,7 @@ import MapDebugger from "./map-debugger";
 import LayerGallow from "./LayerGallow";
 
 type Props = {
-  mapStyle: MapStyle;
+  mapStyle: StyleSpecification;
 };
 
 const RightsMap: FC<Props> = ({ mapStyle }) => {
