@@ -45,7 +45,7 @@ export const getFlowsOriginDeath = async (analyticalLens = `any`) => {
   );
   const reader = await prepared.runAndReadAll();
   const res = reader.getRowObjectsJson();
-  connection.close();
+  connection.closeSync();
 
   return res.map(({ value, birth_place, death_place, geometry }) => {
     const geometryStr = geometry?.toString();

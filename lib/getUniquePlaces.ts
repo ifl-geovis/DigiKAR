@@ -21,7 +21,7 @@ export const getUniquePlaces = async (
   `);
   if (source) prepared.bind({ source }, { source: VARCHAR });
   const reader = await prepared.runAndReadAll();
-  connection.close();
+  connection.closeSync();
 
   return reader.getRowObjectsJson();
 };

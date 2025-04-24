@@ -58,7 +58,7 @@ export const getFunctionalitiesPerPlace = async (
   );
   const reader = await prepared.runAndReadAll();
   const res = reader.getRowObjectsJson();
-  connection.close();
+  connection.closeSync();
 
   return res.map(({ place, functionalities, institution, geometry }, id) => {
     const geometryStr = geometry?.toString();

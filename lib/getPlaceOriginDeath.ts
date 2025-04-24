@@ -50,7 +50,7 @@ export const getPlaceOriginDeath = async () => {
       } as Feature<Point, { place: string; events: LifeEvent[] }>;
     });
 
-  connection.close();
+  connection.closeSync();
 
   return res;
 };

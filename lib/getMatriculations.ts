@@ -53,7 +53,7 @@ export const getMatriculations = async (
     const str = feature?.toString();
     if (str) return JSON.parse(str);
   });
-  connection.close();
+  connection.closeSync();
 
   return res satisfies Feature<Point>[];
 };

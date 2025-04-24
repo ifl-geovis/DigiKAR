@@ -60,7 +60,7 @@ export const getOriginsByTimeRange = async (
     const str = feature?.toString();
     return str ? JSON.parse(str) : null;
   });
-  connection.close();
+  connection.closeSync();
 
   return res satisfies Feature<Point>[];
 };

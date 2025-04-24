@@ -123,7 +123,7 @@ export const getBiographiesByCommonEvent = async (
     },
   );
   const reader = await statement.runAndReadAll();
-  connection.close();
+  connection.closeSync();
 
   const res = reader.getRowObjects();
 

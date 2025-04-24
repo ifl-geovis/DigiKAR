@@ -16,6 +16,6 @@ console.log("Setting up database ...");
   const instance = await DuckDBInstance.create(dbPath);
   const connection = await instance.connect();
   await connection.run(setupScript);
-  connection.close();
+  connection.closeSync();
   console.log("Database setup completed.");
 })();
