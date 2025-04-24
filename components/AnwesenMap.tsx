@@ -80,7 +80,7 @@ const AnwesenMap: FC<Props> = ({ data, mapStyle }) => {
       })}
       <LayerMlBerlin
         visibility={
-          layers.find((d) => d.name === "Meilenblätter Berlin")?.visible
+          layers.find((d) => d.name === "Meilenblätter")?.visible
             ? "visible"
             : "none"
         }
