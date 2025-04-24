@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { Command as CommandPrimitive } from "cmdk";
-import { LuCheck } from "react-icons/lu";
+import { LuCheck, LuSearchX } from "react-icons/lu";
 import { useMemo, useState } from "react";
 import {
   Command,
@@ -104,7 +104,9 @@ export function AutoComplete<T extends string>({
                 e.preventDefault();
               }
             }}
-            className="w-[--radix-popover-trigger-width] p-0"
+            // TODO: Why do I need to use important to increase specificity for the width variable
+            className="!w-(--radix-popover-trigger-width) p-0"
+            align="start"
           >
             <CommandList>
               {isLoading && (
@@ -137,7 +139,10 @@ export function AutoComplete<T extends string>({
                 </CommandGroup>
               ) : null}
               {!isLoading ? (
-                <CommandEmpty>{emptyMessage ?? "No items."}</CommandEmpty>
+                <CommandEmpty className="text-muted-foreground p-2 text-sm">
+                  <LuSearchX className="mr-2 inline h-4 w-4" />
+                  {emptyMessage ?? "No items."}
+                </CommandEmpty>
               ) : null}
             </CommandList>
           </PopoverContent>
