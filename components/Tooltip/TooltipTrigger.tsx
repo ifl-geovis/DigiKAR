@@ -18,7 +18,9 @@ const TooltipTrigger = forwardRef<
       context.getReferenceProps({
         ref,
         ...props,
-        ...children.props,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ...(children.props as Record<any, unknown>),
+        //@ts-expect-error since upgrading nextjs
         "data-state": context.open ? "open" : "closed",
       }),
     );
