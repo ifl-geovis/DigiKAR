@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { twJoin } from "tailwind-merge";
 
 type Props = PropsWithChildren<{
-  title?: string;
+  header?: React.ReactNode | string;
   collapsible?: boolean;
   defaultOpen?: boolean;
   inset?: boolean;
@@ -14,7 +14,7 @@ type Props = PropsWithChildren<{
 
 const Card: FC<Props> = ({
   children,
-  title,
+  header,
   collapsible = false,
   inset = true,
   defaultOpen,
@@ -22,14 +22,21 @@ const Card: FC<Props> = ({
   return (
     <Collapsible.Root defaultOpen={defaultOpen ?? !collapsible}>
       <div className="rounded-sm bg-white shadow-md">
-        {(title || collapsible) && (
-          <div className="flex items-center justify-between border-b border-slate-200 px-5 py-2 font-bold">
-            <span className="text-sm">{title}</span>
-            <Collapsible.Trigger asChild>
-              <Button size="icon" variant="ghost">
-                <CaretSortIcon />
-              </Button>
-            </Collapsible.Trigger>
+        {(header || collapsible) && (
+          <div className="flex items-center justify-between border-b border-slate-200 px-5 py-2 text-sm font-bold">
+            {header &&
+              (typeof header === "string" ? (
+                <span>{header}</span>
+              ) : (
+                <>{header}</>
+              ))}
+            {collapsible ? (
+              <Collapsible.Trigger asChild>
+                <Button size="icon" variant="ghost">
+                  <CaretSortIcon />
+                </Button>
+              </Collapsible.Trigger>
+            ) : null}
           </div>
         )}
         <Collapsible.Content>

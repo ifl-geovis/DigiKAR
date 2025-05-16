@@ -25,7 +25,7 @@ export default async function Anwesen() {
           <MapTitle>Anwesen in Höflein</MapTitle>
           <p>Rechteverteilung auf Ebene der Anwesen.</p>
         </Card>
-        <Card title="Legende" collapsible>
+        <Card header="Legende" collapsible>
           <div className="mb-5 flex items-center gap-3">
             <div className="text-sm">Grundherrschaft</div>
             <AnwesenMarker

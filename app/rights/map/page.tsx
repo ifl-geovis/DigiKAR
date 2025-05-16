@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import LegendHeader from "@/components/LegendHeader";
 import LegendNominal from "@/components/LegendNominal/LegendNominal";
 import MapAside from "@/components/MapAside";
 import MapContainer from "@/components/MapContainer";
@@ -53,7 +54,7 @@ export default async function Rights() {
             <PerspectiveSelect />
           </Card>
           <RightsMarkerConfig />
-          <Card inset={false} title="Legende" collapsible>
+          <Card inset={false} header={<LegendHeader />} collapsible>
             <ScrollArea className="h-64 rounded">
               <div className="px-5 py-3">
                 <LegendNominal />

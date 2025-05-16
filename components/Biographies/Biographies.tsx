@@ -83,7 +83,7 @@ const Biographies: FC<Props> = ({ style }) => {
           <MapTitle>Biographien</MapTitle>
           <p>Mobilität und Vernetzung einzelner Funktionsträger</p>
         </Card>
-        <Card title="Auswahl der Ereignisse" collapsible defaultOpen>
+        <Card header="Auswahl der Ereignisse" collapsible defaultOpen>
           <div className="flex flex-col gap-5">
             <PlaceSelector
               place={state.place}
@@ -166,7 +166,7 @@ const Biographies: FC<Props> = ({ style }) => {
         </Card>
         {data && (
           <>
-            <Card title="Personen" collapsible>
+            <Card header="Personen" collapsible>
               <DataTable
                 data={individuals}
                 columns={columns}
@@ -174,7 +174,7 @@ const Biographies: FC<Props> = ({ style }) => {
                 rowSelectionChangeHandler={setSelectedRows}
               />
             </Card>
-            <Card title="Daten export" collapsible>
+            <Card header="Daten export" collapsible>
               <DataDownloader data={data} />
             </Card>
           </>
