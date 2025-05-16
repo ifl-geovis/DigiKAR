@@ -10,8 +10,8 @@ const LegendNominal = () => {
   const {
     colorScales,
     perspective,
-    setSelectedLegendItem,
-    selectedLegendItem,
+    setSelectedLegendItems,
+    selectedLegendItems,
   } = useRightsExplorerContext();
   const colorScale = colorScales.get(perspective)!;
   const specialCategories = [
@@ -19,21 +19,28 @@ const LegendNominal = () => {
     { label: "strittig", Icon: DisputedIcon },
     { label: "unklar", Icon: UnclearIcon, background: "lightgrey" },
   ];
+  const selectedItems = selectedLegendItems ?? [];
+  const handleLegendClick = (item: string) => {
+    setSelectedLegendItems((prevState) => {
+      if (prevState.includes(item)) {
+        return prevState.filter((i) => i !== item);
+      } else {
+        return [...prevState, item];
+      }
+    });
+  };
   return (
     <ol className="flex flex-col gap-2">
       {colorScale.domain().map((d) => (
         <li
           key={d}
           className={twJoin(
-            "flex cursor-pointer items-center gap-1 leading-tight transition-opacity",
-            selectedLegendItem === d && "font-bold",
-            selectedLegendItem && selectedLegendItem !== d && "opacity-30",
+            "flex cursor-pointer items-center gap-1 leading-tight transition-opacity duration-750",
+            selectedItems.length > 0 &&
+              !selectedItems.includes(d) &&
+              "opacity-30",
           )}
-          onClick={() =>
-            setSelectedLegendItem((prevState?: string) =>
-              prevState !== d ? d.normalize() : undefined,
-            )
-          }
+          onClick={() => handleLegendClick(d)}
         >
           <svg width={16} height={16} className="shrink-0">
             <circle cx={8} cy={8} r={6.6} stroke="black" fill={colorScale(d)} />
@@ -44,20 +51,13 @@ const LegendNominal = () => {
       {specialCategories.map(({ label, Icon, background }) => (
         <li
           className={twJoin(
-            twJoin(
-              "flex cursor-pointer items-center gap-1 leading-tight transition-opacity",
-              selectedLegendItem === label && "font-bold",
-              selectedLegendItem &&
-                selectedLegendItem !== label &&
-                "opacity-30",
-            ),
+            "flex cursor-pointer items-center gap-1 leading-tight transition-opacity duration-750",
+            selectedItems.length > 0 &&
+              !selectedItems.includes(label) &&
+              "opacity-30",
           )}
           key={label}
-          onClick={() =>
-            setSelectedLegendItem((prevState?: string) =>
-              prevState !== label ? label : undefined,
-            )
-          }
+          onClick={() => handleLegendClick(label)}
         >
           <svg width={16} height={16} className="shrink-0">
             <circle

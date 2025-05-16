@@ -28,8 +28,8 @@ const RightIndicator: FC<Props> = ({
   colorScale,
 }) => {
   const {
-    setSelectedLegendItem,
-    selectedLegendItem,
+    setSelectedLegendItems,
+    selectedLegendItems,
     setDetailInfo,
     setTooltipInfo,
     perspective,
@@ -57,16 +57,22 @@ const RightIndicator: FC<Props> = ({
         : colorScale(holder);
     const size = isWithoutHolder ? circleRadius / 4 : circleRadius;
     const opacity =
-      !selectedLegendItem ||
-      (selectedLegendItem && names.includes(selectedLegendItem))
+      selectedLegendItems.length === 0 ||
+      names
+        .filter((n): n is string => typeof n === "string")
+        .some((n) => selectedLegendItems.includes(n))
         ? 1
         : 0.2;
     const onContextMenuHandler =
       (!isShared && !isWithoutHolder) || !holder
         ? () =>
-            setSelectedLegendItem((prevState?: string) =>
-              prevState !== holder ? holder : undefined,
-            )
+            setSelectedLegendItems((prevState) => {
+              if (prevState.includes(holder)) {
+                return prevState.filter((i) => i !== holder);
+              } else {
+                return [...prevState, holder];
+              }
+            })
         : undefined;
     return {
       color,
@@ -81,9 +87,9 @@ const RightIndicator: FC<Props> = ({
     perspective,
     attribute,
     colorScale,
-    selectedLegendItem,
+    selectedLegendItems,
     circleRadius,
-    setSelectedLegendItem,
+    setSelectedLegendItems,
   ]);
   const onClickHandler = useCallback(
     () =>
@@ -113,7 +119,8 @@ const RightIndicator: FC<Props> = ({
       symbol={symbol}
       size={size}
       color={color}
-      opacity={opacity}
+      style={{ opacity }}
+      className="transition-opacity duration-750"
       isShared={isShared}
       isDisputed={isDisputed}
       isUnclear={isUnclear}

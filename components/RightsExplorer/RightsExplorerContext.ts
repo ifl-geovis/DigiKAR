@@ -31,9 +31,9 @@ type Context = {
   ) => void;
   order: Right[];
   setOrder: (order: Right[]) => void;
-  selectedLegendItem?: string;
-  setSelectedLegendItem: (
-    legendItem?: string | ((legendItem?: string) => string | undefined),
+  selectedLegendItems: string[];
+  setSelectedLegendItems: (
+    legendItem: string[] | ((legendItem: string[]) => string[]),
   ) => void;
   symbolMap: Map<string, string>;
   setSymbolMap: (symbolMap: Map<string, string>) => void;

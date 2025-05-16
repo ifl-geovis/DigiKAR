@@ -52,9 +52,7 @@ const RightsExplorer: FC<Props> = ({
 
   const [perspective, setPerspective] = useState<Perspective>("categories");
 
-  const [selectedLegendItem, setSelectedLegendItem] = useState<
-    string | undefined
-  >(undefined);
+  const [selectedLegendItems, setSelectedLegendItems] = useState<string[]>([]);
   const [symbolMap, setSymbolMap] = useState(initialSymbolMap);
 
   const colorScales: Map<
@@ -90,7 +88,7 @@ const RightsExplorer: FC<Props> = ({
         order,
         perspective,
         rightSet,
-        selectedLegendItem,
+        selectedLegendItems,
         symbolMap,
         univariateRight,
         timeRange,
@@ -100,7 +98,7 @@ const RightsExplorer: FC<Props> = ({
         setIsMultivariate,
         setPerspective,
         setOrder,
-        setSelectedLegendItem,
+        setSelectedLegendItems,
         setSymbolMap,
         setTimeRange,
         setUnivariateRight,

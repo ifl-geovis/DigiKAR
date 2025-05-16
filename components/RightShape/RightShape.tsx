@@ -9,7 +9,6 @@ type Props = {
   symbol?: string;
   size: number;
   color: string;
-  opacity: number;
   isShared: boolean;
   isDisputed: boolean;
   isUnclear: boolean;
@@ -21,7 +20,6 @@ const RightShape: FC<Props> = ({
   size,
   symbol,
   color,
-  opacity,
   isShared,
   isDisputed,
   isUnclear,
@@ -38,10 +36,9 @@ const RightShape: FC<Props> = ({
           transform={`translate(${(-size * 5) / 3 / 2} ${(-size * 5) / 3 / 2})`}
           fill={color}
           className={className}
-          opacity={opacity}
         />
       ) : (
-        <circle r={size} fill={color} className={className} opacity={opacity} />
+        <circle r={size} fill={color} className={className} />
       )}
       {isShared && <SharedIcon x="-7" y="-7" />}
       {isDisputed && <DisputedIcon x="-7" y="-7" />}
