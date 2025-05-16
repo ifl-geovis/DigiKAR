@@ -11,5 +11,8 @@
   ],
   "sqltools.connectionExplorer.groupConnected": true,
   "sqltools.results.reuseTabs": "connection",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }
