@@ -20,7 +20,7 @@ const SearchBar = () => {
   const [selectedValue, setSelectedValue] = useState<string>("");
 
   const { data, isLoading } = useSWRImmutable<Place[]>(
-    `https://api.geohistoricaldata.org/digikar/orte?in_sample_regions=is.true&order=label.asc&label=ilike.*${searchValue}*`,
+    `https://api.geohistoricaldata.org/digikar/orte?geometry=not.is.null&in_sample_regions=is.true&order=label.asc&label=ilike.*${searchValue}*`,
     fetcher,
   );
   const items =
