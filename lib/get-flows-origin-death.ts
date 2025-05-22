@@ -1,5 +1,5 @@
 import { Feature, LineString } from "geojson";
-import { createDatabase } from "./setupDatabase";
+import { createDatabase } from "./setup-database";
 import { VARCHAR } from "@duckdb/node-api";
 
 export const getFlowsOriginDeath = async (analyticalLens = `any`) => {

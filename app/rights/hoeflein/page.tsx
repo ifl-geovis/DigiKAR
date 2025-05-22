@@ -6,9 +6,9 @@ import MapContainer from "@/components/MapContainer";
 import MapState from "@/components/MapState";
 import MapTitle from "@/components/MapTitle";
 import MapViewLayout from "@/components/MapViewLayout";
-import colorMapCategories from "@/lib/colorMapCategories";
-import { getAnwesen } from "@/lib/getAnwesen";
-import { getMapStyle } from "@/lib/getMapStyle";
+import colorMapCategories from "@/lib/color-map-categories";
+import { getAnwesen } from "@/lib/get-anwesen";
+import { getMapStyle } from "@/lib/get-map-style";
 import { mapToScale } from "@/lib/helpers";
 
 const center = { lng: 14.215, lat: 51.25 };

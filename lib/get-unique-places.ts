@@ -1,5 +1,5 @@
 import { VARCHAR } from "@duckdb/node-api";
-import { getDatabase } from "./setupDatabase";
+import { getDatabase } from "./setup-database";
 
 export const getUniquePlaces = async (
   /** Which data source to be used */

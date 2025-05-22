@@ -16,8 +16,11 @@ import { Right } from "@/types/PlaceProperties";
 import { localeDe } from "@/lib/format";
 import { LuKey, LuMapPin } from "react-icons/lu";
 import RightEntry from "./RightEntry";
-import { getAllButClosestEntry, getClosestEntry } from "@/lib/getClosestEntry";
-import { rightSet } from "@/lib/rightSet";
+import {
+  getAllButClosestEntry,
+  getClosestEntry,
+} from "@/lib/get-closest-entry";
+import { rightSet } from "@/lib/right-set";
 
 const RightDetails = () => {
   const { detailInfo, setDetailInfo, timeRange } = useRightsExplorerContext();

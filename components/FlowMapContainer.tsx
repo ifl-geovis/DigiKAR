@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import fetcher from "@/lib/fetcher";
-import { getFlowsOriginDeath } from "@/lib/getFlowsOriginDeath";
+import { getFlowsOriginDeath } from "@/lib/get-flows-origin-death";
 import { LuArrowRight } from "react-icons/lu";
 import { FC, useState } from "react";
 import useSWRImmutable from "swr/immutable";

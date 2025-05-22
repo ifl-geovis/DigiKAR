@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { rights } from "@/lib/rightSet";
+import { rights } from "@/lib/right-set";
 
 const RightsMarkerConfig: FC = () => {
   const { isMultivariate, univariateRight, setUnivariateRight } =

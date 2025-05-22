@@ -8,7 +8,7 @@ import {
 import { FeatureCollection, Point } from "geojson";
 import { LngLatBounds } from "maplibre-gl";
 import useSWRImmutable from "swr/immutable";
-import { kursachsenToRightSchema } from "../lib/kursachsenToRightSchema";
+import { toRightSchema } from "../lib/to-right-schema";
 import useDebounce from "./useDebounce";
 
 const toBbox = (bounds?: LngLatBounds) => {
@@ -45,7 +45,7 @@ export default function useRightData(
   if (data) {
     return {
       isLoading,
-      data: kursachsenToRightSchema(data, timeRange),
+      data: toRightSchema(data, timeRange),
       error,
     };
   }

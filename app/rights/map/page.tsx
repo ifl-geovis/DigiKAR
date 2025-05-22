@@ -13,10 +13,10 @@ import Timeline from "@/components/Timeline";
 import PerspectiveSelect from "@/components/perspective-select";
 import RightDetails from "@/components/right-details";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import colorMapCategories from "@/lib/colorMapCategories";
-import { getIndividualsDomain, getTopLevelDomain } from "@/lib/getDomains";
-import { getMapStyle } from "@/lib/getMapStyle";
-import { rightSet } from "@/lib/rightSet";
+import colorMapCategories from "@/lib/color-map-categories";
+import { getIndividualsDomain, getTopLevelDomain } from "@/lib/get-domains";
+import { getMapStyle } from "@/lib/get-map-style";
+import { rightSet } from "@/lib/right-set";
 
 export default async function Rights() {
   const style = await getMapStyle();

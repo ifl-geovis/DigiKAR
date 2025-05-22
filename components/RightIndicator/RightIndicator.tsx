@@ -1,10 +1,10 @@
-import getRightStatus from "@/lib/getRightStatus";
+import getRightStatus from "@/lib/get-right-status";
 import { Attribute, RightWithPerspectives } from "@/types/PlaceProperties";
 import { ScaleOrdinal } from "d3";
 import { FC, useCallback, useMemo } from "react";
 import RightShape from "../RightShape";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
-import { getRightHolderNames } from "@/lib/getRightHolderNames";
+import { getRightHolderNames } from "@/lib/get-right-holder-names";
 
 type Props = {
   x: number;

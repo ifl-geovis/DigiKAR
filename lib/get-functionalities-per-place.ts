@@ -1,5 +1,5 @@
 import { Feature, Point } from "geojson";
-import { createDatabase } from "./setupDatabase";
+import { createDatabase } from "./setup-database";
 import { VARCHAR } from "@duckdb/node-api";
 
 export const getFunctionalitiesPerPlace = async (

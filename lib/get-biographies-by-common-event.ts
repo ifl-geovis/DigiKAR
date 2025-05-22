@@ -1,5 +1,5 @@
 import { Feature, LineString } from "geojson";
-import { getDatabase } from "./setupDatabase";
+import { getDatabase } from "./setup-database";
 import { INTEGER, VARCHAR } from "@duckdb/node-api";
 
 export type BiographyEvent = {

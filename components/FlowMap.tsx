@@ -14,7 +14,7 @@ import bbox from "@turf/bbox";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { LngLatBounds, StyleSpecification } from "maplibre-gl";
 import { HoverInfo } from "@/types/HoverInfo";
-import coordinatePairToFlow from "@/lib/coordinatePairToFlow";
+import coordinatePairToFlow from "@/lib/coordinate-pair-to-flow";
 
 type Props = {
   data: Feature<LineString>[];

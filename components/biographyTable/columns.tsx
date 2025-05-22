@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { BiographyIndividuals } from "@/lib/flowsToIndividuals";
+import { BiographyIndividuals } from "@/lib/flows-to-individuals";
 
 export const columns: ColumnDef<BiographyIndividuals[number]>[] = [
   {

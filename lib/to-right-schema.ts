@@ -1,4 +1,4 @@
-import { getClosestEntry } from "@/lib/getClosestEntry";
+import { getClosestEntry } from "@/lib/get-closest-entry";
 import { GeneralizedApiRight } from "@/types/GeneralizedEndpoint";
 import {
   Attribute,
@@ -10,12 +10,13 @@ import { FeatureCollection, Point } from "geojson";
 import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
 
 /**
- * Transform the API response into the right schema
+ * Transform the API response into the correct schema
+ * Select the most relevant entry for the given time range
  * @param data Data returned from the API
  * @param t A timeRange object
  * @returns The schema for the right data
  */
-export const kursachsenToRightSchema = (
+export const toRightSchema = (
   data: GeneralizedApiRight,
   t: TimeRange,
 ): FeatureCollection<Point, PlacePropertiesWithPerspectives> => {

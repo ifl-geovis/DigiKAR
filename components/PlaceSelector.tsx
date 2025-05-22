@@ -1,7 +1,7 @@
 import ComboBox from "@/components/ComboBox";
 import { Skeleton } from "@/components/ui/skeleton";
 import fetcher from "@/lib/fetcher";
-import { getUniquePlaces } from "@/lib/getUniquePlaces";
+import { getUniquePlaces } from "@/lib/get-unique-places";
 import { FC, useMemo } from "react";
 import useSWRImmutable from "swr/immutable";
 import { Label } from "./ui/label";

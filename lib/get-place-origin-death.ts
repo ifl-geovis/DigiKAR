@@ -1,5 +1,5 @@
 import { Feature, Point } from "geojson";
-import { createDatabase } from "./setupDatabase";
+import { createDatabase } from "./setup-database";
 
 export const getPlaceOriginDeath = async () => {
   const db = await createDatabase();

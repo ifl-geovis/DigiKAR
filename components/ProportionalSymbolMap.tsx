@@ -1,6 +1,6 @@
 "use client";
 
-import { bBoxGermany } from "@/lib/bBoxGermany";
+import { bBoxGermany } from "@/lib/bbox-germany";
 import { HoverInfo } from "@/types/HoverInfo";
 import bbox from "@turf/bbox";
 import { Feature, FeatureCollection, Point } from "geojson";

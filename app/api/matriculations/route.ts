@@ -1,4 +1,4 @@
-import { getMatriculations } from "@/lib/getMatriculations";
+import { getMatriculations } from "@/lib/get-matriculations";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

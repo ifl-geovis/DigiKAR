@@ -1,10 +1,10 @@
-import getRightStatus from "@/lib/getRightStatus";
+import getRightStatus from "@/lib/get-right-status";
 import { Attribute, RightWithPerspectives } from "../../types/PlaceProperties";
 import { FC } from "react";
 import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 import { range, rollups } from "d3";
-import { getRightHolderNames } from "@/lib/getRightHolderNames";
-import { rightSet } from "@/lib/rightSet";
+import { getRightHolderNames } from "@/lib/get-right-holder-names";
+import { rightSet } from "@/lib/right-set";
 
 type Props = {
   /**

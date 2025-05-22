@@ -7,7 +7,7 @@ import MapContainer from "@/components/MapContainer";
 import MapTitle from "@/components/MapTitle";
 import MapViewLayout from "@/components/MapViewLayout";
 import fetcher from "@/lib/fetcher";
-import { getPlaceOriginDeath } from "@/lib/getPlaceOriginDeath";
+import { getPlaceOriginDeath } from "@/lib/get-place-origin-death";
 import { scaleOrdinal } from "d3";
 import { schemeObservable10 } from "d3-scale-chromatic";
 import { StyleSpecification } from "maplibre-gl";

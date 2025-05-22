@@ -1,6 +1,6 @@
 "use client";
 
-import { rights, rightSet } from "@/lib/rightSet";
+import { rights, rightSet } from "@/lib/right-set";
 import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
 import { TooltipInfo } from "@/types/TooltipInfo";

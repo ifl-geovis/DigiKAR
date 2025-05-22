@@ -6,7 +6,7 @@ import { Feature, Point } from "geojson";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useMemo } from "react";
 
-import { LifeEvent } from "@/lib/getPlaceOriginDeath";
+import { LifeEvent } from "@/lib/get-place-origin-death";
 import Map, {
   StyleSpecification,
   Marker,

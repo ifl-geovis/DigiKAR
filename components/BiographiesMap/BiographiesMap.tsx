@@ -1,8 +1,8 @@
 "use client";
 
-import { bBoxGermany } from "@/lib/bBoxGermany";
-import coordinatePairToFlow from "@/lib/coordinatePairToFlow";
-import { BiographyEvent } from "@/lib/getBiographiesByCommonEvent";
+import { bBoxGermany } from "@/lib/bbox-germany";
+import coordinatePairToFlow from "@/lib/coordinate-pair-to-flow";
+import { BiographyEvent } from "@/lib/get-biographies-by-common-event";
 import { HoverInfo } from "@/types/HoverInfo";
 import { RowSelectionState } from "@tanstack/react-table";
 import bbox from "@turf/bbox";

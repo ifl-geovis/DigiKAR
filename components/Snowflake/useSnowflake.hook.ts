@@ -1,6 +1,6 @@
 import { Attribute, RightWithPerspectives } from "@/types/PlaceProperties";
 import { getNgonPoints } from "../Ngon/Ngon.helpers";
-import getRightStatus from "@/lib/getRightStatus";
+import getRightStatus from "@/lib/get-right-status";
 
 const useSnowflake = (
   placeAttributes: Attribute<RightWithPerspectives>[],

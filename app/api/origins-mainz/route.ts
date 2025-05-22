@@ -1,4 +1,4 @@
-import { getOriginsByTimeRange } from "@/lib/getOriginsByTimeRange";
+import { getOriginsByTimeRange } from "@/lib/get-origins-by-time-range";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

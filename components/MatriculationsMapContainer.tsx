@@ -7,7 +7,7 @@ import MapViewLayout from "@/components/MapViewLayout";
 import ProportionalSymbolMap from "@/components/ProportionalSymbolMap";
 import { Label } from "@/components/ui/label";
 import fetcher from "@/lib/fetcher";
-import { getMatriculations } from "@/lib/getMatriculations";
+import { getMatriculations } from "@/lib/get-matriculations";
 import debounce from "lodash.debounce";
 import { StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";

@@ -1,4 +1,4 @@
-import { LifeEvent } from "@/lib/getPlaceOriginDeath";
+import { LifeEvent } from "@/lib/get-place-origin-death";
 import { PieArcDatum, ScaleOrdinal, ScalePower, arc, pie } from "d3";
 import { Feature, Point } from "geojson";
 import { FC } from "react";

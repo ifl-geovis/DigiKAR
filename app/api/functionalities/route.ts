@@ -1,4 +1,4 @@
-import { getFunctionalitiesPerPlace } from "@/lib/getFunctionalitiesPerPlace";
+import { getFunctionalitiesPerPlace } from "@/lib/get-functionalities-per-place";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

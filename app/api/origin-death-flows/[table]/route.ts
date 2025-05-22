@@ -1,4 +1,4 @@
-import { getFlowsOriginDeath } from "@/lib/getFlowsOriginDeath";
+import { getFlowsOriginDeath } from "@/lib/get-flows-origin-death";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

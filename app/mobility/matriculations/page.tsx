@@ -1,4 +1,4 @@
-import { getMapStyle } from "@/lib/getMapStyle";
+import { getMapStyle } from "@/lib/get-map-style";
 import MatriculationsMapContainer from "@/components/MatriculationsMapContainer";
 
 export default async function NextPage() {

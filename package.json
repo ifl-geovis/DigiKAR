@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "seedDatabase": "pnpx tsx seedDatabase.ts",
+    "seedDatabase": "pnpx tsx seed-database.ts",
     "dev": "next dev",
     "prebuild": "pnpm seedDatabase",
     "build": "next build",

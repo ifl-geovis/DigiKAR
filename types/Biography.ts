@@ -1,5 +1,5 @@
-import { addColorsToFlows } from "@/lib/addColorsToFlows";
-import { getBiographiesByCommonEvent } from "@/lib/getBiographiesByCommonEvent";
+import { addColorsToFlows } from "@/lib/add-colors-to-flows";
+import { getBiographiesByCommonEvent } from "@/lib/get-biographies-by-common-event";
 
 export type BiographyFlow = Awaited<
   ReturnType<typeof getBiographiesByCommonEvent>

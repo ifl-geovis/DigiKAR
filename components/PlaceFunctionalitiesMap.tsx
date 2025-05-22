@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import fetcher from "@/lib/fetcher";
-import { getFunctionalitiesPerPlace } from "@/lib/getFunctionalitiesPerPlace";
+import { getFunctionalitiesPerPlace } from "@/lib/get-functionalities-per-place";
 import bbox from "@turf/bbox";
 import { rollup } from "d3";
 import { Feature, FeatureCollection, Point } from "geojson";
@@ -27,7 +27,7 @@ import { FC, useMemo, useState } from "react";
 import Map, { Marker, NavigationControl } from "react-map-gl/maplibre";
 import useSWRImmutable from "swr/immutable";
 import MapTitle from "./MapTitle";
-import { bBoxGermany } from "@/lib/bBoxGermany";
+import { bBoxGermany } from "@/lib/bbox-germany";
 import MapControl from "./MapControl";
 import Spinner from "./Spinner";
 
@@ -141,7 +141,7 @@ const PlaceFunctionalitiesMap: FC<Props> = ({ style }) => {
           interactiveLayerIds={["flows"]}
           mapStyle={style}
         >
-          <div className="z-1 absolute right-[50px] mt-[10px] flex items-center gap-2">
+          <div className="absolute right-[50px] z-1 mt-[10px] flex items-center gap-2">
             {isLoading && (
               <MapControl>
                 <MapControl>

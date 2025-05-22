@@ -1,5 +1,5 @@
-import colorMapCategories from "@/lib/colorMapCategories";
-import getRightStatus from "@/lib/getRightStatus";
+import colorMapCategories from "@/lib/color-map-categories";
+import getRightStatus from "@/lib/get-right-status";
 import { mapToScale } from "@/lib/helpers";
 import { FC } from "react";
 
