@@ -36,7 +36,7 @@ const RightsMarkerConfig: FC = () => {
           <div className="flex flex-col gap-2">
             <p>
               Klicke auf ein Recht, um seine Reihenfolge und das Symbol zu
-              verändern. Passe an, welche Rechte angezeigt werden, indem du auf
+              verändern. Passe an, welche Rechte angezeigt werden, indem Sie auf
               den Button klickst.
             </p>
             <div className="flex gap-2">
