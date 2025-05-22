@@ -2,7 +2,6 @@ import { Right } from "@/types/PlaceProperties";
 import { RightOnPlace } from "@/types/RightOnPlace";
 import { FC } from "react";
 import { LuCalendar, LuUserRound } from "react-icons/lu";
-import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 
 type Props = {
   entry: RightOnPlace[Right][number];
@@ -10,8 +9,6 @@ type Props = {
 
 const RightEntry: FC<Props> = ({ entry }) => {
   const { attested_raw, rightholders } = entry;
-  const { colorScales } = useRightsExplorerContext();
-  const colorScale = colorScales.get("categories")!;
   return (
     <div className="space-y-2 overflow-y-scroll">
       <div>
@@ -48,17 +45,6 @@ const RightEntry: FC<Props> = ({ entry }) => {
                   {d.category ?? (
                     <span className="text-muted-foreground">Andere</span>
                   )}
-                  <svg width={16} height={16}>
-                    <circle
-                      cx={8}
-                      cy={8}
-                      r={6.6}
-                      stroke="black"
-                      fill={colorScale(
-                        d.category ? d.category.normalize() : "",
-                      )}
-                    />
-                  </svg>
                 </div>
               </div>
               <div>übergeordnete Herrschaft</div>
