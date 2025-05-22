@@ -44,7 +44,7 @@ export default async function Rights() {
       initialSymbolMap={symbolMap}
       availableLayers={[
         { name: "Meilenblätter", visible: false },
-        { name: "Galgenstandorte", visible: true },
+        { name: "Galgenstandorte", visible: false },
       ]}
     >
       <MapViewLayout>
