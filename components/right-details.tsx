@@ -1,6 +1,18 @@
 "use client";
 
+import fetcher from "@/lib/fetcher";
+import { localeDe } from "@/lib/format";
+import {
+  getAllButClosestEntry,
+  getClosestEntry,
+} from "@/lib/get-closest-entry";
+import { rightSet } from "@/lib/right-set";
+import { Right } from "@/types/PlaceProperties";
+import { PostgRESTError } from "@/types/postgrest-error";
+import { RightOnPlace } from "@/types/RightOnPlace";
+import { LuKey, LuMapPin } from "react-icons/lu";
 import useSWRImmutable from "swr/immutable";
+import RightEntry from "./RightEntry";
 import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 import {
   Dialog,
@@ -9,27 +21,42 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
-import fetcher from "@/lib/fetcher";
 import { Skeleton } from "./ui/skeleton";
-import { RightOnPlace } from "@/types/RightOnPlace";
-import { Right } from "@/types/PlaceProperties";
-import { localeDe } from "@/lib/format";
-import { LuKey, LuMapPin } from "react-icons/lu";
-import RightEntry from "./RightEntry";
-import {
-  getAllButClosestEntry,
-  getClosestEntry,
-} from "@/lib/get-closest-entry";
-import { rightSet } from "@/lib/right-set";
 
 const RightDetails = () => {
   const { detailInfo, setDetailInfo, timeRange } = useRightsExplorerContext();
-  const { data, isLoading } = useSWRImmutable<Awaited<RightOnPlace[]>>(
+  const { data, isLoading } = useSWRImmutable<
+    Awaited<RightOnPlace[] | PostgRESTError>
+  >(
     `https://api.geohistoricaldata.org/digikar/orte?select=*,${detailInfo?.attribute}(*)&id=eq.${detailInfo?.place}&limit=1`,
     fetcher,
   );
 
-  if (!data || !detailInfo) return null;
+  if (!data || !detailInfo) return null; // TODO: display toast for some feedback?
+  if (!Array.isArray(data))
+    return (
+      <Dialog open={!!detailInfo} onOpenChange={() => setDetailInfo(undefined)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Fehler bei der Datenabfrage</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            Beim Laden der Daten von der API ist ein Fehler aufgetreten.
+          </DialogDescription>
+          <div>
+            Error Code
+            <code className="ml-3 w-min rounded bg-red-300 p-1 text-red-700">
+              {data.code}
+            </code>
+          </div>
+          <code>{data.details}</code>
+          <div className="rounded bg-gray-100 p-3 text-gray-500">
+            <strong>Hint</strong>
+            <p>{data.hint}</p>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
   const place = data[0];
   const attribute = detailInfo.attribute as Right;
   const entries = place[attribute];
