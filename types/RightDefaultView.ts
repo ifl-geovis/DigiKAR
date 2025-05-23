@@ -38,7 +38,7 @@ type RightAttributes = {
 
 // detailed view, (default view without suffix)
 // meant for someone who wants to query the data
-export type RightOnPlace = {
+export type RightDefaultView = {
   id: string;
   geometry: Point;
   label: string;

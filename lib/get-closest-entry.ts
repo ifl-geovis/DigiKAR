@@ -1,5 +1,5 @@
 import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
-import { RightSummary } from "@/types/GeneralizedEndpoint";
+import { RightSummary } from "@/types/SummaryView";
 
 export const getClosestEntry = (
   timeRange: TimeRange,

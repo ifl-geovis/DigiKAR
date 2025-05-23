@@ -1,10 +1,10 @@
 import { Right } from "@/types/PlaceProperties";
-import { RightOnPlace } from "@/types/RightOnPlace";
+import { RightDefaultView } from "@/types/RightDefaultView";
 import { FC } from "react";
 import { LuCalendar, LuUserRound } from "react-icons/lu";
 
 type Props = {
-  entry: RightOnPlace[Right][number];
+  entry: RightDefaultView[Right][number];
 };
 
 const RightEntry: FC<Props> = ({ entry }) => {

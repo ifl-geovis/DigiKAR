@@ -3,11 +3,11 @@ import { When } from "@/types/When";
 import { FeatureCollection } from "geojson";
 import { Point } from "geojson";
 
-export type IndividualType = "Person" | "Körperschaft";
+export type RightholderEntity = "Person" | "Körperschaft";
 
 // are actually summary views
 type RightholderIndividual = {
-  type?: IndividualType;
+  type?: RightholderEntity;
   source: string;
   category?: string; // is there a category like "unclear"? probably not
   top_level?: string;
@@ -41,5 +41,5 @@ export type Properties = {
   when: When;
 };
 
-export type GeneralizedApiRight = FeatureCollection<Point, Properties>;
-export type GeneralizedApiRightFeatures = GeneralizedApiRight["features"];
+export type SummaryViewRights = FeatureCollection<Point, Properties>;
+export type SummaryViewRightFeatures = SummaryViewRights["features"];

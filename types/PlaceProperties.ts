@@ -1,5 +1,5 @@
 import { FeatureCollection, Point } from "geojson";
-import { IndividualType } from "./GeneralizedEndpoint";
+import { RightholderEntity } from "./SummaryView";
 import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
 
 export type Right =
@@ -21,7 +21,7 @@ export type Holder = {
   comments?: string;
 };
 
-export type IndividualDatum = { name: string; type?: IndividualType };
+export type IndividualDatum = { name: string; type?: RightholderEntity };
 
 export type PerspectiveDatum = string | IndividualDatum;
 export type Perspectives = Record<Perspective, PerspectiveDatum[]>;

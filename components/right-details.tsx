@@ -9,7 +9,7 @@ import {
 import { rightSet } from "@/lib/right-set";
 import { Right } from "@/types/PlaceProperties";
 import { PostgRESTError } from "@/types/postgrest-error";
-import { RightOnPlace } from "@/types/RightOnPlace";
+import { RightDefaultView } from "@/types/RightDefaultView";
 import { LuKey, LuMapPin } from "react-icons/lu";
 import useSWRImmutable from "swr/immutable";
 import RightEntry from "./RightEntry";
@@ -26,7 +26,7 @@ import { Skeleton } from "./ui/skeleton";
 const RightDetails = () => {
   const { detailInfo, setDetailInfo, timeRange } = useRightsExplorerContext();
   const { data, isLoading } = useSWRImmutable<
-    Awaited<RightOnPlace[] | PostgRESTError>
+    Awaited<RightDefaultView[] | PostgRESTError>
   >(
     `https://api.geohistoricaldata.org/digikar/orte?select=*,${detailInfo?.attribute}(*)&id=eq.${detailInfo?.place}&limit=1`,
     fetcher,
@@ -66,9 +66,9 @@ const RightDetails = () => {
     attested: d.attested_json,
   }));
 
-  //@ts-expect-error TODO: fix typing wrong typing: RightEntry vs. RightOnPlace
+  //@ts-expect-error TODO: fix typing wrong typing: RightEntry vs. RightDefaultView
   const closest = getClosestEntry(timeRange, fixedEntries);
-  //@ts-expect-error TODO: fix typing wrong typing: RightEntry vs. RightOnPlace
+  //@ts-expect-error TODO: fix typing wrong typing: RightEntry vs. RightDefaultView
   const otherEntries = getAllButClosestEntry(timeRange, fixedEntries);
 
   return (
@@ -85,7 +85,7 @@ const RightDetails = () => {
               <DialogDescription>Detailinformation</DialogDescription>
             </DialogHeader>
             <div className="max-h-[40vh] overflow-y-scroll">
-              {/* @ts-expect-error wrong typing: RightEntry vs. RightOnPlace */}
+              {/* @ts-expect-error wrong typing: RightEntry vs. RightDefaultView */}
               <RightEntry entry={closest} />
               {otherEntries.length > 0 && (
                 <div className="mt-5 space-y-10 rounded-sm bg-gray-50 p-4">
@@ -100,7 +100,7 @@ const RightDetails = () => {
                     </div>
                   </div>
                   {otherEntries?.map((entry, i) => {
-                    //@ts-expect-error wrong typing: RightEntry vs. RightOnPlaces
+                    // @ts-expect-error wrong typing: RightEntry vs. RightDefaultViews
                     return <RightEntry key={i} entry={entry} />;
                   })}
                 </div>

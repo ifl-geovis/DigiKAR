@@ -1,6 +1,6 @@
 import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
 import fetcher from "@/lib/fetcher";
-import { GeneralizedApiRight } from "@/types/GeneralizedEndpoint";
+import { SummaryViewRights } from "@/types/SummaryView";
 import {
   PlacePropertiesWithPerspectives,
   Right,
@@ -37,7 +37,7 @@ export default function useRightData(
   const params = `select=*,${rights.map((d) => `${d}_summary(${columns})`)}&in_sample_regions=is.true`;
   const debouncedBBox = useDebounce<LngLatBounds>(bounds, 300);
   const request = `${url}?bbox={${toBbox(debouncedBBox)}}${params ? `&${params}` : ""}`;
-  const { data, isLoading, error } = useSWRImmutable<GeneralizedApiRight>(
+  const { data, isLoading, error } = useSWRImmutable<SummaryViewRights>(
     request,
     fetcher,
     { keepPreviousData: true },

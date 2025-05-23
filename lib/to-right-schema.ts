@@ -1,5 +1,5 @@
 import { getClosestEntry } from "@/lib/get-closest-entry";
-import { GeneralizedApiRight } from "@/types/GeneralizedEndpoint";
+import { SummaryViewRights } from "@/types/SummaryView";
 import {
   Attribute,
   RightWithPerspectives,
@@ -17,7 +17,7 @@ import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
  * @returns The schema for the right data
  */
 export const toRightSchema = (
-  data: GeneralizedApiRight,
+  data: SummaryViewRights,
   t: TimeRange,
 ): FeatureCollection<Point, PlacePropertiesWithPerspectives> => {
   const hasName = (d: string | undefined): d is string => {
