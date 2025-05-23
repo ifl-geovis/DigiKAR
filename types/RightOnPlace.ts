@@ -17,11 +17,12 @@ type RightAttributes = {
   [K in Right]: {
     place_id: string;
     attested_fuzzy: {
+      // to be removed
       kernel: string;
       support: string;
     };
     attested_raw: string;
-    attested_json: FuzzyTimeInterval;
+    attested_json: FuzzyTimeInterval; // rename to `attested`
     when: When;
     sources: string[];
     originators: string[];
@@ -35,6 +36,8 @@ type RightAttributes = {
   }[];
 };
 
+// detailed view, (default view without suffix)
+// meant for someone who wants to query the data
 export type RightOnPlace = {
   id: string;
   geometry: Point;

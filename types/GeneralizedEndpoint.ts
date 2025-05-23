@@ -5,21 +5,22 @@ import { Point } from "geojson";
 
 export type IndividualType = "Person" | "Körperschaft";
 
+// are actually summary views
 type RightholderIndividual = {
   type: IndividualType;
   source: string;
-  category?: string;
+  category?: string; // is there a category like "unclear"? probably not
   top_level?: string;
   rightholder: string;
-  isDisputing: boolean;
-  rightholder_consolidated?: string;
+  rightholder_consolidated?: string; // technically should not be optional
+  isDisputing: boolean; // is always false
 };
 
 export type RightEntry = {
   attested: FuzzyTimeInterval;
   place_id: string;
   place_label: string;
-  place_ref: string;
+  place_ref: string; // API endpoint for this place
   rights_disputed_by: number;
   rights_held_by: number;
   rightholders_individuals: RightholderIndividual[];
