@@ -21,7 +21,7 @@ export type Holder = {
   comments?: string;
 };
 
-export type IndividualDatum = { name: string; type: IndividualType };
+export type IndividualDatum = { name: string; type?: IndividualType };
 
 export type PerspectiveDatum = string | IndividualDatum;
 export type Perspectives = Record<Perspective, PerspectiveDatum[]>;

@@ -7,7 +7,7 @@ export type IndividualType = "Person" | "Körperschaft";
 
 // are actually summary views
 type RightholderIndividual = {
-  type: IndividualType;
+  type?: IndividualType;
   source: string;
   category?: string; // is there a category like "unclear"? probably not
   top_level?: string;
