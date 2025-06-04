@@ -3,5 +3,17 @@
   "editor.formatOnSave": true,
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "cSpell.words": [
+    "DigiKAR",
+    "geohistoricaldata.org",
+    "grundherrschaft",
+    "kollatur",
+    "Körperschaft",
+    "orte",
+    "PostgREST",
+    "rightholder",
+    "rightholders",
+    "timespans"
+  ]
 }
