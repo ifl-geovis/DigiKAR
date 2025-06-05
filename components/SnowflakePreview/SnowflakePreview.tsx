@@ -25,9 +25,9 @@ const SnowflakePreview = () => {
   const placeAttributes = [...rightSet.keys()].map((relation) => ({
     attributeName: relation,
     holders: {
-      categories: [],
-      individuals: [],
-      topLevels: [],
+      categories: [""],
+      individuals: [""],
+      topLevels: [""],
       disputedBy: 0,
       heldBy: 1,
     },

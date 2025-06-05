@@ -18,8 +18,12 @@ import {
 import DialogHelpPerspective from "./dialog-help-perspective";
 
 const PerspectiveSelect = () => {
-  const { setPerspective, perspective, setSelectedLegendItems } =
-    useRightsExplorerContext();
+  const {
+    setPerspective,
+    perspective,
+    setSelectedLegendItems,
+    setShowIndividuals,
+  } = useRightsExplorerContext();
   return (
     <div>
       <Label>Herrschaftsträger</Label>
@@ -28,6 +32,7 @@ const PerspectiveSelect = () => {
           defaultValue={perspective}
           onValueChange={(value: Perspective) => {
             setPerspective(value);
+            setShowIndividuals(false);
             setSelectedLegendItems([]);
           }}
         >

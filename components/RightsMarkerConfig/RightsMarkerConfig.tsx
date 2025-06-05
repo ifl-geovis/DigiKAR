@@ -1,7 +1,6 @@
 "use client";
 
 import ButtonWithTooltip from "@/components/ButtonWithTooltip";
-import Card from "@/components/Card";
 import DialogAddRight from "@/components/DialogAddRight";
 import DialogHelpSymbol from "@/components/DialogHelpSymbol";
 import SnowflakePreview from "@/components/SnowflakePreview";
@@ -26,7 +25,7 @@ const RightsMarkerConfig: FC = () => {
   const { isMultivariate, univariateRight, setUnivariateRight } =
     useRightsExplorerContext();
   return (
-    <Card>
+    <>
       <div>
         <MultivariateToggle />
       </div>
@@ -87,7 +86,7 @@ const RightsMarkerConfig: FC = () => {
           </Select>
         </div>
       )}
-    </Card>
+    </>
   );
 };
 

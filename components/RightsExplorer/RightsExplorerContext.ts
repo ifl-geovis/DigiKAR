@@ -18,6 +18,8 @@ export type Perspective = "individuals" | "categories" | "topLevels";
 
 type Context = {
   rightSet: typeof rightSet;
+  showIndividuals: boolean;
+  setShowIndividuals: (showIndividuals: boolean) => void;
   isMultivariate: boolean;
   setIsMultivariate: (isMultivariate: boolean) => void;
   univariateRight: Right;

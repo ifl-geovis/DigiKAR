@@ -50,6 +50,8 @@ const RightsExplorer: FC<Props> = ({
 
   const [isMultivariate, setIsMultivariate] = useState(true);
 
+  const [showIndividuals, setShowIndividuals] = useState(false);
+
   const [perspective, setPerspective] = useState<Perspective>("categories");
 
   const [selectedLegendItems, setSelectedLegendItems] = useState<string[]>([]);
@@ -85,6 +87,7 @@ const RightsExplorer: FC<Props> = ({
         dataState,
         detailInfo,
         isMultivariate,
+        showIndividuals,
         order,
         perspective,
         rightSet,
@@ -99,6 +102,7 @@ const RightsExplorer: FC<Props> = ({
         setPerspective,
         setOrder,
         setSelectedLegendItems,
+        setShowIndividuals,
         setSymbolMap,
         setTimeRange,
         setUnivariateRight,

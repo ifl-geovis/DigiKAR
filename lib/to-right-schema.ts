@@ -19,6 +19,7 @@ import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
 export const toRightSchema = (
   data: SummaryViewRights,
   t: TimeRange,
+  showIndividuals: boolean,
 ): FeatureCollection<Point, PlacePropertiesWithPerspectives> => {
   const hasName = (d: string | undefined): d is string => {
     return d !== undefined;
@@ -36,12 +37,16 @@ export const toRightSchema = (
           entry?.rightholders_individuals
             .map((d) => d.category)
             .filter(hasName) ?? [],
-          entry?.rightholders_individuals.map(
-            ({ type, rightholder_consolidated, rightholder }) => ({
+          entry?.rightholders_individuals
+            // filter for Persons if showIndividuals is true
+            // else include all other types (Körperschaft and undefined)
+            .filter(({ type }) =>
+              showIndividuals ? type === "Person" : type !== "Person",
+            )
+            .map(({ type, rightholder_consolidated, rightholder }) => ({
               name: rightholder_consolidated ?? rightholder,
               type,
-            }),
-          ) ?? [],
+            })) ?? [],
           entry?.rightholders_individuals
             .map((d) => d.top_level)
             .filter(hasName) ?? [],

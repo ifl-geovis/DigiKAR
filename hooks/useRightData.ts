@@ -1,4 +1,7 @@
-import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
+import {
+  TimeRange,
+  useRightsExplorerContext,
+} from "@/components/RightsExplorer/RightsExplorerContext";
 import fetcher from "@/lib/fetcher";
 import { SummaryViewRights } from "@/types/SummaryView";
 import {
@@ -32,6 +35,8 @@ export default function useRightData(
 } {
   const url = "https://api.geohistoricaldata.org/digikar/rpc/orte.geojson";
 
+  const { showIndividuals } = useRightsExplorerContext();
+
   const columns =
     "attested,rights_disputed_by,rights_held_by,rightholders_individuals";
   const params = `select=*,${rights.map((d) => `${d}_summary(${columns})`)}&in_sample_regions=is.true`;
@@ -45,7 +50,7 @@ export default function useRightData(
   if (data) {
     return {
       isLoading,
-      data: toRightSchema(data, timeRange),
+      data: toRightSchema(data, timeRange, showIndividuals),
       error,
     };
   }

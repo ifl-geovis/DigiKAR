@@ -94,14 +94,24 @@ const RightIndicator: FC<Props> = ({
   const onClickHandler = useCallback(
     () =>
       setDetailInfo(
-        attribute.holders.categories?.length
+        (perspective === "categories" &&
+          attribute.holders.categories?.length) ||
+          (perspective === "individuals" &&
+            attribute.holders.individuals?.length) ||
+          (perspective === "topLevels" && attribute.holders.topLevels?.length)
           ? {
               place: placeId,
               attribute: attribute.attributeName,
             }
           : undefined,
       ),
-    [attribute.attributeName, attribute.holders, placeId, setDetailInfo],
+    [
+      attribute.attributeName,
+      attribute.holders,
+      placeId,
+      setDetailInfo,
+      perspective,
+    ],
   );
   const onMouseEnterHandler = useCallback(() => {
     setTooltipInfo({

@@ -10,6 +10,7 @@ import RightsMap from "@/components/RightsMap";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig";
 import SearchBar from "@/components/SearchBar";
 import Timeline from "@/components/Timeline";
+import HolderTypeToggle from "@/components/holder-type-toggle";
 import PerspectiveSelect from "@/components/perspective-select";
 import RightDetails from "@/components/right-details";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -51,9 +52,12 @@ export default async function Rights() {
         <MapAside>
           <SearchBar />
           <Card>
-            <PerspectiveSelect />
+            <div className="space-y-4">
+              <RightsMarkerConfig />
+              <PerspectiveSelect />
+              <HolderTypeToggle />
+            </div>
           </Card>
-          <RightsMarkerConfig />
           <Card inset={false} header={<LegendHeader />} collapsible>
             <ScrollArea className="h-66 rounded">
               <div className="px-5 py-3">
