@@ -68,10 +68,9 @@ const LegendNominal = () => {
               fill={background ?? "white"}
             />
             <Icon
-              className={twJoin(
-                "translate-x-[1px] translate-y-[1px]",
-                background === "black" && "text-white",
-              )}
+              x={1}
+              y={1}
+              className={twJoin(background === "black" && "text-white")}
             />
           </svg>
           <div>{label}</div>
