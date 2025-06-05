@@ -55,7 +55,7 @@ export default async function Rights() {
           </Card>
           <RightsMarkerConfig />
           <Card inset={false} header={<LegendHeader />} collapsible>
-            <ScrollArea className="h-64 rounded">
+            <ScrollArea className="h-66 rounded">
               <div className="px-5 py-3">
                 <LegendNominal />
               </div>
@@ -65,7 +65,7 @@ export default async function Rights() {
         <MapContainer>
           <RightsMap mapStyle={style} />
         </MapContainer>
-        <div className="z-10 p-2 [grid-area:_bottom-nav]">
+        <div className="z-10 p-2 pb-0 [grid-area:_bottom-nav]">
           <Timeline />
         </div>
       </MapViewLayout>
