@@ -8,7 +8,7 @@ import MarkdownRenderer from "./MarkdownRenderer";
 
 export default function ChangelogClient() {
   const { data, error, isLoading } = useSWRImmutable<Changelog[]>(
-    "https://api.geohistoricaldata.org/digikar/changelog",
+    "https://api.geohistoricaldata.org/digikar/changelog?order=date.desc",
     fetcher,
   );
 
