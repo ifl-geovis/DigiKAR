@@ -18,14 +18,18 @@ import {
 import DialogHelpPerspective from "./dialog-help-perspective";
 
 const PerspectiveSelect = () => {
-  const { setPerspective, perspective } = useRightsExplorerContext();
+  const { setPerspective, perspective, setSelectedLegendItems } =
+    useRightsExplorerContext();
   return (
     <div>
       <Label>Herrschaftsträger</Label>
       <div className="flex gap-2">
         <Select
           defaultValue={perspective}
-          onValueChange={(value: Perspective) => setPerspective(value)}
+          onValueChange={(value: Perspective) => {
+            setPerspective(value);
+            setSelectedLegendItems([]);
+          }}
         >
           <SelectTrigger>
             <SelectValue placeholder="Wähle ein Art von Herrschaftsträgern" />
