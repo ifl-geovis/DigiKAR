@@ -11,7 +11,7 @@ const MapDebugger: FC = () => {
 
   return (
     <MapControl>
-      <div className="px-3">
+      <div className="px-3 font-mono text-xs">
         <p>
           {perspective} · {isMultivariate ? "multivariate" : "univariate"}
         </p>

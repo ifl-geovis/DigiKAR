@@ -4,22 +4,18 @@ import { MapLayerMouseEvent } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, useCallback, useState } from "react";
 import Map, {
-  StyleSpecification,
-  NavigationControl,
+  AttributionControl,
   ScaleControl,
+  StyleSpecification,
   ViewStateChangeEvent,
   useMap,
 } from "react-map-gl/maplibre";
+import LayerGallow from "./LayerGallow";
 import LayerMlBerlin from "./LayerMlBerlin";
-import LayersControl from "./LayersControl/LayersControl";
 import LocationAttributeCard from "./LocationAttributeCard";
 import { useMapStateContext } from "./MapState/MapStateContext";
 import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 import SnowFlakeLayer from "./SnowflakeLayer";
-import ZoomIndicator from "./ZoomIndicator";
-import DataStateIndicator from "./data-state-indicator";
-import MapDebugger from "./map-debugger";
-import LayerGallow from "./LayerGallow";
 
 type Props = {
   mapStyle: StyleSpecification;
@@ -57,19 +53,15 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
       id="rightsMap"
       initialViewState={viewState}
       minZoom={4}
+      maxZoom={16}
       mapStyle={mapStyle}
       onMouseMove={onHover}
       onMove={handleMove}
       onMoveEnd={handleMoveEnd}
+      attributionControl={false}
     >
-      <NavigationControl />
-      <ScaleControl />
-      <div className="absolute right-[50px] z-1 mt-[10px] flex items-center gap-2">
-        <DataStateIndicator />
-        <MapDebugger />
-        <ZoomIndicator />
-        <LayersControl />
-      </div>
+      <AttributionControl compact={true} position="top-right" />
+      <ScaleControl position="top-right" />
       <SnowFlakeLayer />
       <LayerMlBerlin
         visibility={

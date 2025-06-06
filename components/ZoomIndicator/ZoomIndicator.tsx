@@ -1,15 +1,19 @@
 import { FC } from "react";
-import { useMap } from "react-map-gl/maplibre";
-import MapControl from "../MapControl";
 import { RxGlobe } from "react-icons/rx";
+import MapControl from "../MapControl";
+import { useMapStateContext } from "../MapState/MapStateContext";
 
 const ZoomIndicator: FC = () => {
-  const { current: map } = useMap();
+  const { viewState } = useMapStateContext();
+
+  if (process.env.NODE_ENV !== "development") {
+    return null;
+  }
   return (
     <MapControl>
-      <div className="flex items-center gap-2 px-3">
+      <div className="flex items-center gap-2 px-3 font-mono text-xs">
         <RxGlobe />
-        <span>{map && Math.round(map.getZoom() * 100) / 100}</span>
+        <span>{viewState.zoom.toFixed(2)}</span>
       </div>
     </MapControl>
   );

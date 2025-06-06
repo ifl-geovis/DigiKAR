@@ -11,6 +11,7 @@ import RightsMarkerConfig from "@/components/RightsMarkerConfig";
 import SearchBar from "@/components/SearchBar";
 import Timeline from "@/components/Timeline";
 import HolderTypeToggle from "@/components/holder-type-toggle";
+import MapControls from "@/components/map-controls";
 import PerspectiveSelect from "@/components/perspective-select";
 import RightDetails from "@/components/right-details";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -69,7 +70,10 @@ export default async function Rights() {
         <MapContainer>
           <RightsMap mapStyle={style} />
         </MapContainer>
-        <div className="z-10 p-2 pb-0 [grid-area:_bottom-nav]">
+        <div className="pointer-events-none z-10 pt-3 [grid-area:_map-area]">
+          <MapControls />
+        </div>
+        <div className="z-10 p-2 [grid-area:_bottom-nav]">
           <Timeline />
         </div>
       </MapViewLayout>
