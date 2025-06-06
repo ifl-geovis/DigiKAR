@@ -61,15 +61,8 @@ const RightDetails = () => {
   const attribute = detailInfo.attribute as Right;
   const entries = place[attribute];
 
-  const fixedEntries = entries.map((d) => ({
-    ...d,
-    attested: d.attested_json,
-  }));
-
-  //@ts-expect-error TODO: fix typing wrong typing: RightEntry vs. RightDefaultView
-  const closest = getClosestEntry(timeRange, fixedEntries);
-  //@ts-expect-error TODO: fix typing wrong typing: RightEntry vs. RightDefaultView
-  const otherEntries = getAllButClosestEntry(timeRange, fixedEntries);
+  const closest = getClosestEntry(timeRange, entries);
+  const otherEntries = getAllButClosestEntry(timeRange, entries);
 
   return (
     <Dialog open={!!detailInfo} onOpenChange={() => setDetailInfo(undefined)}>
@@ -100,7 +93,6 @@ const RightDetails = () => {
                     </div>
                   </div>
                   {otherEntries?.map((entry, i) => {
-                    // @ts-expect-error wrong typing: RightEntry vs. RightDefaultViews
                     return <RightEntry key={i} entry={entry} />;
                   })}
                 </div>

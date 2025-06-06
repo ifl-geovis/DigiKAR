@@ -3,7 +3,6 @@ import {
   useRightsExplorerContext,
 } from "@/components/RightsExplorer/RightsExplorerContext";
 import fetcher from "@/lib/fetcher";
-import { SummaryViewRights } from "@/types/SummaryView";
 import {
   PlacePropertiesWithPerspectives,
   Right,
@@ -13,6 +12,7 @@ import { LngLatBounds } from "maplibre-gl";
 import useSWRImmutable from "swr/immutable";
 import { toRightSchema } from "../lib/to-right-schema";
 import useDebounce from "./useDebounce";
+import { RightDefaultViewFeatureCollection } from "@/types/RightDefaultView";
 
 const toBbox = (bounds?: LngLatBounds) => {
   if (!bounds) return undefined;
@@ -37,16 +37,14 @@ export default function useRightData(
 
   const { showIndividuals } = useRightsExplorerContext();
 
-  const columns =
-    "attested,rights_disputed_by,rights_held_by,rightholders_individuals";
-  const params = `select=*,${rights.map((d) => `${d}_summary(${columns})`)}&in_sample_regions=is.true`;
+  const columns = "attested_json,md_disputed_by,md_rights_held_by,rightholders";
+  const params = `select=*,${rights.map((d) => `${d}(${columns})`)}&in_sample_regions=is.true`;
   const debouncedBBox = useDebounce<LngLatBounds>(bounds, 300);
   const request = `${url}?bbox={${toBbox(debouncedBBox)}}${params ? `&${params}` : ""}`;
-  const { data, isLoading, error } = useSWRImmutable<SummaryViewRights>(
-    request,
-    fetcher,
-    { keepPreviousData: true },
-  );
+  const { data, isLoading, error } =
+    useSWRImmutable<RightDefaultViewFeatureCollection>(request, fetcher, {
+      keepPreviousData: true,
+    });
   if (data) {
     return {
       isLoading,

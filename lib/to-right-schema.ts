@@ -1,5 +1,4 @@
 import { getClosestEntry } from "@/lib/get-closest-entry";
-import { SummaryViewRights } from "@/types/SummaryView";
 import {
   Attribute,
   RightWithPerspectives,
@@ -8,6 +7,9 @@ import {
 } from "@/types/PlaceProperties";
 import { FeatureCollection, Point } from "geojson";
 import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
+import { rightSet } from "./right-set";
+import { RightDefaultViewFeatureCollection } from "@/types/RightDefaultView";
+import { RightholderEntity } from "@/types/SummaryView";
 
 /**
  * Transform the API response into the correct schema
@@ -17,7 +19,7 @@ import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
  * @returns The schema for the right data
  */
 export const toRightSchema = (
-  data: SummaryViewRights,
+  data: RightDefaultViewFeatureCollection,
   t: TimeRange,
   showIndividuals: boolean,
 ): FeatureCollection<Point, PlacePropertiesWithPerspectives> => {
@@ -29,15 +31,13 @@ export const toRightSchema = (
     const rights = Object.entries(feature.properties).reduce<
       Attribute<RightWithPerspectives>[]
     >((acc, [key, value]) => {
-      if (key.match(/(_summary)$/)) {
-        const attributeName = key.replace("_summary", "") as Right;
+      if ((rightSet.has as (k: Right) => boolean)(key as Right)) {
+        const attributeName = key as Right;
         //@ts-expect-error TS is not able to infer that value is always an entry
         const entry = getClosestEntry(t, value);
         const [categories, individuals, topLevels, heldBy, disputedBy] = [
-          entry?.rightholders_individuals
-            .map((d) => d.category)
-            .filter(hasName) ?? [],
-          entry?.rightholders_individuals
+          entry?.rightholders.map((d) => d.category).filter(hasName) ?? [],
+          entry?.rightholders
             // filter for Persons if showIndividuals is true
             // else include all other types (Körperschaft and undefined)
             .filter(({ type }) =>
@@ -45,13 +45,11 @@ export const toRightSchema = (
             )
             .map(({ type, rightholder_consolidated, rightholder }) => ({
               name: rightholder_consolidated ?? rightholder,
-              type,
+              type: type as RightholderEntity,
             })) ?? [],
-          entry?.rightholders_individuals
-            .map((d) => d.top_level)
-            .filter(hasName) ?? [],
-          entry?.rights_held_by ?? 0,
-          entry?.rights_disputed_by ?? 0,
+          entry?.rightholders.map((d) => d.top_level).filter(hasName) ?? [],
+          entry?.md_rights_held_by ?? 0,
+          entry?.md_disputed_by ?? 0,
         ];
         const attribute = {
           attributeName,
