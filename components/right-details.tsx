@@ -9,7 +9,7 @@ import {
 import { rightSet } from "@/lib/right-set";
 import { Right } from "@/types/PlaceProperties";
 import { PostgRESTError } from "@/types/postgrest-error";
-import { RightDefaultView } from "@/types/RightDefaultView";
+import { RightViewPlaceJoin } from "@/types/RightView";
 import { LuKey, LuMapPin } from "react-icons/lu";
 import useSWRImmutable from "swr/immutable";
 import RightEntry from "./RightEntry";
@@ -26,7 +26,7 @@ import { Skeleton } from "./ui/skeleton";
 const RightDetails = () => {
   const { detailInfo, setDetailInfo, timeRange } = useRightsExplorerContext();
   const { data, isLoading } = useSWRImmutable<
-    Awaited<RightDefaultView[] | PostgRESTError>
+    Awaited<RightViewPlaceJoin[] | PostgRESTError>
   >(
     `https://api.geohistoricaldata.org/digikar/orte?select=*,${detailInfo?.attribute}(*)&id=eq.${detailInfo?.place}&limit=1`,
     fetcher,
@@ -69,7 +69,7 @@ const RightDetails = () => {
       <DialogContent className="max-w-2xl">
         {isLoading ? (
           <Skeleton className="h-12 w-full" />
-        ) : place && detailInfo ? (
+        ) : place && detailInfo && closest ? (
           <>
             <DialogHeader>
               <DialogTitle>
@@ -78,7 +78,6 @@ const RightDetails = () => {
               <DialogDescription>Detailinformation</DialogDescription>
             </DialogHeader>
             <div className="max-h-[40vh] overflow-y-scroll">
-              {/* @ts-expect-error wrong typing: RightEntry vs. RightDefaultView */}
               <RightEntry entry={closest} />
               {otherEntries.length > 0 && (
                 <div className="mt-5 space-y-10 rounded-sm bg-gray-50 p-4">

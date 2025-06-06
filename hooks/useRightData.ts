@@ -12,7 +12,7 @@ import { LngLatBounds } from "maplibre-gl";
 import useSWRImmutable from "swr/immutable";
 import { toRightSchema } from "../lib/to-right-schema";
 import useDebounce from "./useDebounce";
-import { RightDefaultViewFeatureCollection } from "@/types/RightDefaultView";
+import { RightViewPlaceJoinFC } from "@/types/RightView";
 
 const toBbox = (bounds?: LngLatBounds) => {
   if (!bounds) return undefined;
@@ -41,10 +41,13 @@ export default function useRightData(
   const params = `select=*,${rights.map((d) => `${d}(${columns})`)}&in_sample_regions=is.true`;
   const debouncedBBox = useDebounce<LngLatBounds>(bounds, 300);
   const request = `${url}?bbox={${toBbox(debouncedBBox)}}${params ? `&${params}` : ""}`;
-  const { data, isLoading, error } =
-    useSWRImmutable<RightDefaultViewFeatureCollection>(request, fetcher, {
+  const { data, isLoading, error } = useSWRImmutable<RightViewPlaceJoinFC>(
+    request,
+    fetcher,
+    {
       keepPreviousData: true,
-    });
+    },
+  );
   if (data) {
     return {
       isLoading,

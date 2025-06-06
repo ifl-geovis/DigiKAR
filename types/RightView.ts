@@ -15,11 +15,12 @@ type RightHolder = {
 
 export type RightEntry = {
   place_id: string;
+  // to be removed
   attested_fuzzy: {
-    // to be removed
     kernel: string;
     support: string;
   };
+  // to be removed
   attested_raw: string;
   attested_json: FuzzyTimeInterval; // rename to `attested`
   when: When;
@@ -29,6 +30,7 @@ export type RightEntry = {
   rightholders: RightHolder[];
   // top_levels are summarized "übergeordnete Herrschaften"?
   top_levels: string[];
+  // remove md_suffixes?
   md_rights_held_by: number;
   md_disputed_by: number;
   md_rightholders_categories: string[];
@@ -38,9 +40,7 @@ type RightAttributes = {
   [K in Right]: RightEntry[];
 };
 
-// detailed view, (default view without suffix)
-// meant for someone who wants to query the data
-export type RightDefaultView = {
+export type RightViewPlaceJoin = {
   id: string;
   geometry: Point;
   label: string;
@@ -49,7 +49,4 @@ export type RightDefaultView = {
   when: When;
 } & RightAttributes;
 
-export type RightDefaultViewFeatureCollection = FeatureCollection<
-  Point,
-  RightDefaultView
->;
+export type RightViewPlaceJoinFC = FeatureCollection<Point, RightViewPlaceJoin>;

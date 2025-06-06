@@ -4,12 +4,12 @@ import {
   RightWithPerspectives,
   PlacePropertiesWithPerspectives,
   Right,
+  RightholderEntity,
 } from "@/types/PlaceProperties";
 import { FeatureCollection, Point } from "geojson";
 import { TimeRange } from "@/components/RightsExplorer/RightsExplorerContext";
 import { rightSet } from "./right-set";
-import { RightDefaultViewFeatureCollection } from "@/types/RightDefaultView";
-import { RightholderEntity } from "@/types/SummaryView";
+import { RightViewPlaceJoinFC } from "@/types/RightView";
 
 /**
  * Transform the API response into the correct schema
@@ -19,7 +19,7 @@ import { RightholderEntity } from "@/types/SummaryView";
  * @returns The schema for the right data
  */
 export const toRightSchema = (
-  data: RightDefaultViewFeatureCollection,
+  data: RightViewPlaceJoinFC,
   t: TimeRange,
   showIndividuals: boolean,
 ): FeatureCollection<Point, PlacePropertiesWithPerspectives> => {

@@ -1,5 +1,4 @@
 import { FeatureCollection, Point } from "geojson";
-import { RightholderEntity } from "./SummaryView";
 import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
 
 export type Right =
@@ -11,6 +10,8 @@ export type Right =
   | "kollatur"
   | "landeshoheit"
   | "kirchenpatronat";
+
+export type RightholderEntity = "Person" | "Körperschaft";
 
 export type Holder = {
   holder?: string;

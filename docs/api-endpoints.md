@@ -1,50 +1,12 @@
 # DigiKAR API: Endpoints
 
-This document describes and compares the two main API endpoints for rights data in the DigiKAR project: the **Summary View** and the **Default (Detailed) View**. It is based on the TypeScript types found in `types/SummaryView.ts` and `types/RightDefaultView.ts`. In addition, it provides an overview of the `/orte` endpoint, which is used to retrieve right data based on spatial location.
+This document describes main API endpoints for rights data in the DigiKAR project. It is based on the TypeScript types found in `types/RightView.ts`. In addition, it provides an overview of the `/orte` endpoint, which is used to retrieve right data based on spatial location.
 
 ---
 
-## Summary View Endpoint
+## \<Right\> Endpoint
 
-> [!CAUTION]
-> This view is obsolete and might be deprecated.
-
-- **TypeScript type:** `SummaryViewRights` (see `types/SummaryView.ts`)
-- **Typical API usage:** `/orte?select=*,<right>_summary(*)` (in Combination with the `/orte` endpoint)
-- **Example API call:** [/grundherrschaft_summary?place_id=eq.00c16b51-9d93-4c3c-afcc-34842ce0c4b0](https://api.geohistoricaldata.org/digikar/grundherrschaft_summary?place_id=eq.00c16b51-9d93-4c3c-afcc-34842ce0c4b0)
-- **Shape:** Array of objects, each with place and time information per place aggregated right attributes.
-- **Purpose:**
-  - Provides a compact, aggregated view of rights for each source.
-  - Designed for map overviews and fast queries.
-- **Key fields:**
-  - `id`, `label`, `earliest_attested`, `latest_attested`,
-  - For each right (e.g., `grundherrschaft_summary`): an array of `RightEntry` objects, each summarizing rights for a place.
-
-**Example structure:**
-
-```ts
-{
-  attested: FuzzyTimeInterval;
-  place_id: string;
-  place_label: string;
-  place_ref: string;
-  rightholders_individuals: {
-    category: string;
-    is_disputing: boolean;
-    rightholder: string;
-    rightholder_consolidated: string;
-    source: string;
-    top_level: string;
-    type: string; // "Körperschaft", "Person"
-  }
-}
-```
-
----
-
-## Default (Detailed) View Endpoint
-
-- **TypeScript type:** `RightDefaultView` (see `types/RightDefaultView.ts`)
+- **TypeScript type:** `RightView` (see `types/RightView.ts`)
 - **Typical API usage:**
   `/orte?select=*,<right>(*)`
 - **Example API call:** [/orte?select=_,grundherrschaft(_)&limit=3](<https://api.geohistoricaldata.org/digikar/orte?select=*,grundherrschaft(*)&limit=3>)
@@ -138,5 +100,5 @@ This document describes and compares the two main API endpoints for rights data 
 
 ## References
 
-- See `types/SummaryView.ts` and `types/RightDefaultView.ts` for full type definitions.
+- See `types/RightView.ts` for full type definitions.
 - API: [api.geohistoricaldata.org/digikar/](https://api.geohistoricaldata.org/digikar/)
