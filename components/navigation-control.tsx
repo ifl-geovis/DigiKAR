@@ -7,7 +7,6 @@ import { useMapStateContext } from "./MapState/MapStateContext";
 const NavigationControl: FC = () => {
   const { rightsMap } = useMap();
   const { viewState } = useMapStateContext();
-  console.log(viewState.bearing);
   return (
     <MapControl className="h-auto w-auto">
       <div className="flex flex-col">
