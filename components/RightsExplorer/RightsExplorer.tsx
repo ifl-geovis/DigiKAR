@@ -16,6 +16,7 @@ import {
 } from "./RightsExplorerContext";
 import { Right } from "@/types/PlaceProperties";
 import { mapToScale } from "@/lib/helpers";
+import useRightData from "@/hooks/useRightData";
 
 type Props = PropsWithChildren<{
   initialViewState: { longitude: number; latitude: number; zoom: number };
@@ -26,11 +27,6 @@ type Props = PropsWithChildren<{
   initialTimeRange: TimeRange;
   colorMaps: Map<Perspective, Map<string, string>>;
 }>;
-
-export type DataState = {
-  isLoading?: boolean;
-  error?: boolean;
-};
 
 const RightsExplorer: FC<Props> = ({
   initialTimeRange,
@@ -75,7 +71,9 @@ const RightsExplorer: FC<Props> = ({
     undefined,
   );
 
-  const [dataState, setDataState] = useState<DataState | undefined>(undefined);
+  const [rightsData, setRightsData] = useState<
+    Awaited<ReturnType<typeof useRightData>> | undefined
+  >(undefined);
 
   const [timeRange, setTimeRange] = useState<TimeRange>(initialTimeRange);
 
@@ -84,7 +82,7 @@ const RightsExplorer: FC<Props> = ({
       value={{
         availableLayers,
         colorScales,
-        dataState,
+        rightsData,
         detailInfo,
         isMultivariate,
         showIndividuals,
@@ -96,7 +94,7 @@ const RightsExplorer: FC<Props> = ({
         univariateRight,
         timeRange,
         tooltipInfo,
-        setDataState,
+        setRightsData,
         setDetailInfo,
         setIsMultivariate,
         setPerspective,

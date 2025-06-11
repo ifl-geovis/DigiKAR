@@ -13,6 +13,7 @@ import useSWRImmutable from "swr/immutable";
 import { toRightSchema } from "../lib/to-right-schema";
 import useDebounce from "./useDebounce";
 import { RightViewPlaceJoinFC } from "@/types/RightView";
+import { useMemo } from "react";
 
 const toBbox = (bounds?: LngLatBounds) => {
   if (!bounds) return undefined;
@@ -48,12 +49,16 @@ export default function useRightData(
       keepPreviousData: true,
     },
   );
-  if (data) {
-    return {
-      isLoading,
-      data: toRightSchema(data, timeRange, showIndividuals),
-      error,
-    };
-  }
-  return { error, isLoading, data };
+  const result = useMemo(() => {
+    if (data) {
+      return {
+        isLoading,
+        data: toRightSchema(data, timeRange, showIndividuals),
+        error,
+      };
+    }
+    return { error, isLoading, data };
+  }, [data, isLoading, error, timeRange, showIndividuals]);
+
+  return result;
 }

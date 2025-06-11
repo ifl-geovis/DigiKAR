@@ -5,12 +5,12 @@ import Spinner from "./Spinner";
 import { RxCrossCircled } from "react-icons/rx";
 
 const DataStateIndicator: FC = () => {
-  const { dataState } = useRightsExplorerContext();
-  return dataState?.error || dataState?.isLoading ? (
+  const { rightsData } = useRightsExplorerContext();
+  return rightsData?.error || rightsData?.isLoading ? (
     <MapControl>
       <div className="px-3">
-        {dataState.isLoading && <Spinner />}
-        {dataState.error && <RxCrossCircled />}
+        {rightsData?.isLoading && <Spinner />}
+        {rightsData?.error && <RxCrossCircled />}
       </div>
     </MapControl>
   ) : null;

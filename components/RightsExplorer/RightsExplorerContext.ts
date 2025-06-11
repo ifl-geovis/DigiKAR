@@ -5,7 +5,7 @@ import { Right } from "@/types/PlaceProperties";
 import { TooltipInfo } from "@/types/TooltipInfo";
 import { ScaleOrdinal } from "d3";
 import { createContext, useContext } from "react";
-import { DataState } from "./RightsExplorer";
+import useRightData from "@/hooks/useRightData";
 
 export type TimeRange = {
   min: number;
@@ -44,8 +44,8 @@ type Context = {
   setDetailInfo: (detail?: DetailInfo) => void;
   tooltipInfo?: TooltipInfo;
   setTooltipInfo: (detail?: TooltipInfo) => void;
-  dataState?: DataState;
-  setDataState: (dataState: DataState) => void;
+  rightsData?: Awaited<ReturnType<typeof useRightData>>;
+  setRightsData: (data?: Awaited<ReturnType<typeof useRightData>>) => void;
 };
 
 export const RightsExplorerContext = createContext<Context | null>(null);

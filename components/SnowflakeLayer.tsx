@@ -20,7 +20,8 @@ const SnowFlakeLayer: FC = () => {
     colorScales,
     symbolMap,
     perspective,
-    setDataState,
+    setRightsData,
+    rightsData: currentData,
   } = useRightsExplorerContext();
   const { bounds } = useMapStateContext();
 
@@ -40,8 +41,15 @@ const SnowFlakeLayer: FC = () => {
   );
 
   useEffect(() => {
-    setDataState({ isLoading, error });
-  }, [isLoading, error, setDataState]);
+    const next = { isLoading, error, data: transformedData };
+    if (
+      currentData?.isLoading !== isLoading ||
+      currentData?.error !== error ||
+      currentData?.data !== transformedData
+    ) {
+      setRightsData(next);
+    }
+  }, [setRightsData, isLoading, error, transformedData, currentData]);
 
   return (
     <>

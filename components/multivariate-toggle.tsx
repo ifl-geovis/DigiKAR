@@ -22,7 +22,10 @@ const MultivariatToggle = () => {
           <circle className="fill-none stroke-slate-500" cx={5} cy={5} r={4} />
         </svg>
       </div>
-      <Switch checked={isMultivariate} onCheckedChange={setIsMultivariate} />
+      <Switch
+        checked={isMultivariate}
+        onCheckedChange={(value) => setIsMultivariate(!!value)}
+      />
       <div className="flex items-center gap-1">
         <svg width={10} height={10}>
           {range(5).map((i) => (
