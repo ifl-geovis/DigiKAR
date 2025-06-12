@@ -23,7 +23,7 @@ const Card: FC<Props> = ({
     <Collapsible.Root defaultOpen={defaultOpen ?? !collapsible}>
       <div className="rounded-sm bg-white shadow-md">
         {(header || collapsible) && (
-          <div className="flex items-center justify-between border-b border-slate-200 px-5 py-2 text-sm font-bold">
+          <div className="flex items-center justify-between border-b px-5 py-2 text-sm font-bold">
             {header &&
               (typeof header === "string" ? (
                 <span>{header}</span>
@@ -32,7 +32,7 @@ const Card: FC<Props> = ({
               ))}
             {collapsible ? (
               <Collapsible.Trigger asChild>
-                <Button size="icon" variant="ghost">
+                <Button className="cursor-pointer" size="icon" variant="ghost">
                   <CaretSortIcon />
                 </Button>
               </Collapsible.Trigger>

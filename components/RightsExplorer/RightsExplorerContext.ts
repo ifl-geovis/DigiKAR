@@ -46,6 +46,8 @@ type Context = {
   setTooltipInfo: (detail?: TooltipInfo) => void;
   rightsData?: Awaited<ReturnType<typeof useRightData>>;
   setRightsData: (data?: Awaited<ReturnType<typeof useRightData>>) => void;
+  onlyShowInView: boolean;
+  setOnlyShowInView: (value: boolean) => void;
 };
 
 export const RightsExplorerContext = createContext<Context | null>(null);

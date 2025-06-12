@@ -25,6 +25,13 @@ export type Holder = {
 export type IndividualDatum = { name: string; type?: RightholderEntity };
 
 export type PerspectiveDatum = string | IndividualDatum;
+
+export function isIndividualDatum(
+  datum: PerspectiveDatum,
+): datum is IndividualDatum {
+  return typeof datum === "object" && datum !== null && "name" in datum;
+}
+
 export type Perspectives = Record<Perspective, PerspectiveDatum[]>;
 
 export type RightWithPerspectives = {

@@ -1,5 +1,5 @@
 import Card from "@/components/Card";
-import LegendHeader from "@/components/LegendHeader";
+import LegendFooter from "@/components/legend-footer";
 import LegendNominal from "@/components/LegendNominal/LegendNominal";
 import MapAside from "@/components/MapAside";
 import MapContainer from "@/components/MapContainer";
@@ -59,12 +59,13 @@ export default async function Rights() {
               <HolderTypeToggle />
             </div>
           </Card>
-          <Card inset={false} header={<LegendHeader />} collapsible>
-            <ScrollArea className="h-66 rounded">
+          <Card inset={false} header={<span>Legende</span>} collapsible>
+            <ScrollArea className="h-83 rounded">
               <div className="px-5 py-3">
                 <LegendNominal />
               </div>
             </ScrollArea>
+            <LegendFooter />
           </Card>
         </MapAside>
         <MapContainer>

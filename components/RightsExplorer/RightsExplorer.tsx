@@ -77,6 +77,8 @@ const RightsExplorer: FC<Props> = ({
 
   const [timeRange, setTimeRange] = useState<TimeRange>(initialTimeRange);
 
+  const [onlyShowInView, setOnlyShowInView] = useState(false);
+
   return (
     <RightsExplorerContext.Provider
       value={{
@@ -94,6 +96,7 @@ const RightsExplorer: FC<Props> = ({
         univariateRight,
         timeRange,
         tooltipInfo,
+        onlyShowInView,
         setRightsData,
         setDetailInfo,
         setIsMultivariate,
@@ -105,6 +108,7 @@ const RightsExplorer: FC<Props> = ({
         setTimeRange,
         setUnivariateRight,
         setTooltipInfo,
+        setOnlyShowInView,
       }}
     >
       <MapState
