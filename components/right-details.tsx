@@ -103,11 +103,11 @@ const RightDetails = () => {
                 <div className="font-bold">{place.label}</div>
                 <div className="flex items-center gap-2">
                   <LuMapPin />
-                  <pre>
+                  <span className="font-mono">
                     {place.geometry.coordinates
                       .map((d) => localeDe.format(".5")(d))
                       .join(" ")}
-                  </pre>
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <LuKey />

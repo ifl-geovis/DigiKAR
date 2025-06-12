@@ -23,7 +23,7 @@ const LegendFooter = () => {
     <div className="flex h-10 w-full items-center gap-3 border-t px-4 py-2">
       <div className="flex w-full items-center gap-2">
         <RxCursorArrow />
-        <span className="text-muted-foreground font-[monospace] font-normal">
+        <span className="text-muted-foreground font-mono text-sm font-normal">
           <span className="font-bold">{selectedLegendItems.length}</span>
           <span> / {totalItems}</span> ausgewählt
         </span>

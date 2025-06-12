@@ -14,19 +14,19 @@ const RightEntry: FC<Props> = ({ entry }) => {
       <div>
         <div className="flex items-center gap-2">
           <LuCalendar />
-          <span className="text-xs font-bold">Quellendatum</span>
+          <span className="font-mono text-xs font-bold">Quellendatum</span>
           {attested_raw}
         </div>
       </div>
       <div className="flex items-center gap-2">
         <LuUserRound />
-        <span className="text-xs font-bold">Inhaber</span>
+        <span className="font-mono text-xs font-bold">Inhaber</span>
       </div>
       <div className="grid flex-col gap-4">
         {rightholders.map((d, i) => {
           return (
             <div
-              className="grid grid-cols-[2fr_5fr] items-baseline gap-x-2 pl-6 [&>div:nth-child(odd)]:text-xs"
+              className="grid grid-cols-[1fr_2fr] items-baseline gap-x-2 pl-6 [&>div:nth-child(odd)]:font-mono [&>div:nth-child(odd)]:text-xs"
               key={i}
             >
               <div>Inhaber laut Quelle</div>

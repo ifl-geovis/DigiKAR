@@ -37,9 +37,11 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
   return (
     <div className="text-base">
       <h2 className="mb-2 text-base font-bold">{placeName}</h2>
-      <p className="text-muted-foreground text-sm">Herrschaftsrecht</p>
+      <p className="text-muted-foreground font-mono text-sm">
+        Herrschaftsrecht
+      </p>
       {rightSet.get(locationAttribute.attributeName)?.label}
-      <p className="text-muted-foreground mt-2 text-sm">Inhaber</p>
+      <p className="text-muted-foreground mt-2 font-mono text-sm">Inhaber</p>
       {isWithoutHolder ? (
         <span className="text-gray-500 italic">keine Daten</span>
       ) : (
