@@ -9,9 +9,7 @@ import { Drag, raise } from "@visx/drag";
 import { HandlerArgs } from "@visx/drag/lib/Drag";
 import { Line, Polygon } from "@visx/shape";
 import { PatternLines } from "@visx/pattern";
-import Tooltip from "./Tooltip";
-import TooltipTrigger from "./Tooltip/TooltipTrigger";
-import TooltipContent from "./Tooltip/TooltipContent";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 type Props = {
   scaleX: ScaleLinear<number, number>;

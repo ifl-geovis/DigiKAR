@@ -5,9 +5,7 @@ import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext
 import { Button } from "./ui/button";
 import { RxCursorArrow, RxReset, RxTextAlignMiddle } from "react-icons/rx";
 import { Switch } from "./ui/switch";
-import Tooltip from "./Tooltip";
-import TooltipTrigger from "./Tooltip/TooltipTrigger";
-import TooltipContent from "./Tooltip/TooltipContent";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 const LegendFooter = () => {
   const {
@@ -41,7 +39,7 @@ const LegendFooter = () => {
         )}
       </div>
       <Separator orientation="vertical" className="h-6" />
-      <Tooltip delay={100}>
+      <Tooltip delayDuration={100}>
         <TooltipTrigger asChild>
           <div className="flex items-center gap-2">
             <RxTextAlignMiddle />

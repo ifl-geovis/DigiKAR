@@ -4,9 +4,7 @@ import { range } from "d3";
 import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 import { useMapStateContext } from "./MapState/MapStateContext";
 import { RxExclamationTriangle } from "react-icons/rx";
-import Tooltip from "./Tooltip";
-import TooltipTrigger from "./Tooltip/TooltipTrigger";
-import TooltipContent from "./Tooltip/TooltipContent";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 const MultivariatToggle = () => {
   const { isMultivariate, setIsMultivariate } = useRightsExplorerContext();

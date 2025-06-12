@@ -1,14 +1,12 @@
 import React, { FC } from "react";
 import { Button, ButtonProps } from "../ui/button";
-import Tooltip from "../Tooltip/Tooltip";
-import TooltipTrigger from "../Tooltip/TooltipTrigger";
-import TooltipContent from "../Tooltip/TooltipContent";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 type Props = { tooltipContent: string } & ButtonProps;
 
 const ButtonWithTooltip: FC<Props> = ({ tooltipContent, ...rest }) => {
   return (
-    <Tooltip delay={{ open: 1500, close: 0 }}>
+    <Tooltip delayDuration={500}>
       <TooltipTrigger asChild>
         <Button {...rest} />
       </TooltipTrigger>
