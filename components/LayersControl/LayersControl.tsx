@@ -12,16 +12,15 @@ const LayersControl: FC = () => {
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            className="h-full"
+            className="h-[33px] w-[33px] p-2"
             disabled={!layers.length}
-            size={"icon"}
+            size={"xs"}
             variant={"ghost"}
           >
             <RxLayers />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto text-sm" align="end">
-          <div className="mb-2 text-xs font-bold">Kartenebenen</div>
+        <PopoverContent className="w-auto p-3 text-sm" align="start">
           <ul>
             {layers.map((layer) => (
               <li key={layer.name} className="flex items-center gap-3">

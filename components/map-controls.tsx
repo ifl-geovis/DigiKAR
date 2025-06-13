@@ -9,7 +9,7 @@ import NavigationControl from "./navigation-control";
 
 const MapControls: FC = () => {
   return (
-    <div className="text-mono flex gap-2 [&>*]:pointer-events-auto">
+    <div className="text-mono flex items-start gap-2 [&>*]:pointer-events-auto">
       <NavigationControl />
       <div className="flex flex-col gap-2">
         <LayersControl />

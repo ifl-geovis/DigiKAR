@@ -9,7 +9,7 @@ const MapControl = forwardRef<HTMLDivElement, Props>(
       <div
         ref={ref}
         className={twMerge(
-          "flex h-7 min-w-7 items-center justify-center rounded-sm bg-white shadow-[0_0_0_2px_rgba(0,0,0,0.1)]",
+          "flex items-center justify-center rounded-sm bg-white shadow-[0_0_0_2px_rgba(0,0,0,0.1)]",
           className,
         )}
       >

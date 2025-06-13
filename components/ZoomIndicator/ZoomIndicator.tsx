@@ -11,7 +11,7 @@ const ZoomIndicator: FC = () => {
   }
   return (
     <MapControl>
-      <div className="flex items-center gap-2 px-3 font-mono text-xs">
+      <div className="flex items-center gap-2 p-2 font-mono text-xs">
         <RxGlobe />
         <span>{viewState.zoom.toFixed(2)}</span>
       </div>
