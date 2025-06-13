@@ -9,33 +9,46 @@ const category = new Map<string, string>([
 ]);
 
 export const getAnwesen = async () => {
-  const response = await fetch(
-    "https://api.geohistoricaldata.org/digikar/anwesen.geojson",
-  );
-  const fc: FeatureCollection<Point> = await response.json();
-  const features = fc.features.map((f) => {
-    const holderGs = f.properties?.["ghs-ks"];
-    const holderNg = f.properties?.["ng-ks"];
+  try {
+    const response = await fetch(
+      "https://api.geohistoricaldata.org/digikar/anwesen.geojson",
+    );
+    if (!response.ok) {
+      throw new Error(
+        `PostgREST error: ${response.status} ${response.statusText}`,
+      );
+    }
+    const fc: FeatureCollection<Point> = await response.json();
+    const features = fc.features.map((f) => {
+      const holderGs = f.properties?.["ghs-ks"];
+      const holderNg = f.properties?.["ng-ks"];
+      return {
+        ...f,
+        properties: {
+          ...f.properties,
+          Grundherrschaft: {
+            categories: [category.get(holderGs) ?? ""],
+            disputedBy: holderGs === "umstritten" ? 1 : 0,
+            heldBy: 1,
+            individuals: [],
+            topLevels: [],
+          } satisfies RightWithPerspectives,
+          Niedergericht: {
+            categories: [category.get(holderNg) ?? ""],
+            disputedBy: holderNg === "umstritten" ? 1 : 0,
+            heldBy: 1,
+            individuals: [],
+            topLevels: [],
+          } satisfies RightWithPerspectives,
+        },
+      };
+    });
+    return { ...fc, features };
+  } catch (error) {
+    console.error("Failed to fetch anwesen:", error);
     return {
-      ...f,
-      properties: {
-        ...f.properties,
-        Grundherrschaft: {
-          categories: [category.get(holderGs) ?? ""],
-          disputedBy: holderGs === "umstritten" ? 1 : 0,
-          heldBy: 1,
-          individuals: [],
-          topLevels: [],
-        } satisfies RightWithPerspectives,
-        Niedergericht: {
-          categories: [category.get(holderNg) ?? ""],
-          disputedBy: holderNg === "umstritten" ? 1 : 0,
-          heldBy: 1,
-          individuals: [],
-          topLevels: [],
-        } satisfies RightWithPerspectives,
-      },
-    };
-  });
-  return { ...fc, features };
+      type: "FeatureCollection",
+      features: [],
+    } satisfies FeatureCollection<Point>;
+  }
 };
