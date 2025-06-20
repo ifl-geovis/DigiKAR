@@ -64,7 +64,7 @@ const SnowflakePreview = () => {
                       y={pointsLabels[i].y}
                       textAnchor="middle"
                       dominantBaseline="middle"
-                      className="group-data-[state=open]:font-bold"
+                      className="font-mono text-xs font-bold group-data-[state=open]:font-black"
                     >
                       {rightSet.get(attributeName)?.shortcode}
                     </text>

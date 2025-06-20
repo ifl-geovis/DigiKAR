@@ -41,20 +41,18 @@ const RightIndicator: FC = () => {
               </p>
             </div>
           )}
-          {[...rightSet.entries()].map(([relation, { label }]) => {
+          {[...rightSet.entries()].map(([relation, { label, shortcode }]) => {
             const isVisualized = order.includes(relation);
             return (
               <div
                 className={twJoin(
-                  `my-1 flex items-center justify-between rounded p-1 px-2 shadow-sm`,
+                  `my-1 flex items-center justify-between gap-3 rounded p-1 px-2 shadow-sm`,
                   !isVisualized && "text-gray-400",
                 )}
                 key={relation}
               >
-                {label}
                 <ButtonWithTooltip
                   tooltipContent="Toggle visibility"
-                  // disabled={!isVisualized}
                   onClick={() =>
                     isVisualized
                       ? setOrder([...order.filter((d) => d != relation)])
@@ -65,6 +63,10 @@ const RightIndicator: FC = () => {
                 >
                   {!isVisualized ? <RxEyeClosed /> : <RxEyeOpen />}
                 </ButtonWithTooltip>
+                <span>{label}</span>
+                <div className="mr-2 ml-auto rounded bg-gray-50 p-1 font-mono text-xs font-bold">
+                  {shortcode}
+                </div>
               </div>
             );
           })}
