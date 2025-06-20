@@ -22,13 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={
-          `${inter.variable} ${geistMono.variable}` +
-          " grid h-dvh w-dvw grid-rows-[auto__1fr__auto] antialiased"
-        }
-      >
+    <html lang="en" className={`${inter.variable} ${geistMono.variable}`}>
+      <body className="grid h-dvh w-dvw grid-rows-[auto__1fr__auto] antialiased">
         <Navigation />
         <main className="overflow-y-auto">{children}</main>
         <Footer />
