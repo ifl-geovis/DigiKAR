@@ -1,30 +1,38 @@
 import { Right } from "@/types/PlaceProperties";
 
 export const rights = [
+  //TODO: split up into
+  // - Hochgericht – Gemeinde (Anwesen)
+  // - Hochgericht – Gemeindeflur
   {
     relation: "hochgericht",
     label: "Hochgericht",
-    shortcode: "H",
+    shortcode: "Hg",
   },
   {
     relation: "niedergericht",
-    label: "Niedergericht (Anwesen)",
-    shortcode: "N",
+    label: "Niedergericht",
+    shortcode: "Ng",
   },
   {
     relation: "grundherrschaft",
     label: "Grundherrschaft",
-    shortcode: "G",
+    shortcode: "Gh",
   },
   {
     relation: "landeshoheit",
     label: "Landeshoheit",
-    shortcode: "L",
+    shortcode: "Lh",
   },
   {
     relation: "kirchenpatronat",
-    label: "Kirchenpatronat/Kirchenhoheit",
-    shortcode: "Ki",
+    label: "Kirchenpatronat",
+    shortcode: "Kp",
+  },
+  {
+    relation: "kirchenhoheit",
+    label: "Kirchenhoheit",
+    shortcode: "Kh",
   },
   {
     relation: "jagd",
@@ -34,12 +42,17 @@ export const rights = [
   {
     relation: "dorf_und_gemeindeherrschaft",
     label: "Dorf- und Gemeindeherrschaft",
-    shortcode: "D",
+    shortcode: "DGh",
   },
   {
     relation: "kollatur",
     label: "Kollatur",
     shortcode: "Ko",
+  },
+  {
+    relation: "vogtei_ausser_etters",
+    label: "Vogtei ausser Etters",
+    shortcode: "VaE",
   },
 ] satisfies { label: string; shortcode: string; relation: Right }[];
 

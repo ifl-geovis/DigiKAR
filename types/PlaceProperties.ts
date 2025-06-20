@@ -2,14 +2,16 @@ import { FeatureCollection, Point } from "geojson";
 import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
 
 export type Right =
+  | "dorf_und_gemeindeherrschaft"
   | "grundherrschaft"
   | "hochgericht"
-  | "niedergericht"
   | "jagd"
-  | "dorf_und_gemeindeherrschaft"
+  | "kirchenhoheit"
+  | "kirchenpatronat"
   | "kollatur"
   | "landeshoheit"
-  | "kirchenpatronat";
+  | "niedergericht"
+  | "vogtei_ausser_etters";
 
 export type RightholderEntity = "Person" | "Körperschaft";
 
