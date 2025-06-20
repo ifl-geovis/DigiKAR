@@ -12,16 +12,19 @@ const Footer: FC = () => {
             {new Date().getFullYear()}
           </time>
         </div>
-        <div className="h-auto w-0 space-x-2 border-l border-gray-300" />
         <Link href="/rights/changelog" className="flex items-center gap-1">
           <LuDatabaseBackup /> <span>Data Changelog</span>
         </Link>
-      </div>
-      <div className="ml-auto">
+        <div className="h-auto w-0 space-x-2 border-l border-gray-300" />
         <Link href="https://github.com/ifl-geovis/DigiKAR">
-          <LuGithub size={"1.5em"} />
+          <LuGithub />
         </Link>
       </div>
+      <ul className="ml-auto flex gap-4">
+        <Link href="/impressum">Impressum</Link>
+        <Link href="/datenschutz">Datenschutzerklärung</Link>
+        <Link href="/barrierefreiheit">Barrierefreiheit</Link>
+      </ul>
     </footer>
   );
 };
