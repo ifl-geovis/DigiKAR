@@ -10,7 +10,6 @@ import Map, {
   ViewStateChangeEvent,
   useMap,
 } from "react-map-gl/maplibre";
-import LayerGallow from "./LayerGallow";
 import LayerMlBerlin from "./LayerMlBerlin";
 import LocationAttributeCard from "./LocationAttributeCard";
 import { useMapStateContext } from "./MapState/MapStateContext";
@@ -34,6 +33,22 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
 
   const { viewState, setViewState, layers, setBounds } = useMapStateContext();
   const { tooltipInfo, setTooltipInfo } = useRightsExplorerContext();
+
+  // Set visibility of layers
+  layers.forEach((layer) => {
+    if (!rightsMap) return;
+    // skip layers that are not in the map style
+    if (layer.id.some((id) => !rightsMap.getLayer(id))) return;
+    layer.id.forEach((id) => {
+      rightsMap
+        .getMap()
+        .setLayoutProperty(
+          id,
+          "visibility",
+          layer.visible ? "visible" : "none",
+        );
+    });
+  });
 
   const handleMove = useCallback(
     (event: ViewStateChangeEvent) => {
@@ -60,19 +75,12 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
       onMoveEnd={handleMoveEnd}
       attributionControl={false}
     >
-      <AttributionControl compact={true} position="top-right" />
+      <AttributionControl position="top-right" />
       <ScaleControl position="top-right" />
       <SnowFlakeLayer />
       <LayerMlBerlin
         visibility={
           layers.find((d) => d.name === "Meilenblätter")?.visible
-            ? "visible"
-            : "none"
-        }
-      />
-      <LayerGallow
-        visibility={
-          layers.find((d) => d.name === "Galgenstandorte")?.visible
             ? "visible"
             : "none"
         }

@@ -45,8 +45,18 @@ export default async function Rights() {
       initialTimeRange={{ t: 1800, min: 1800 - 25, max: 1800 + 25 }}
       initialSymbolMap={symbolMap}
       availableLayers={[
-        { name: "Meilenblätter", visible: false },
-        { name: "Galgenstandorte", visible: false },
+        { name: "Meilenblätter", id: ["meilenblaetter"], visible: false },
+        {
+          name: "Galgenstandorte",
+          id: ["gallow", "gallow_label"],
+          visible: false,
+        },
+        {
+          name: "Flüsse Kursachsen",
+          id: ["rivers_kursachsen"],
+          visible: false,
+        },
+        { name: "Seen Kursachsen", id: ["lakes_kursachsen"], visible: false },
       ]}
     >
       <MapViewLayout>
