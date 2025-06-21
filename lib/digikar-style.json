@@ -47,6 +47,16 @@
       "url": "https://tiles.geohistoricaldata.org/tiles/lakes",
       "attribution": "<a href='https://www.naturalearthdata.com'>Natural Earth</a>"
     },
+    "lakes_kursachsen": {
+      "type": "vector",
+      "url": "https://tiles.geohistoricaldata.org/tiles/lakes_kurssachsen",
+      "attribution": "<a href='https://leibniz-ifl.de/'>IfL</a>"
+    },
+    "rivers_kursachsen": {
+      "type": "vector",
+      "url": "https://tiles.geohistoricaldata.org/tiles/rivers_kurssachsen",
+      "attribution": "<a href='https://leibniz-ifl.de/'>IfL</a>"
+    },
     "holy_roman_empire_borders": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/holy_roman_empire_borders_1659"
@@ -110,6 +120,26 @@
       "type": "fill",
       "source": "lakes",
       "source-layer": "lakes",
+      "paint": {
+        "fill-color": "rgb(90,130,160)",
+        "fill-opacity": 0.6
+      }
+    },
+    {
+      "id": "rivers_kursachsen",
+      "type": "line",
+      "source": "rivers_kursachsen",
+      "source-layer": "rivers_kurssachsen",
+      "paint": {
+        "line-color": "rgb(90,130,160)",
+        "line-opacity": 0.6
+      }
+    },
+    {
+      "id": "lakes_kursachsen",
+      "type": "fill",
+      "source": "lakes_kursachsen",
+      "source-layer": "lakes_kurssachsen",
       "paint": {
         "fill-color": "rgb(90,130,160)",
         "fill-opacity": 0.6
