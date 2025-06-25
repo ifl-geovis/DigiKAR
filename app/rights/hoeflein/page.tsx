@@ -15,7 +15,7 @@ const center = { lng: 14.215, lat: 51.25 };
 
 export default async function Anwesen() {
   const anwesen = await getAnwesen();
-  const mapStyle = await getMapStyle();
+  const mapStyle = await getMapStyle("rights");
   const colorScale = mapToScale(colorMapCategories, "lightgrey");
 
   return (

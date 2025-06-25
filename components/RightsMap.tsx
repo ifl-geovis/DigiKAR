@@ -37,7 +37,7 @@ const RightsMap: FC<Props> = ({ mapStyle }) => {
   // Set visibility of layers
   layers.forEach((layer) => {
     if (!rightsMap) return;
-    // skip layers that are not in the map style
+    // Skip layers that are not in the map style
     if (layer.id.some((id) => !rightsMap.getLayer(id))) return;
     layer.id.forEach((id) => {
       rightsMap

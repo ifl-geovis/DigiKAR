@@ -131,6 +131,9 @@
       "type": "line",
       "source": "rivers_kursachsen",
       "source-layer": "rivers_kurssachsen",
+      "layout": {
+        "visibility": "none"
+      },
       "paint": {
         "line-color": "rgb(90,130,160)",
         "line-opacity": 0.6
@@ -141,6 +144,9 @@
       "type": "fill",
       "source": "lakes_kursachsen",
       "source-layer": "lakes_kurssachsen",
+      "layout": {
+        "visibility": "none"
+      },
       "paint": {
         "fill-color": "rgb(90,130,160)",
         "fill-opacity": 0.6
@@ -261,7 +267,8 @@
       "source-layer": "richtstaetten",
       "layout": {
         "icon-image": "gallow",
-        "icon-allow-overlap": true
+        "icon-allow-overlap": true,
+        "visibility": "none"
       },
       "paint": {
         "icon-color": "rgb(100,60,0)",
@@ -279,7 +286,8 @@
         "text-font": ["Inter Bold Italic"],
         "text-size": 12,
         "text-anchor": "bottom-left",
-        "text-offset": [0, 1]
+        "text-offset": [0, 1],
+        "visibility": "none"
       },
       "minzoom": 8,
       "paint": {

@@ -21,7 +21,7 @@ import { getMapStyle } from "@/lib/get-map-style";
 import { rightSet } from "@/lib/right-set";
 
 export default async function Rights() {
-  const style = await getMapStyle();
+  const style = await getMapStyle("rights");
   const colorMapTopLevels = await getTopLevelDomain();
   const colorMapIndividuals = await getIndividualsDomain();
   const colorMaps = new Map<Perspective, Map<string, string>>([
