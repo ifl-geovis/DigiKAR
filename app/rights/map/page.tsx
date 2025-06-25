@@ -52,15 +52,15 @@ export default async function Rights() {
         },
         {
           name: "Galgenstandorte",
-          id: ["gallow", "gallow_label"],
+          id: ["gallow", "gallowLabels"],
           visible: false,
         },
         {
           name: "Flüsse Kursachsen",
-          id: ["rivers_kursachsen"],
+          id: ["riversKursachsen"],
           visible: false,
         },
-        { name: "Seen Kursachsen", id: ["lakes_kursachsen"], visible: false },
+        { name: "Seen Kursachsen", id: ["lakesKursachsen"], visible: false },
       ]}
     >
       <MapViewLayout>

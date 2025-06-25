@@ -48,17 +48,17 @@
       "url": "https://tiles.geohistoricaldata.org/tiles/lakes",
       "attribution": "<a href='https://www.naturalearthdata.com'>Natural Earth</a>"
     },
-    "lakes_kursachsen": {
+    "lakesKursachsen": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/lakes_kurssachsen",
       "attribution": "<a href='https://www.landesvermessung.sachsen.de/altas-zur-geschichte-und-landeskunde-4038.html'>Historischer Atlas von Sachsen</a>"
     },
-    "rivers_kursachsen": {
+    "riversKursachsen": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/rivers_kurssachsen",
       "attribution": "<a href='https://www.landesvermessung.sachsen.de/altas-zur-geschichte-und-landeskunde-4038.html'>Historischer Atlas von Sachsen</a>"
     },
-    "holy_roman_empire_borders": {
+    "holyRomanEmpireBorders": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/holy_roman_empire_borders_1659"
     },
@@ -135,9 +135,9 @@
       }
     },
     {
-      "id": "rivers_kursachsen",
+      "id": "riversKursachsen",
       "type": "line",
-      "source": "rivers_kursachsen",
+      "source": "riversKursachsen",
       "source-layer": "rivers_kurssachsen",
       "layout": {
         "visibility": "none"
@@ -148,9 +148,9 @@
       }
     },
     {
-      "id": "lakes_kursachsen",
+      "id": "lakesKursachsen",
       "type": "fill",
-      "source": "lakes_kursachsen",
+      "source": "lakesKursachsen",
       "source-layer": "lakes_kurssachsen",
       "layout": {
         "visibility": "none"
@@ -161,9 +161,9 @@
       }
     },
     {
-      "id": "holy_roman_empire_borders",
+      "id": "holyRomanEmpireBorders",
       "type": "line",
-      "source": "holy_roman_empire_borders",
+      "source": "holyRomanEmpireBorders",
       "source-layer": "holy_roman_empire_borders_1659",
       "paint": {
         "line-color": "rgb(0,0,0)",
@@ -285,7 +285,7 @@
       }
     },
     {
-      "id": "gallow_label",
+      "id": "gallowLabels",
       "type": "symbol",
       "source": "placesOfExecution",
       "source-layer": "richtstaetten",
