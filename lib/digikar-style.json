@@ -51,12 +51,12 @@
     "lakes_kursachsen": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/lakes_kurssachsen",
-      "attribution": "<a href='https://leibniz-ifl.de/'>IfL</a>"
+      "attribution": "<a href='https://www.landesvermessung.sachsen.de/altas-zur-geschichte-und-landeskunde-4038.html'>Historischer Atlas von Sachsen</a>"
     },
     "rivers_kursachsen": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/rivers_kurssachsen",
-      "attribution": "<a href='https://leibniz-ifl.de/'>IfL</a>"
+      "attribution": "<a href='https://www.landesvermessung.sachsen.de/altas-zur-geschichte-und-landeskunde-4038.html'>Historischer Atlas von Sachsen</a>"
     },
     "holy_roman_empire_borders": {
       "type": "vector",
