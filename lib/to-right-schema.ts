@@ -35,7 +35,7 @@ export const toRightSchema = (
         const attributeName = key as Right;
         //@ts-expect-error TS is not able to infer that value is always an entry
         const entry = getClosestEntry(t, value);
-        const [categories, individuals, topLevels, heldBy, disputedBy] = [
+        const [categories, individuals, topLevels, disputedBy] = [
           entry?.rightholders.map((d) => d.category).filter(hasName) ?? [],
           entry?.rightholders
             // filter for Persons if showIndividuals is true
@@ -48,12 +48,11 @@ export const toRightSchema = (
               type: type as RightholderEntity,
             })) ?? [],
           entry?.rightholders.map((d) => d.top_level).filter(hasName) ?? [],
-          entry?.md_rights_held_by ?? 0,
           entry?.md_disputed_by ?? 0,
         ];
         const attribute = {
           attributeName,
-          holders: { categories, individuals, topLevels, heldBy, disputedBy },
+          holders: { categories, individuals, topLevels, disputedBy },
         };
         acc.push(attribute);
       }

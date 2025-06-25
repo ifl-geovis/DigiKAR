@@ -38,7 +38,7 @@ export default async function Rights() {
       initialOrder={[
         "hochgericht",
         "niedergericht",
-        "grundherrschaft",
+        "grundherrschaft_separated_rightholder_types",
         "landeshoheit",
       ]}
       colorMaps={colorMaps}

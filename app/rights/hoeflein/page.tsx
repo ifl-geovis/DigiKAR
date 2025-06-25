@@ -32,14 +32,12 @@ export default async function Anwesen() {
               size={24}
               ng={{
                 disputedBy: 0,
-                heldBy: 0,
                 categories: [],
                 individuals: [],
                 topLevels: [],
               }}
               gs={{
                 disputedBy: 0,
-                heldBy: 0,
                 categories: [],
                 individuals: [],
                 topLevels: [],

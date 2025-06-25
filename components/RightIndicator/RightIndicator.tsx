@@ -46,6 +46,7 @@ const RightIndicator: FC<Props> = ({
   } = useMemo(() => {
     const { isWithoutHolder, isShared, isDisputed, isUnclear } = getRightStatus(
       attribute.holders,
+      perspective,
     );
 
     const names = getRightHolderNames(attribute.holders[perspective]);

@@ -15,7 +15,7 @@ export const rights = [
     shortcode: "Ng",
   },
   {
-    relation: "grundherrschaft",
+    relation: "grundherrschaft_separated_rightholder_types",
     label: "Grundherrschaft",
     shortcode: "Gh",
   },

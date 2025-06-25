@@ -3,7 +3,7 @@ import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
 
 export type Right =
   | "dorf_und_gemeindeherrschaft"
-  | "grundherrschaft"
+  | "grundherrschaft_separated_rightholder_types"
   | "hochgericht"
   | "jagd"
   | "kirchenhoheit"
@@ -37,7 +37,6 @@ export function isIndividualDatum(
 export type Perspectives = Record<Perspective, PerspectiveDatum[]>;
 
 export type RightWithPerspectives = {
-  heldBy: number;
   disputedBy: number;
 } & Perspectives;
 

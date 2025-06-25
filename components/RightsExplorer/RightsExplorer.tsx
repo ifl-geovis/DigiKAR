@@ -1,6 +1,6 @@
 "use client";
 
-import { rights, rightSet } from "@/lib/right-set";
+import { rightSet } from "@/lib/right-set";
 import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
 import { TooltipInfo } from "@/types/TooltipInfo";
@@ -42,13 +42,15 @@ const RightsExplorer: FC<Props> = ({
     initialOrder ?? [...attributes.keys()].map((relation) => relation),
   );
 
-  const [univariateRight, setUnivariateRight] = useState(rights[2].relation);
+  const [univariateRight, setUnivariateRight] = useState(
+    "grundherrschaft_separated_rightholder_types" as Right,
+  );
 
-  const [isMultivariate, setIsMultivariate] = useState(true);
+  const [isMultivariate, setIsMultivariate] = useState(false);
 
   const [showIndividuals, setShowIndividuals] = useState(false);
 
-  const [perspective, setPerspective] = useState<Perspective>("categories");
+  const [perspective, setPerspective] = useState<Perspective>("individuals");
 
   const [selectedLegendItems, setSelectedLegendItems] = useState<string[]>([]);
   const [symbolMap, setSymbolMap] = useState(initialSymbolMap);
