@@ -71,6 +71,14 @@
         "https://sgx.geodatenzentrum.de/wms_basemapde_schummerung?tiled=true&bbox={bbox-epsg-3857}&service=WMS&version=1.3.0&request=GetMap&layers=de_basemapde_web_raster_combshade&styles=&crs=EPSG:3857&width=256&height=256&format=image/png&transparent=true"
       ],
       "tileSize": 256
+    },
+    "meilenblaetterDummy": {
+      "type": "geojson",
+      "data": {
+        "type": "FeatureCollection",
+        "features": []
+      },
+      "attribution": "<a href='https://geoinformatik.htw-dresden.de/geoportal/karten-und-downloaddienste/'>Deutsche Fotothek / Richter, Regine</a>"
     }
   },
   "layers": [
@@ -295,6 +303,15 @@
         "icon-halo-color": "rgb(255,255,255)",
         "icon-halo-width": 2,
         "text-halo-blur": 5
+      }
+    },
+    {
+      "id": "meilenblaetterDummy",
+      "type": "circle",
+      "source": "meilenblaetterDummy",
+      "source-layer": "meilenblaetter_dummy",
+      "layout": {
+        "visibility": "none"
       }
     }
   ]

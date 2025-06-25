@@ -45,7 +45,11 @@ export default async function Rights() {
       initialTimeRange={{ t: 1800, min: 1800 - 25, max: 1800 + 25 }}
       initialSymbolMap={symbolMap}
       availableLayers={[
-        { name: "Meilenblätter", id: ["meilenblaetter"], visible: false },
+        {
+          name: "Meilenblätter",
+          id: ["meilenblaetter", "meilenblaetterDummy"],
+          visible: false,
+        },
         {
           name: "Galgenstandorte",
           id: ["gallow", "gallow_label"],
