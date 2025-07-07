@@ -24,11 +24,14 @@ import {
 import { Skeleton } from "./ui/skeleton";
 
 const RightDetails = () => {
-  const { detailInfo, setDetailInfo, timeRange } = useRightsExplorerContext();
+  const { detailInfo, setDetailInfo, timeRange, showIndividuals } =
+    useRightsExplorerContext();
+  const rightHolderType = showIndividuals ? "Person" : "Körperschaft";
+
   const { data, isLoading } = useSWRImmutable<
     Awaited<RightViewPlaceJoin[] | PostgRESTError>
   >(
-    `https://api.geohistoricaldata.org/digikar/orte?select=*,${detailInfo?.attribute}(*)&id=eq.${detailInfo?.place}&limit=1`,
+    `https://api.geohistoricaldata.org/digikar/orte?select=*,${detailInfo?.attribute}(*)&id=eq.${detailInfo?.place}&limit=1&${detailInfo?.attribute}.rightholder_type=eq.${rightHolderType}`,
     fetcher,
   );
 

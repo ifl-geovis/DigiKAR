@@ -21,8 +21,11 @@ type Props = {
 };
 
 const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
-  const { isWithoutHolder } = getRightStatus(locationAttribute.holders);
   const { colorScales, perspective } = useRightsExplorerContext();
+  const { isWithoutHolder } = getRightStatus(
+    locationAttribute.holders,
+    perspective,
+  );
   const colorScale = colorScales.get(perspective)!;
   const attribute = locationAttribute.holders[perspective];
   const names = getRightHolderNames(attribute);

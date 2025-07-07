@@ -29,14 +29,12 @@ export const getAnwesen = async () => {
           Grundherrschaft: {
             categories: [category.get(holderGs) ?? ""],
             disputedBy: holderGs === "umstritten" ? 1 : 0,
-            heldBy: 1,
             individuals: [],
             topLevels: [],
           } satisfies RightWithPerspectives,
           Niedergericht: {
             categories: [category.get(holderNg) ?? ""],
             disputedBy: holderNg === "umstritten" ? 1 : 0,
-            heldBy: 1,
             individuals: [],
             topLevels: [],
           } satisfies RightWithPerspectives,

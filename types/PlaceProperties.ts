@@ -37,7 +37,6 @@ export function isIndividualDatum(
 export type Perspectives = Record<Perspective, PerspectiveDatum[]>;
 
 export type RightWithPerspectives = {
-  heldBy: number;
   disputedBy: number;
 } & Perspectives;
 

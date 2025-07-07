@@ -1,12 +1,14 @@
 import { Attribute, RightWithPerspectives } from "@/types/PlaceProperties";
 import { getNgonPoints } from "../Ngon/Ngon.helpers";
 import getRightStatus from "@/lib/get-right-status";
+import { Perspective } from "../RightsExplorer/RightsExplorerContext";
 
 const useSnowflake = (
   placeAttributes: Attribute<RightWithPerspectives>[],
   radius: number,
   circleRadius: number,
   order: string[],
+  perspective: Perspective,
 ) => {
   const rays = order.length;
   const outerRadius = radius - circleRadius;
@@ -17,7 +19,10 @@ const useSnowflake = (
         (d) => d.attributeName == order[i],
       );
       if (!attribute) return [];
-      const { isWithoutHolder } = getRightStatus(attribute.holders);
+      const { isWithoutHolder } = getRightStatus(
+        attribute.holders,
+        perspective,
+      );
       const { attributeName, holders } = attribute;
       const coordinates = !isWithoutHolder
         ? { x, y }

@@ -7,7 +7,6 @@ type AnwesenProps = {
   categories: string[];
   topLevels: [];
   individuals: [];
-  heldBy: number;
   disputedBy: number;
 };
 
@@ -21,7 +20,7 @@ const AnwesenMarker: FC<Props> = ({ size, gs, ng }) => {
   const colorScale = mapToScale(colorMapCategories, "lightgrey");
 
   const radius = size / 2 - 2;
-  const { isDisputed } = getRightStatus(gs);
+  const { isDisputed } = getRightStatus(gs, "categories");
   return (
     <svg width={size} height={size}>
       <g transform="translate(1 1)">

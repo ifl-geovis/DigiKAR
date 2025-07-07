@@ -2,6 +2,7 @@ import { ScaleOrdinal, scaleOrdinal, schemeTableau10 } from "d3";
 import { FC, SVGProps, memo } from "react";
 import { Attribute, RightWithPerspectives } from "../../types/PlaceProperties";
 import RightIndicator from "../RightIndicator";
+import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 import useSnowflake from "./useSnowflake.hook";
 
 type Props = {
@@ -58,11 +59,13 @@ const Snowflake: FC<Props> = ({
   symbolScale,
   ...rest
 }) => {
+  const { perspective } = useRightsExplorerContext();
   const { points } = useSnowflake(
     placeAttributes,
     radius,
     circleRadius,
     attributeOrder ?? [],
+    perspective,
   );
 
   return (

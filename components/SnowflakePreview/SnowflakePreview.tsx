@@ -20,7 +20,7 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 
 const SnowflakePreview = () => {
-  const { order, setOrder, symbolMap, setSymbolMap, rightSet } =
+  const { order, setOrder, symbolMap, setSymbolMap, rightSet, perspective } =
     useRightsExplorerContext();
   const placeAttributes = [...rightSet.keys()].map((relation) => ({
     attributeName: relation,
@@ -29,7 +29,6 @@ const SnowflakePreview = () => {
       individuals: [""],
       topLevels: [""],
       disputedBy: 0,
-      heldBy: 1,
     },
   }));
 
@@ -37,12 +36,19 @@ const SnowflakePreview = () => {
   const radiusLabels = radius + 20;
   const circleRadius = 6.6;
   const padding = 3;
-  const { points } = useSnowflake(placeAttributes, radius, circleRadius, order);
+  const { points } = useSnowflake(
+    placeAttributes,
+    radius,
+    circleRadius,
+    order,
+    perspective,
+  );
   const { points: pointsLabels } = useSnowflake(
     placeAttributes,
     radiusLabels,
     circleRadius,
     order,
+    perspective,
   );
 
   return (
