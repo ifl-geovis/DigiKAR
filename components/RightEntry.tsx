@@ -8,7 +8,8 @@ type Props = {
 };
 
 const RightEntry: FC<Props> = ({ entry }) => {
-  const { attested_raw, rightholders } = entry;
+  const { attested_raw, rightholders, particularities } = entry;
+  console.log({ particularities });
   return (
     <div className="space-y-2 overflow-y-scroll">
       <div>
@@ -67,6 +68,21 @@ const RightEntry: FC<Props> = ({ entry }) => {
           );
         })}
       </div>
+      {particularities.at(0) != null && (
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-2">
+            <LuCalendar />
+            <span className="font-mono text-xs font-bold">Besonderheiten</span>
+          </div>
+          <div className="space-y-2 pl-6">
+            {particularities.map((d, i) => (
+              <p key={i} className="border-l-2 border-slate-300 pl-2 text-sm">
+                {d}
+              </p>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
