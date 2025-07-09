@@ -36,7 +36,7 @@ export default async function Rights() {
       initialViewState={{ longitude: 13.73, latitude: 51.05, zoom: 10 }}
       attributes={rightSet}
       initialOrder={[
-        "hochgericht",
+        "hochgericht_gemeinde",
         "niedergericht",
         "grundherrschaft",
         "landeshoheit",

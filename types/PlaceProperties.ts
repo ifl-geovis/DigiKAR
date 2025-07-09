@@ -4,7 +4,8 @@ import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
 export type Right =
   | "dorf_und_gemeindeherrschaft"
   | "grundherrschaft"
-  | "hochgericht"
+  | "hochgericht_gemeinde"
+  | "hochgericht_gemeindeflur"
   | "jagd"
   | "kirchenhoheit"
   | "kirchenpatronat"

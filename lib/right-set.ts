@@ -1,13 +1,15 @@
 import { Right } from "@/types/PlaceProperties";
 
 export const rights = [
-  //TODO: split up into
-  // - Hochgericht – Gemeinde (Anwesen)
-  // - Hochgericht – Gemeindeflur
   {
-    relation: "hochgericht",
-    label: "Hochgericht",
-    shortcode: "Hg",
+    relation: "hochgericht_gemeinde",
+    label: "Hochgericht – Gemeinde (Anwesen)",
+    shortcode: "Hg-A",
+  },
+  {
+    relation: "hochgericht_gemeindeflur",
+    label: "Hochgericht – Gemeindeflur",
+    shortcode: "Hg-Gf",
   },
   {
     relation: "niedergericht",

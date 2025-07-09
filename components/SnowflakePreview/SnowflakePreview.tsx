@@ -35,7 +35,7 @@ const SnowflakePreview = () => {
   const radius = 30;
   const radiusLabels = radius + 20;
   const circleRadius = 6.6;
-  const padding = 3;
+  const padding = 20;
   const { points } = useSnowflake(
     placeAttributes,
     radius,
@@ -52,7 +52,7 @@ const SnowflakePreview = () => {
   );
 
   return (
-    <div className="flex place-content-center rounded bg-gray-100 p-3">
+    <div className="self-start rounded bg-gray-100 p-1">
       <svg
         width={(radiusLabels + padding) * 2}
         height={(radiusLabels + padding) * 2}
