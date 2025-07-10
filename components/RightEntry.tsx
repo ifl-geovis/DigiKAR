@@ -68,7 +68,7 @@ const RightEntry: FC<Props> = ({ entry }) => {
           );
         })}
       </div>
-      {particularities.at(0) != null && (
+      {particularities?.at(0) != null && (
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
             <LuCalendar />

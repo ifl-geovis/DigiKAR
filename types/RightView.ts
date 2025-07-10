@@ -34,7 +34,7 @@ export type RightEntry = {
   md_rights_held_by: number;
   md_disputed_by: number;
   md_rightholders_categories: string[];
-  particularities: string[];
+  particularities?: string[];
 };
 
 type RightAttributes = {
