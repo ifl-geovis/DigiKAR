@@ -2,8 +2,8 @@ import PartnersGrid from "@/components/partners-grid";
 
 export default function Home() {
   return (
-    <article className="mx-auto my-5 max-w-prose px-4 md:px-0 [&_>_p]:mb-3">
-      <h2>
+    <article className="prose mx-auto my-5 max-w-prose px-4 md:px-0 [&_>_p]:mb-3">
+      <h2 className="text-3xl font-normal">
         Prototyp für eine moderne Geschichtskartographie des Alten Reiches
       </h2>
       <p className="mb-4 text-xl">

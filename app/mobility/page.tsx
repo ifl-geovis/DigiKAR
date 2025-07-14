@@ -3,8 +3,8 @@ import VideoLink from "@/components/VideoLink";
 export default function Wp3() {
   return (
     <article className="flex justify-center">
-      <div className="mx-5 max-w-prose py-20 [&>h3]:mt-10 [&>h4]:mt-5 [&>p]:mt-3">
-        <h2>Mobilität</h2>
+      <div className="prose mx-5 max-w-prose py-20 [&>h3]:mt-10 [&>h4]:mt-5 [&>p]:mt-3">
+        <h2 className="text-3xl font-normal">Mobilität</h2>
         <h3>Inhaltsverzeichnis</h3>
         <ol className="my-3 list-decimal">
           <li>Einleitung</li>
