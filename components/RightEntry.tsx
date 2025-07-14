@@ -9,7 +9,6 @@ type Props = {
 
 const RightEntry: FC<Props> = ({ entry }) => {
   const { attested_raw, rightholders, particularities } = entry;
-  console.log({ particularities });
   return (
     <div className="space-y-2 overflow-y-scroll">
       <div>
