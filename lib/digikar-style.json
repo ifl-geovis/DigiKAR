@@ -28,7 +28,7 @@
     "placesOfExecution": {
       "type": "vector",
       "url": "https://tiles.geohistoricaldata.org/tiles/richtstaetten",
-      "attribution": "DigiKAR"
+      "attribution": "Richtstätten - DigiKAR"
     },
     "orteMainz": {
       "type": "vector",
