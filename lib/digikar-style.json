@@ -50,12 +50,12 @@
     },
     "lakesKursachsen": {
       "type": "vector",
-      "url": "https://tiles.geohistoricaldata.org/tiles/lakes_kurssachsen",
+      "url": "https://tiles.geohistoricaldata.org/tiles/lakes_kursachsen",
       "attribution": "<a href='https://www.landesvermessung.sachsen.de/altas-zur-geschichte-und-landeskunde-4038.html'>Historischer Atlas von Sachsen</a>"
     },
     "riversKursachsen": {
       "type": "vector",
-      "url": "https://tiles.geohistoricaldata.org/tiles/rivers_kurssachsen",
+      "url": "https://tiles.geohistoricaldata.org/tiles/rivers_kursachsen",
       "attribution": "<a href='https://www.landesvermessung.sachsen.de/altas-zur-geschichte-und-landeskunde-4038.html'>Historischer Atlas von Sachsen</a>"
     },
     "holyRomanEmpireBorders": {
