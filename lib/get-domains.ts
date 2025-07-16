@@ -1,3 +1,4 @@
+import { RightholderEntity } from "@/types/PlaceProperties";
 import { interpolateHslLong } from "d3";
 
 export const getTopLevelDomain = async () => {
@@ -22,8 +23,8 @@ export const getTopLevelDomain = async () => {
   }
 };
 
-export const getIndividualsDomain = async () => {
-  const url = "https://api.geohistoricaldata.org/digikar/all_individuals";
+export const getIndividualsDomain = async (type: RightholderEntity) => {
+  const url = `https://api.geohistoricaldata.org/digikar/all_individuals?rightholder_type=eq.${type}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -33,7 +34,9 @@ export const getIndividualsDomain = async () => {
     }
     const json = (await response.json()) as {
       rightholder_consolidated: string;
+      rightholder_type: string;
     }[];
+
     return new Map(
       json.map(({ rightholder_consolidated }, i, arr) => [
         rightholder_consolidated,

@@ -1,10 +1,11 @@
-import getRightStatus from "@/lib/get-right-status";
-import { Attribute, RightWithPerspectives } from "../../types/PlaceProperties";
-import { FC } from "react";
-import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
-import { range, rollups } from "d3";
+import { getColorScale } from "@/lib/get-color-scale";
 import { getRightHolderNames } from "@/lib/get-right-holder-names";
+import getRightStatus from "@/lib/get-right-status";
 import { rightSet } from "@/lib/right-set";
+import { range, rollups } from "d3";
+import { FC } from "react";
+import { Attribute, RightWithPerspectives } from "../../types/PlaceProperties";
+import { useRightsExplorerContext } from "../RightsExplorer/RightsExplorerContext";
 
 type Props = {
   /**
@@ -21,12 +22,13 @@ type Props = {
 };
 
 const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
-  const { colorScales, perspective } = useRightsExplorerContext();
+  const { colorScales, perspective, showIndividuals } =
+    useRightsExplorerContext();
   const { isWithoutHolder } = getRightStatus(
     locationAttribute.holders,
     perspective,
   );
-  const colorScale = colorScales.get(perspective)!;
+  const colorScale = getColorScale(colorScales, perspective, showIndividuals);
   const attribute = locationAttribute.holders[perspective];
   const names = getRightHolderNames(attribute);
   const summarized =
@@ -60,7 +62,10 @@ const LocationAttributeCard: FC<Props> = ({ placeName, locationAttribute }) => {
                       transform="translate(7.5 7.5)"
                       r={6.5}
                       stroke="black"
-                      fill={colorScale(attribute ? attribute.normalize() : "")}
+                      fill={
+                        colorScale &&
+                        colorScale(attribute ? attribute.normalize() : "")
+                      }
                     />
                   </svg>
                 ))}

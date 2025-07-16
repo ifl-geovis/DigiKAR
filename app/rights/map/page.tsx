@@ -1,34 +1,45 @@
 import Card from "@/components/Card";
+import HolderTypeToggle from "@/components/holder-type-toggle";
 import LegendFooter from "@/components/legend-footer";
 import LegendNominal from "@/components/LegendNominal/LegendNominal";
+import MapControls from "@/components/map-controls";
 import MapAside from "@/components/MapAside";
 import MapContainer from "@/components/MapContainer";
 import MapViewLayout from "@/components/MapViewLayout";
+import PerspectiveSelect from "@/components/perspective-select";
+import RightDetails from "@/components/right-details";
 import RightsExplorer from "@/components/RightsExplorer";
-import { Perspective } from "@/components/RightsExplorer/RightsExplorerContext";
 import RightsMap from "@/components/RightsMap";
 import RightsMarkerConfig from "@/components/RightsMarkerConfig";
 import SearchBar from "@/components/SearchBar";
 import Timeline from "@/components/Timeline";
-import HolderTypeToggle from "@/components/holder-type-toggle";
-import MapControls from "@/components/map-controls";
-import PerspectiveSelect from "@/components/perspective-select";
-import RightDetails from "@/components/right-details";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import colorMapCategories from "@/lib/color-map-categories";
 import { getIndividualsDomain, getTopLevelDomain } from "@/lib/get-domains";
 import { getMapStyle } from "@/lib/get-map-style";
 import { rightSet } from "@/lib/right-set";
+import { ColorMaps } from "@/types/ColorMaps";
 
 export default async function Rights() {
   const style = await getMapStyle("rights");
   const colorMapTopLevels = await getTopLevelDomain();
-  const colorMapIndividuals = await getIndividualsDomain();
-  const colorMaps = new Map<Perspective, Map<string, string>>([
-    ["categories", colorMapCategories],
-    ["topLevels", colorMapTopLevels],
-    ["individuals", colorMapIndividuals],
-  ]);
+  const colorMapIndividualsCorporation =
+    await getIndividualsDomain("Körperschaft");
+  const colorMapIndividualsPerson = await getIndividualsDomain("Person");
+  const colorMaps: ColorMaps = [
+    { perspective: "categories", colorMap: colorMapCategories },
+    { perspective: "topLevels", colorMap: colorMapTopLevels },
+    {
+      perspective: "individuals",
+      type: "Körperschaft",
+      colorMap: colorMapIndividualsCorporation,
+    },
+    {
+      perspective: "individuals",
+      type: "Person",
+      colorMap: colorMapIndividualsPerson,
+    },
+  ];
   const symbolMap = new Map();
 
   return (

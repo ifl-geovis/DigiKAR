@@ -6,6 +6,7 @@ import DisputedIcon from "/public/icons/disputed.svg";
 import SharedIcon from "/public/icons/shared.svg";
 import UnclearIcon from "/public/icons/unclear.svg";
 import { reduceToUniqueHolders } from "@/lib/reduce-to-unique-holders";
+import { getColorScale } from "@/lib/get-color-scale";
 
 const LegendNominal = () => {
   const {
@@ -22,7 +23,7 @@ const LegendNominal = () => {
     perspective,
     showIndividuals,
   );
-  const colorScale = colorScales.get(perspective)!;
+  const colorScale = getColorScale(colorScales, perspective, showIndividuals);
   const specialCategories = [
     { label: "geteilt", Icon: SharedIcon },
     { label: "strittig", Icon: DisputedIcon },
@@ -40,41 +41,42 @@ const LegendNominal = () => {
   };
   return (
     <ol className="flex flex-col gap-2">
-      {colorScale
-        .domain()
-        .filter((d) =>
-          onlyShowInView ? uniqueHoldersInView.includes(d.normalize()) : true,
-        )
-        .map((d) => {
-          const isInView = uniqueHoldersInView.includes(d.normalize());
-          const isSelectedItem = selectedItems.includes(d);
-          return (
-            <li
-              key={d}
-              className={twJoin(
-                "flex cursor-pointer items-center gap-1 leading-tight transition-opacity duration-750",
-                selectedLegendItems.length > 0 &&
-                  !isSelectedItem &&
-                  "opacity-30",
-              )}
-              onClick={() => handleLegendClick(d.normalize())}
-            >
-              <svg width={16} height={16} className="shrink-0">
-                <circle
-                  cx={8}
-                  cy={8}
-                  r={6.6}
-                  stroke="black"
-                  fill={colorScale(d)}
-                />
-                {!isInView && (
-                  <circle cx={8} cy={8} r={3} stroke="none" fill="white" />
+      {colorScale &&
+        colorScale
+          .domain()
+          .filter((d) =>
+            onlyShowInView ? uniqueHoldersInView.includes(d.normalize()) : true,
+          )
+          .map((d) => {
+            const isInView = uniqueHoldersInView.includes(d.normalize());
+            const isSelectedItem = selectedItems.includes(d);
+            return (
+              <li
+                key={d}
+                className={twJoin(
+                  "flex cursor-pointer items-center gap-1 leading-tight transition-opacity duration-750",
+                  selectedLegendItems.length > 0 &&
+                    !isSelectedItem &&
+                    "opacity-30",
                 )}
-              </svg>
-              <div>{d}</div>
-            </li>
-          );
-        })}
+                onClick={() => handleLegendClick(d.normalize())}
+              >
+                <svg width={16} height={16} className="shrink-0">
+                  <circle
+                    cx={8}
+                    cy={8}
+                    r={6.6}
+                    stroke="black"
+                    fill={colorScale(d)}
+                  />
+                  {!isInView && (
+                    <circle cx={8} cy={8} r={3} stroke="none" fill="white" />
+                  )}
+                </svg>
+                <div>{d}</div>
+              </li>
+            );
+          })}
       {specialCategories.map(({ label, Icon, background }) => (
         <li
           className={twJoin(

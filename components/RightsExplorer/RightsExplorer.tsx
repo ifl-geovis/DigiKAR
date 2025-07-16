@@ -1,10 +1,13 @@
 "use client";
 
+import useRightData from "@/hooks/useRightData";
+import { mapToScale } from "@/lib/helpers";
 import { rights, rightSet } from "@/lib/right-set";
+import { ColorMaps, ColorScales } from "@/types/ColorMaps";
 import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
+import { Right } from "@/types/PlaceProperties";
 import { TooltipInfo } from "@/types/TooltipInfo";
-import { ScaleOrdinal } from "d3";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { FC, PropsWithChildren, useState } from "react";
 import { MapProvider } from "react-map-gl/maplibre";
@@ -14,9 +17,6 @@ import {
   RightsExplorerContext,
   TimeRange,
 } from "./RightsExplorerContext";
-import { Right } from "@/types/PlaceProperties";
-import { mapToScale } from "@/lib/helpers";
-import useRightData from "@/hooks/useRightData";
 
 type Props = PropsWithChildren<{
   initialViewState: { longitude: number; latitude: number; zoom: number };
@@ -25,7 +25,7 @@ type Props = PropsWithChildren<{
   initialOrder?: Right[];
   availableLayers?: Layer[];
   initialTimeRange: TimeRange;
-  colorMaps: Map<Perspective, Map<string, string>>;
+  colorMaps: ColorMaps;
 }>;
 
 const RightsExplorer: FC<Props> = ({
@@ -53,14 +53,11 @@ const RightsExplorer: FC<Props> = ({
   const [selectedLegendItems, setSelectedLegendItems] = useState<string[]>([]);
   const [symbolMap, setSymbolMap] = useState(initialSymbolMap);
 
-  const colorScales: Map<
-    Perspective,
-    ScaleOrdinal<string, string, string>
-  > = new Map(
-    [...colorMaps.entries()].map(([key, value]) => [
-      key,
-      mapToScale(value, "lightgrey"),
-    ]),
+  const colorScales: ColorScales = colorMaps.map(
+    ({ perspective, type, colorMap }) => {
+      const scales = mapToScale(colorMap, "lightgrey");
+      return { perspective, type, scale: scales };
+    },
   );
 
   const [detailInfo, setDetailInfo] = useState<DetailInfo | undefined>(

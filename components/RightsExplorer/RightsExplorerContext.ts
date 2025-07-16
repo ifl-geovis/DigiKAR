@@ -3,9 +3,9 @@ import { DetailInfo } from "@/types/DetailInfo";
 import { Layer } from "@/types/Layer";
 import { Right } from "@/types/PlaceProperties";
 import { TooltipInfo } from "@/types/TooltipInfo";
-import { ScaleOrdinal } from "d3";
 import { createContext, useContext } from "react";
 import useRightData from "@/hooks/useRightData";
+import { ColorScales } from "@/types/ColorMaps";
 
 export type TimeRange = {
   min: number;
@@ -39,7 +39,7 @@ type Context = {
   ) => void;
   symbolMap: Map<string, string>;
   setSymbolMap: (symbolMap: Map<string, string>) => void;
-  colorScales: Map<Perspective, ScaleOrdinal<string, string, string>>;
+  colorScales: ColorScales;
   detailInfo?: DetailInfo;
   setDetailInfo: (detail?: DetailInfo) => void;
   tooltipInfo?: TooltipInfo;

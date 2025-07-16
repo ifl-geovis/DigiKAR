@@ -6,17 +6,20 @@ import { Button } from "./ui/button";
 import { RxCursorArrow, RxReset, RxTextAlignMiddle } from "react-icons/rx";
 import { Switch } from "./ui/switch";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { getColorScale } from "@/lib/get-color-scale";
 
 const LegendFooter = () => {
   const {
-    selectedLegendItems,
-    setSelectedLegendItems,
     colorScales,
-    perspective,
-    setOnlyShowInView,
     onlyShowInView,
+    perspective,
+    selectedLegendItems,
+    setOnlyShowInView,
+    setSelectedLegendItems,
+    showIndividuals,
   } = useRightsExplorerContext();
-  const totalItems = colorScales.get(perspective)?.domain().length ?? 0;
+  const colorScale = getColorScale(colorScales, perspective, showIndividuals);
+  const totalItems = colorScale?.domain().length ?? 0;
   return (
     <div className="flex h-10 w-full items-center gap-3 border-t px-4 py-2">
       <div className="flex w-full items-center gap-2">

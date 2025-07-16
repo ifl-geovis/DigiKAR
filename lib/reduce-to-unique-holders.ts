@@ -9,8 +9,6 @@ export const reduceToUniqueHolders = (
 ) => {
   if (!data || !data.features) return [];
 
-  //   const uniqueHolders = new Set<string>();
-
   return data.features
     .slice()
     .flatMap((feature) =>

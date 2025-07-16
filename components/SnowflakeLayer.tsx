@@ -1,14 +1,12 @@
 "use client";
 
 import useRightData from "@/hooks/useRightData";
+import { getColorScale } from "@/lib/get-color-scale";
 import { mapToScale } from "@/lib/helpers";
 import { FC, useCallback, useEffect } from "react";
 import { Marker } from "react-map-gl/maplibre";
 import { useMapStateContext } from "./MapState/MapStateContext";
-import {
-  Perspective,
-  useRightsExplorerContext,
-} from "./RightsExplorer/RightsExplorerContext";
+import { useRightsExplorerContext } from "./RightsExplorer/RightsExplorerContext";
 import RightsMarker from "./RightsMarker";
 
 const SnowFlakeLayer: FC = () => {
@@ -21,6 +19,7 @@ const SnowFlakeLayer: FC = () => {
     symbolMap,
     perspective,
     setRightsData,
+    showIndividuals,
     rightsData: currentData,
   } = useRightsExplorerContext();
   const { bounds } = useMapStateContext();
@@ -39,6 +38,8 @@ const SnowFlakeLayer: FC = () => {
     timeRange,
     bounds,
   );
+
+  const colorScale = getColorScale(colorScales, perspective, showIndividuals);
 
   useEffect(() => {
     const next = { isLoading, error, data: transformedData };
@@ -70,9 +71,7 @@ const SnowFlakeLayer: FC = () => {
                   placeAttributes={d.properties?.attributes}
                   radius={radius}
                   symbolScale={symbolScale()}
-                  colorScale={colorScales.get(
-                    perspective satisfies Perspective,
-                  )}
+                  colorScale={colorScale}
                   rightOrder={order}
                 />
               </g>
