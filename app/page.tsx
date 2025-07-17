@@ -18,9 +18,9 @@ export default function Home() {
         Explorativ erkundet werden sollten stattdessen mit den Mitteln der
         webbasierten Kartographie die Möglichkeiten einer punktbasierten
         Visualisierung mit dem Schwerpunkt auf zwei Bereiche: (1) die plurale
-        Verteilung von Herrschaftsrechten in und zwischen den Territorien des
-        Alten Reichs und (2) Formen der Mobilität innerhalb und zwischen
-        verschiedenen territorialen Räumen.
+        Verteilung von Herrschaftsrechten in und zwischen Territorien des Alten
+        Reichs und (2) Formen der Mobilität innerhalb und zwischen verschiedenen
+        territorialen Räumen.
       </p>
       <p>
         Der Prototyp richtet sich nicht an die allgemeine Öffentlichkeit,
@@ -37,37 +37,37 @@ export default function Home() {
         gekennzeichnet. Es war weder ein Nationalstaat noch eine zentralistisch
         organisierte Monarchie, in der alle Rechte und Privilegien auf ein
         souveränes Machtzentrum zuliefen. Diese komplexe Ordnung ließ sich mit
-        den herkömmlichen Mitteln der Geschichtskartographie, die sich vor allem
-        grafischer Mittel wie Flächen und Linien bediente, nur schwer
+        den herkömmlichen Methoden der Geschichtskartographie, die sich vor
+        allem grafischer Mittel wie Flächen und Linien bediente, nur schwer
         darstellen. Denn viele Herrschaftsrechte reichten über die Grenzen der
         einzelnen Territorien der Reichsstände hinaus. Ein Untertan konnte im
         Alten Reich viele Herren haben – und ein Herr Untertanen auch in
-        Gebieten, in denen eigentlich ein anderer Potentat herrschte. Das lag am
-        Mit- und Nebeneinander vieler Herrschaftsrechte, die zwar nicht alle das
-        gleiche Gewicht hatten, von denen aber keines alle anderen dominierte
-        oder umfasste. Das Visualisierungstool von DigiKAR versucht, diese
-        komplexe Verteilung von Herrschaftsrechten anhand ausgewählter Rechte
-        und Beispielregionen exemplarisch darzustellen.
+        Gebieten, in denen eigentlich ein anderer Potentat herrschte. Daraus
+        folgte eine komplexe Vermischung von Herrschaftsrechten, die zwar nicht
+        alle das gleiche Gewicht hatten, von denen aber keines alle anderen
+        dominierte oder umfasste. Das Visualisierungstool von DigiKAR versucht,
+        diese Komplexität anhand ausgewählter Rechte und Beispielregionen
+        exemplarisch darzustellen.
       </p>
       <h3>
         Formen der Mobilität innerhalb und zwischen verschiedenen territorialen
         Räumen
       </h3>
       <p>
-        Die vorliegenden Visualisierungen nähern sich der komplexen Raumstruktur
-        des Alten Reiches über einen (kollektiv-)biographischen Ansatz.
-        Untersucht werden hier Mobilität und multiple Zugehörigkeiten
-        kurmainzischer Funktionsträger. „Mobilität“ wird dabei maßgeblich als
-        „biographische Mobilität“ verstanden, die sich auf unterschiedliche
-        Verortungen von Personen in verschiedenen Lebensphasen hinweg bezieht
-        und etwa von Formen der alltäglichen Mobilität abzugrenzen ist. Im Fokus
-        der Fallstudie stehen also v.a. ortsbezogene Aspekte biographischer
-        Praktiken potenziell mobiler Akteure und was sie über räumliche
-        Strukturen und Grenzvorstellungen aussagen. Gefragt wird etwa nach
-        Karrieremustern und Zusammenhängen zwischen biographischen Verortungen
-        und (gleich- sowie ungleichzeitigen) Zugehörigkeiten zu verschiedenen
-        politischen, rechtlichen und sozialen Kreisen, ferner zu Faktoren wie
-        sozialer und geographischer Herkunft und Ausbildung.
+        Die Visualisierungen nähern sich der komplexen Raumstruktur des Alten
+        Reiches über einen (kollektiv-)biographischen Ansatz. Untersucht werden
+        Mobilität und multiple Zugehörigkeiten kurmainzischer Funktionsträger.
+        „Mobilität“ wird dabei maßgeblich als „biographische Mobilität“
+        verstanden, die sich auf unterschiedliche Verortungen von Personen in
+        verschiedenen Lebensphasen hinweg bezieht und etwa von Formen der
+        alltäglichen Mobilität abzugrenzen ist. Im Fokus der Fallstudie stehen
+        also v.a. ortsbezogene Aspekte biographischer Praktiken potenziell
+        mobiler Akteure und was sie über räumliche Strukturen und
+        Grenzvorstellungen aussagen. Gefragt wird etwa nach Karrieremustern und
+        Zusammenhängen zwischen biographischen Verortungen und (gleich- sowie
+        ungleichzeitigen) Zugehörigkeiten zu verschiedenen politischen,
+        rechtlichen und sozialen Kreisen, ferner zu Faktoren wie sozialer und
+        geographischer Herkunft und Ausbildung.
       </p>
       <div className="my-10 rounded-sm border-l-2 border-gray-200 bg-gray-50 p-10">
         <p>
@@ -105,8 +105,8 @@ export default function Home() {
             <li>
               „Rechteverteilung im Alten Reich auf Ortsebene“: Die
               Visualisierung präsentiert die Verteilung von Herrschaftsrechten
-              auf der Basis von einzelnen Orten (Gemeinden). Derzeit sind zwei
-              Beispielregionen integriert: Teile von Kursachsen und der
+              auf der Basis von einzelnen Orten (Gemeinden). Derzeit sind
+              mehrere Beispielregionen integriert: Teile von Kursachsen und der
               Altlandkreis Ansbach (Franken).
             </li>
             <li>
@@ -149,9 +149,9 @@ export default function Home() {
         Europäische Geschichte Mainz, des Leibniz-Instituts für Länderkunde
         Leipzig, des Leibniz-Instituts für Ost- und Südosteuropaforschung
         Regensburg, der Johannes-Gutenberg-Universität Mainz und der École des
-        Hautes Études en Sciences Sociales Paris, Frankreich. Das Vorhaben wurde
-        2021–2024 im Rahmen des Programms „Leibniz-Kooperative Exzellenz“ von
-        der Leibniz-Gemeinschaft gefördert.
+        hautes études en sciences sociales (EHESS) Paris, Frankreich. Das
+        Vorhaben wurde 2021–2024 im Rahmen des Programms „Leibniz-Kooperative
+        Exzellenz“ von der Leibniz-Gemeinschaft gefördert.
       </p>
       <PartnersGrid
         partners={[

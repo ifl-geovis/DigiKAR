@@ -1,6 +1,6 @@
 import PartnersGrid from "@/components/partners-grid";
 import VideoLink from "@/components/VideoLink";
-import { RxGlobe, RxLayers, RxQuestionMark } from "react-icons/rx";
+import { RxLayers, RxQuestionMark } from "react-icons/rx";
 
 export default function Wp2() {
   return (
@@ -18,8 +18,8 @@ export default function Wp2() {
         <h3>Einleitung</h3>
         <p>
           Die hier präsentierten Visualisierungen stellen die plurale Verteilung
-          von Herrschaftsrechten im Raum anhand von zwei Beispielregionen
-          (Kursachsen und Altlandkreis Ansbach in Franken) dar.
+          von Herrschaftsrechten im Raum anhand von mehreren Beispielregionen
+          (Teile Kursachsen und Altlandkreis Ansbach in Franken) dar.
         </p>
         <p>
           Das Alte Reich war, wie andere frühneuzeitliche Herrschaftsräume auch,
@@ -27,7 +27,7 @@ export default function Wp2() {
           gekennzeichnet. Es war weder ein Nationalstaat noch eine
           zentralistisch organisierte Monarchie, in der alle Rechte und
           Privilegien auf ein souveränes Machtzentrum zuliefen. Diese komplexe
-          Ordnung ließ sich mit den herkömmlichen Mitteln der
+          Ordnung ließ sich mit den herkömmlichen Methoden der
           Geschichtskartographie, die sich vor allem grafischer Mittel wie
           Flächen und Linien bediente, nur schwer abbilden. Denn eine solche
           Darstellung verlangt nach einer eindeutigen Zuordnung im territorialen
@@ -35,12 +35,12 @@ export default function Wp2() {
           über die Grenzen der Herrschaftsgebiete der einzelnen Reichsstände
           hinausreichten. Ein Untertan konnte im Alten Reich viele Herren haben
           – und ein Herr Untertanen auch in Territorien, in denen eigentlich ein
-          anderer Potentat herrschte. Das lag am Mit- und Nebeneinander vieler
-          Herrschaftsrechte, die zwar nicht alle das gleiche Gewicht hatten, von
-          denen aber keines alle anderen dominierte oder umfasste. Das galt auch
-          für die „Landesherrschaft“ oder „Landeshoheit“, wie die Juristen seit
-          dem 16. Jahrhundert das Recht eines Fürsten (oder eines anderen
-          Territorialherrn) nannten, alle Menschen, die in dem ihm
+          anderer Potentat herrschte. Daraus folgte eine komplexe Vermischung
+          von Herrschaftsrechten, die zwar nicht alle das gleiche Gewicht
+          hatten, von denen aber keines alle anderen dominierte oder umfasste.
+          Das galt auch für die „Landesherrschaft“ oder „Landeshoheit“, wie die
+          Juristen seit dem 16. Jahrhundert das Recht eines Fürsten (oder eines
+          anderen Territorialherrn) nannten, alle Menschen, die in dem ihm
           reichsrechtlich als Eigentum zugeordneten Gebiet lebten, als seine
           Untertanen anzusehen. Denn auch dieses Recht, das in der Regel mit der
           Reichsstandschaft (d.h. mit Sitz und Stimme auf dem Reichstag, dem
@@ -57,8 +57,8 @@ export default function Wp2() {
             Im Prototyp verfügbar sind aktuell Daten zu etwas mehr als 800 Orten
             (Gemeinden)
           </strong>
-          , welche aus zwei Beispielregionen stammen, die für zwei territoriale
-          „Typen“ des Alten Reichs stehen:
+          , welche aus zwei Regionen stammen, die für zwei territoriale „Typen“
+          des Alten Reichs stehen:
         </p>
         <ol className="my-10 list-decimal space-y-5 pl-10">
           <li>
@@ -68,8 +68,8 @@ export default function Wp2() {
             Vielzahl territorialer Einheiten zusammengesetzt („composite
             monarchie“), in denen verschiedene Verteilungen von
             Herrschaftsrechten zwischen der Landesherrschaft und mediaten
-            Herrschaftsgewalten vorherrschten. Anhand von drei Ausschnitten soll
-            dies sichtbar gemacht werden:
+            Herrschaftsgewalten vorherrschten. Anhand von drei Beispielregionen
+            soll dies sichtbar gemacht werden:
             <ul className="my-5 list-disc pl-10">
               <li>
                 die Gegend um Meißen, die sich durch eine besonders kleinteilige
@@ -106,17 +106,17 @@ export default function Wp2() {
         </ol>
         <p>
           Die der Visualisierung zugrunde liegenden Daten stammen aus
-          verschiedenen Quellen: selbst erhobene Informationen (gedruckte und
-          ungedruckte Materialien), aber auch bereits vorhandene Ortsstatistiken
-          und digitale Datenbanken. Wir danken insbesondere dem Institut für
-          sächsische Geschichte und Volkskunde Dresden sowie der Kommission für
-          bayerische Landesgeschichte bei der Bayerischen Akademie der
-          Wissenschaften (Projekt „Historischer Atlas von Bayern“) für die
-          freundliche Zurverfügungstellung von Daten und die fruchtbare
+          verschiedenen Quellen: selbst erhobene Informationen (gedruckte
+          Materialien und Archivdokumente), aber auch bereits vorhandene
+          Ortsstatistiken und digitale Datenbanken. Wir danken insbesondere dem
+          Institut für sächsische Geschichte und Volkskunde Dresden sowie der
+          Kommission für bayerische Landesgeschichte bei der Bayerischen
+          Akademie der Wissenschaften (Projekt „Historischer Atlas von Bayern“)
+          für die freundliche Zurverfügungstellung von Daten und die fruchtbare
           Zusammenarbeit bei der Entwicklung des Tools. Für die gewährte
           Unterstützung bei den Endarbeiten am Visualisierungstool danken wir
           dem Institut franco-allemand de sciences historiques et sociales
-          IFRA-SHS in Frankfurt/M.
+          (IFRA-SHS) sowie der Goethe-Universität Frankfurt/M.
         </p>
         <PartnersGrid
           partners={[
@@ -169,7 +169,8 @@ export default function Wp2() {
           jurisdiktionellen Funktionen (vogteiliche Gerichtsbarkeit) und
           aufgrund der starken Zersplitterung der Herrschaftsrechte in Franken
           wurde die Dorf- und Gemeindeherrschaft als ein Indikator für die
-          Landeshoheit angesehen.
+          Landeshoheit angesehen. Sie lag in der Regel bei dem
+          Herrschaftsträger, welcher über die meisten Vogteiuntertanen verfügte.
         </p>
         <h4>Grundherrschaft</h4>
         <p>
@@ -203,9 +204,9 @@ export default function Wp2() {
           Landesherren sein. Anzeiger der Hochgerichtsbarkeit war das
           Vorhandensein von Richtstätten (Galgen usw.), die eine wichtige Rolle
           bei der Abgrenzung territorialer Herrschaftsgebiete spielten. An
-          manchen Orten wurde das Hochgericht im Kern der Gemeinde (also dem
-          eigentlichen Dorf mit den Anwesen) von einem anderen Inhaber ausgeübt
-          als auf den umliegenden Feldern (der Gemeindeflur).
+          manchen Orten wurde das Hochgericht im eigentlichen Dorf mit den
+          Anwesen (Gemeinde) von einem anderen Inhaber ausgeübt als auf den
+          umliegenden Feldern (Gemeindeflur).
         </p>
         <h4>Jagd</h4>
         <p>
@@ -219,18 +220,30 @@ export default function Wp2() {
           streng untersagt, sie mussten dem jeweiligen Inhaber des Jagdrechts
           aber zahlreiche Hilfsdienste leisten.
         </p>
-        <h4>Kirchenpatronat (Kursachsen) bzw. Kirchenhoheit (Franken)</h4>
+        <h4>Kirchenhoheit</h4>
         <p>
-          Das Kirchenpatronat bzw. die Kirchenhoheit bezeichnet die
-          Schirmherrschaft, die ein Herrschaftsträger über eine bestimmte Kirche
-          ausübte. In protestantischen Gebieten stand sie in der Regel dem
-          Landesherrn bzw. dem Landeskonsistorium zu. Verbunden mit ihm war zum
-          Beispiel die Verpflichtung zur baulichen Erhaltung der Kirchengebäude;
-          im Gegenzug kamen dem Kirchenpatron bestimmte Privilegien zu, etwa ein
-          besonderer Platz in der Kirche oder das Recht, sich dort bestatten zu
-          lassen. Teilweise waren das Kirchenpatronat bzw. die Kirchenhoheit mit
-          dem Präsentationsrecht verbunden, also dem Vorrecht, bei einer Vakanz
-          einen neuen Pfarrer vorzuschlagen.
+          Die Kirchenhoheit entwickelte sich im 15. Jahrhundert aus dem
+          Bestreben weltlicher Herrscher, eine stärkere Kontrolle über die
+          kirchlichen Angelegenheiten in ihren jeweiligen Territorien zu
+          erlangen. Dazu zählten etwa die Aufsicht über das kirchliche Vermögen
+          sowie die Einschränkung kirchlicher Gerichtsprivilegien. Im Ergebnis
+          der Reformation übernahmen protestantische Fürsten, wie etwa die
+          Markgrafen von Brandenburg-Ansbach, die Leitung der Kirche in ihrem
+          Herrschaftsgebiet und führten das sogenannte landesherrliche
+          Kirchenregiment ein.
+        </p>
+        <h4>Kirchenpatronat</h4>
+        <p>
+          Das Kirchenpatronat bezeichnet die Schirmherrschaft, die ein
+          Herrschaftsträger über eine bestimmte Kirche ausübte. In
+          protestantischen Gebieten stand sie in der Regel dem Landesherrn bzw.
+          dem Landeskonsistorium zu. Verbunden mit ihm war zum Beispiel die
+          Verpflichtung zur baulichen Erhaltung der Kirchengebäude; im Gegenzug
+          kamen dem Kirchenpatron bestimmte Privilegien zu, etwa ein besonderer
+          Platz in der Kirche oder das Recht, sich dort bestatten zu lassen.
+          Teilweise waren das Kirchenpatronat mit dem Präsentationsrecht
+          verbunden, also dem Vorrecht, bei einer Vakanz einen neuen Pfarrer
+          vorzuschlagen.
         </p>
         <h4>Kollatur</h4>
         <p>
@@ -241,9 +254,9 @@ export default function Wp2() {
           dem Landesherrn bzw. den von ihm eingesetzten Konsistorien zu. In
           katholischen Gebieten blieb sie hingegen in der Hand einer Vielzahl
           von unterschiedlichen Herrschaftsträgern, wobei sie im engeren Sinne
-          das Präsentationsrecht meinte, also die Befugnis, dem für eigentliche
-          Besetzung der Stelle zuständigen Bischof einen oder mehrere Kandidaten
-          vorzuschlagen.
+          das Präsentationsrecht meinte, also die Befugnis, dem für die
+          eigentliche Besetzung der Stelle zuständigen Bischof einen oder
+          mehrere Kandidaten vorzuschlagen.
         </p>
         <h4>Landeshoheit bzw. Landesherrschaft</h4>
         <p>
@@ -282,11 +295,10 @@ export default function Wp2() {
           Todesstrafen waren ihnen untersagt. Oft, aber nicht immer, war die
           niedere Gerichtsbarkeit mit der Grundherrschaft verbunden. In Ansbach
           war sie auch Teil der Vogtei. In Kursachsen wurde das Niedergericht an
-          manchen Orten im Kern der Gemeinde (also dem eigentlichen Dorf mit den
-          Anwesen) von einem anderen Inhaber ausgeübt als auf den umliegenden
-          Feldern (der Gemeindeflur); in Franken trat an die Stelle dieser
-          Unterscheidung die Differenz von „Niedergericht“ und „Vogtei außer
-          Etters“.
+          manchen Orten im eigentlichen Dorf mit den Anwesen (Gemeinde) von
+          einem anderen Inhaber ausgeübt als auf den umliegenden Feldern
+          (Gemeindeflur); in Franken trat an die Stelle dieser Unterscheidung
+          die Differenz von „Niedergericht“ und „Vogtei außer Etters“.
         </p>
         <h4>Verwaltungszugehörigkeit</h4>
         <p>
@@ -306,17 +318,18 @@ export default function Wp2() {
           „Vogtei“ ist ein schillernder Begriff der Verfassungsgeschichte des
           Alten Reichs. Während sie im Norden und Osten des Reichs vor allem das
           Schutzrecht weltlicher Herrschaftsträger über geistliche Institutionen
-          wie Abteien meinte, bezeichnete sie im Süden einen Teil der
-          herrschaftlichen Gerichtsbarkeit. In Franken spaltete sich die Vogtei
-          im 16. Jahrhundert von der Hochgerichtsbarkeit ab und verband sich mit
-          der Zivilgerichtsbarkeit sowie der grundherrlichen
-          Niedergerichtsbarkeit. Grob unterlagen ihr alle Vergehen gegen
-          Personen oder Eigentum, die nicht in den Bereich der Blut- oder
-          Hochgerichtsbarkeit fielen. Unterschieden wurde zudem zwischen der
-          Vogtei über die Anwesen, die weitgehend identisch mit der
-          Niedergerichtsbarkeit war, und der „Vogtei außer Etters“, welche sich
-          auf die außerhalb der Einfriedung des Ortes („Etter“) befindlichen
-          Felder, Wiesen und Wälder bezog.
+          wie Abteien meinte, war sie im Süden Teil der lokalen
+          Herrschaftsrechte. In Franken spaltete sie sich im 16. Jahrhundert von
+          der Hochgerichtsbarkeit ab und verband sich mit der grundherrlichen
+          Niedergerichtsbarkeit, der Zivilgerichtsbarkeit, dem Steuer- sowie dem
+          Policeyrecht über die Untertanen. Sie lag meist in der gleichen Hand
+          wie die Grundherrschaft; nur mindermächtige Grundherren verfügten in
+          der Regel über keine Vogteirechte (meist mediate Herrschaftsträger wie
+          Klöster, Städte, Bürger, mildtätige Stiftungen oder einzelne
+          Gemeinden). Unterschieden wurde zudem zwischen der Vogtei über die
+          Anwesen und der „Vogtei außer Etters“, welche sich auf die außerhalb
+          der Einfriedung des Ortes („Etter“) befindlichen Felder, Wiesen und
+          Wälder bezog.
         </p>
         <h3>Hinweise zur Bedienung</h3>
         <h4>(1) Rechteverteilung im Alten Reich auf Ortsebene</h4>
@@ -327,31 +340,43 @@ export default function Wp2() {
         </p>
         <p>
           Bei Klick auf „Rechteverteilung im Alten Reich auf Ortsebene“ öffnet
-          sich eine Karte, zentriert auf Dresden, die Residenz des
-          Kurfürstentums Sachsen. Die Zoomstufe ist auf den Wert <code>10</code>{" "}
-          eingestellt (rechts oben neben dem Weltkugel-Symbol), was ganz grob
-          einem Maßstab 1:250.000 entspricht. Der Zeitschieber am unteren
-          Bildrand ist automatisch eingestellt auf das Stichjahr 1750, mit einer
-          Toleranz von +/- 25 Jahren, die Legende auf der linken Seite ist
-          geschlossen. Sie können sich in der Karte bewegen, um zu den anderen
-          Beispielregionen zu gelangen, zoomen, die drei Zeitregler verstellen,
-          die Legende öffnen und schließen, verschiedene Klassifikationen der
-          Herrschaftsträger wählen und das Symbol für die Anzeige der einzelnen
-          Rechte verändern. Beim Klick auf{" "}
-          <RxQuestionMark className="inline align-baseline text-xs" /> erhalten
-          Sie detailliertere Erläuterungen. Zudem können Sie weitere Kartenlayer
-          einblenden, wenn Sie oben rechts auf das Ebenensymbol (
-          <RxLayers className="inline align-baseline text-xs" />) klicken. Sie
-          haben dort die Möglichkeit, die kursächsischen Meilenblätter
-          anzuzeigen (Berliner Exemplar), eine topographische Landesaufnahme aus
-          den Jahren 1780–1825 (weitere Informationen dazu finden Sie{" "}
+          sich eine Karte, die auf Dresden zentriert ist, den Hauptort des
+          Kurfürstentums Sachsen. Die Zoomstufe ist auf einen Maßstab von etwa
+          1:250.000 eingestellt (vgl. den Maßstabsbalken oben rechts). Der
+          mittlere Zeitschieber am unteren Bildrand zeigt automatisch das
+          Stichjahr 1800, mit einer Toleranz von +/- 25 Jahren (linker und
+          rechter Schieber zur Festlegung von Beginn und Ende des anzuzeigenden
+          Zeitraums). Die Legende auf der linken Seite ist geschlossen.
+          Standardmäßig angezeigt wird eine Kombination aus vier
+          Herrschaftsrechten: Hochgericht – Gemeinde (Anwesen) (Hg-A),
+          Niedergericht (Ng), Grundherrschaft (Gh) und Landeshoheit (Lh)
+          (angezeigt in der „Schneeflocke“ von oben im Uhrzeigersinn). Die
+          Anzeige der Herrschaftsträger ist auf „kategorisiert“ eingestellt.
+        </p>
+        <p>
+          Sie können sich in Abhängigkeit von Ihren Interessen frei in der Karte
+          bewegen, um zu den einzelnen Beispielregionen zu gelangen, zoomen, die
+          drei Zeitregler verstellen, die Legende öffnen und schließen sowie
+          andere Klassifikationen der Herrschaftsträger wählen („normalisiert“
+          oder „übergeordnet“). Auch ist es möglich, die Einstellungen des
+          Symbols für die Anzeige der einzelnen Rechte zu verändern; beim Klick
+          auf <RxQuestionMark className="inline align-baseline text-xs" />{" "}
+          erhalten Sie detailliertere Erläuterungen. Zudem können Sie (nur für
+          Kursachsen) weitere Kartenlayer einblenden, wenn Sie oben rechts auf
+          das Ebenensymbol (
+          <RxLayers className="inline align-baseline text-xs" />) klicken.
+          Anzeigen lassen sich derzeit die sogenannten „Kursächsischen
+          Meilenblätter (Berliner Exemplar)“, eine topographische Landesaufnahme
+          aus den Jahren 1780–1825 (weitere Informationen dazu finden Sie{" "}
           <a
             className="underline"
             href="https://de.wikipedia.org/wiki/Meilenbl%C3%A4tter_von_Sachsen"
           >
             hier
           </a>
-          ).
+          ), eine exemplarische Auswahl von Standorten von Richtstätten (Galgen)
+          sowie eine aus dem „Atlas für Geschichte und Landeskunde von Sachsen“
+          stammende Darstellung von historischen Flussläufen und Seen.
         </p>
         <p>Die folgenden Videos erläutern die einzelnen Elemente genauer:</p>
         <ol className="my-5 list-decimal pl-10">
@@ -378,25 +403,15 @@ export default function Wp2() {
         <p>
           Die sich öffnende Karte ist auf Höflein zentriert, ein Dorf in der
           Oberlausitz, für das eine Kartierung einiger Herrschaftsrechte auf
-          Anwesenebene vorliegt. Die voreingestellte Zoomstufe 14 (oben rechts
-          neben dem Weltkugelsymbol{" "}
-          <RxGlobe className="inline align-baseline text-xs" />) entspricht
-          ungefähr einem Maßstab 1:15.000. Die Legende auf der linken Seite ist
-          geschlossen. Sie können sich in der Karte bewegen, hineinzoomen, die
-          Legende öffnen und schließen sowie weitere Kartenlayer einblenden
+          Anwesenebene vorliegt. Die voreingestellte Zoomstufe entspricht
+          ungefähr einem Maßstab von 1:15.000. Die Legende auf der linken Seite
+          ist geschlossen. Sie können sich in der Karte bewegen, hineinzoomen,
+          die Legende öffnen und schließen sowie weitere Kartenlayer einblenden
           (oben rechts auf das Ebenensymbol{" "}
           <RxLayers className="inline align-baseline text-xs" /> klicken). Sie
           haben dort die Möglichkeit, den entsprechenden Ausschnitt der
-          kursächsischen Meilenblätter anzuzeigen (Berliner Exemplar, Blatt
-          289), eine topographische Landesaufnahme aus den Jahren 1780–1825
-          (weitere Informationen dazu finden Sie{" "}
-          <a
-            className="underline"
-            href="https://de.wikipedia.org/wiki/Meilenbl%C3%A4tter_von_Sachsen"
-          >
-            hier
-          </a>
-          . Wir danken herzlich Eckart Kliemann (Höflein), der uns
+          „Kursächsischen Meilenblätter (Berliner Exemplar, Blatt 289)
+          anzuzeigen. Wir danken herzlich Eckart Kliemann (Höflein), der uns
           freundlicherweise seine Daten für die Visualisierung zur Verfügung
           gestellt hat.
         </p>
@@ -408,7 +423,7 @@ export default function Wp2() {
         <VideoLink label="Tutorial 4" id="1057414801" />
         <p>
           Aufgrund der zahlreichen Schwierigkeiten, die mit einer anwesengenauen
-          Zuordnung von Daten für Räume des Alten Reichs verbunden sind, bedarf
+          Zuordnung von Herrschaftsrechten im Alten Reich verbunden sind, bedarf
           die Darstellung weiterer Überlegungen und Arbeitsschritte, bevor sie
           als ausgereift gelten kann. Im Moment soll sie lediglich die
           Potentiale einer solchen Form der Visualisierung andeuten, die
