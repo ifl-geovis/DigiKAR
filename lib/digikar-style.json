@@ -138,7 +138,7 @@
       "id": "riversKursachsen",
       "type": "line",
       "source": "riversKursachsen",
-      "source-layer": "rivers_kurssachsen",
+      "source-layer": "rivers_kursachsen",
       "layout": {
         "visibility": "none"
       },
@@ -151,7 +151,7 @@
       "id": "lakesKursachsen",
       "type": "fill",
       "source": "lakesKursachsen",
-      "source-layer": "lakes_kurssachsen",
+      "source-layer": "lakes_kursachsen",
       "layout": {
         "visibility": "none"
       },
