@@ -33,7 +33,7 @@ export default function ChangelogClient() {
           {data &&
             data.map((d) => (
               <div key={d.date}>
-                <time className="-mb-8 block font-mono" dateTime={d.date}>
+                <time className="-mb-8 font-mono" dateTime={d.date}>
                   {formatDateTimeDE(d.date)}
                 </time>
                 <MarkdownRenderer className="prose" components={{ p: "h3" }}>
