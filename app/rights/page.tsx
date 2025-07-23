@@ -300,19 +300,6 @@ export default function Wp2() {
           (Gemeindeflur); in Franken trat an die Stelle dieser Unterscheidung
           die Differenz von „Niedergericht“ und „Vogtei außer Etters“.
         </p>
-        <h4>Verwaltungszugehörigkeit</h4>
-        <p>
-          Die Verwaltungszugehörigkeit meint die Zugehörigkeit eines bestimmten
-          Ortes zu einer größeren Verwaltungseinheit, zum Beispiel einem Amt
-          oder einem Kreis innerhalb einer Landesverwaltung. Sie bedeutet jedoch
-          nicht, dass der landesherrlichen Verwaltung hier auch zwingend
-          bestimmte Herrschaftsrechte (von der Landeshoheit abgesehen)
-          zustanden. Allerdings kam es vielfach vor, dass Dörfer direkt der
-          Landesverwaltung unterstanden, weil der Landesherr hier auch Grundherr
-          war. Weil die Grundherrschaft in diesem Fall von lokalen
-          Verwaltungseinheiten wie den Ämtern ausgeübt wurde, spricht man in
-          diesem Fall von „Amtsdörfern“.
-        </p>
         <h4>Vogtei</h4>
         <p>
           „Vogtei“ ist ein schillernder Begriff der Verfassungsgeschichte des
