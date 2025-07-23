@@ -30,25 +30,36 @@ const getSortedCandidates = (timeRange: TimeRange, entries: RightEntry[]) => {
   }, []);
   if (candidates.length > 0) {
     const sorted = candidates
-      .toSorted((a, b) => {
-        const aIsPast = a.attested_json[0].support[1] < t;
-        const bIsPast = b.attested_json[0].support[1] < t;
-
-        if (aIsPast && bIsPast) {
-          // Both are past events, sort by most recent first
-          return b.attested_json[0].support[1] - a.attested_json[0].support[1];
-        } else if (!aIsPast && !bIsPast) {
-          // Both are future events, sort by nearest first
-          return (
-            (a.attested_json[0].support[0] ?? 0) -
-            (b.attested_json[0].support[0] ?? 0)
-          );
-        } else {
-          // One is past and one is future, past events come first
-          return aIsPast ? -1 : 1;
-        }
+      .map((d) => {
+        const tIsInSupport =
+          t >= (d.attested_json[0].support[0] ?? -Infinity) &&
+          t <= (d.attested_json[0].support[1] ?? Infinity);
+        const distance = tIsInSupport
+          ? 0
+          : Math.min(
+              Math.abs(t - (d.attested_json[0].support[0] ?? -Infinity)),
+              Math.abs(t - (d.attested_json[0].support[1] ?? Infinity)),
+            );
+        return { ...d, distance };
       })
-      .map((d, i) => ({ ...d, closest: i === 0 }));
+      .toSorted((a, b) => a.distance - b.distance);
+    // Handle special case where multiple entries have the distance of 0
+    const noDistanceCandidates = sorted.filter((d) => d.distance === 0);
+    if (noDistanceCandidates.length > 1) {
+      // Get minimum distance from both handles to t
+      noDistanceCandidates
+        .map((d) => {
+          const lowerSupport = d.attested_json[0].support[0] ?? -Infinity;
+          const upperSupport = d.attested_json[0].support[1] ?? Infinity;
+          const minDistance = Math.min(
+            Math.abs(t - lowerSupport),
+            Math.abs(t - upperSupport),
+          );
+          return { ...d, minDistance };
+        })
+        .toSorted((a, b) => a.minDistance - b.minDistance);
+      return noDistanceCandidates;
+    }
     return sorted;
   }
 };
